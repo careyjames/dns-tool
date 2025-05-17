@@ -179,6 +179,15 @@ pyinstaller --onefile dnstool.py
 ```
 The final binary is in dist/dnstool (or dnstool.exe on Windows).
 
+### Running Tests
+
+Unit tests are written with `pytest`. After installing the dependencies and
+`pytest`, execute the test suite from the project root:
+
+```bash
+pytest
+```
+
 FAQ
 1. Why is Windows complaining about an unknown publisher?
 
