@@ -8,7 +8,6 @@ DNS Tool (Python Edition) + Prompt Toolkit arrow-key history
 import os
 import sys
 import re
-import json
 import argparse
 import subprocess
 from pathlib import Path
@@ -22,8 +21,6 @@ except ImportError:  # pragma: no cover - environment lacks requests
 
 try:
     import dns.resolver
-    import dns.exception
-    import dns.name
 except ImportError:  # pragma: no cover - environment lacks dnspython
     print("Error: the 'dnspython' package is required.\nInstall it with 'pip install dnspython'.")
     sys.exit(1)
@@ -64,10 +61,6 @@ RESOLVER_3 = "9.9.9.9"
 DOMAIN_HISTORY_FILE = os.path.expanduser("~/.domain_history_rdap_interactive")
 VERBOSE = False
 IANA_RDAP_MAP = {}
-
-def log_verbose(msg: str):
-    if VERBOSE:
-        print(f"{BLUE}[DEBUG]{NC} {msg}")
 
 def shutil_which(cmd):
     for path in os.environ.get("PATH", "").split(os.pathsep):
