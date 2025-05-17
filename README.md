@@ -68,15 +68,16 @@ This tool bundles Python dependencies (dnspython, requests, etc.) into a **singl
 2. **Make the binary executable**:
    ```bash
    chmod +x dnstool
-Run the tool:
-bash
-Copy
-./dnstool
-Optional: Move the binary to a directory in your PATH (e.g., /usr/local/bin) to run it from anywhere:
-bash
-Copy
-sudo mv dnstool /usr/local/bin
-Now, you should be able to run dnstool directly from any directory without having to prefix it with ./.
+   ```
+   Run the tool:
+   ```bash
+   ./dnstool
+   ```
+   Optional: Move the binary to a directory in your `PATH` (e.g., `/usr/local/bin`) to run it from anywhere:
+   ```bash
+   sudo mv dnstool /usr/local/bin
+   ```
+   Now, you should be able to run `dnstool` directly from any directory without having to prefix it with `./`.
 
 ####### macOS
 Download the dnstool_macos (or similarly named) file from Releases.
@@ -89,35 +90,32 @@ You’ll see a warning: “cannot be opened because the developer cannot be veri
 Click Open Anyway.
 Alternatively, go to System Preferences → Security & Privacy → General and click Allow Anyway for dnstool_macos.
 Terminal method:
-
-bash
-Copy
+```bash
 chmod +x dnstool_macos
 xattr -r -d com.apple.quarantine ./dnstool_macos
 ./dnstool_macos
+```
 That's it! Arrow-key history and color output should work just like Linux.
 
 ######## Windows
 Download the dnstool.exe from Releases.
 Run the .exe binary in Command Prompt / PowerShell:
-powershell
-Copy
+```powershell
 .\dnstool.exe
+```
 Because it’s not code-signed, Windows SmartScreen may show “Publisher cannot be verified.” Click More info → Run anyway.
 
 ######### Usage
 Interactive Mode
 Just run dnstool (or the .exe/macOS binary with no arguments):
-
-bash
-Copy
+```bash
 ./dnstool
+```
 You’ll see:
-
-vbnet
-Copy
+```text
 Interactive Mode. Type a domain and press Enter to run checks immediately.
 Type 'exit' or press Enter on a blank line to quit.
+```
 
 Domain:
 Type any domain (e.g., example.com), press Enter, and DNS Tool will run a comprehensive set of checks (NS, MX, SPF, DMARC, etc.) and show color-coded results.
@@ -127,55 +125,54 @@ Arrow keys work for recalling previously typed domains (thanks to prompt_toolkit
 Batch Mode (Command-line arguments)
 You can pass one or more domain names on the command line:
 
-bash
-Copy
+```bash
 ./dnstool example.com example.org
+```
 DNS Tool will run checks for each domain in turn.
 
 File Input
 Use -f <file> to read domains from a file (one domain per line):
 
-bash
-Copy
+```bash
 ./dnstool -f domains.txt
+```
 DNS Tool reads those domains and runs checks in sequence.
 
 Verbose/Debug
 Add -v to see debug messages:
 
-bash
-Copy
+```bash
 ./dnstool -v example.com
+```
 You’ll get extra [DEBUG] lines (like which RDAP endpoints it tries, DNS query timeouts, etc.).
 
 ######### Help/Usage
-bash
-Copy
+```bash
 ./dnstool -h
+```
 Prints a short usage message:
-
-makefile
-Copy
+```text
 usage: dnstool.py [-v] [-f file] [domain1 domain2 ...]
+```
 Building From Source
 If you don’t want to download the precompiled binaries, you can build it yourself:
 
 Install Python 3.7+ (system-wide).
 Clone this repo:
-bash
-Copy
+```bash
 git clone https://github.com/<your-username>/dns-tool.git
 cd dns-tool
+```
 Install dependencies in a virtual environment:
-bash
-Copy
+```bash
 python3 -m venv buildenv
 source buildenv/bin/activate
 pip install pyinstaller dnspython requests idna prompt_toolkit
+```
 Compile:
-bash
-Copy
+```bash
 pyinstaller --onefile dnstool.py
+```
 The final binary is in dist/dnstool (or dnstool.exe on Windows).
 
 FAQ
