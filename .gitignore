@@ -1,0 +1,22 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+ENV/
+.env/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Misc temporary files
+*.log
+*.tmp
+.pytest_cache/
