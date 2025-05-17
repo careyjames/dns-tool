@@ -58,6 +58,8 @@ DNS_TRIES = 2
 RESOLVER_1 = "1.1.1.1"
 RESOLVER_2 = "8.8.8.8"
 RESOLVER_3 = "9.9.9.9"
+DEFAULT_RESOLVERS = [RESOLVER_1, RESOLVER_2, RESOLVER_3]
+RESOLVERS = DEFAULT_RESOLVERS.copy()
 
 DOMAIN_HISTORY_FILE = os.path.expanduser("~/.domain_history_rdap_interactive")
 VERBOSE = False
@@ -161,7 +163,7 @@ def dns_query(rdtype, domain):
     """Query ``domain`` for record type ``rdtype`` using several resolvers."""
     if not domain or not rdtype:
         return []
-    resolvers_to_try = [RESOLVER_1, RESOLVER_2, RESOLVER_3]
+    resolvers_to_try = RESOLVERS
     final_data = []
     for r in resolvers_to_try:
         resolver = dns.resolver.Resolver(configure=False)
@@ -370,7 +372,7 @@ def get_dnssec_status(domain: str):
     """Check whether DNSSEC signatures are present."""
     print(f"\n{BLUE}🔍 DNSSEC:{NC}")
     resolver = dns.resolver.Resolver(configure=False)
-    resolver.nameservers = [RESOLVER_1]
+    resolver.nameservers = [RESOLVERS[0]]
     resolver.use_edns(0, dns.flags.DO, 1232)
     resolver.timeout = DNS_TIME
     resolver.lifetime = DNS_TIME * DNS_TRIES
@@ -474,7 +476,7 @@ def ptr_lookup(ip: str) -> list:
     except Exception as e:
         logging.error("PTR lookup prepare error: %s", e)
         return []
-    resolvers_to_try = [RESOLVER_1, RESOLVER_2, RESOLVER_3]
+    resolvers_to_try = RESOLVERS
     for r in resolvers_to_try:
         res = dns.resolver.Resolver(configure=False)
         res.nameservers = [r]
@@ -561,16 +563,19 @@ def append_domain_history(domain: str):
 
 def main():
     """Entry point for the command-line interface."""
-    global VERBOSE
+    global VERBOSE, RESOLVERS
     parser = argparse.ArgumentParser(
         description="DNS Tool (Python Edition) + Prompt Toolkit arrow-key history, with ANSI prompt fix."
     )
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose/debug output")
     parser.add_argument("-f", "--file", type=str, help="Read domains from file")
+    parser.add_argument("-r", "--resolver", action="append", help="Specify resolver IP (can be repeated)")
     parser.add_argument("domains", nargs="*", help="Domains to check")
     args = parser.parse_args()
 
     VERBOSE = args.verbose
+    if args.resolver:
+        RESOLVERS = args.resolver
     fetch_iana_rdap_data()
 
     domain_list = []

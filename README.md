@@ -130,6 +130,14 @@ You can pass one or more domain names on the command line:
 ```
 DNS Tool will run checks for each domain in turn.
 
+Custom Resolvers
+Specify one or more DNS resolvers with `--resolver` (can be repeated):
+
+```bash
+./dnstool --resolver 1.1.1.1 --resolver 8.8.8.8 example.com
+```
+If omitted, DNS Tool uses the default list `1.1.1.1`, `8.8.8.8`, and `9.9.9.9`.
+
 File Input
 Use -f <file> to read domains from a file (one domain per line):
 
@@ -152,7 +160,7 @@ You’ll get extra [DEBUG] lines (like which RDAP endpoints it tries, DNS query 
 ```
 Prints a short usage message:
 ```text
-usage: dnstool.py [-v] [-f file] [domain1 domain2 ...]
+usage: dnstool.py [-v] [-f file] [-r RESOLVER] [domain1 domain2 ...]
 ```
 Building From Source
 If you don’t want to download the precompiled binaries, you can build it yourself:
