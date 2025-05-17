@@ -163,11 +163,15 @@ Clone this repo:
 git clone https://github.com/<your-username>/dns-tool.git
 cd dns-tool
 ```
-Install dependencies in a virtual environment:
+Install dependencies in a virtual environment (versions pinned in `requirements.txt`):
 ```bash
 python3 -m venv buildenv
 source buildenv/bin/activate
-pip install pyinstaller dnspython requests idna prompt_toolkit
+ pip install pyinstaller \
+   dnspython>=2.4,<3.0 \
+   requests>=2.31,<3.0 \
+   idna>=3.3,<4.0 \
+   prompt_toolkit>=3.0,<4.0
 ```
 Compile:
 ```bash
