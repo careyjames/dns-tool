@@ -1,0 +1,4 @@
+requests
+dnspython
+prompt_toolkit
+idna
