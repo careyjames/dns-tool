@@ -1,4 +1,4 @@
-requests
-dnspython
-prompt_toolkit
-idna
+requests>=2.31,<3.0
+dnspython>=2.4,<3.0
+prompt_toolkit>=3.0,<4.0
+idna>=3.3,<4.0
