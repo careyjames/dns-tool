@@ -61,6 +61,8 @@ RESOLVER_3 = "9.9.9.9"
 DEFAULT_RESOLVERS = [RESOLVER_1, RESOLVER_2, RESOLVER_3]
 RESOLVERS = DEFAULT_RESOLVERS.copy()
 
+AUTHORITATIVE = False
+
 DOMAIN_HISTORY_FILE = os.path.expanduser("~/.domain_history_rdap_interactive")
 VERBOSE = False
 IANA_RDAP_MAP = {}
@@ -179,6 +181,49 @@ def dns_query(rdtype, domain):
         except Exception as e:
             logging.error("DNS query error: %s", e)
     return final_data
+
+
+def authoritative_lookup(domain: str, rdtypes=None) -> dict:
+    """Return DNS records queried directly from authoritative nameservers."""
+    if rdtypes is None:
+        rdtypes = ("A", "AAAA", "MX", "TXT")
+    results = {t: [] for t in rdtypes}
+    ns_hosts = dns_query("NS", domain)
+    if not ns_hosts:
+        return results
+
+    ns_ips = []
+    for host in ns_hosts:
+        h = host.rstrip(".")
+        ns_ips.extend(dns_query("A", h))
+        ns_ips.extend(dns_query("AAAA", h))
+
+    for ip in ns_ips:
+        resolver = dns.resolver.Resolver(configure=False)
+        resolver.nameservers = [ip]
+        resolver.timeout = DNS_TIME
+        resolver.lifetime = DNS_TIME * DNS_TRIES
+        for typ in rdtypes:
+            try:
+                ans = resolver.resolve(domain, typ)
+                for rr in [str(r) for r in ans]:
+                    if rr not in results[typ]:
+                        results[typ].append(rr)
+            except Exception as e:  # pragma: no cover - network dependent
+                logging.error("Authoritative DNS query error: %s", e)
+    return results
+
+
+def print_authoritative_results(domain: str, rdtypes=None):
+    """Display a concise Authoritative result block."""
+    records = authoritative_lookup(domain, rdtypes)
+    print(f"\n{BLUE}🔍 Authoritative result:{NC}")
+    for typ in records:
+        data = records[typ]
+        if data:
+            print(f"{SYM_OK} {typ}: {', '.join(data)}")
+        else:
+            print(f"{SYM_ERR} {typ}: none")
 
 def get_registrar(domain: str):
     """Print registrar information obtained via RDAP or WHOIS."""
@@ -515,7 +560,7 @@ def get_ptr_record(domain: str):
             else:
                 print(f"{SYM_ERR} No PTR found for {ip}.")
 
-def run_all_checks(domain: str):
+def run_all_checks(domain: str, authoritative: bool = False):
     """Run all DNS and RDAP checks for ``domain``."""
     ascii_domain = domain_to_ascii(domain)
     if not validate_domain(ascii_domain):
@@ -524,6 +569,9 @@ def run_all_checks(domain: str):
     print(f"\n{BLUE}{'='*42}{NC}")
     print(f"{BLUE}🔍 DNS / RDAP checks for:{NC} {YELLOW}{ascii_domain}{NC}")
     print(f"{BLUE}{'='*42}{NC}")
+
+    if authoritative:
+        print_authoritative_results(ascii_domain)
 
     get_registrar(ascii_domain)
     get_ns_records(ascii_domain)
@@ -570,6 +618,7 @@ def main():
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose/debug output")
     parser.add_argument("-f", "--file", type=str, help="Read domains from file")
     parser.add_argument("-r", "--resolver", action="append", help="Specify resolver IP (can be repeated)")
+    parser.add_argument("-a", "--authoritative", action="store_true", help="Query authoritative nameservers directly")
     parser.add_argument("domains", nargs="*", help="Domains to check")
     args = parser.parse_args()
 
@@ -579,6 +628,8 @@ def main():
     VERBOSE = args.verbose
     if args.resolver:
         RESOLVERS = args.resolver
+    global AUTHORITATIVE
+    AUTHORITATIVE = args.authoritative
     fetch_iana_rdap_data()
 
     domain_list = []
@@ -598,7 +649,7 @@ def main():
     if domain_list:
         # batch mode
         for dm in domain_list:
-            run_all_checks(dm)
+            run_all_checks(dm, AUTHORITATIVE)
         sys.exit(0)
 
     # Interactive mode with prompt_toolkit, using ANSI to parse color codes
@@ -619,7 +670,7 @@ def main():
         if not dom or dom.lower() == "exit":
             print("Exiting DNS Tool...")
             break
-        run_all_checks(dom)
+        run_all_checks(dom, AUTHORITATIVE)
         append_domain_history(dom)
 
 if __name__ == "__main__":
