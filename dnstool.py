@@ -573,6 +573,9 @@ def main():
     parser.add_argument("domains", nargs="*", help="Domains to check")
     args = parser.parse_args()
 
+    log_level = logging.ERROR if args.verbose else logging.CRITICAL
+    logging.getLogger().setLevel(log_level)
+
     VERBOSE = args.verbose
     if args.resolver:
         RESOLVERS = args.resolver
