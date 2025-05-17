@@ -66,6 +66,7 @@ IANA_RDAP_MAP = {}
 logging.basicConfig(level=logging.ERROR, format="%(levelname)s: %(message)s")
 
 def shutil_which(cmd):
+    """Return path to executable ``cmd`` if found on ``PATH``."""
     for path in os.environ.get("PATH", "").split(os.pathsep):
         candidate = os.path.join(path, cmd)
         if os.access(candidate, os.X_OK) and not os.path.isdir(candidate):
@@ -73,6 +74,7 @@ def shutil_which(cmd):
     return None
 
 def domain_to_ascii(domain: str) -> str:
+    """Convert Unicode domain names to ASCII using IDNA."""
     domain = domain.rstrip(".")
     if HAS_IDNA:
         try:
@@ -82,6 +84,7 @@ def domain_to_ascii(domain: str) -> str:
     return domain
 
 def validate_domain(d: str) -> bool:
+    """Return ``True`` if ``d`` looks like a valid domain name."""
     pattern = r"^[A-Za-z0-9._-]+\.[A-Za-z0-9-]{2,}$"
     if not re.match(pattern, d):
         print(f"{SYM_ERR} {RED}Invalid domain:{NC} {d}")
@@ -89,6 +92,7 @@ def validate_domain(d: str) -> bool:
     return True
 
 def whois_lookup_registrar(domain: str) -> str:
+    """Return registrar name using the ``whois`` command."""
     if not shutil_which("whois"):
         return ""
     try:
@@ -106,6 +110,7 @@ def whois_lookup_registrar(domain: str) -> str:
         return ""
 
 def fetch_iana_rdap_data():
+    """Populate ``IANA_RDAP_MAP`` with TLD to RDAP endpoint mappings."""
     global IANA_RDAP_MAP
     url = "https://data.iana.org/rdap/dns.json"
     try:
@@ -123,9 +128,11 @@ def fetch_iana_rdap_data():
         logging.error("Failed to fetch IANA RDAP data: %s", e)
 
 def get_tld(domain: str) -> str:
+    """Return the top-level domain from ``domain`` in lowercase."""
     return domain.rsplit(".", 1)[-1].lower()
 
 def rdap_lookup(domain: str) -> dict:
+    """Return RDAP JSON data for ``domain`` using IANA endpoints."""
     t = get_tld(domain)
     endpoints = IANA_RDAP_MAP.get(t, [])
     for ep in endpoints:
@@ -151,6 +158,7 @@ def rdap_lookup(domain: str) -> dict:
     return {}
 
 def dns_query(rdtype, domain):
+    """Query ``domain`` for record type ``rdtype`` using several resolvers."""
     if not domain or not rdtype:
         return []
     resolvers_to_try = [RESOLVER_1, RESOLVER_2, RESOLVER_3]
@@ -171,6 +179,7 @@ def dns_query(rdtype, domain):
     return final_data
 
 def get_registrar(domain: str):
+    """Print registrar information obtained via RDAP or WHOIS."""
     print(f"\n{BLUE}🔍 Registrar & RDAP Info:{NC}")
     rdap_data = rdap_lookup(domain)
     if not rdap_data:
@@ -215,6 +224,7 @@ def get_registrar(domain: str):
             print(f"{SYM_OK} Registrar (RDAP): {GREEN}{registrar_name}{NC}")
 
 def get_spf_record(domain: str):
+    """Display the SPF record for ``domain`` if present."""
     print(f"\n{BLUE}🔍 SPF (Sender Policy Framework):{NC}")
     all_txt = dns_query("TXT", domain)
     if not all_txt:
@@ -248,6 +258,7 @@ def get_spf_record(domain: str):
             print(f"   {s}")
 
 def get_dmarc_record(domain: str):
+    """Display the DMARC policy for ``domain``."""
     print(f"\n{BLUE}🔍 DMARC:{NC}")
     recs = dns_query("TXT", f"_dmarc.{domain}")
     if not recs:
@@ -292,6 +303,7 @@ def get_dmarc_record(domain: str):
             print(line)
 
 def get_dkim_record(domain: str):
+    """Check common DKIM selectors for ``domain``."""
     print(f"\n{BLUE}🔍 DKIM (common selectors):{NC}")
     sels = ["default._domainkey", "google._domainkey", "selector1._domainkey", "selector2._domainkey"]
     found_any = False
@@ -306,6 +318,7 @@ def get_dkim_record(domain: str):
         print(f"{SYM_WARN} No DKIM found among default selectors.")
 
 def get_dane_records(domain: str):
+    """Display DANE TLSA records for SMTP and HTTPS."""
     print(f"\n{BLUE}🔍 DANE (TLSA):{NC}")
     s25 = dns_query("TLSA", f"_25._tcp.{domain}")
     if s25:
@@ -323,6 +336,7 @@ def get_dane_records(domain: str):
         print(f"{SYM_ERR} No HTTPS TLSA record (port 443).")
 
 def get_bimi_record(domain: str):
+    """Show BIMI TXT records for ``domain``."""
     print(f"\n{BLUE}🔍 BIMI:{NC}")
     recs = dns_query("TXT", f"default._bimi.{domain}")
     if recs:
@@ -333,6 +347,7 @@ def get_bimi_record(domain: str):
         print(f"{SYM_ERR} No default._bimi record.")
 
 def get_mta_sts(domain: str):
+    """Check MTA-STS TXT record and policy file."""
     print(f"\n{BLUE}🔍 MTA-STS:{NC}")
     txt = dns_query("TXT", f"_mta-sts.{domain}")
     if txt:
@@ -352,6 +367,7 @@ def get_mta_sts(domain: str):
         print(f"   {SYM_ERR} No policy file (HTTP 000).")
 
 def get_dnssec_status(domain: str):
+    """Check whether DNSSEC signatures are present."""
     print(f"\n{BLUE}🔍 DNSSEC:{NC}")
     resolver = dns.resolver.Resolver(configure=False)
     resolver.nameservers = [RESOLVER_1]
@@ -369,6 +385,7 @@ def get_dnssec_status(domain: str):
         print(f"{SYM_ERR} DNSSEC not detected or no A record to check.")
 
 def get_ns_records(domain: str):
+    """Display NS records for ``domain``."""
     print(f"\n{BLUE}🔍 NS Records:{NC}")
     recs = dns_query("NS", domain)
     if recs:
@@ -379,6 +396,7 @@ def get_ns_records(domain: str):
         print(f"{SYM_ERR} No NS records found.")
 
 def get_mx_records(domain: str):
+    """Show MX records and flag deprecated Google lines."""
     print(f"\n{BLUE}🔍 MX Records:{NC}")
     mx_out = dns_query("MX", domain)
     if not mx_out:
@@ -395,6 +413,7 @@ def get_mx_records(domain: str):
         print("   For Google Workspace, recommended lines are more like smtp.google.com / altX.")
 
 def get_txt_records(domain: str):
+    """Print all TXT records for ``domain``."""
     print(f"\n{BLUE}🔍 TXT Records:{NC}")
     out = dns_query("TXT", domain)
     if not out:
@@ -405,6 +424,7 @@ def get_txt_records(domain: str):
             print(f"\"{rr}\"")
 
 def get_a_record(domain: str):
+    """Display the A record (IPv4) for ``domain``."""
     print(f"\n{BLUE}🔍 A (IPv4) Record:{NC}")
     a = dns_query("A", domain)
     if not a:
@@ -415,6 +435,7 @@ def get_a_record(domain: str):
             print(rr)
 
 def get_aaaa_record(domain: str):
+    """Display the AAAA record (IPv6) for ``domain``."""
     print(f"\n{BLUE}🔍 AAAA (IPv6) Record:{NC}")
     out = dns_query("AAAA", domain)
     if not out:
@@ -425,6 +446,7 @@ def get_aaaa_record(domain: str):
             print(rr)
 
 def get_caa_record(domain: str):
+    """Display CAA records if they exist."""
     print(f"\n{BLUE}🔍 CAA (Certificate Authority Authorization):{NC}")
     out = dns_query("CAA", domain)
     if not out:
@@ -435,6 +457,7 @@ def get_caa_record(domain: str):
             print(rr)
 
 def get_soa_record(domain: str):
+    """Show the SOA record for ``domain``."""
     print(f"\n{BLUE}🔍 SOA (Start of Authority):{NC}")
     recs = dns_query("SOA", domain)
     if recs:
@@ -445,6 +468,7 @@ def get_soa_record(domain: str):
         print(f"{SYM_ERR} No SOA record found.")
 
 def ptr_lookup(ip: str) -> list:
+    """Return PTR records for an IPv4 or IPv6 address."""
     try:
         rev_name = dns.reversename.from_address(ip)
     except Exception as e:
@@ -465,6 +489,7 @@ def ptr_lookup(ip: str) -> list:
     return []
 
 def get_ptr_record(domain: str):
+    """Resolve PTR records for all A records of ``domain``."""
     a_recs = dns_query("A", domain)
     if not a_recs:
         print(f"\n{RED}No A record => no PTR check.{NC}")
@@ -489,6 +514,7 @@ def get_ptr_record(domain: str):
                 print(f"{SYM_ERR} No PTR found for {ip}.")
 
 def run_all_checks(domain: str):
+    """Run all DNS and RDAP checks for ``domain``."""
     ascii_domain = domain_to_ascii(domain)
     if not validate_domain(ascii_domain):
         return
@@ -517,6 +543,7 @@ def run_all_checks(domain: str):
     print(f"\n{GREEN}✅ Done with {ascii_domain}.{NC}")
 
 def load_domain_history():
+    """Return a list of previously used domains from history file."""
     if not os.path.isfile(DOMAIN_HISTORY_FILE):
         return []
     lines = []
@@ -528,10 +555,12 @@ def load_domain_history():
     return lines
 
 def append_domain_history(domain: str):
+    """Append ``domain`` to the domain history file."""
     with open(DOMAIN_HISTORY_FILE, "a", encoding="utf-8") as f:
         f.write(domain + "\n")
 
 def main():
+    """Entry point for the command-line interface."""
     global VERBOSE
     parser = argparse.ArgumentParser(
         description="DNS Tool (Python Edition) + Prompt Toolkit arrow-key history, with ANSI prompt fix."
