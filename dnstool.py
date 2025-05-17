@@ -11,6 +11,7 @@ import re
 import argparse
 import subprocess
 from pathlib import Path
+import logging
 
 # Main dependencies
 try:
@@ -61,6 +62,8 @@ RESOLVER_3 = "9.9.9.9"
 DOMAIN_HISTORY_FILE = os.path.expanduser("~/.domain_history_rdap_interactive")
 VERBOSE = False
 IANA_RDAP_MAP = {}
+
+logging.basicConfig(level=logging.ERROR, format="%(levelname)s: %(message)s")
 
 def shutil_which(cmd):
     for path in os.environ.get("PATH", "").split(os.pathsep):
@@ -116,8 +119,8 @@ def fetch_iana_rdap_data():
             if tlds and endpoints:
                 for tld in tlds:
                     IANA_RDAP_MAP[tld.lower()] = endpoints
-    except:
-        pass
+    except Exception as e:
+        logging.error("Failed to fetch IANA RDAP data: %s", e)
 
 def get_tld(domain: str) -> str:
     return domain.rsplit(".", 1)[-1].lower()
@@ -133,8 +136,8 @@ def rdap_lookup(domain: str) -> dict:
                 data = resp.json()
                 if "errorCode" not in data:
                     return data
-        except:
-            pass
+        except Exception as e:
+            logging.error("RDAP lookup error: %s", e)
     # fallback
     url = f"https://rdap.org/domain/{domain}"
     try:
@@ -143,8 +146,8 @@ def rdap_lookup(domain: str) -> dict:
             data = resp.json()
             if "errorCode" not in data:
                 return data
-    except:
-        pass
+    except Exception as e:
+        logging.error("RDAP fallback lookup error: %s", e)
     return {}
 
 def dns_query(rdtype, domain):
@@ -163,8 +166,8 @@ def dns_query(rdtype, domain):
             if out:
                 final_data = out
                 break
-        except:
-            pass
+        except Exception as e:
+            logging.error("DNS query error: %s", e)
     return final_data
 
 def get_registrar(domain: str):
@@ -344,7 +347,8 @@ def get_mta_sts(domain: str):
             print(f"   {SYM_OK} Policy file found (HTTP 200).")
         else:
             print(f"   {SYM_ERR} No policy file (HTTP {r.status_code}).")
-    except:
+    except Exception as e:
+        logging.error("MTA-STS policy fetch error: %s", e)
         print(f"   {SYM_ERR} No policy file (HTTP 000).")
 
 def get_dnssec_status(domain: str):
@@ -360,7 +364,8 @@ def get_dnssec_status(domain: str):
             print(f"{SYM_OK} DNSSEC signatures present (RRSIG).")
         else:
             print(f"{SYM_ERR} DNSSEC not detected or not validated.")
-    except:
+    except Exception as e:
+        logging.error("DNSSEC check error: %s", e)
         print(f"{SYM_ERR} DNSSEC not detected or no A record to check.")
 
 def get_ns_records(domain: str):
@@ -442,7 +447,8 @@ def get_soa_record(domain: str):
 def ptr_lookup(ip: str) -> list:
     try:
         rev_name = dns.reversename.from_address(ip)
-    except:
+    except Exception as e:
+        logging.error("PTR lookup prepare error: %s", e)
         return []
     resolvers_to_try = [RESOLVER_1, RESOLVER_2, RESOLVER_3]
     for r in resolvers_to_try:
@@ -453,7 +459,8 @@ def ptr_lookup(ip: str) -> list:
         try:
             ans = res.resolve(rev_name, "PTR")
             return [str(rr).rstrip(".") for rr in ans]
-        except:
+        except Exception as e:
+            logging.error("PTR lookup error with resolver %s: %s", r, e)
             pass
     return []
 
