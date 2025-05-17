@@ -14,10 +14,20 @@ import subprocess
 from pathlib import Path
 
 # Main dependencies
-import requests
-import dns.resolver
-import dns.exception
-import dns.name
+try:
+    import requests
+except ImportError:  # pragma: no cover - environment lacks requests
+    print("Error: the 'requests' package is required.\nInstall it with 'pip install requests'.")
+    sys.exit(1)
+
+try:
+    import dns.resolver
+    import dns.exception
+    import dns.name
+except ImportError:  # pragma: no cover - environment lacks dnspython
+    print("Error: the 'dnspython' package is required.\nInstall it with 'pip install dnspython'.")
+    sys.exit(1)
+
 try:
     import idna
     HAS_IDNA = True
@@ -25,9 +35,13 @@ except ImportError:
     HAS_IDNA = False
 
 # Prompt Toolkit
-from prompt_toolkit import PromptSession
-from prompt_toolkit.history import FileHistory
-from prompt_toolkit.formatted_text import ANSI
+try:
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.history import FileHistory
+    from prompt_toolkit.formatted_text import ANSI
+except ImportError:  # pragma: no cover - environment lacks prompt_toolkit
+    print("Error: the 'prompt_toolkit' package is required.\nInstall it with 'pip install prompt_toolkit'.")
+    sys.exit(1)
 
 # ANSI Colors / Symbols
 RED = "\033[0;31m"
