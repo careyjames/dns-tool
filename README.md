@@ -138,6 +138,14 @@ Specify one or more DNS resolvers with `--resolver` (can be repeated):
 ```
 If omitted, DNS Tool uses the default list `1.1.1.1`, `8.8.8.8`, and `9.9.9.9`.
 
+Authoritative Lookups
+Add `--authoritative` to bypass resolver caches and query the domain's authoritative nameservers directly.
+
+```bash
+./dnstool --authoritative example.com
+```
+
+
 File Input
 Use -f <file> to read domains from a file (one domain per line):
 
@@ -160,7 +168,7 @@ You’ll get extra [DEBUG] lines (like which RDAP endpoints it tries, DNS query 
 ```
 Prints a short usage message:
 ```text
-usage: dnstool.py [-v] [-f file] [-r RESOLVER] [domain1 domain2 ...]
+usage: dnstool.py [-v] [-f file] [-r RESOLVER] [-a] [domain1 domain2 ...]
 ```
 Building From Source
 If you don’t want to download the precompiled binaries, you can build it yourself:
