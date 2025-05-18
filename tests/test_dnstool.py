@@ -42,6 +42,8 @@ def test_validate_domain_valid():
     'bad_domain!.com',
     'domain.c',
     '.leading.com',
+    'example.com.',
+    'example.com-',
     ''
 ])
 def test_validate_domain_invalid(dom):

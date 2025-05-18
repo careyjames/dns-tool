@@ -90,6 +90,9 @@ def domain_to_ascii(domain: str) -> str:
 def validate_domain(d: str) -> bool:
     """Return ``True`` if ``d`` looks like a valid domain name."""
     pattern = r"^[A-Za-z0-9._-]+\.[A-Za-z0-9-]{2,}$"
+    if not d or d.startswith(".") or d.endswith(".") or d.endswith("-"):
+        print(f"{SYM_ERR} {RED}Invalid domain:{NC} {d}")
+        return False
     if not re.match(pattern, d):
         print(f"{SYM_ERR} {RED}Invalid domain:{NC} {d}")
         return False
