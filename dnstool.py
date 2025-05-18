@@ -12,6 +12,7 @@ import argparse
 import subprocess
 from pathlib import Path
 import logging
+import shutil
 
 # Main dependencies
 try:
@@ -69,13 +70,6 @@ IANA_RDAP_MAP = {}
 
 logging.basicConfig(level=logging.ERROR, format="%(levelname)s: %(message)s")
 
-def shutil_which(cmd):
-    """Return path to executable ``cmd`` if found on ``PATH``."""
-    for path in os.environ.get("PATH", "").split(os.pathsep):
-        candidate = os.path.join(path, cmd)
-        if os.access(candidate, os.X_OK) and not os.path.isdir(candidate):
-            return candidate
-    return None
 
 def domain_to_ascii(domain: str) -> str:
     """Convert Unicode domain names to ASCII using IDNA."""
@@ -100,7 +94,7 @@ def validate_domain(d: str) -> bool:
 
 def whois_lookup_registrar(domain: str) -> str:
     """Return registrar name using the ``whois`` command."""
-    if not shutil_which("whois"):
+    if not shutil.which("whois"):
         return ""
     try:
         out = subprocess.check_output(["whois", domain], stderr=subprocess.DEVNULL, timeout=5)
