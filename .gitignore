@@ -20,3 +20,5 @@ Thumbs.db
 *.log
 *.tmp
 .pytest_cache/
+site/
+docs/site/
