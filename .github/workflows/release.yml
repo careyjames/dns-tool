@@ -43,10 +43,12 @@ jobs:
         run: pyinstaller --onefile dnstool.py --clean
 
       - name: Rename artefact
-        run: mv dist/dnstool${{ matrix.ext }} dnstool-${{ matrix.target }}-${GITHUB_REF_NAME}${{ matrix.ext }}
+        run: |
+          mv dist/dnstool${{ matrix.ext }} \
+             dnstool-${{ matrix.target }}-${{ github.ref_name }}${{ matrix.ext }}
         shell: bash
 
       - uses: softprops/action-gh-release@v2
         with:
-          files: dnstool-${{ matrix.target }}-${GITHUB_REF_NAME}${{ matrix.ext }}
+          files: dnstool-${{ matrix.target }}-${{ github.ref_name }}${{ matrix.ext }}
           generate_release_notes: true
