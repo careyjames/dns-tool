@@ -1,0 +1,35 @@
+site_name: Docs page
+site_url: https://careyjames.github.io/dns-tool
+repo_url: https://github.com//careyjames/dns-tool
+repo_name: /careyjames/dns-tool
+nav:
+  - Home: index.md
+  - Installation and Setup: installation-and-setup.md
+  - Usage and Examples: usage-and-examples.md
+
+theme:
+  name: material
+  font:
+    text: Inter
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.footer
