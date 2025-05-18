@@ -2,6 +2,7 @@ site_name: Docs page
 site_url: https://careyjames.github.io/dns-tool
 repo_url: https://github.com/careyjames/dns-tool
 repo_name: careyjames/dns-tool
+docs_dir: .
 nav:
   - Home: index.md
   - Installation and Setup: installation-and-setup.md
