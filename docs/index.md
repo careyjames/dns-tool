@@ -1,6 +1,6 @@
 # Introduction to DNS Tool
 
-DNS Tool is a command-line utility for checking critical DNS records like DMARC, SPF, DKIM, DNSSEC, and more. Ideal for IT professionals and security researchers, it helps strengthen email security, prevent BEC spoofing, and ensure best practices for DNS configurations.
+DNS Tool is a command-line utility for checking critical DNS records like DMARC, SPF, DKIM, DNSSEC, and more. Ideal for IT professionals and security researchers, it helps strengthen DNS email security, prevent BEC spoofing, and ensure best practices for DNS configurations.
 
 ## Main Features
 
