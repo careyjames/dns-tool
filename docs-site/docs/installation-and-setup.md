@@ -42,4 +42,4 @@ Alternatively, right-click in Finder → Open → Click Open Anyway via Security
    ```
 3. If warned by SmartScreen, click "More info → Run anyway."
 
-You are now ready to use DNS Tool, see the [Getting Started guide](/docs-site/usage-and-examples) for next steps.
+You are now ready to use DNS Tool, see the [Getting Started guide](/dns-tool/usage-and-examples.html) for next steps.
