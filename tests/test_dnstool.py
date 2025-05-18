@@ -2,6 +2,9 @@ import sys
 import types
 import pytest
 
+import pathlib, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+
 # Provide minimal dummy modules so dnstool can be imported without optional
 # dependencies such as requests or dnspython. These tests only exercise
 # helper functions that do not require network access.
