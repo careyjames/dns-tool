@@ -67,9 +67,19 @@ This tool bundles Python dependencies (dnspython, requests, etc.) into a **singl
 
 ##### Download & Run
 
+Below is a summary of the release files and the systems they support.
+
+| Release asset | Supported systems |
+| ------------- | ----------------- |
+| `dnstool-linux-amd64-glibc-<version>` | glibc-based x86-64 Linux (Kali, Debian, Ubuntu, Fedora on Intel/AMD hardware) |
+| `dnstool-linux-arm64-glibc-<version>` | glibc-based ARM64 Linux (e.g., Debian/Ubuntu on ARM hardware) |
+| `dnstool-macos-intel-<version>` | macOS on Intel processors |
+| `dnstool-macos-arm64-<version>` | macOS on Apple Silicon |
+| `dnstool-windows-amd64-<version>.exe` | Windows 10/11 64-bit |
+
 ###### Linux
 
-1. **Download** the `dnstool` binary from the [GitHub Releases](../../releases).
+1. **Download** the `dnstool-linux-amd64-glibc` binary (or `dnstool-linux-arm64-glibc` for ARM) from the [GitHub Releases](../../releases).
 2. **Make the binary executable**:
    ```bash
    chmod +x dnstool
@@ -86,7 +96,7 @@ This tool bundles Python dependencies (dnspython, requests, etc.) into a **singl
 
 ####### macOS
 
-- Download the `dnstool_macos` binary from Releases.
+- Download the `dnstool-macos-intel` binary (or `dnstool-macos-arm64` for Apple Silicon) from Releases.
 - If Gatekeeper blocks it, you can:
   - **GUI method**
     - Right-click the file and choose Open.
@@ -94,16 +104,16 @@ This tool bundles Python dependencies (dnspython, requests, etc.) into a **singl
     - Or open System Preferences → Security & Privacy → General and click Allow Anyway.
   - **Terminal method**
     ```bash
-    chmod +x dnstool_macos
-    xattr -r -d com.apple.quarantine ./dnstool_macos
-    ./dnstool_macos
+    chmod +x dnstool-macos-*
+    xattr -r -d com.apple.quarantine ./dnstool-macos-*
+    ./dnstool-macos-*
     ```
 - Arrow-key history and color output should work just like Linux.
 ######## Windows
-Download the dnstool.exe from Releases.
+Download the `dnstool-windows-amd64.exe` binary from Releases.
 Run the .exe binary in Command Prompt / PowerShell:
 ```powershell
-.\dnstool.exe
+.\dnstool-windows-amd64.exe
 ```
 - Because the binary is unsigned, Windows SmartScreen may warn that the publisher cannot be verified.
 - Click "More info" and then "Run anyway" to continue.
@@ -216,7 +226,7 @@ FAQ
 
    - No code signing or notarization is available.
    - Use System Preferences → Security & Privacy → General → Open Anyway.
-   - Or run `xattr -d com.apple.quarantine ./dnstool_macos`.
+    - Or run `xattr -d com.apple.quarantine ./dnstool-macos-*`.
 
 
 3. Does the Linux binary work on all distros?
