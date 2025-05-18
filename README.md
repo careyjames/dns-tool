@@ -61,7 +61,7 @@ A powerful, all-in-one DNS diagnostic and RDAP lookup utility, with:
   - RDAP + WHOIS fallback for registrar info.
 - Colorful output with ✅, ❌, ⚠️ to highlight issues and best-practice suggestions.
 
-This tool bundles Python dependencies (dnspython, requests, etc.) into a **single binary** via PyInstaller—no separate Python install needed.
+This tool bundles Python dependencies (dnspython, requests, etc.) into a **single binary** via PyInstaller—no separate Python install is needed.
 
 ---
 
