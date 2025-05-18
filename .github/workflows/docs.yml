@@ -29,16 +29,13 @@ jobs:
           pip install mkdocs mkdocs-material
       - name: Build site
         run: mkdocs build -f docs/mkdocs.yml
-
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
           name: github-pages
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v4
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
