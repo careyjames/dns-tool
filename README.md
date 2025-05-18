@@ -17,14 +17,14 @@ I’ve always said:
 - Enforcing `p=reject` blocks malicious emails.
 - Full DNS security also requires verifying SPF, DKIM, DNSSEC, and MTA-STS.
 
-Back then, I had to hop between several separate DNS tools:
+Back before I made this tool, I had to hop between several separate DNS tools:
 
 - One for SPF lookups.
 - Another for DMARC checks.
 - A third for DKIM record validation.
 - Another for DNSSEC, TLSA, CAA, and so forth.
 
-It was time-consuming and error-prone—especially if I needed to see DNS changes “live” as they propagated. Checking each record across multiple tools became a daily routine of copying and pasting domain names.
+It was time-consuming and error-prone, especially if I needed to see DNS changes “live” as they propagated. Checking each record across multiple tools became a daily routine of copying and pasting domain names.
 
 ## One Tool to Check Them All
 
