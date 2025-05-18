@@ -74,7 +74,7 @@ Below is a summary of the release files and the systems they support.
 | `dnstool-linux-amd64-glibc-<version>` | glibc-based x86-64 Linux (Kali, Debian, Ubuntu, Fedora on Intel/AMD hardware) |
 | `dnstool-linux-arm64-glibc-<version>` | glibc-based ARM64 Linux (e.g., Debian/Ubuntu on ARM hardware) |
 | `dnstool-macos-intel-<version>` | macOS on Intel processors |
-| `dnstool-macos-arm64-<version>` | macOS on Apple Silicon |
+| `dnstool-macos-silicon-<version>` | macOS on Apple Silicon |
 | `dnstool-windows-amd64-<version>.exe` | Windows 10/11 64-bit |
 
 ###### Linux
@@ -96,7 +96,7 @@ Below is a summary of the release files and the systems they support.
 
 ####### macOS
 
-- Download the `dnstool-macos-intel` binary (or `dnstool-macos-arm64` for Apple Silicon) from Releases.
+- Download the `dnstool-macos-intel` binary (or `dnstool-macos-silicon` for Apple Silicon) from Releases.
 - If Gatekeeper blocks it, you can:
   - **GUI method**
     - Right-click the file and choose Open.

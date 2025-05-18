@@ -20,7 +20,7 @@ jobs:
             target: linux-arm64-glibc
             ext: ""
           - os: macos-14
-            target: macos-arm64
+            target: macos-silicon
             ext: ""
           - os: macos-13
             target: macos-intel
