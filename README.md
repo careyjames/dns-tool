@@ -111,6 +111,7 @@ Below is a summary of the release files and the systems they support.
 - Arrow-key history and color output should work just like Linux.
 
 ######## Windows
+
 Download the `dnstool-windows-amd64.exe` binary from Releases.
 Run the .exe binary in Command Prompt / PowerShell:
 ```powershell
