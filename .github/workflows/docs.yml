@@ -12,10 +12,17 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install MkDocs
+        run: pip install mkdocs mkdocs-material
+      - name: Build site
+        run: mkdocs build --config-file docs/mkdocs.yml --site-dir site
       - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CONFIG_FILE: docs/mkdocs.yml
-          MKDOCS_BUILD_DIR: docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site
 
