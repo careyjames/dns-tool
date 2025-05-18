@@ -14,16 +14,16 @@ jobs:
       matrix:
         include:
           - os: ubuntu-22.04
-            target: linux-amd64
+            target: linux-amd64-glibc
             ext: ""
           - os: ubuntu-22.04
-            target: linux-arm64
+            target: linux-arm64-glibc
             ext: ""
           - os: macos-14
-            target: darwin-arm64
+            target: macos-arm64
             ext: ""
           - os: macos-13
-            target: darwin-amd64
+            target: macos-intel
             ext: ""
           - os: windows-2022
             target: windows-amd64
