@@ -1,44 +1,60 @@
 name: Publish docs via GitHub Pages
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]           # rebuild site on every commit to main
+  workflow_dispatch:             # manual “Run workflow” button in the Actions UI
+
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: write                # let the job check out / read code
+  pages: write                   # allow it to publish to Pages
+  id-token: write                # OIDC token for Pages deployment
+
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: true       # abort older runs if you push again quickly
+
 jobs:
   build:
-    name: Deploy docs
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install mkdocs mkdocs-material
-      - name: Build site
-        run: mkdocs build -f docs/mkdocs.yml
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-          name: github-pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
-        with:
-          artifact_name: github-pages
+      name: github-pages         # built-in Pages environment
+      url: ${{ steps.deploy.outputs.page_url }}
 
+    steps:
+    # 1  Check out the repo
+    - name: Check out source
+      uses: actions/checkout@v4
+
+    # 2  Install Python + MkDocs
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install MkDocs & theme
+      run: |
+        python -m pip install --upgrade pip
+        pip install mkdocs mkdocs-material
+
+    # 3  Build the static site into ./site
+    - name: Build MkDocs site
+      run: mkdocs build --strict -f docs/mkdocs.yml
+
+    # 4  Make the Pages runtime variables available
+    - name: Configure Pages
+      uses: actions/configure-pages@v5
+
+    # 5  Upload the build as an artifact called `github-pages`
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: site
+        name: github-pages
+
+    # 6  Deploy the artifact to GitHub Pages
+    - name: Deploy to GitHub Pages
+      id: deploy
+      uses: actions/deploy-pages@v4
+      with:
+        artifact_name: github-pages
