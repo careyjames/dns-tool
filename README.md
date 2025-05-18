@@ -1,6 +1,11 @@
 # DNS Tool
 
-DNS Tool is an all-in-one, command-line DNS and email security checker, built to simplify the process of verifying critical DNS records like DMARC, SPF, DKIM, DNSSEC, and more. Designed for network administrators, security researchers, and IT professionals, this tool provides real-time feedback on DNS configurations and offers in-depth analysis to strengthen email security and prevent spoofing. Perfect for securing your domain’s DNS infrastructure and achieving best practices in email authentication.
+DNS Tool is a command-line utility for DNS and email security. It:
+- Simplifies verifying records like DMARC, SPF, DKIM and DNSSEC
+- Provides real-time feedback on DNS configurations
+- Offers in-depth analysis to prevent spoofing
+- Secures your domain's DNS infrastructure
+- Built for network administrators, security researchers and IT professionals
 
 ## Why DNS Tool Exists
 
@@ -8,9 +13,9 @@ I’ve always said:
 
 > **“If your DMARC says p=none, your work’s not done—get to p=reject!”**
 
-That succinctly captures why email security is so critical. It’s one thing to see a DMARC record, but it’s another to ensure it enforces protection. Too many domains sit with `p=none`, which doesn’t actually stop spoofing—it only reports it. Meanwhile, `p=reject` actively blocks spoofed emails.
-
-While participating with CISA’s cyber hygiene program and learning best practices, I discovered the tremendous importance of DMARC—especially for American infrastructure. But that was just one piece of the DNS puzzle. I needed to verify SPF was correct, DKIM selectors existed, DNSSEC was enabled, MTA-STS was present, and so on.
+- Many domains still use `p=none`, which only reports spoofing.
+- Enforcing `p=reject` blocks malicious emails.
+- Full DNS security also requires verifying SPF, DKIM, DNSSEC, and MTA-STS.
 
 Back then, I had to hop between several separate DNS tools:
 
@@ -80,30 +85,28 @@ This tool bundles Python dependencies (dnspython, requests, etc.) into a **singl
    Now, you should be able to run `dnstool` directly from any directory without having to prefix it with `./`.
 
 ####### macOS
-Download the dnstool_macos (or similarly named) file from Releases.
-By default, macOS Gatekeeper may block it (since it’s unsigned). Two ways to allow it:
 
-GUI method:
-
-In Finder, Right-click the file → Open.
-You’ll see a warning: “cannot be opened because the developer cannot be verified.”
-Click Open Anyway.
-Alternatively, go to System Preferences → Security & Privacy → General and click Allow Anyway for dnstool_macos.
-Terminal method:
-```bash
-chmod +x dnstool_macos
-xattr -r -d com.apple.quarantine ./dnstool_macos
-./dnstool_macos
-```
-That's it! Arrow-key history and color output should work just like Linux.
-
+- Download the `dnstool_macos` binary from Releases.
+- If Gatekeeper blocks it, you can:
+  - **GUI method**
+    - Right-click the file and choose Open.
+    - When warned that the developer is unverified, click Open Anyway.
+    - Or open System Preferences → Security & Privacy → General and click Allow Anyway.
+  - **Terminal method**
+    ```bash
+    chmod +x dnstool_macos
+    xattr -r -d com.apple.quarantine ./dnstool_macos
+    ./dnstool_macos
+    ```
+- Arrow-key history and color output should work just like Linux.
 ######## Windows
 Download the dnstool.exe from Releases.
 Run the .exe binary in Command Prompt / PowerShell:
 ```powershell
 .\dnstool.exe
 ```
-Because it’s not code-signed, Windows SmartScreen may show “Publisher cannot be verified.” Click More info → Run anyway.
+- Because the binary is unsigned, Windows SmartScreen may warn that the publisher cannot be verified.
+- Click "More info" and then "Run anyway" to continue.
 
 ######### Usage
 Interactive Mode
@@ -117,11 +120,11 @@ Interactive Mode. Type a domain and press Enter to run checks immediately.
 Type 'exit' or press Enter on a blank line to quit.
 ```
 
-Domain:
-Type any domain (e.g., example.com), press Enter, and DNS Tool will run a comprehensive set of checks (NS, MX, SPF, DMARC, etc.) and show color-coded results.
 
-Arrow keys work for recalling previously typed domains (thanks to prompt_toolkit). On macOS Terminal or Linux, you should see a bold “Domain:” prompt with ANSI colors.
-
+- Type any domain (e.g., `example.com`) and press Enter to run checks.
+- DNS Tool displays color-coded results for NS, MX, SPF, DMARC, and more.
+- Arrow keys recall previously typed domains thanks to `prompt_toolkit`.
+- On macOS Terminal or Linux, you should see a bold "Domain:" prompt.
 Batch Mode (Command-line arguments)
 You can pass one or more domain names on the command line:
 
@@ -170,7 +173,7 @@ Prints a short usage message:
 ```text
 usage: dnstool.py [-v] [-f file] [-r RESOLVER] [-a] [domain1 domain2 ...]
 ```
-Building From Source
+### Building From Source
 If you don’t want to download the precompiled binaries, you can build it yourself:
 
 Install Python 3.7+ (system-wide).
@@ -197,8 +200,8 @@ The final binary is in dist/dnstool (or dnstool.exe on Windows).
 
 ### Running Tests
 
-Unit tests are written with `pytest`. After installing the dependencies and
-`pytest`, execute the test suite from the project root:
+- Install the dependencies and `pytest`.
+- Execute the test suite from the project root using `pytest`.
 
 ```bash
 pytest
@@ -207,19 +210,23 @@ pytest
 FAQ
 1. Why is Windows complaining about an unknown publisher?
 
-Because we’re not code-signing the .exe. We’re currently not able to afford a code-signing certificate. You can still run it by clicking “More info → Run anyway.”
+   - The .exe is not code-signed.
+   - We do not currently have a code-signing certificate.
+   - Click "More info" and then "Run anyway" to launch.
 
-2. macOS says “cannot be opened because developer cannot be verified.”
+   - No code signing or notarization is available.
+   - Use System Preferences → Security & Privacy → General → Open Anyway.
+   - Or run `xattr -d com.apple.quarantine ./dnstool_macos`.
 
-Yes, same reason—no code signing or notarization. Use “System Preferences → Security & Privacy → General → Open Anyway” or xattr -d com.apple.quarantine ./dnstool_macos.
 
 3. Does the Linux binary work on all distros?
 
-It should work on most recent distros with glibc >= the version in our build environment. On older systems, you may see “GLIBC_2.X not found.” In that case, build from source on your own system.
+   - Works on most recent distros with glibc matching our build environment.
+   - On older systems you may see GLIBC errors; build from source.
 
 4. Does arrow-key history require anything special?
-
-No, we’ve embedded prompt_toolkit inside the compiled binary. It “just works.” Commands typed are saved to ~/.domain_history_rdap_interactive.
+   - No extra dependencies. `prompt_toolkit` is bundled in the binary.
+   - Commands are saved to `~/.domain_history_rdap_interactive`.
 
 License
 This project is licensed under the Apache License 2.0. See the
