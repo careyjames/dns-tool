@@ -6,9 +6,13 @@ docs_dir: .
 site_dir: ../site
 nav:
   - Home: index.md
-  - Installation and Setup: installation-and-setup.md
-  - Usage and Examples: usage-and-examples.md
-
+  - Getting Started:
+      - Installation: installation-and-setup.md
+      - Basic Usage: usage-and-examples.md
+  - Advanced: advanced.md
+  - DNS Checks Explained: records.md
+  - FAQ: faq.md
+  - Changelog: changelog.md
 theme:
   name: material
   font:
