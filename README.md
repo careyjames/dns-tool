@@ -1,11 +1,11 @@
 # DNS Tool
 
 DNS Tool is a command-line utility for DNS and email security. It:
-- Simplifies verifying records like DMARC, SPF, DKIM and DNSSEC
-- Provides real-time feedback on DNS configurations
-- Offers in-depth analysis to prevent spoofing
-- Secures your domain's DNS infrastructure
-- Built for network administrators, security researchers and IT professionals
+- Simplifies verifying records like DMARC, SPF, DKIM, and DNSSEC
+- Provides real-time feedback on DNS configurations in an easy-to-read bird’s-eye view
+- Offers in-depth DNS analysis to prevent BEC spoofing
+- Helps you secure your domain’s DNS infrastructure
+- Built for network administrators, security researchers, and IT professionals
 
 ## Why DNS Tool Exists
 
@@ -17,7 +17,7 @@ I’ve always said:
 - Enforcing `p=reject` blocks malicious emails.
 - Full DNS security also requires verifying SPF, DKIM, DNSSEC, and MTA-STS.
 
-Back before I made this tool, I had to hop between several separate DNS tools:
+Before I made this tool, I had to hop between several separate DNS tools:
 
 - One for SPF lookups.
 - Another for DMARC checks.
@@ -34,13 +34,13 @@ That’s why **DNS Tool** (originally called **DNS Scout**) was born:
 - Colorful output to highlight missing records or outdated policies.
 - Immediate feedback when you correct your DNS settings and re-run checks.
 
-Now, whether I’m verifying a domain has `p=reject` for DMARC or ensuring MTA-STS is properly configured, I can run one command (or open one interactive prompt) and see everything. That’s the power of **DNS Tool**—born out of necessity, to unify the multiple DNS checks I performed every day.
+Now, whether I’m verifying a domain has `p=reject` for DMARC or ensuring MTA-STS is properly configured, I can run one command (or open one interactive prompt) and see everything. That’s the power of the DNS Tool—born out of necessity to unify the multiple DNS checks I perform every day.
 
-In short: I was tired of flipping between a half-dozen DNS utilities, so I built one that does it all, with just a single command.
+In short, I was tired of switching between a half-dozen DNS utilities, so I built one that does it all with just a single command.
 ### Example Output
 
 This is an example of the output you can expect when running `dnstool`:
-A  purposefully horrible domain dns record monstrico.com
+A  purposefully horrible domain DNS record, monstrico.com
 ![Example Output](Screenshot-Output.png)
 ![Example Output](Screenshot-Output2.png)
 
