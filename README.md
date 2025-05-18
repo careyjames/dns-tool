@@ -248,4 +248,5 @@ This project is licensed under the Apache License 2.0. See the
 Contributing
 Bug reports: Please open an Issue if you spot any problems or have feature requests.
 Pull requests: Always welcome.
+
 Test on your OS (Linux, macOS, Windows) if possible.
