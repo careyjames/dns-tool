@@ -9,7 +9,9 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 # dependencies such as requests or dnspython. These tests only exercise
 # helper functions that do not require network access.
 sys.modules.setdefault('requests', types.SimpleNamespace())
-dns_stub = types.SimpleNamespace(resolver=types.SimpleNamespace())
+dns_stub = types.SimpleNamespace(
+    resolver=types.SimpleNamespace(Resolver=None)
+)
 sys.modules.setdefault('dns', dns_stub)
 sys.modules.setdefault('dns.resolver', dns_stub.resolver)
 
