@@ -78,3 +78,86 @@ def test_authoritative_lookup(monkeypatch):
     out = dnstool.authoritative_lookup("example.com", ["A", "MX"])
     assert out["A"] == ["203.0.113.10"]
     assert out["MX"] == ["10 mail.example.com"]
+
+
+def test_get_spf_record(monkeypatch, capsys):
+    def fake_dns_query(rdtype, domain):
+        if rdtype == "TXT" and domain == "example.com":
+            return ["v=spf1 ip4:203.0.113.0/24 -all"]
+        return []
+
+    monkeypatch.setattr(dnstool, "dns_query", fake_dns_query)
+
+    dnstool.get_spf_record("example.com")
+    out = capsys.readouterr().out
+    assert "SPF found" in out
+    assert "v=spf1" in out
+
+
+def test_get_dmarc_record(monkeypatch, capsys):
+    def fake_dns_query(rdtype, domain):
+        if rdtype == "TXT" and domain == "_dmarc.example.com":
+            return ["v=DMARC1; p=reject;"]
+        return []
+
+    monkeypatch.setattr(dnstool, "dns_query", fake_dns_query)
+
+    dnstool.get_dmarc_record("example.com")
+    out = capsys.readouterr().out
+    assert "DMARC p=reject" in out
+    assert "v=DMARC1" in out
+
+
+def test_get_mx_records(monkeypatch, capsys):
+    def fake_dns_query(rdtype, domain):
+        if rdtype == "MX" and domain == "example.com":
+            return [
+                "10 aspmx.l.google.com",
+                "20 aspmx2.googlemail.com",
+            ]
+        return []
+
+    monkeypatch.setattr(dnstool, "dns_query", fake_dns_query)
+
+    dnstool.get_mx_records("example.com")
+    out = capsys.readouterr().out
+    assert "aspmx2.googlemail.com" in out
+    assert "older Google MX lines" in out
+
+
+def test_run_all_checks_batch_mode(monkeypatch):
+    called = []
+
+    def make_dummy(name):
+        def _dummy(*args, **kwargs):
+            called.append(name)
+        return _dummy
+
+    funcs = [
+        "get_registrar",
+        "get_ns_records",
+        "get_mx_records",
+        "get_txt_records",
+        "get_dmarc_record",
+        "get_spf_record",
+        "get_dkim_record",
+        "get_mta_sts",
+        "get_dane_records",
+        "get_bimi_record",
+        "get_dnssec_status",
+        "get_a_record",
+        "get_aaaa_record",
+        "get_caa_record",
+        "get_soa_record",
+        "get_ptr_record",
+    ]
+
+    for f in funcs:
+        monkeypatch.setattr(dnstool, f, make_dummy(f))
+
+    monkeypatch.setattr(dnstool, "dns_query", lambda *args, **kwargs: [])
+
+    dnstool.run_all_checks("example.com", authoritative=False)
+
+    for f in funcs:
+        assert f in called
