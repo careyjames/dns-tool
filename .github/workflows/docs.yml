@@ -18,3 +18,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONFIG_FILE: docs-site/mkdocs.yml
           MKDOCS_BUILD_DIR: docs-site
+
