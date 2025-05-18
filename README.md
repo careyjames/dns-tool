@@ -121,6 +121,7 @@ Run the .exe binary in Command Prompt / PowerShell:
 - Click "More info" and then "Run anyway" to continue.
 
 ######### Usage
+
 Interactive Mode
 Just run dnstool (or the .exe/macOS binary with no arguments):
 ```bash
