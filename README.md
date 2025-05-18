@@ -34,7 +34,7 @@ That’s why **DNS Tool** (originally called **DNS Scout**) was born:
 - Colorful output to highlight missing records or outdated policies.
 - Immediate feedback when you correct your DNS settings and re-run checks.
 
-Now, whether I’m verifying a domain has `p=reject` for DMARC or ensuring MTA-STS is properly configured, I can run one command (or open one interactive prompt) and see everything. That’s the power of the DNS Tool—born out of necessity to unify the multiple DNS checks I perform every day.
+Now, whether I’m verifying a domain has `p=reject` for DMARC or ensuring MTA-STS is properly configured, I can run one command (or open one interactive prompt) and see everything. That’s the power of the DNS Tool, which was born out of necessity to unify the multiple DNS checks I perform every day.
 
 In short, I was tired of switching between a half-dozen DNS utilities, so I built one that does it all with just a single command.
 ### Example Output
