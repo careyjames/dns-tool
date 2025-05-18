@@ -65,7 +65,9 @@ def test_authoritative_lookup(monkeypatch):
         def resolve(self, domain, rdtype):
             key = (self.nameservers[0], domain, rdtype)
             data = {
-                ("192.0.2.1", "example.com", "A"): ["93.184.216.34"],
+                # 203.0.113.10 is a TEST-NET address reserved for documentation
+                # per RFC 5737, avoiding use of real-world IPs in tests.
+                ("192.0.2.1", "example.com", "A"): ["203.0.113.10"],
                 ("192.0.2.1", "example.com", "MX"): ["10 mail.example.com"],
             }
             return data.get(key, [])
@@ -74,5 +76,5 @@ def test_authoritative_lookup(monkeypatch):
     monkeypatch.setattr(dnstool.dns.resolver, "Resolver", DummyResolver)
 
     out = dnstool.authoritative_lookup("example.com", ["A", "MX"])
-    assert out["A"] == ["93.184.216.34"]
+    assert out["A"] == ["203.0.113.10"]
     assert out["MX"] == ["10 mail.example.com"]
