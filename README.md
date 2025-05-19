@@ -29,7 +29,7 @@ In short, I was tired of switching between various DNS checkers, so I built one 
 
 Below are sample outputs from **DNS Tool**, illustrating how it highlights issues versus a clean bill of health:
 
-* **Misconfigured Domain (example: `monstrico.com`):** The first screenshot shows a domain with multiple problems – DNS Tool flags missing SPF, a nonexistent DMARC record, outdated MX entries, etc., using ❌ and ⚠️ symbols for each issue.  
+* **Misconfigured Domain (example: `monstrico.com`):** The first screenshot shows a domain with multiple problems—the DNS Tool flags a malformed SPF and DMARC record, nonexistent MX entries, etc., using ❌ ⚠️ symbols for each issue.  
 Note: In the misconfigured domain example, it shows a ✅ by the TXT Records found because it did find TXT records, below in the SPF section, it clarifies that the records are malformed.
   ![Example Output – issues detected](Screenshot-Output.png)
   ![Example Output – issues detected 2](Screenshot-Output2.png)
