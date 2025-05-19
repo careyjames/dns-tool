@@ -184,8 +184,8 @@ $ ./dnstool --authoritative example.com
 ```
 
 Authoritative mode may be slightly slower (it has to fetch NS and then query each directly), but ensures you see the records as delivered by the domain’s own DNS servers.  
-*--authoritative ⇒ ground truth at the domain’s own servers.
-*Default (recursive) look-ups in interactive mode ⇒ watch propagation across public caches.
+*--authoritative ⇒ ground truth at the domain’s own servers.  
+*Default (recursive) look-ups in interactive mode ⇒ watch propagation across public caches.  
 
 ### Verbose / Debug Mode
 
