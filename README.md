@@ -1,6 +1,6 @@
 # DNS Tool
 
-**DNS Tool** is a command-line utility for comprehensive DNS and email security auditing. It provides a one-stop solution to verify critical DNS records (DMARC, SPF, DKIM, DNSSEC, etc.), offering real-time feedback on your domain’s configuration. Designed for network administrators, cybersecurity professionals, and IT engineers, DNS Tool helps prevent email spoofing (e.g., BEC attacks) and fortify your domain’s DNS infrastructure by giving an easy bird’s-eye view of all essential records.
+**DNS Tool** is a command-line utility for comprehensive DNS and email security auditing. It provides a one-stop solution to verify critical DNS records (DMARC, SPF, DKIM, DNSSEC, etc.) and offers real-time feedback on your domain’s configuration. Designed for network administrators, cybersecurity professionals, and IT engineers, DNS Tool helps prevent email spoofing (e.g., BEC attacks) and fortify your domain’s DNS infrastructure by giving an easy bird’s-eye view of all essential records.
 
 ## Why DNS Tool Exists
 
@@ -8,9 +8,9 @@ I built DNS Tool out of frustration with juggling multiple DNS lookup tools. As 
 
 > **“If your DMARC says `p=none`, your work’s not done—get to `p=reject`!”**
 
-Too many domains stick with a DMARC policy of `p=none` (monitoring only), which merely reports spoofing rather than preventing it. Enforcing `p=reject` is crucial to actively block fraudulent emails. But achieving full email security means verifying SPF and DKIM alignment as well, and extending protection with DNSSEC, MTA-STS, DANE, and more.
+Too many domains follow a DMARC policy of `p=none` (monitoring only), which merely reports spoofing rather than preventing it. Enforcing `p=reject` is crucial to actively blocking fraudulent emails. However, achieving full email security means verifying SPF and DKIM alignment and extending protection with DNSSEC, MTA-STS, DANE, and more.
 
-Before DNS Tool, checking all these meant hopping between separate utilities: one for SPF, another for DMARC, another for DKIM, plus others for DNSSEC, TLSA, CAA, etc.. It was time-consuming and error-prone – especially when propagating DNS changes and needing “live” re-checks. I often found myself copy-pasting domains across half a dozen sites to validate each record type.
+Before using the DNS Tool, checking all these meant hopping between separate utilities: one for SPF, another for DMARC, another for DKIM, plus others for DNSSEC, TLSA, CAA, etc. It was time-consuming and error-prone, especially when propagating DNS changes and needing “live” re-checks. I often copy-pasted domains across half a dozen sites to validate each record type.
 
 ### One Tool to Check Them All
 
@@ -18,9 +18,10 @@ That’s why **DNS Tool** (originally called *DNS Scout*) was born. It consolida
 
 * **Comprehensive Record Coverage:** In one run, DNS Tool checks **NS, A, AAAA, MX, TXT, SPF, DMARC, DKIM, MTA-STS, DANE, BIMI, DNSSEC, CAA, SOA,** and **PTR** records. It also performs an RDAP lookup (with WHOIS fallback) to identify the domain’s registrar.
 * **Immediate, Color-Coded Feedback:** Results are printed in color with intuitive symbols – ✅ for passes, ❌ for problems, and ⚠️ for warnings – so you can spot misconfigurations at a glance. Missing records or unsafe settings are clearly highlighted with context and best-practice suggestions.
-* **Interactive & Batch Modes:** Use DNS Tool in an interactive prompt (with command history and tab-completion via Prompt Toolkit) or run it in batch mode to scan multiple domains in one go. In both cases, you get instant insight into each domain’s DNS health.
-* **Built for Real-Time Iteration:** Correct a DNS setting and re-run the tool immediately to see if the issue is resolved. No need to wait or use external web tools – DNS Tool lets you validate changes as soon as they propagate.
-* **Portable, Single-Binary Utility:** DNS Tool is compiled into a single self-contained binary with all Python dependencies bundled. No Python installation is required on the target system, and it works across Linux, macOS, and Windows out-of-the-box.
+* **Interactive & Batch Modes:** You can use the DNS Tool in an interactive prompt (with command history and tab completion via Prompt Toolkit) or run it in batch mode to scan multiple domains in one go.
+In both cases, you get instant insight into each domain’s DNS health.
+* **Built for Real-Time Iteration:** Correct a DNS setting and re-run the tool immediately to see if the issue is resolved. There is no need to wait or use external web tools—the DNS Tool lets you validate changes as soon as they propagate.
+* **Portable, Single-Binary Utility:** DNS Tool is compiled into a single self-contained binary with all Python dependencies bundled. No Python installation is required on the target system, and it works out of the box across Linux, macOS, and Windows.
 
 In short, I was tired of switching between various DNS checkers, so I built one tool to do it all. Now, whether I’m ensuring a domain’s DMARC is set to `p=reject` or confirming that DNSSEC and MTA-STS are configured correctly, I can just run **`dnstool`** and get a complete report in seconds. This unified approach not only saves time but also reduces the chance of overlooking something critical.
 
