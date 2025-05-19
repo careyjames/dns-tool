@@ -8,9 +8,9 @@ I built DNS Tool out of frustration with juggling multiple DNS lookup tools. As 
 
 > **“If your DMARC says `p=none`, your work’s not done—get to `p=reject`!”**
 
-Too many domains follow a DMARC policy of `p=none` (monitoring only), which merely reports spoofing rather than preventing it. Enforcing `p=reject` is crucial to actively blocking fraudulent emails. However, achieving full email security means verifying SPF and DKIM alignment and extending protection with DNSSEC, MTA-STS, DANE, and more.
+Too many domains have a DMARC policy of `p=none` (monitoring only), which merely reports spoofing rather than preventing it. Enforcing `p=reject` is crucial to actively blocking fraudulent emails. However, achieving full email security means verifying SPF and DKIM alignment and extending protection with DNSSEC, MTA-STS, DANE, and more.
 
-Before using the DNS Tool, checking all these meant hopping between separate utilities: one for SPF, another for DMARC, another for DKIM, plus others for DNSSEC, TLSA, CAA, etc. It was time-consuming and error-prone, especially when propagating DNS changes and needing “live” re-checks. I often copy-pasted domains across half a dozen sites to validate each record type.
+Before creating the DNS Tool, checking all these meant hopping between separate utilities: one for SPF, another for DMARC, another for DKIM, plus others for DNSSEC, TLSA, CAA, etc. It was time-consuming and error-prone, especially when propagating DNS changes and needing “live” re-checks. I often copy-pasted domains across half a dozen sites to validate each record type.
 
 ### One Tool to Check Them All
 
@@ -30,13 +30,14 @@ In short, I was tired of switching between various DNS checkers, so I built one 
 Below are sample outputs from **DNS Tool**, illustrating how it highlights issues versus a clean bill of health:
 
 * **Misconfigured Domain (example: `monstrico.com`):** The first screenshot shows a domain with multiple problems – DNS Tool flags missing SPF, a nonexistent DMARC record, outdated MX entries, etc., using ❌ and ⚠️ symbols for each issue.
+Note: In the misconfigured domain example, it shows a ✅ by the TXT Records found because it did find TXT records, below in the SPF section, it clarifies that the records are malformed.
   ![Example Output – issues detected](Screenshot-Output.png)
   ![Example Output – issues detected 2](Screenshot-Output2.png)
 
 * **Properly Configured Domain:** The next screenshot shows a domain that has all the recommended records in place. Notice the ✅ symbols indicating pass status for each check.
   ![Example Output – all good](Screenshot-Output3.png)
 
-In these outputs, you can see how DNS Tool provides clear indicators: for example, a ❌ “SPF: Missing” or ⚠️ “DMARC: p=none” warning stands out immediately. This makes it easy to identify what needs fixing to improve your domain’s security posture.
+These outputs show how the DNS Tool provides clear indicators: for example, a ❌ “SPF: Missing” or ⚠️ “DMARC: p=none” warning stands out immediately. This makes it easy to identify what needs fixing to improve your domain’s security posture.
 
 ## Download and Installation
 
