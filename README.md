@@ -126,10 +126,18 @@ You will see a prompt (**`Domain:`** in bold text) indicating that the tool is r
 **Example:**
 
 ```
-Domain: example.com
-✅ NS: OK – Found 4 name servers  
-❌ SPF: Missing – No SPF record found  
-⚠️ DMARC: p=none – Policy not enforcing (monitor only)
+🔍 NS Records:
+✅ Found NS:
+sean.ns.cloudflare.com.
+ursula.ns.cloudflare.com.
+ 
+🔍 SPF (Sender Policy Framework):
+❌ No TXT => no SPF record! (❌ Required for mail deliverability and DMARC compliance.)
+
+🔍 DMARC:
+⚠️ DMARC p=none => "Your work’s not done!"
+"v=DMARC1; p=none;"
+
 … (additional checks) …
 ```
 
