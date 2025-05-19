@@ -118,7 +118,7 @@ Run the `dnstool` binary with no arguments to start an interactive session:
 $ ./dnstool
 ```
 
-You will see a prompt (usually **`Domain:`** in bold text) indicating that the tool is ready for input. Type a domain name (e.g., `example.com`) at the prompt and press **Enter**. DNS Tool will immediately run all checks for that domain and display the results in a formatted, color-coded list.
+You will see a prompt (**`Domain:`** in bold text) indicating that the tool is ready for input. Type a domain name (e.g., `example.com`) at the prompt and press **Enter**. DNS Tool will immediately run all checks for that domain and display the results in a formatted, color-coded list.
 
 * **Arrow-Key History:** You can press the Up/Down arrow keys to navigate through previously entered domains (this history is persisted between sessions, stored in `~/.domain_history_rdap_interactive`). This makes it easy to re-check a domain you queried earlier.
 * **Exit:** To quit interactive mode, type `exit` or press Enter on an empty prompt line.
