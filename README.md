@@ -34,7 +34,7 @@ Note: In the misconfigured domain example, it shows a ✅ by the TXT Records fou
   ![Example Output – issues detected](Screenshot-Output.png)
   ![Example Output – issues detected 2](Screenshot-Output2.png)
 
-* **Properly Configured Domain:** The following screenshot shows a domain with all the recommended records. Notice the ✅ symbols indicating pass status for each check.
+* **Properly Configured Domain (example: `it-help.tech`):** The following screenshot shows a domain with all the recommended records. Notice the ✅ symbols indicating pass status for each check.
   ![Example Output – all good](Screenshot-Output3.png)
 
 These outputs show how the DNS Tool provides clear indicators. For example, an ❌ “SPF: Missing” or ⚠️ “DMARC: p=none” warning stands out immediately.  
