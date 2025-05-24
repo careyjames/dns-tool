@@ -4,7 +4,10 @@ DNS Tool (Python Edition) + Prompt Toolkit arrow-key history
 - Now using prompt_toolkit.formatted_text.ANSI for the domain prompt,
   so \033[1m etc. are correctly interpreted instead of printing ^[[1m.
 """
+__version__ = "1.3.0"
 
+import sys
+import argparse
 import os
 import sys
 import re
@@ -617,6 +620,7 @@ def main():
     parser.add_argument("-r", "--resolver", action="append", help="Specify resolver IP (can be repeated)")
     parser.add_argument("-a", "--authoritative", action="store_true", help="Query authoritative nameservers directly")
     parser.add_argument("domains", nargs="*", help="Domains to check")
+    parser.add_argument('--version', action='version', version=__version__, help="show program's version number and exit")
     args = parser.parse_args()
 
     log_level = logging.ERROR if args.verbose else logging.CRITICAL
