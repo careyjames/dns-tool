@@ -1,5 +1,13 @@
 # DNS Tool
 
+> 🚨 **PRIMARY VERSION: Web App**
+>
+> DNS Tool is now a web-based DNS & email security auditor.
+>
+> 👉 https://dnstool.it-help.tech/
+>
+> The CLI remains available but is no longer the primary interface.
+
 **DNS Tool** is a command-line utility for comprehensive DNS and email security auditing. It provides a one-stop solution to verify critical DNS records (DMARC, SPF, DKIM, DNSSEC, etc.) and offers real-time feedback on your domain’s configuration. Designed for network administrators, cybersecurity professionals, and IT engineers, DNS Tool helps prevent email spoofing (e.g., BEC attacks) and fortify your domain’s DNS infrastructure by giving an easy bird’s-eye view of all essential records.
 
 ## Why DNS Tool Exists
