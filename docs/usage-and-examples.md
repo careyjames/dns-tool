@@ -1,5 +1,11 @@
 # Usage and Examples
 
+> **Legacy CLI usage guide**
+>
+> This page documents the command-line workflow.
+>
+> For the actively developed DNS Tool experience, use the web app: https://dnstool.it-help.tech/
+
 This guide will show you how to get started with DNS Tool. It will showcase how to use the tool in both interactive and batch modes, with example commands and output descriptions.
 
 ## Interactive Mode 🌟

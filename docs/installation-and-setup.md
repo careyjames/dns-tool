@@ -2,6 +2,12 @@
 
 # Installation and Setup
 
+> **Legacy CLI install guide**
+>
+> This page is for the command-line release line.
+>
+> For the current primary experience, use the web app (no install): https://dnstool.it-help.tech/
+
 Welcome to the **DNS Tool** installation guide. Follow the steps below to get DNS Tool up and running on your platform. Precompiled binaries are available for Linux, macOS, and Windows – no additional dependencies required.
 
 ## Linux

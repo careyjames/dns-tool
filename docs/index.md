@@ -2,6 +2,12 @@
 
 # Introduction to DNS Tool
 
+> **Legacy CLI documentation**
+>
+> This docs set covers the DNS Tool command-line release line.
+>
+> For the actively developed version and current feature set, use the web app: https://dnstool.it-help.tech/
+
 **DNS Tool** is an all-in-one command-line utility for checking critical DNS records like **DMARC**, **SPF**, **DKIM**, **DNSSEC**, and more. It gives you a bird’s-eye view of a domain’s DNS and email security posture, helping strengthen defenses against phishing and spoofing. Whether you’re a system administrator or a security analyst, DNS Tool streamlines the process of validating DNS configurations across your domains.
 
 ## Main Features
@@ -11,6 +17,8 @@
 * **Clear, Color-Coded Output:** Results use intuitive symbols (✅ pass, ❌ fail, ⚠️ warning) and colors to highlight issues and recommendations. You can immediately spot misconfigurations, missing records, or weak policies without digging through verbose data.
 
 ## Quick Start
+
+If you do not need local CLI execution, use the web app directly (no install required): https://dnstool.it-help.tech/
 
 ### Installation
 

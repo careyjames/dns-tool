@@ -2,6 +2,12 @@
 
 # DNS Checks Explained
 
+> **Legacy CLI reference**
+>
+> This record-check behavior describes the command-line release line.
+>
+> For the actively developed DNS Tool platform and current capabilities, use: https://dnstool.it-help.tech/
+
 DNS Tool performs a variety of checks on different DNS records and related services. This section explains each category of checks, what they mean, and why they matter for security. Understanding the output will help you interpret DNS Tool’s findings and take the right action.
 
 ## Email Security Records: SPF, DKIM, DMARC, and BIMI
@@ -24,7 +30,7 @@ DNS Tool performs a variety of checks on different DNS records and related servi
   * **p=quarantine:** This tells receivers to treat failing emails with suspicion (usually send to spam). DNS Tool will mark this as a ✅ but note that quarantine is good, though not as strong as reject.
   * **p=reject:** This is the strongest policy, instructing receivers to outright reject emails that fail SPF/DKIM checks. DNS Tool gives a ✅ and a message like “DMARC p=reject => Great anti-spoof!”, confirming you’re at an optimal security stance.
   * Any other policy or syntax issue, the tool will simply show the DMARC record and indicate it found one, without a specific icon (or with a generic ✅ if the record is present but non-standard).
-* *Why it matters:* DMARC is your domain’s last line of defense against spoofed emails. Without DMARC, anyone can send email pretending to be your domain and you’ll only know if you happen to see the abuse. With DMARC in “reject” or “quarantine”, recipients will actually block or flag those illegitimate emails. Industry best practices and regulatory bodies (like CISA) strongly recommend moving to **p=reject** as soon as you’re confident your mail streams are properly authenticated. In our blog post [*Defend Your Domain: Master DNS Security with DMARC, SPF, and DKIM*](https://www.it-help.tech/blog/defend-your-domain-master-dns-security-with-dmarc-spf-and-dkim), we outline how organizations should start with monitoring (p=none) and gradually step up to enforcement (p=quarantine, then p=reject) – DNS Tool makes it easy to verify each step of that journey.
+* *Why it matters:* DMARC is your domain’s last line of defense against spoofed emails. Without DMARC, anyone can send email pretending to be your domain and you’ll only know if you happen to see the abuse. With DMARC in “reject” or “quarantine”, recipients will actually block or flag those illegitimate emails. Industry best practices and regulatory bodies (like CISA) strongly recommend moving to **p=reject** as soon as you’re confident your mail streams are properly authenticated. In our blog post [*DNS Security Best Practices: Defend Your Domain with DMARC, SPF & DKIM*](https://www.it-help.tech/blog/dns-security-best-practices/), we outline how organizations should start with monitoring (p=none) and gradually step up to enforcement (p=quarantine, then p=reject) - DNS Tool makes it easy to verify each step of that journey.
 
 **BIMI (Brand Indicators for Message Identification):** BIMI is an emerging standard that allows you to publish your brand’s logo in DNS so that supporting email clients can display it alongside authenticated emails from your domain. BIMI isn’t a security control per se, but it *requires* that you have a solid DMARC policy in place (usually p=reject) before you can use it, so it’s a good “bonus” indicator of strong email security posture.
 

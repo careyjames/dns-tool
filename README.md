@@ -6,9 +6,15 @@
 >
 > 👉 https://dnstool.it-help.tech/
 >
-> The CLI remains available but is no longer the primary interface.
+> This repository is the **legacy CLI line**. Existing releases still work, but active feature development now happens in the web app.
 
 **DNS Tool** is a command-line utility for comprehensive DNS and email security auditing. It provides a one-stop solution to verify critical DNS records (DMARC, SPF, DKIM, DNSSEC, etc.) and offers real-time feedback on your domain’s configuration. Designed for network administrators, cybersecurity professionals, and IT engineers, DNS Tool helps prevent email spoofing (e.g., BEC attacks) and fortify your domain’s DNS infrastructure by giving an easy bird’s-eye view of all essential records.
+
+## Choosing the Right Version
+
+- Use the **web app** for the newest capabilities and easiest workflow: https://dnstool.it-help.tech/
+- Use this **CLI repository** when you specifically need local, offline, or script-driven checks.
+- Current feature inventory and product direction live in the web app codebase (`dnstoolweb/docs/FEATURE_INVENTORY.md`).
 
 ## Why DNS Tool Exists
 
@@ -48,9 +54,9 @@ Note: In the misconfigured domain example, it shows a ✅ by the TXT Records fou
 These outputs show how the DNS Tool provides clear indicators. For example, an ❌ “SPF: Missing” or ⚠️ “DMARC: p=none” warning stands out immediately.  
 This makes it easy to identify what needs fixing to improve your domain’s security posture.
 
-## Download and Installation
+## Legacy CLI Download and Installation
 
-DNS Tool is available as pre-compiled binaries for major platforms (Linux, macOS, Windows). Download the appropriate release for your system from the [GitHub Releases](../../releases) page. The table below shows the available builds:
+DNS Tool CLI is available as pre-compiled binaries for major platforms (Linux, macOS, Windows). Download the appropriate release for your system from the [GitHub Releases](../../releases) page. The table below shows the available builds:
 
 | Release Asset                     | Supported Systems                                                       |
 | --------------------------------- | ----------------------------------------------------------------------- |
