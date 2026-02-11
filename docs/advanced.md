@@ -2,6 +2,12 @@
 
 # Advanced Usage and Integration
 
+> **Legacy CLI advanced guide**
+>
+> This page applies to the command-line release line.
+>
+> For the current primary DNS Tool platform, use the web app: https://dnstool.it-help.tech/
+
 For power users and larger deployments, DNS Tool offers flexibility to integrate into scripts, CI pipelines, and other automation. It also provides flags to tweak its behavior for special scenarios. This section covers how to make the most of DNS Tool in advanced use cases, as well as performance considerations and troubleshooting tips.
 
 ## Integration & Automation

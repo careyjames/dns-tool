@@ -4,6 +4,12 @@
 
 All notable changes to DNS Tool are documented here. This project adheres to semantic versioning.
 
+> **Legacy CLI release notes**
+>
+> This changelog tracks the command-line release line.
+>
+> New primary feature development is now in the web app: https://dnstool.it-help.tech/
+
 * **v1.2.3** – *Released 2025-05-17*
   **New Features:** Added support for BIMI and MTA-STS checks in the output (the tool now identifies BIMI records and validates MTA-STS policies). Improved DMARC feedback messages – the tool now explicitly warns when `p=none` and praises `p=reject` configurations.
   **Improvements:** Optimized interactive mode for faster start-up. Updated embedded dependencies to latest versions for security patches. Minor tweaks to color output for better readability on Windows.
@@ -17,4 +23,4 @@ All notable changes to DNS Tool are documented here. This project adheres to sem
 * **v1.2.1** – *Released 2025-03-01*
   Initial release of **DNS Tool (Python Edition)**. This version introduced the core functionality of the tool: interactive and batch modes, comprehensive DNS checks for NS, A, AAAA, MX, TXT, SPF, DKIM, DMARC, DNSSEC, PTR, etc., and integrated RDAP lookups for registrar info. The focus was on providing a unified output with clear indicators (✅/❌/⚠️) for each check. Packaged as a single-file executable via PyInstaller for easy distribution on Linux, macOS, and Windows.
 
-*(For a detailed history and commit-by-commit information, see the Git repository logs. Future release notes will continue to document new features, improvements, and fixes.)*
+*(For a detailed history and commit-by-commit information, see the Git repository logs. CLI updates may continue for compatibility and maintenance; primary feature evolution is in the web app.)*

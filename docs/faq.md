@@ -2,7 +2,16 @@
 
 # FAQ
 
+> **Legacy CLI FAQ**
+>
+> This FAQ applies to the command-line release line.
+>
+> For the current primary DNS Tool platform, use: https://dnstool.it-help.tech/
+
 Below are answers to some frequently asked questions about DNS Tool, covering usage, capabilities, and common scenarios.
+
+**Q: Is this repository still the primary DNS Tool product?**
+**A:** No. The web app at https://dnstool.it-help.tech/ is the primary and actively developed version. This repository remains available for CLI users who need local or script-based workflows.
 
 **Q: What do the symbols ✅, ❌, and ⚠️ mean in the output?**
 **A:** These symbols provide a quick assessment of each check’s result:
@@ -51,7 +60,7 @@ would query the two listed servers for all DNS lookups. This is useful if, say, 
 * It will alert if DMARC is missing or not at a strong policy.
 * It highlights if your MX setup might be problematic (no MX, or deprecated Google MX entries).
 * It notes optional improvements like DNSSEC not enabled, no CAA record, etc., as warnings.
-  In other words, a “clean” output (all ✅ and no ❌/⚠️) means your domain’s DNS is in great shape by current standards. If there are warnings, consider them recommendations for hardening your domain (for example, moving DMARC from none to reject, adding DNSSEC, etc.). The tool incorporates guidance from industry best practices – for instance, [our blog post on mastering DMARC/SPF/DKIM](https://www.it-help.tech/blog/defend-your-domain-master-dns-security-with-dmarc-spf-and-dkim) emphasizes an enforcement policy for DMARC; DNS Tool reflects that by warning on `p=none`. Always review the output messages in context; they often contain advice on why something is important.
+  In other words, a “clean” output (all ✅ and no ❌/⚠️) means your domain’s DNS is in great shape by current standards. If there are warnings, consider them recommendations for hardening your domain (for example, moving DMARC from none to reject, adding DNSSEC, etc.). The tool incorporates guidance from industry best practices - for instance, [our DMARC/SPF/DKIM guide](https://www.it-help.tech/blog/dns-security-best-practices/) emphasizes an enforcement policy for DMARC; DNS Tool reflects that by warning on `p=none`. Always review the output messages in context; they often contain advice on why something is important.
 
 **Q: Some of the checks aren’t applicable to my domain – can I ignore them?**
 **A:** Yes. DNS Tool is somewhat opinionated toward security best practices. If your domain doesn’t send email at all, seeing ❌ “No SPF” or “No DMARC” is technically fine (though consider adding them to prevent others from spoofing your unused domain). If you don’t operate a web service, “No A record” might be fine. The tool’s output is meant to be a helpful audit, not a strict pass/fail in every scenario. Use your knowledge of your domain’s purpose: for example, if you know a domain is only used for web, and you intentionally have no MX (so it shouldn’t receive email), you can ignore the “No MX” error – but you might still want an SPF/DMARC of `v=spf1 -all` and `p=reject` to nullify email misuse. Ultimately, treat the tool as a knowledgeable advisor: most ❌ need fixing, most ⚠️ deserve improvement, but you’re the final judge of what’s relevant.
@@ -60,6 +69,6 @@ would query the two listed servers for all DNS lookups. This is useful if, say, 
 **A:** Yes. It’s a read-only tool – it only performs DNS queries (the same kind your computer does when visiting a website or sending email) and RDAP/WHOIS lookups. It doesn’t make any changes to DNS. Checking someone else’s domain with DNS Tool is equivalent to querying their DNS records publicly, which is normal and allowed. All the data retrieved is public information by design of DNS. The tool’s queries are also unlikely to trigger any security alarms; at worst, RDAP queries might be rate-limited if you do them in huge volume. We designed DNS Tool to be non-intrusive and network-friendly.
 
 **Q: Can I add or suggest new features?**
-**A:** Definitely. DNS and email security evolve, and we welcome contributions. If you have an idea (for example, checking for a new record type, or supporting JSON output, or an interactive GUI), feel free to open an issue or a pull request on the GitHub repository. This project is open source (Apache 2.0 licensed) and thrives on community feedback. Whether it’s a bug report, a feature request, or a code contribution, we’d love to hear from you.
+**A:** Definitely. DNS and email security evolve, and we welcome contributions. If you have an idea, feel free to open an issue or a pull request on this repository. Please note that major product evolution now happens in the web platform, so some feature requests may be implemented there first.
 
 Hopefully this FAQ answers most questions you’ll have. If you need more help, check out the repository README or open a discussion with the community. Happy DNS exploring!
