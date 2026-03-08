@@ -1,4 +1,4 @@
-# DNS Tool CLI (Archived)
+# DNS Tool LEGACY CLI (Archived)
 
 > **This repository is archived.** The CLI is being rewritten.
 >
