@@ -9,11 +9,26 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 # helper functions that do not require network access.
 sys.modules.setdefault('requests', types.SimpleNamespace())
 dns_stub = types.SimpleNamespace(
-    resolver=types.SimpleNamespace(Resolver=None)
+    resolver=types.SimpleNamespace(Resolver=None),
+    reversename=types.SimpleNamespace(from_address=lambda addr: addr),
+    rdatatype=types.SimpleNamespace(RRSIG=46),
+    flags=types.SimpleNamespace(DO=0x8000),
 )
 sys.modules.setdefault('dns', dns_stub)
 sys.modules.setdefault('dns.resolver', dns_stub.resolver)
+sys.modules.setdefault('dns.reversename', dns_stub.reversename)
+sys.modules.setdefault('dns.rdatatype', dns_stub.rdatatype)
+sys.modules.setdefault('dns.flags', dns_stub.flags)
 
+sys.modules.setdefault('prompt_toolkit', types.SimpleNamespace(
+    PromptSession=None,
+))
+sys.modules.setdefault('prompt_toolkit.history', types.SimpleNamespace(
+    FileHistory=None,
+))
+sys.modules.setdefault('prompt_toolkit.formatted_text', types.SimpleNamespace(
+    ANSI=None,
+))
 import dnstool
 
 
