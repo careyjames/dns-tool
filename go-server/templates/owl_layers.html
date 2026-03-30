@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Owl Semaphore — Layer Compositor — DNS Tool</title>
+    <style>
+        .layer-workspace {
+            display: flex;
+            gap: 0;
+            min-height: 80vh;
+            background: #0d0d15;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2a2a3a;
+        }
+        .layer-sidebar {
+            width: 280px;
+            padding: 20px 14px;
+            border-right: 1px solid #2a2a3a;
+            background: #0a0a14;
+            flex-shrink: 0;
+        }
+        .layer-sidebar h3 {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #666;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+        .layer-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 8px;
+            margin-bottom: 3px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            transition: all 0.12s;
+            font-family: inherit;
+            background: rgba(212,168,83,0.06);
+        }
+        .layer-btn:hover {
+            background: rgba(212,168,83,0.15);
+        }
+        .layer-btn.off {
+            opacity: 0.3;
+            background: transparent;
+        }
+        .layer-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            border: 2px solid #d4a853;
+            background: #d4a853;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #0d0d15;
+            flex-shrink: 0;
+        }
+        .layer-btn.off .layer-check {
+            background: transparent;
+            border-color: #444;
+            color: transparent;
+        }
+        .layer-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ddd;
+        }
+        .layer-btn.off .layer-label {
+            color: #555;
+        }
+        .layer-meta {
+            font-size: 10px;
+            color: #777;
+            margin-top: 1px;
+        }
+        .layer-lock {
+            color: #c0392b;
+            font-size: 9px;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+        .layer-preview {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: #111122;
+        }
+        .layer-stack {
+            position: relative;
+            width: 480px;
+            height: 480px;
+        }
+        .layer-stack .bg-plate {
+            position: absolute;
+            inset: 0;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .layer-stack img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .layer-hidden {
+            display: none !important;
+        }
+        .layer-actions {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #2a2a3a;
+            display: flex;
+            gap: 8px;
+        }
+        .layer-actions button {
+            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .layer-actions button:hover {
+            background: rgba(212,168,83,0.15);
+            color: #d4a853;
+            border-color: #d4a853;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <div class="container-fluid py-4" style="max-width:1200px;">
+        <div class="mb-3">
+            <a href="/owl-semaphore" style="color:#d4a853;text-decoration:none;font-size:13px;">&larr; Back to Owl Semaphore</a>
+        </div>
+        <h1 style="font-size:1.4rem;color:#d4a853;margin-bottom:4px;">Layer Compositor</h1>
+        <p style="font-size:13px;color:#888;margin-bottom:20px;">NON-NORMATIVE owl — toggle each layer to inspect the composite stack.</p>
+
+        <div class="layer-workspace">
+            <div class="layer-sidebar">
+                <h3>Layers — Bottom &rarr; Top</h3>
+
+                <button class="layer-btn" data-target="layer-L0" onclick="toggleLayer(this)">
+                    <div class="layer-check">&check;</div>
+                    <div>
+                        <div class="layer-label">L0 — Background</div>
+                        <div class="layer-meta">White plate</div>
+                    </div>
+                </button>
+
+                <button class="layer-btn" data-target="layer-L1" onclick="toggleLayer(this)">
+                    <div class="layer-check">&check;</div>
+                    <div>
+                        <div class="layer-label">L1 — Emerald Circle <span class="layer-lock">LOCKED</span></div>
+                        <div class="layer-meta">r=252, #48B86E</div>
+                    </div>
+                </button>
+
+                <button class="layer-btn" data-target="layer-L4" onclick="toggleLayer(this)">
+                    <div class="layer-check">&check;</div>
+                    <div>
+                        <div class="layer-label">L4 — Outer Ring</div>
+                        <div class="layer-meta">r=248–262, #d4a853 gold</div>
+                    </div>
+                </button>
+
+                <button class="layer-btn" data-target="layer-L2" onclick="toggleLayer(this)">
+                    <div class="layer-check">&check;</div>
+                    <div>
+                        <div class="layer-label">L2 — Meander Ring <span class="layer-lock">LOCKED</span></div>
+                        <div class="layer-meta">r=200–255, gold+teal</div>
+                    </div>
+                </button>
+
+                <button class="layer-btn" data-target="layer-L3" onclick="toggleLayer(this)">
+                    <div class="layer-check">&check;</div>
+                    <div>
+                        <div class="layer-label">L3 — Owl Figure <span class="layer-lock">LOCKED</span></div>
+                        <div class="layer-meta">r&lt;184, MD5 8ddb1655</div>
+                    </div>
+                </button>
+
+                <div class="layer-actions">
+                    <button onclick="showAll()">Show All</button>
+                    <button onclick="hideAll()">Hide All</button>
+                    <button onclick="soloMode()">Solo L4</button>
+                </div>
+            </div>
+
+            <div class="layer-preview">
+                <div class="layer-stack">
+                    <div class="bg-plate" id="layer-L0"></div>
+                    <img id="layer-L1" src="/static/exports/owl-semaphore/layers/L1-emerald-circle-r252.png" alt="L1 Emerald Circle">
+                    <img id="layer-L4" src="/static/exports/owl-semaphore/layers/L4-outer-ring-r248-262.png" alt="L4 Outer Ring">
+                    <img id="layer-L2" src="/static/exports/owl-semaphore/layers/L2-meander-ring-r200-255.png" alt="L2 Meander Ring">
+                    <img id="layer-L3" src="/static/exports/owl-semaphore/layers/L3-owl-figure.png" alt="L3 Owl Figure">
+                </div>
+            </div>
+        </div>
+    </div>
+    {{template "footer" .}}
+    <script nonce="{{.CspNonce}}">
+    function toggleLayer(btn) {
+        let id = btn.dataset.target;
+        let el = document.getElementById(id);
+        if (el.classList.contains('layer-hidden')) {
+            el.classList.remove('layer-hidden');
+            btn.classList.remove('off');
+        } else {
+            el.classList.add('layer-hidden');
+            btn.classList.add('off');
+        }
+    }
+    function showAll() {
+        document.querySelectorAll('.layer-btn').forEach(function(btn) {
+            btn.classList.remove('off');
+        });
+        document.querySelectorAll('[id^="layer-"]').forEach(function(el) {
+            el.classList.remove('layer-hidden');
+        });
+    }
+    function hideAll() {
+        document.querySelectorAll('.layer-btn').forEach(function(btn) {
+            btn.classList.add('off');
+        });
+        document.querySelectorAll('[id^="layer-"]').forEach(function(el) {
+            el.classList.add('layer-hidden');
+        });
+    }
+    function soloMode() {
+        hideAll();
+        let btn = document.querySelector('[data-target="layer-L0"]');
+        let btn4 = document.querySelector('[data-target="layer-L4"]');
+        document.getElementById('layer-L0').classList.remove('layer-hidden');
+        document.getElementById('layer-L4').classList.remove('layer-hidden');
+        btn.classList.remove('off');
+        btn4.classList.remove('off');
+    }
+    </script>
+</body>
+</html>

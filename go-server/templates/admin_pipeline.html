@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Pipeline Observatory - DNS Tool</title>
+    <meta name="robots" content="noindex, nofollow">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .pipeline-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; justify-content: center; }
+        .pipeline-stage { position: relative; min-width: 140px; text-align: center; }
+        .pipeline-stage .stage-box { border: 2px solid var(--bs-border-color); border-radius: 8px; padding: 12px 16px; background: var(--bs-body-bg); transition: border-color 0.2s; }
+        .pipeline-stage .stage-box:hover { border-color: var(--bs-info); }
+        .pipeline-stage .stage-box.health-success { border-color: var(--bs-success); }
+        .pipeline-stage .stage-box.health-warning { border-color: var(--bs-warning); }
+        .pipeline-stage .stage-box.health-danger { border-color: var(--bs-danger); }
+        .pipeline-arrow { font-size: 1.5rem; color: var(--bs-secondary); padding: 0 4px; }
+        .stat-card { border-left: 3px solid var(--bs-info); }
+        .stat-card .stat-value { font-size: 1.75rem; font-weight: 700; }
+        .stat-card .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--bs-secondary); }
+        .dist-bar { height: 24px; border-radius: 4px; min-width: 2px; transition: width 0.3s; }
+        .percentile-badge { font-size: 0.7rem; padding: 2px 6px; }
+        .stage-metric { font-size: 0.75rem; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "flask" "me-2"}}Pipeline Observatory
+                </h1>
+                <p class="text-muted mb-0">Real-time analysis pipeline flow, statistical process control, and performance tuning</p>
+            </div>
+            <div>
+                <a href="/ops/telemetry" class="btn btn-outline-info me-2">
+                    {{icon "clock" "me-1"}}Phase Telemetry
+                </a>
+                <a href="/ops" class="btn btn-outline-secondary">
+                    {{icon "arrow-left" "me-1"}}Admin
+                </a>
+            </div>
+        </div>
+
+        {{template "flash_messages" .}}
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3 col-6">
+                <div class="card stat-card">
+                    <div class="card-body py-3">
+                        <div class="stat-value">{{.EndToEnd.TotalScans}}</div>
+                        <div class="stat-label">Total Scans (30d)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card stat-card">
+                    <div class="card-body py-3">
+                        <div class="stat-value">{{if .EndToEnd.AvgTotalMs}}{{intDiv .EndToEnd.AvgTotalMs 1000}}s{{else}}&mdash;{{end}}</div>
+                        <div class="stat-label">Avg Duration</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card stat-card">
+                    <div class="card-body py-3">
+                        <div class="stat-value">{{if .EndToEnd.P95TotalMs}}{{intDiv .EndToEnd.P95TotalMs 1000}}s{{else}}&mdash;{{end}}</div>
+                        <div class="stat-label">P95 Duration</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card stat-card">
+                    <div class="card-body py-3">
+                        <div class="stat-value">{{len .Stages}}</div>
+                        <div class="stat-label">Pipeline Stages</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                {{icon "project-diagram" "me-2"}}Pipeline Flow &mdash; Stage-by-Stage Performance
+            </div>
+            <div class="card-body">
+                <div class="pipeline-flow mb-3">
+                    {{range $i, $stage := .Stages}}
+                    {{if $i}}<div class="pipeline-arrow">&rarr;</div>{{end}}
+                    <div class="pipeline-stage">
+                        <div class="stage-box health-{{$stage.HealthClass}}">
+                            <div class="fw-bold small">{{$stage.Label}}</div>
+                            <div class="stage-metric text-muted">{{$stage.Key}}</div>
+                            <hr class="my-1 border-secondary">
+                            <div class="stage-metric">
+                                <span class="text-info">P50:</span> {{$stage.P50Ms}}ms
+                            </div>
+                            <div class="stage-metric">
+                                <span class="text-warning">P95:</span> {{$stage.P95Ms}}ms
+                            </div>
+                            <div class="stage-metric">
+                                <span class="text-danger">P99:</span> {{$stage.P99Ms}}ms
+                            </div>
+                            <div class="stage-metric mt-1">
+                                {{$stage.ScanCount}} scans
+                                {{if gt $stage.ErrorCount 0}}
+                                <span class="text-danger ms-1">{{$stage.ErrorCount}} err</span>
+                                {{end}}
+                            </div>
+                        </div>
+                    </div>
+                    {{else}}
+                    <div class="text-center text-muted py-4 w-100">No pipeline stage data yet. Run scans to begin collecting stage telemetry.</div>
+                    {{end}}
+                </div>
+                {{if .Stages}}
+                <div class="text-center text-muted small">
+                    {{icon "info-circle" "me-1"}}Stages ordered by execution start time. First 7 groups run in parallel; Analysis Engine runs sequentially after all data is collected.
+                </div>
+                {{end}}
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        {{icon "chart-bar" "me-2"}}Duration Distribution (30d)
+                    </div>
+                    <div class="card-body">
+                        {{range .Distribution}}
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="text-end me-2" style="min-width: 60px;">
+                                <code class="small">{{.Bucket}}</code>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="dist-bar bg-info" style="width: {{.Count}}%; max-width: 100%;" title="{{.Count}} scans"></div>
+                            </div>
+                            <div class="ms-2 small text-muted" style="min-width: 40px;">{{.Count}}</div>
+                        </div>
+                        {{else}}
+                        <div class="text-center text-muted py-3">No distribution data yet.</div>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-header">
+                        {{icon "exchange-alt" "me-2"}}Drift Severity Distribution (30d)
+                    </div>
+                    <div class="card-body">
+                        {{range .DriftDistribution}}
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="text-end me-2" style="min-width: 70px;">
+                                <span class="badge bg-{{if eq .Severity "critical"}}danger{{else if eq .Severity "warning"}}warning{{else if eq .Severity "danger"}}danger{{else}}info{{end}}">{{.Severity}}</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="dist-bar bg-{{if eq .Severity "critical"}}danger{{else if eq .Severity "warning"}}warning{{else if eq .Severity "danger"}}danger{{else}}info{{end}}" style="width: {{.Count}}%; max-width: 100%;" title="{{.Count}} events"></div>
+                            </div>
+                            <div class="ms-2 small text-muted" style="min-width: 40px;">{{.Count}}</div>
+                        </div>
+                        {{else}}
+                        <div class="text-center text-muted py-3">No drift events in the last 30 days.</div>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{icon "tachometer-alt" "me-2"}}Stage Performance Detail</span>
+                <span class="badge bg-secondary">{{len .Stages}} stages</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>Scans</th>
+                                <th>Avg</th>
+                                <th>P50</th>
+                                <th>P95</th>
+                                <th>P99</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th>Records</th>
+                                <th>Errors</th>
+                                <th>Health</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Stages}}
+                            <tr>
+                                <td>
+                                    <div class="fw-bold small">{{.Label}}</div>
+                                    <div class="text-muted" style="font-size: 0.7rem;">{{.Key}}</div>
+                                </td>
+                                <td>{{.ScanCount}}</td>
+                                <td>{{.AvgMs}}ms</td>
+                                <td>{{.P50Ms}}ms</td>
+                                <td class="{{if gt .P95Ms 5000}}text-danger{{else if gt .P95Ms 3000}}text-warning{{end}}">{{.P95Ms}}ms</td>
+                                <td class="{{if gt .P99Ms 8000}}text-danger{{else if gt .P99Ms 5000}}text-warning{{end}}">{{.P99Ms}}ms</td>
+                                <td>{{.MinMs}}ms</td>
+                                <td>{{.MaxMs}}ms</td>
+                                <td>{{.Records}}</td>
+                                <td>
+                                    {{if gt .ErrorCount 0}}
+                                    <span class="text-danger">{{.ErrorCount}}</span>
+                                    {{else}}
+                                    <span class="text-success">0</span>
+                                    {{end}}
+                                </td>
+                                <td>
+                                    <span class="badge bg-{{.HealthClass}}">
+                                        {{if eq .HealthClass "success"}}Healthy{{else if eq .HealthClass "warning"}}Degraded{{else}}Critical{{end}}
+                                    </span>
+                                </td>
+                            </tr>
+                            {{else}}
+                            <tr>
+                                <td colspan="11" class="text-center text-muted py-4">No stage data available yet.</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                {{icon "chart-bar" "me-2"}}Bottleneck Analysis &mdash; Slowest Tasks (7d)
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th>Phase Group</th>
+                                <th>Task</th>
+                                <th>Avg</th>
+                                <th>P50</th>
+                                <th>P95</th>
+                                <th>P99</th>
+                                <th>Samples</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Slowest}}
+                            <tr>
+                                <td>{{index $.PhaseGroupLabels .PhaseGroup}}</td>
+                                <td><code>{{.PhaseTask}}</code></td>
+                                <td>{{.AvgMs}}ms</td>
+                                <td>{{.P50Ms}}ms</td>
+                                <td class="{{if gt .P95Ms 5000}}text-danger{{else if gt .P95Ms 3000}}text-warning{{end}}">{{.P95Ms}}ms</td>
+                                <td class="{{if gt .P99Ms 8000}}text-danger{{else if gt .P99Ms 5000}}text-warning{{end}}">{{.P99Ms}}ms</td>
+                                <td>{{.SampleCount}}</td>
+                            </tr>
+                            {{else}}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">No bottleneck data available yet.</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                {{icon "microscope" "me-2"}}Pipeline Architecture Reference
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h6 class="text-info mb-3">Execution Order</h6>
+                        <ol class="list-group list-group-numbered list-group-flush">
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">Input &amp; Validation</div>
+                                    <small class="text-muted">Domain parsing, IDN/punycode, devNull detection</small>
+                                </div>
+                                <span class="badge bg-secondary">Sequential</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">Parallel Protocol Collection</div>
+                                    <small class="text-muted">DNS Records, Email Auth, DNSSEC/DANE, CT, SMTP, Policy, Registrar</small>
+                                </div>
+                                <span class="badge bg-info">Parallel</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">Result Assembly</div>
+                                    <small class="text-muted">assembleResults &mdash; merge protocol outputs</small>
+                                </div>
+                                <span class="badge bg-secondary">Sequential</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">Confidence Calibration</div>
+                                    <small class="text-muted">EWMA control charts, calibrated confidence per protocol</small>
+                                </div>
+                                <span class="badge bg-secondary">Sequential</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">ICAE/ICUAE Scoring</div>
+                                    <small class="text-muted">Unified confidence snapshot, maturity assessment</small>
+                                </div>
+                                <span class="badge bg-secondary">Sequential</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">Drift Detection</div>
+                                    <small class="text-muted">ComputePostureDiff, severity classification, notification queue</small>
+                                </div>
+                                <span class="badge bg-secondary">Sequential</span>
+                            </li>
+                            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-start">
+                                <div>
+                                    <div class="fw-bold">Persistence &amp; Side Effects</div>
+                                    <small class="text-muted">saveAnalysis, storeTelemetry, currency recording, SHA3 integrity</small>
+                                </div>
+                                <span class="badge bg-warning text-dark">Async</span>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-lg-6">
+                        <h6 class="text-info mb-3">Quality Gates</h6>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-bold">SHA-3-512 Integrity</span>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <small class="text-muted">Every scan's phase telemetry is hashed; tamper-evident audit trail</small>
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-bold">EWMA Control Charts</span>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <small class="text-muted">5 ICUAE dimensions tracked: TTL Compliance, Resolver Consensus, Source Credibility, Temporal Validity, Chain Completeness</small>
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-bold">Posture Drift Detection</span>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <small class="text-muted">Automatic diff between consecutive scans with severity classification (info/warning/critical)</small>
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-bold">Confidence Calibration</span>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <small class="text-muted">Per-protocol confidence scores (0.0-1.0) based on resolver consensus and data freshness</small>
+                            </div>
+                            <div class="list-group-item bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-bold">Ephemeral Gating</span>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <small class="text-muted">devNull, ephemeral, non-existent domain filtering prevents noise in the dataset</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

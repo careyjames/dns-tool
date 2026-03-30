@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>The Intelligence Agency That Chose to Watch — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Two intelligence agencies have not upgraded to DMARC reject, eight years after the binding directive. Their DNS records suggest this may be deliberate.">
+    <meta property="article:published_time" content="2026-03-19">
+    <meta property="article:modified_time" content="2026-03-20">
+    <meta property="og:url" content="https://dnstool.it-help.tech/case-study/intelligence-dmarc">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Intelligence Agency That Chose to Watch — DNS Tool">
+    <meta property="og:description" content="Two intelligence agencies are the only federal agencies that have not upgraded to DMARC reject. Their DNS records suggest this may be deliberate. All data is from public DNS — verify it yourself.">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/owl-of-athena.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool — Domain Confessions #2">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/case-study/intelligence-dmarc">
+    <meta name="twitter:title" content="The Intelligence Agency That Chose to Watch — DNS Tool">
+    <meta name="twitter:description" content="Two intelligence agencies are the only federal agencies in our survey that have not upgraded to DMARC reject. Their DNS records suggest this may be deliberate.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/owl-of-athena.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/case-study/intelligence-dmarc">
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Domain Confessions #2 — The Intelligence Agency That Chose to Watch",
+        "description": "An investigation into why two U.S. intelligence agencies remain at DMARC quarantine while every other federal agency has implemented reject — and what their DNS configurations reveal about operational priorities.",
+        "datePublished": "2026-03-19",
+        "dateModified": "2026-03-20",
+        "author": {
+            "@type": "Person",
+            "name": "Carey James Balboa",
+            "url": "https://dnstool.it-help.tech/approach",
+            "sameAs": "https://orcid.org/0009-0000-5237-9065"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dnstool.it-help.tech/static/images/owl-of-athena.png"
+            }
+        },
+        "mainEntityOfPage": "https://dnstool.it-help.tech/case-study/intelligence-dmarc"
+    }
+    </script>
+    <style nonce="{{.CspNonce}}">
+        .case-study-wrap {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .cs-section {
+            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(13,17,23,0.6);
+            border: 1px solid rgba(200,149,106,0.1);
+            border-radius: 8px;
+        }
+        .cs-section h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #d4a853;
+            margin-bottom: 0.75rem;
+        }
+        .cs-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #c8956a;
+            margin-top: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .cs-section p, .cs-section li {
+            color: #c9d1d9;
+            line-height: 1.7;
+            font-size: 0.92rem;
+        }
+        .cs-section .emphasis {
+            color: #d4a853;
+            font-weight: 600;
+        }
+        .cs-hook {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #c9d1d9;
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(13,17,23,0.4);
+            border-left: 3px solid #d4a853;
+            border-radius: 0 8px 8px 0;
+        }
+        .cs-hook p {
+            margin-bottom: 0.75rem;
+        }
+        .cs-hook p:last-child {
+            margin-bottom: 0;
+        }
+        .dns-records {
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: rgba(0,0,0,0.35);
+            border-radius: 6px;
+            border: 1px solid rgba(200,149,106,0.08);
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.82rem;
+            color: #7ee787;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        .dns-records .rec-label {
+            color: #8b949e;
+            font-weight: 600;
+        }
+        .dns-records .rec-fail {
+            color: #f85149;
+        }
+        .dns-records .rec-pass {
+            color: #7ee787;
+        }
+        .dns-records .rec-watch {
+            color: #d29922;
+        }
+        .agency-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 0.75rem;
+        }
+        .agency-table th {
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            color: #d4a853;
+            border-bottom: 2px solid rgba(200,149,106,0.2);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .agency-table td {
+            padding: 0.4rem 0.75rem;
+            border-bottom: 1px solid rgba(200,149,106,0.06);
+            color: #c9d1d9;
+            vertical-align: top;
+        }
+        .agency-table tr.highlight-row td {
+            background: rgba(210,153,34,0.08);
+            font-weight: 600;
+        }
+        .badge-reject {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(46,160,67,0.15);
+            color: #7ee787;
+            border: 1px solid rgba(46,160,67,0.3);
+        }
+        .badge-quarantine {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(210,153,34,0.15);
+            color: #d29922;
+            border: 1px solid rgba(210,153,34,0.3);
+        }
+        .badge-yes {
+            display: inline-block;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.72rem;
+            background: rgba(200,149,106,0.12);
+            color: #c8956a;
+        }
+        .badge-no {
+            display: inline-block;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.72rem;
+            background: rgba(139,148,158,0.1);
+            color: #484f58;
+        }
+        .founder-voice {
+            margin-top: 1.25rem;
+            padding: 1rem 1.25rem;
+            background: rgba(200,149,106,0.05);
+            border: 1px solid rgba(200,149,106,0.12);
+            border-radius: 6px;
+            font-style: italic;
+            color: #c8956a;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+        .founder-voice .attribution {
+            font-style: normal;
+            font-size: 0.78rem;
+            color: #8b949e;
+            margin-top: 0.5rem;
+        }
+        .verify-block {
+            margin-top: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: 6px;
+            border: 1px solid rgba(200,149,106,0.08);
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.78rem;
+            color: #8b949e;
+            line-height: 1.9;
+            overflow-x: auto;
+        }
+        .verify-block .cmd {
+            color: #7ee787;
+        }
+        .verify-block .comment {
+            color: #484f58;
+        }
+        .share-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(200,149,106,0.1);
+        }
+        .share-bar-label {
+            font-size: 0.78rem;
+            color: #8b949e;
+            font-weight: 600;
+            margin-right: 0.25rem;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 5px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #c9d1d9;
+            background: rgba(200,149,106,0.08);
+            border: 1px solid rgba(200,149,106,0.15);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+        .share-btn:hover {
+            background: rgba(200,149,106,0.15);
+            border-color: rgba(200,149,106,0.3);
+            color: #d4a853;
+        }
+        .share-copied {
+            background: rgba(46,160,67,0.15);
+            border-color: #2ea043;
+            color: #7ee787;
+        }
+        .video-cta {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .video-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .cta-primary {
+            background: #238636;
+            color: #fff;
+            border: 1px solid #2ea043;
+        }
+        .cta-primary:hover {
+            background: #2ea043;
+        }
+        .cta-secondary {
+            background: transparent;
+            color: #c8956a;
+            border: 1px solid rgba(200,149,106,0.3);
+        }
+        .cta-secondary:hover {
+            border-color: #c8956a;
+            background: rgba(200,149,106,0.08);
+        }
+        .bib-section {
+            font-size: 0.82rem;
+            color: #8b949e;
+            line-height: 1.7;
+        }
+        .bib-section a {
+            color: #c8956a;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="case-study-wrap">
+
+            <p class="mb-1" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#d4a853">Domain Confessions #2</p>
+            <h1 style="font-size:1.5rem;font-weight:700">{{icon "eye" "me-2 text-warning"}}The Intelligence Agency That Chose to Watch</h1>
+            <p style="font-size:0.78rem;color:#8b949e">Published March 19, 2026 &middot; All data from public DNS records &middot; Independently verifiable</p>
+
+            <div class="cs-hook">
+                <p>In October 2017, the Department of Homeland Security issued <strong>Binding Operational Directive 18-01</strong>, requiring every federal executive branch agency to implement DMARC with a policy of <code>p=reject</code> within 90 days.</p>
+                <p>Eight years later, in a survey of 13 major federal agencies and intelligence organizations, every agency has complied. The NSA, the FBI, the State Department, the Secret Service, CISA itself &mdash; all at <code>p=reject</code>.</p>
+                <p>Every agency in our survey except two: <span class="emphasis">the Central Intelligence Agency</span> and the <span class="emphasis">Office of the Director of National Intelligence</span>.</p>
+                <p style="margin-bottom:0">Before you conclude they failed, look at what they <em>are</em> doing.</p>
+            </div>
+
+            <div class="cs-section">
+                <h2>What a Compliance Scanner Would Tell You</h2>
+                <p>Every automated compliance tool on the planet flags <code>cia.gov</code> the same way: <strong>DMARC policy not set to reject. Non-compliant with BOD 18-01.</strong> Medium or high severity. Red badge. Failed.</p>
+                <p>And if you stopped there &mdash; if you took that at face value and moved on &mdash; you would be making the same mistake that most of the security industry makes every day. You would be checking a box without reading the record.</p>
+            </div>
+
+            <div class="cs-section">
+                <h2>Read the Record</h2>
+                <p>Here is the CIA&rsquo;s actual DMARC record, pulled from public DNS on March 19, 2026:</p>
+                <figure class="dns-records" aria-label="CIA DMARC record from public DNS, March 19, 2026">
+                    <span class="rec-label">Host:</span> _dmarc.cia.gov<br>
+                    <span class="rec-label">Record:</span> v=DMARC1; <span class="rec-watch">p=quarantine</span>; <span class="rec-watch">sp=quarantine</span>; pct=100;<br>
+                    &nbsp;&nbsp;rua=mailto:demarcreports@uce.cia.gov;<br>
+                    &nbsp;&nbsp;<span class="rec-pass">ruf=mailto:demarcfailures@uce.cia.gov</span>;<br>
+                    &nbsp;&nbsp;ri=86400; <span class="rec-pass">aspf=s</span>; <span class="rec-pass">adkim=s</span>; <span class="rec-pass">fo=1</span>
+                </figure>
+                <p>Now read it slowly. This is not a misconfiguration. This is a configuration.</p>
+                <ul>
+                    <li><code>p=quarantine</code> &mdash; Spoofed messages are not rejected at the SMTP layer. They are quarantined. The receiving mail server still <em>processes</em> them.</li>
+                    <li><code>ruf=mailto:demarcfailures@uce.cia.gov</code> &mdash; <strong>Forensic failure reports enabled.</strong> Every authentication failure generates a detailed report sent directly to CIA. Most organizations disable <code>ruf</code> because of privacy concerns. CIA wants it.</li>
+                    <li><code>fo=1</code> &mdash; Generate a forensic report if <em>any</em> authentication mechanism fails. Not just when all fail. Maximum forensic coverage.</li>
+                    <li><code>aspf=s; adkim=s</code> &mdash; <strong>Strict</strong> SPF and DKIM alignment. This is <em>harder</em> than the default relaxed mode. More messages will fail alignment. More messages failing alignment means <em>more forensic reports generated</em>.</li>
+                    <li><code>pct=100</code> &mdash; Full coverage. No sampling. Every message is evaluated.</li>
+                    <li><code>ri=86400</code> &mdash; Aggregate reports every 24 hours. Daily intelligence feed.</li>
+                </ul>
+                <p>The strictest possible alignment settings. Forensic reports on any failure. Full coverage. And then &mdash; quarantine instead of reject.</p>
+                <p>This configuration <em>maximizes the telemetry</em> about who is attempting to spoof <code>cia.gov</code>.</p>
+            </div>
+
+            <div class="cs-section">
+                <h2>They Are Not Alone</h2>
+                <p>We surveyed DMARC records across 13 federal agencies and intelligence organizations. Here is what we found:</p>
+                <div style="overflow-x:auto">
+                <table class="agency-table">
+                    <caption style="caption-side:top;text-align:left;font-size:0.78rem;color:#8b949e;padding-bottom:0.5rem">DMARC posture survey of 13 federal agencies and intelligence organizations, March 19, 2026. Highlighted rows indicate agencies at quarantine.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Agency</th>
+                            <th scope="col">Policy</th>
+                            <th scope="col">Forensic Reports</th>
+                            <th scope="col">fo=</th>
+                            <th scope="col">Alignment</th>
+                            <th scope="col">Core Mission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-row">
+                            <td>CIA</td>
+                            <td><span class="badge-quarantine">quarantine</span></td>
+                            <td><span class="badge-yes">ruf= yes</span></td>
+                            <td><span class="badge-yes">fo=1</span></td>
+                            <td>Strict (s/s)</td>
+                            <td>Intelligence Collection</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>ODNI</td>
+                            <td><span class="badge-quarantine">quarantine</span></td>
+                            <td><span class="badge-yes">ruf= yes</span></td>
+                            <td><span class="badge-yes">fo=1</span></td>
+                            <td>Relaxed (r/r)</td>
+                            <td>IC Oversight</td>
+                        </tr>
+                        <tr>
+                            <td>NSA</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-yes">ruf= yes</span></td>
+                            <td><span class="badge-yes">fo=1</span></td>
+                            <td>&mdash;</td>
+                            <td>SIGINT / Cyber Defense</td>
+                        </tr>
+                        <tr>
+                            <td>FBI</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-yes">ruf= yes</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Law Enforcement</td>
+                        </tr>
+                        <tr>
+                            <td>DHS</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-yes">ruf= yes</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Homeland Security</td>
+                        </tr>
+                        <tr>
+                            <td>Treasury</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-yes">ruf= yes</span></td>
+                            <td><span class="badge-yes">fo=1</span></td>
+                            <td>&mdash;</td>
+                            <td>Financial</td>
+                        </tr>
+                        <tr>
+                            <td>CISA</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Cyber Defense (authored BOD 18-01)</td>
+                        </tr>
+                        <tr>
+                            <td>State</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Diplomacy</td>
+                        </tr>
+                        <tr>
+                            <td>Defense</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-yes">fo=1</span></td>
+                            <td>&mdash;</td>
+                            <td>Military</td>
+                        </tr>
+                        <tr>
+                            <td>DIA</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-yes">fo=1</span></td>
+                            <td>&mdash;</td>
+                            <td>Defense Intelligence</td>
+                        </tr>
+                        <tr>
+                            <td>Secret Service</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Protection / Financial Crimes</td>
+                        </tr>
+                        <tr>
+                            <td>NGA</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Geospatial Intelligence</td>
+                        </tr>
+                        <tr>
+                            <td>NRO</td>
+                            <td><span class="badge-reject">reject</span></td>
+                            <td><span class="badge-no">no ruf</span></td>
+                            <td><span class="badge-no">&mdash;</span></td>
+                            <td>&mdash;</td>
+                            <td>Satellite Reconnaissance</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <p class="mt-3">Of the 13 agencies surveyed, two are at quarantine. Both are intelligence collection organizations. Every other agency in our sample &mdash; including agencies with their own intelligence mandates (NSA, DIA, NGA, NRO) &mdash; has moved to reject.</p>
+                <p>The NSA is particularly instructive: they enforce <em>and</em> collect. <code>p=reject</code> with <code>ruf=</code> and <code>fo=1</code>. Their dual mandate (SIGINT collection and cyber defense via CSS/CNMF) is reflected in a configuration that rejects spoofed mail but still harvests forensic intelligence about the attempts. But the CIA and ODNI chose differently.</p>
+            </div>
+
+            <div class="cs-section">
+                <h2>The Operational Security Perspective</h2>
+                <p>We are not inside the CIA. We cannot confirm intent. What we can do is read public DNS records and observe what the configuration does.</p>
+                <p>Here is what <code>p=quarantine</code> does that <code>p=reject</code> does not:</p>
+                <ul>
+                    <li>With <code>p=reject</code>, the receiving mail server drops the message at the SMTP level. The message is never processed. Some receiving servers may not generate forensic reports for rejected messages &mdash; the transaction ends before the data that populates a forensic report is fully available.</li>
+                    <li>With <code>p=quarantine</code>, the receiving mail server accepts the message, processes it, and moves it to quarantine (spam/junk). The message is processed far enough for the receiver to generate a detailed forensic report including headers, alignment results, and authentication outcomes.</li>
+                </ul>
+                <p>If your core mission is to understand <em>who is attempting to impersonate your domain, what infrastructure they are using, and how their operations evolve</em> &mdash; quarantine preserves that visibility. Reject can reduce it.</p>
+                <p>Combine this with strict alignment (<code>aspf=s; adkim=s</code>), which is <em>harder</em> than the default and causes more messages to fail alignment, and <code>fo=1</code>, which generates forensic reports on any single mechanism failure, and the result is a configuration optimized for maximum forensic intelligence collection.</p>
+
+                <h3>The SPF Question</h3>
+                <p>CIA&rsquo;s SPF record is <code>v=spf1 mx -all</code> &mdash; the tightest possible configuration. Only their own mail servers are authorized; everything else is a hard fail. A reasonable question arises: RFC 7489 notes that <code>-all</code> can cause some receiving servers to reject messages during the SMTP transaction, <em>before</em> DKIM is evaluated and before DMARC can assess the result. If CIA depends on DMARC forensic reports, does <code>-all</code> break that?</p>
+                <p>In practice, no. DMARC forensic reports are generated by <em>receiving</em> mail servers &mdash; Gmail, Microsoft 365, Yahoo, and other major providers that handle the vast majority of global email. These modern implementations evaluate DMARC fully (including DKIM) before making a disposition decision, regardless of the SPF result. The receivers that might reject prematurely on <code>-all</code> are typically older or custom SMTP implementations that would not generate DMARC forensic reports in any case.</p>
+                <p>The result: <code>mx -all</code> combined with <code>p=quarantine</code> and strict alignment creates a layered posture. SPF provides the tightest possible sender authorization. DMARC provides the monitoring layer that captures forensic intelligence about authentication failures. The two mechanisms complement rather than conflict &mdash; the <code>-all</code> hardens the perimeter while <code>quarantine</code> preserves the visibility window with the receivers that matter.</p>
+
+                <h3>The Legal Context</h3>
+                <p>BOD 18-01 applies to federal executive branch agencies. The CIA operates under unique presidential authorities established by the National Security Act of 1947 and Executive Order 12333. Whether BOD 18-01 applies to the CIA in the same way it applies to other executive agencies is a question of legal authority, not technical compliance. The CIA reports directly to the President and has operational authorities that other agencies do not.</p>
+                <p>ODNI, as the coordinator of the entire Intelligence Community, occupies a similar position of authority over intelligence operations.</p>
+            </div>
+
+            <div class="cs-section">
+                <h2>How I Got Here</h2>
+                <div class="founder-voice">
+                    <p>In 2020, when I started building DNS Tool, one of the first things I did was pull the DNS records of government agencies. My reasoning was simple: the CIA is a national intelligence agency. They have to be good at security. If I can learn from their configurations, I should.</p>
+                    <p>So I started investigating. Everything I found that looked like best practice, I implemented on my own domains. SPF hard fail. DMARC reject. DNSSEC. CAA. MTA-STS. I modeled my security posture after the agencies that take this seriously.</p>
+                    <p>Years later, when I built the ICSAE &mdash; the Intelligence Compliance and Standards Assessment Engine &mdash; the engine flagged cia.gov for not having DMARC reject. And my first reaction was the same as anyone&rsquo;s: &ldquo;Even the CIA messed this up?&rdquo;</p>
+                    <p>But I sat with it. I looked at the full record. And it hit me. The strict alignment. The forensic reports. The report-on-any-failure flag. This is not a misconfiguration. This is a posture. They are the Central Intelligence Agency. Their directive &mdash; their reason for existing &mdash; is intelligence collection. Of course they want to watch.</p>
+                    <p>The lesson I took from this changed how I think about compliance: a rigid checklist that stamps &ldquo;FAIL&rdquo; on a deliberately chosen security posture is not doing security analysis. It is doing checkbox validation. And those are very different things.</p>
+                    <div class="attribution">&mdash; Carey James, Founder &middot; DNS Tool</div>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <h2>The Lesson for Every Domain Owner</h2>
+                <p>We are not suggesting that you weaken your DMARC policy. For the vast majority of domains, <code>p=reject</code> is the correct posture. It protects your brand, your users, and your reputation.</p>
+                <p>What we are suggesting is this:</p>
+                <ol>
+                    <li><strong>Read the record, not just the badge.</strong> A compliance scanner that says &ldquo;FAIL&rdquo; is giving you a data point, not a conclusion. The conclusion requires context.</li>
+                    <li><strong>Understand the tradeoff.</strong> Enforcement protects. Monitoring reveals. Both have value. The question is which serves your mission.</li>
+                    <li><strong>Understand the forensic reporting landscape.</strong> The <code>ruf=</code> tag requests forensic failure reports, and the agencies that are serious about understanding their threat landscape enable it. However, RFC 7489 &sect;7.3 warns that forensic reports can expose PII, and major consumer mailbox providers &mdash; Google, Microsoft, and Yahoo &mdash; do not honor <code>ruf=</code> requests. The DMARCbis draft has formally removed <code>ruf=</code> from the specification. For the CIA, this limitation may matter less: intelligence agencies communicate with government, military, and contractor mail systems that <em>do</em> generate forensic reports &mdash; and those are exactly the senders they want telemetry about. The lesson is contextual: <code>ruf=</code> is not universally effective, but it is not universally dead either. Its value depends on who sends mail to your domain.</li>
+                    <li><strong>Strict alignment is underused.</strong> <code>aspf=s; adkim=s</code> is harder to configure correctly, but it eliminates ambiguity. If the agencies that handle classified information use strict alignment, it is worth your consideration.</li>
+                </ol>
+            </div>
+
+            <div class="cs-section">
+                <h2>Why This Matters for DNS Tool</h2>
+                <p>This investigation is why we built the <strong>ICSAE &mdash; Intelligence Compliance and Standards Assessment Engine</strong>. A rigid compliance checker would flag CIA as &ldquo;failed&rdquo; and move on. Our engine is designed to report both axes:</p>
+                <ul>
+                    <li><strong>Normative result:</strong> Does the record meet the stated standard? (In this case: no, per BOD 18-01.)</li>
+                    <li><strong>Contextual interpretation:</strong> Is there evidence that the configuration is deliberate? (In this case: the combination of strict alignment, forensic reporting, and full-coverage monitoring is consistent with a telemetry-optimized posture.)</li>
+                </ul>
+                <p>Both answers are true simultaneously. The record does not meet BOD 18-01 requirements. And the record is configured in a way that is consistent with deliberate intelligence collection. These are not contradictory statements &mdash; they are two dimensions of the same observation.</p>
+                <p>That is what intelligence analysis looks like. Not a checkbox. A calibrated assessment with cited evidence and stated confidence.</p>
+            </div>
+
+            <div class="cs-section">
+                <h2>Verify It Yourself</h2>
+                <p>Every observation in this case study is derived from public DNS records. You can reproduce every finding with standard tools:</p>
+                <figure class="verify-block" aria-label="DNS verification commands for reproducing findings">
+                    <span class="comment"># CIA DMARC record</span><br>
+                    <span class="cmd">dig TXT _dmarc.cia.gov +short</span><br><br>
+                    <span class="comment"># ODNI DMARC record</span><br>
+                    <span class="cmd">dig TXT _dmarc.dni.gov +short</span><br><br>
+                    <span class="comment"># NSA (reject + forensic reports)</span><br>
+                    <span class="cmd">dig TXT _dmarc.nsa.gov +short</span><br><br>
+                    <span class="comment"># FBI</span><br>
+                    <span class="cmd">dig TXT _dmarc.fbi.gov +short</span><br><br>
+                    <span class="comment"># CISA (authored BOD 18-01)</span><br>
+                    <span class="cmd">dig TXT _dmarc.cisa.gov +short</span><br><br>
+                    <span class="comment"># Compare any agency</span><br>
+                    <span class="cmd">dig TXT _dmarc.[agency].gov +short</span>
+                </figure>
+                <p class="mt-2" style="font-size:0.82rem;color:#8b949e">DNS records are public by design. The Domain Name System is an open, distributed, queryable database. That is not an accident. It is the architecture.</p>
+            </div>
+
+            <div class="cs-section bib-section">
+                <h2>References</h2>
+                <ul>
+                    <li>DHS Binding Operational Directive 18-01, &ldquo;Enhance Email and Web Security,&rdquo; October 16, 2017. <a href="https://www.cisa.gov/news-events/directives/bod-18-01-enhance-email-and-web-security" target="_blank" rel="noopener">cisa.gov/news-events/directives/bod-18-01</a></li>
+                    <li>Kucherawy, M. and Zwicky, E., &ldquo;Domain-based Message Authentication, Reporting, and Conformance (DMARC),&rdquo; RFC 7489 (Informational, March 2015). <a href="https://datatracker.ietf.org/doc/html/rfc7489" target="_blank" rel="noopener">datatracker.ietf.org/doc/html/rfc7489</a></li>
+                    <li>Kitterman, S., &ldquo;Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1,&rdquo; RFC 7208 (Proposed Standard, April 2014). <a href="https://datatracker.ietf.org/doc/html/rfc7208" target="_blank" rel="noopener">datatracker.ietf.org/doc/html/rfc7208</a></li>
+                    <li>National Security Act of 1947, 50 U.S.C. &sect;&sect; 3001&ndash;3234.</li>
+                    <li>Executive Order 12333, &ldquo;United States Intelligence Activities,&rdquo; December 4, 1981 (as amended).</li>
+                    <li>draft-ietf-dmarc-dmarcbis, &ldquo;Domain-based Message Authentication, Reporting, and Conformance (DMARC),&rdquo; IETF Working Group Draft. <a href="https://datatracker.ietf.org/doc/draft-ietf-dmarc-dmarcbis/" target="_blank" rel="noopener">datatracker.ietf.org/doc/draft-ietf-dmarc-dmarcbis</a></li>
+                </ul>
+            </div>
+
+            <div class="cs-section">
+                <div class="share-bar" style="border-top:none;padding-top:0;margin-top:0">
+                    <span class="share-bar-label">{{icon "share-alt"}} Share:</span>
+                    <button type="button" class="share-btn" id="copyLinkBtn"><span aria-hidden="true">{{icon "link"}}</span> Copy Link</button>
+                    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdnstool.it-help.tech%2Fcase-study%2Fintelligence-dmarc&text=Domain%20Confessions%20%232%3A%20Two%20intelligence%20agencies%20are%20the%20only%20federal%20agencies%20that%20haven%27t%20upgraded%20to%20DMARC%20reject.%20Their%20DNS%20records%20suggest%20why." class="share-btn" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">{{icon "twitter"}}</span> Post</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdnstool.it-help.tech%2Fcase-study%2Fintelligence-dmarc" class="share-btn" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">{{icon "linkedin"}}</span> Share</a>
+                    <a href="mailto:?subject=Domain%20Confessions%20%232%20%E2%80%94%20The%20Intelligence%20Agency%20That%20Chose%20to%20Watch&body=Two%20intelligence%20agencies%20are%20the%20only%20federal%20agencies%20that%20haven%27t%20upgraded%20to%20DMARC%20reject.%20Their%20DNS%20records%20suggest%20this%20may%20be%20deliberate.%0A%0Ahttps%3A%2F%2Fdnstool.it-help.tech%2Fcase-study%2Fintelligence-dmarc" class="share-btn"><span aria-hidden="true">{{icon "envelope"}}</span> Email</a>
+                </div>
+                <div class="video-cta">
+                    <a href="/" class="cta-primary">{{icon "search"}} Scan Your Domain</a>
+                    <a href="/approach" class="cta-secondary">{{icon "flask"}} Our Methodology</a>
+                    <a href="/video/forgotten-domain" class="cta-secondary">{{icon "film"}} Domain Confessions #1</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    (function() {
+        let btn = document.getElementById('copyLinkBtn');
+        if (!btn) return;
+        btn.addEventListener('click', function() {
+            let url = 'https://dnstool.it-help.tech/case-study/intelligence-dmarc';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function() {
+                    btn.classList.add('share-copied');
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('share-copied');
+                        btn.innerHTML = '{{icon "link"}} Copy Link';
+                    }, 2000);
+                });
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

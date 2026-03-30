@@ -1,0 +1,50 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Report rdf:about="https://datatracker.ietf.org/doc/draft-ietf-aipref-attach-04">
+        <z:itemType>report</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Internet Engineering Task Force</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Illyes</foaf:surname>
+                        <foaf:givenName>Gary</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Thomson</foaf:surname>
+                        <foaf:givenName>Martin</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dcterms:isReferencedBy rdf:resource="#item_183"/>
+        <dc:title>Associating AI Usage Preferences with Content in HTTP</dc:title>
+        <dcterms:abstract>Content creators and other stakeholders might wish to signal their preferences about how their content might be consumed by automated systems. This document defines how preferences can be signaled as part of the acquisition of content in HTTP. This document updates RFC 9309 to allow for the inclusion of usage preferences.</dcterms:abstract>
+        <dc:date>2025-10-28</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://datatracker.ietf.org/doc/draft-ietf-aipref-attach-04</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:10:43</dcterms:dateSubmitted>
+        <z:libraryCatalog>IETF</z:libraryCatalog>
+        <dc:description>Num Pages: 10</dc:description>
+        <prism:number>draft-ietf-aipref-attach-04</prism:number>
+        <z:type>Internet Draft</z:type>
+    </bib:Report>
+    <bib:Memo rdf:about="#item_183">
+       <rdf:value>&lt;p&gt;Work in Progress&lt;/p&gt;</rdf:value>
+    </bib:Memo>
+</rdf:RDF>

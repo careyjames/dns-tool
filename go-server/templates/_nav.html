@@ -1,0 +1,152 @@
+{{define "nav"}}
+<a href="#main-content" class="u-skip-link">Skip to main content</a>
+<nav class="navbar navbar-dark bg-dark" aria-label="Main navigation">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{{staticVersionURL "icons/icon-48x48.webp" .AppVersion}}" width="32" height="32" alt="DNS Tool" class="navbar-brand-owl rounded-circle" loading="eager" decoding="sync" fetchpriority="high">
+            <span class="navbar-brand-text">
+                <span class="navbar-brand-name">DNS Tool</span>
+                <span class="nav-version-badge">v{{.AppVersion}}</span>
+            </span>
+        </a>
+        <div class="u-nav-controls d-flex align-items-center ms-auto gap-2">
+            {{if .MaintenanceNote}}<span class="u-maintenance-tag">{{icon "wrench" "me-1"}}{{.MaintenanceNote}}</span>{{end}}
+            <span class="u-covert-beta-tag">Beta</span>
+            <button class="btn btn-link u-covert-toggle p-0" type="button" id="covertToggle" title="Covert Recon Mode — adversarial lens for offensive awareness" aria-pressed="false">
+                <span class="visually-hidden">Covert Recon Mode</span>{{icon "biohazard"}}
+            </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false">
+                <span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "home"}} active{{end}}" href="/">
+                        {{icon "search" "me-1"}}Analyze
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "history"}} active{{end}}" href="/history">
+                        {{icon "history" "me-1"}}History
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "ttl-tuner"}} active{{end}}" href="/ttl-tuner" title="TTL Tuner — optimize DNS TTL values for speed and reliability">
+                        {{icon "sliders-h" "me-1"}}TTL Tuner{{if index .BetaPages "ttl-tuner"}} <span class="u-beta-tag ms-1">Beta</span>{{end}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "investigate"}} active{{end}}" href="/investigate" title="IP Intelligence — investigate IP addresses">
+                        {{icon "route" "me-1"}}IP Intel{{if index .BetaPages "investigate"}} <span class="u-beta-tag ms-1">Beta</span>{{end}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "email-header"}} active{{end}}" href="/email-header" title="Email Intelligence — analyze email headers">
+                        {{icon "envelope" "me-1"}}Email Intel{{if index .BetaPages "email-header"}} <span class="u-beta-tag ms-1">Beta</span>{{end}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "remediation"}} active{{end}}" href="/remediation" title="Remediation Workspace — copy-paste DNS records to fix security issues">
+                        {{icon "wrench" "me-1"}}Remediation
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "toolkit"}} active{{end}}" href="/toolkit" title="Field Tech Toolkit — guided network troubleshooting">
+                        {{icon "tools" "me-1"}}Toolkit{{if index .BetaPages "toolkit"}} <span class="u-beta-tag ms-1">Beta</span>{{end}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "stats"}} active{{end}}" href="/stats">
+                        {{icon "chart-bar" "me-1"}}Statistics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "ede"}} active{{end}}" href="/ede" title="Model Integrity — Epistemic Disclosure Events">
+                        {{icon "microscope" "me-1"}}Model Integrity
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{{if eq .ActivePage "sources"}} active{{end}}" href="/sources">
+                        {{icon "diagram-project" "me-1"}}Sources
+                    </a>
+                </li>
+                {{if .GoogleAuthEnabled}}
+                <li class="nav-item">
+                    {{if .Authenticated}}
+                    <div class="dropdown">
+                        <button class="nav-link dropdown-toggle btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{icon "user-shield" "me-1"}}{{.UserName}}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                            {{if eq .UserRole "admin"}}
+                            <li><span class="dropdown-item-text text-info small">{{icon "shield" "me-1"}}Administrator</span></li>
+                            <li><a class="dropdown-item" href="/ops">{{icon "tachometer-alt" "me-1"}}Admin Dashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            {{end}}
+                            {{if .HasFeatureDossier}}
+                            <li><a class="dropdown-item" href="/dossier">{{icon "briefcase" "me-1"}}Intelligence Reports</a></li>
+                            {{end}}
+                            {{if .HasFeatureZoneUpload}}
+                            <li><a class="dropdown-item" href="/zone">{{icon "upload" "me-1"}}Zone File Import</a></li>
+                            {{end}}
+                            <li><hr class="dropdown-divider"></li>
+                            <li><form method="POST" action="/auth/logout" class="m-0"><input type="hidden" name="csrf_token" value="{{.CsrfToken}}"><button type="submit" class="dropdown-item">{{icon "arrow-right" "me-1"}}Sign Out</button></form></li>
+                        </ul>
+                    </div>
+                    {{else}}
+                    <a class="nav-link" href="/auth/login">
+                        {{icon "key" "me-1"}}Sign In
+                    </a>
+                    {{end}}
+                </li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="roeModal" tabindex="-1" aria-labelledby="roeModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" inert>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down modal-lg">
+        <div class="modal-content bg-dark border border-danger border-opacity-50">
+            <div class="modal-header border-bottom border-danger border-opacity-25">
+                <h2 class="modal-title h5" id="roeModalLabel">{{icon "shield-alt" "text-danger me-2"}}Rules of Engagement</h2>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <picture><source srcset="{{staticVersionURL "images/owl-of-athena-160.webp" .AppVersion}}" type="image/webp"><img src="{{staticVersionURL "images/owl-of-athena-160.png" .AppVersion}}" alt="Owl of Athena" width="80" height="80" class="u-rounded-circle u-opacity-85"></picture>
+                </div>
+                <div class="mb-3 p-3 rounded u-roe-warning-box">
+                    <p class="mb-2 fw-semibold">{{icon "biohazard" "text-danger me-2"}}Covert Recon Mode activates an adversarial lens.</p>
+                    <p class="small text-muted mb-0">This mode presents DNS intelligence from an offensive-awareness perspective. It is designed for security professionals, researchers, and anyone who wants to understand how attackers evaluate targets. No additional scanning or probing is performed beyond what the standard analysis already does.</p>
+                </div>
+                <div class="mb-3">
+                    <h3 class="text-uppercase small fw-semibold text-muted mb-2">{{icon "check-circle" "text-success me-2"}}What You May Do</h3>
+                    <ul class="small mb-0">
+                        <li>Analyze any domain — DNS records are public by design and every query is a standard lookup</li>
+                        <li>Use findings to strengthen your own security posture or advise others</li>
+                        <li>Learn how DNS infrastructure is evaluated from an adversarial perspective</li>
+                        <li>Report vulnerabilities you discover in DNS Tool itself (<a href="/security-policy" class="text-info">Safe Harbor Policy</a>)</li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <h3 class="text-uppercase small fw-semibold text-muted mb-2">{{icon "gavel" "text-warning me-2"}}What You May Not Do</h3>
+                    <ul class="small mb-0">
+                        <li>Use intelligence gathered here to attack, disrupt, or exploit any system</li>
+                        <li>Attempt denial-of-service, traffic flooding, or resource exhaustion</li>
+                        <li>Conduct social engineering, phishing, or unauthorized red-team activity</li>
+                        <li>Access, modify, or exfiltrate data beyond what is publicly observable via DNS</li>
+                    </ul>
+                </div>
+                <div class="p-2 rounded small u-roe-footer-box">
+                    {{icon "handshake" "text-info me-2"}}
+                    <strong>Good faith matters.</strong> DNS records are public by design. Every query this tool makes is a standard lookup that any mail server or resolver performs millions of times daily. We built Covert Recon Mode so you can learn to think like a defender. Use it that way.
+                </div>
+            </div>
+            <div class="modal-footer border-top border-danger border-opacity-25">
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="roeDecline">Decline</button>
+                <button type="button" class="btn btn-danger btn-sm" id="roeAccept">{{icon "shield-alt" "me-1"}}Accept &amp; Enter Covert Mode</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

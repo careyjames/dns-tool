@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_lcp_preload" .}}
+    <title>Security Policy &amp; Vulnerability Disclosure — DNS Tool</title>
+    <meta name="description" content="Security Policy and Vulnerability Disclosure for DNS Tool. Report security issues, authorized testing, scope, and safe harbor.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/security-policy">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Security Policy &amp; Vulnerability Disclosure — DNS Tool">
+    <meta property="og:description" content="Security Policy and Vulnerability Disclosure for DNS Tool by IT Help San Diego Inc. How to report security issues, authorized testing, scope, safe harbor, and response commitments.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Security Policy">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/security-policy">
+    <meta name="twitter:title" content="Security Policy &amp; Vulnerability Disclosure — DNS Tool">
+    <meta name="twitter:description" content="Security Policy and Vulnerability Disclosure for DNS Tool by IT Help San Diego Inc. How to report security issues, authorized testing, scope, safe harbor, and response commitments.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/security-policy">
+    <meta property="article:published_time" content="2025-06-01">
+    <meta property="article:modified_time" content="2026-03-20">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="text-center mb-4">
+                    <h1 class="h2">{{icon "shield-halved" "me-2 text-info"}}Security Policy</h1>
+                    <p class="text-muted lead">If you believe you found a security issue in systems operated by IT Help San Diego Inc., please report it responsibly.</p>
+                    <p class="text-muted small">Last updated: February 21, 2026</p>
+                </div>
+
+                <div class="card bg-dark border-info mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "bullhorn" "me-2 text-info"}}Contact</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <strong class="text-info">Email</strong><br>
+                                <a href="mailto:security@it-help.tech" class="text-info">security@it-help.tech</a><br>
+                                <span class="text-muted small">Suggested subject: <em>Security Report &mdash; &lt;brief summary&gt;</em></span>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <strong class="text-info">security.txt</strong><br>
+                                <a href="/.well-known/security.txt" class="text-info">/.well-known/security.txt</a> <span class="text-muted small">(RFC 9116)</span>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-0 mt-2">Preferred language: English. If you need a different secure reporting channel, request one in your initial email.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "clipboard-list" "me-2 text-info"}}What To Include</h5>
+                        <p class="small">Please include enough detail for reliable triage:</p>
+                        <ul class="small">
+                            <li>A clear description of the issue and impact</li>
+                            <li>Exact URL(s), endpoint(s), or component(s) affected</li>
+                            <li>Reproduction steps and any prerequisites</li>
+                            <li>Proof of concept, logs, or screenshots (when safe to share)</li>
+                            <li>Your contact information for follow-up</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "crosshairs" "me-2 text-warning"}}Scope</h5>
+                        <p>This policy applies to internet-facing assets owned and operated by IT Help San Diego Inc.:</p>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Asset</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>dnstool.it-help.tech</code></td>
+                                        <td>Web Application (DNS Tool)</td>
+                                        <td><span class="badge bg-success">In Scope</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>www.it-help.tech</code></td>
+                                        <td>Corporate Website</td>
+                                        <td><span class="badge bg-success">In Scope</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>it-help.tech</code></td>
+                                        <td>Domain &amp; DNS Infrastructure</td>
+                                        <td><span class="badge bg-success">In Scope</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>*.it-help.tech</code></td>
+                                        <td>All Subdomains</td>
+                                        <td><span class="badge bg-success">In Scope</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-muted small">If you report an issue in third-party infrastructure, include evidence showing how it directly affects our operated assets.</p>
+                        <p class="text-muted small mb-0">If your assessment is part of a formally authorized program (government, regulatory, or contracted), include the authorization reference so we can route it correctly.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "user-shield" "me-2 text-success"}}Authorized Security Testing</h5>
+                        <p>IT Help San Diego participates in recurring external security assessments, including <strong>CISA Cyber Hygiene scanning</strong> and other explicitly authorized testing engagements.</p>
+                        <p class="small">Activities that may otherwise be out of scope are permitted when authorization exists in writing (for example: program agreement, statement of work, or rules of engagement).</p>
+                        <p class="small mb-2">Authorized testing may include:</p>
+                        <ul class="small">
+                            <li>Phishing or social engineering exercises</li>
+                            <li>Red-team activity</li>
+                            <li>Controlled active testing that is agreed in advance</li>
+                        </ul>
+                        <p class="text-muted small mb-0">For authorized engagements, follow the signed rules of engagement and designated escalation channels.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "handshake" "me-2 text-success"}}Safe Harbor</h5>
+                        <div class="alert alert-success bg-transparent border-success small mb-3">
+                            {{icon "check-circle" "me-1"}}
+                            If you act in good faith and follow this policy, we will treat your research as <strong>authorized for coordinated vulnerability disclosure</strong> and will not pursue legal action for your report.
+                        </div>
+                        <p class="small">This policy does not limit or override permissions granted under separate written government, regulatory, or contractual testing agreements.</p>
+                        <p class="small mb-2">Good-faith testing means:</p>
+                        <ul class="small">
+                            <li>Avoiding privacy violations, data destruction, and service disruption</li>
+                            <li>Accessing only the minimum data required to demonstrate the issue</li>
+                            <li>Stopping testing after obtaining proof and reporting promptly</li>
+                            <li>Not sharing, retaining, or reusing any non-public data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "ban" "me-2 text-danger"}}Out of Scope</h5>
+                        <p class="small">The following are generally out of scope unless there is demonstrable business impact:</p>
+                        <ul class="small">
+                            <li>Social engineering, phishing, or red-team activity <strong>without explicit written authorization</strong></li>
+                            <li>Physical attacks or local network attacks requiring physical access, unless expressly authorized in writing</li>
+                            <li>Denial-of-service (DoS/DDoS), traffic flooding, or resource exhaustion testing, unless expressly authorized in writing with defined scope, windows, and safeguards</li>
+                            <li>Vulnerabilities that depend on outdated/unpatched client software with no direct server-side impact</li>
+                            <li>Reports without reproducible evidence</li>
+                            <li>Findings from domains analyzed <em>by</em> DNS Tool (those belong to their respective owners)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "clock" "me-2 text-info"}}Response Targets</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <span class="d-block h3 text-info mb-1">3 days</span>
+                                    <small class="text-muted">Initial acknowledgment</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <span class="d-block h3 text-info mb-1">10 days</span>
+                                    <small class="text-muted">Triage / status update</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <span class="d-block h3 text-warning mb-1">Risk-based</span>
+                                    <small class="text-muted">Remediation timeline</small>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-0">Remediation timeline is risk-based and dependent on complexity. We will keep you informed throughout the process.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "arrows-rotate" "me-2 text-info"}}Public Disclosure</h5>
+                        <p class="small mb-0">Please do not publicly disclose vulnerabilities until remediation is complete or a coordinated timeline is agreed upon in writing.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "trophy" "me-2 text-warning"}}Bug Bounty</h5>
+                        <p class="small mb-0">IT Help San Diego Inc. does not currently operate a paid bug bounty program.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4" id="privacy-pledge">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "envelope" "me-2 text-success"}}Privacy Pledge</h5>
+                        <div class="alert alert-success bg-transparent border-success small mb-3">
+                            {{icon "shield-halved" "me-1"}}
+                            <strong>Analyze without an account.</strong> Every core scan works without signing in. Optional Google sign-in unlocks personal features like scan history, watchlists, and domain dossiers.
+                        </div>
+                        <p class="small text-muted mb-3">We run a consultancy serving high-profile clients. They hear from us when we answer their questions, send their invoices, or confirm their appointments. That&rsquo;s it. No newsletters, no promotions, no noise. That same discipline applies here.</p>
+                        <ul class="small">
+                            <li><strong>No marketing email</strong> &mdash; we don&rsquo;t send newsletters, promotions, or drip campaigns.</li>
+                            <li><strong>No mailing lists</strong> &mdash; signing in does not subscribe you to anything.</li>
+                            <li><strong>No account required</strong> &mdash; every core analysis works without logging in. If you choose to sign in via Google, we store only your name and email for authentication.</li>
+                            <li><strong>Service-critical notices only</strong> &mdash; if we ever need to contact you (security advisory, breaking change, or account issue), it will be rare, justified, and directly relevant to your use of the tool.</li>
+                            <li><strong>Opt-in only</strong> &mdash; if we add product update notifications in the future, they will require your explicit consent and can be disabled at any time.</li>
+                            <li><strong>No third-party data sharing</strong> &mdash; your information stays here. We don&rsquo;t feed it to analytics platforms, ad networks, or data brokers.</li>
+                        </ul>
+                        <p class="text-muted small mb-0">{{icon "info-circle" "me-1"}}This pledge reflects our current practices. If our business model evolves, any changes to communication practices will require your explicit opt-in consent.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "shield" "me-2 text-info"}}Security Practices</h5>
+                        <p>DNS Tool is built with security as a core principle:</p>
+                        <ul class="small">
+                            <li><strong>Google OAuth 2.0 with PKCE</strong> &mdash; no passwords stored, no credentials to compromise</li>
+                            <li><strong>No tracking cookies</strong> &mdash; minimal data collection reduces attack surface</li>
+                            <li><strong>Content Security Policy (CSP)</strong> with per-request nonces on all pages</li>
+                            <li><strong>CSRF protection</strong> on all state-changing operations</li>
+                            <li><strong>Rate limiting</strong> to prevent abuse</li>
+                            <li><strong>SSRF hardening</strong> &mdash; internal network ranges blocked on outbound requests</li>
+                            <li><strong>Input validation</strong> &mdash; domain names validated and sanitized before processing</li>
+                            <li><strong>HTTPS enforced</strong> with HSTS and secure headers</li>
+                            <li><strong>Open-core</strong> &mdash; application framework is publicly available for review on <a href="https://github.com/IT-Help-San-Diego/dns-tool" class="text-info" target="_blank" rel="noopener">GitHub</a> under <a href="https://github.com/IT-Help-San-Diego/dns-tool/blob/main/LICENSE" class="text-info" target="_blank" rel="noopener">BUSL-1.1</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card bg-dark border-secondary mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{icon "file-lines" "me-2 text-info"}}security.txt</h5>
+                        <p class="small mb-2">Machine-readable reporting details are published at:</p>
+                        <ul class="small mb-0">
+                            <li><a href="/.well-known/security.txt" class="text-info">https://dnstool.it-help.tech/.well-known/security.txt</a></li>
+                            <li><a href="/security.txt" class="text-info">https://dnstool.it-help.tech/security.txt</a></li>
+                            <li><a href="https://www.it-help.tech/.well-known/security.txt" class="text-info" target="_blank" rel="noopener">https://www.it-help.tech/.well-known/security.txt</a></li>
+                            <li><a href="https://www.it-help.tech/security.txt" class="text-info" target="_blank" rel="noopener">https://www.it-help.tech/security.txt</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="text-center text-muted small mt-4 mb-3">
+                    <p>This policy may be updated periodically. The current version is always available at this URL and at <a href="https://www.it-help.tech/security-policy" class="text-info" target="_blank" rel="noopener">www.it-help.tech/security-policy</a>.</p>
+                    <p class="mb-0">
+                        <a href="/.well-known/security.txt" class="text-info me-3">{{icon "file-code" "me-1"}}security.txt</a>
+                        <a href="/sources" class="text-info me-3">{{icon "diagram-project" "me-1"}}Intelligence Sources</a>
+                        <a href="https://www.it-help.tech" class="text-info" target="_blank" rel="noopener">{{icon "globe" "me-1"}}IT Help San Diego Inc.</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

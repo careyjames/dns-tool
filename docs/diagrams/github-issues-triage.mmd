@@ -1,0 +1,44 @@
+%%{ init: { 'theme': 'dark', 'themeVariables': { 'primaryColor': '#1e3a5f', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#58a6ff', 'lineColor': '#58a6ff', 'secondaryColor': '#0c1018', 'tertiaryColor': '#111720', 'fontSize': '14px' } } }%%
+graph TD
+    NEW["<b>New Issue</b><br/><i>Template required</i><br/><i>Blank issues disabled</i>"]:::blue
+
+    subgraph templates["Issue Templates"]
+        direction LR
+        T1["<b>Research Mission Critical</b><br/><i>RFC citation required</i><br/><i>Confidence impact</i><br/><i>Reproduction steps</i>"]:::danger
+        T2["<b>Cosmetic / UX / UI</b><br/><i>Screenshot required</i><br/><i>Device &amp; viewport</i><br/><i>Accessibility impact</i>"]:::amber
+        T3["<b>Security Vulnerability</b><br/><i>STOP — private only</i><br/><i>Auto-close &amp; lock</i>"]:::purple
+    end
+
+    subgraph automation["GitHub Actions Triage"]
+        direction TB
+        VALIDATE["<b>Content Validation</b><br/><i>RFC ref · Expected/Observed</i><br/><i>Confidence impact check</i>"]:::cyan
+        SCAN_SEC["<b>Security Scanner</b><br/><i>Keyword detection</i><br/><i>Cross-template guard</i>"]:::purple
+    end
+
+    subgraph states["Triage States"]
+        direction LR
+        NEEDS["<b>needs-triage</b>"]:::gray
+        ACCEPTED["<b>triage/accepted</b>"]:::green
+        NEEDSINFO["<b>triage/needs-information</b>"]:::amber
+        SECREVIEW["<b>needs-security-review</b>"]:::purple
+    end
+
+    NEW --> T1
+    NEW --> T2
+    NEW --> T3
+
+    T1 -->|"P0 label"| VALIDATE
+    T2 -->|"UX label"| ACCEPTED
+    T3 -->|"Auto-close"| REDIRECT["<b>Private Channel</b><br/><i>Security Advisory</i><br/><i>security@it-help.tech</i>"]:::purple
+
+    VALIDATE -->|"Substantive"| ACCEPTED
+    VALIDATE -->|"Incomplete"| NEEDSINFO
+    SCAN_SEC -->|"Vuln keywords"| SECREVIEW
+
+    classDef blue fill:#1a3a6b,stroke:#60a5fa,stroke-width:2px,color:#e6edf3
+    classDef cyan fill:#0a3a4a,stroke:#22d3ee,stroke-width:2px,color:#e6edf3
+    classDef amber fill:#3a2e0a,stroke:#facc15,stroke-width:2px,color:#e6edf3
+    classDef green fill:#0a3a1a,stroke:#4ade80,stroke-width:2px,color:#e6edf3
+    classDef purple fill:#2a1a4b,stroke:#c084fc,stroke-width:2px,color:#e6edf3
+    classDef danger fill:#4a0a0a,stroke:#ef4444,stroke-width:2px,color:#e6edf3
+    classDef gray fill:#1a1a2a,stroke:#6b7280,stroke-width:2px,color:#9ca3af

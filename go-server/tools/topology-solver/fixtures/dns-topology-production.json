@@ -1,0 +1,1078 @@
+{
+  "metadata": {
+    "name": "DNS Tool Topology",
+    "version": "v26.34.40",
+    "seed": 1729,
+    "units": "px",
+    "status": "extracted_from_production",
+    "note": "Extracted from live topology.html \u2014 canonical fixture for solver and benchmark."
+  },
+  "viewportProfiles": {
+    "desktop": {
+      "id": "desktop",
+      "width": 1600,
+      "height": 900,
+      "rankGap": 150,
+      "intraRankGap": 26,
+      "stageGapY": 72,
+      "margins": {
+        "top": 60,
+        "right": 40,
+        "bottom": 80,
+        "left": 420
+      },
+      "zoneTemplates": {
+        "source": {
+          "x1": 430,
+          "y1": 90,
+          "x2": 590,
+          "y2": 800,
+          "padding": 8
+        },
+        "hub": {
+          "x1": 500,
+          "y1": 300,
+          "x2": 680,
+          "y2": 520,
+          "padding": 8
+        },
+        "engine": {
+          "x1": 690,
+          "y1": 90,
+          "x2": 860,
+          "y2": 245,
+          "padding": 8
+        },
+        "confidence": {
+          "x1": 650,
+          "y1": 240,
+          "x2": 940,
+          "y2": 600,
+          "padding": 8
+        },
+        "storage": {
+          "x1": 640,
+          "y1": 580,
+          "x2": 960,
+          "y2": 820,
+          "padding": 8
+        },
+        "protocol": {
+          "x1": 930,
+          "y1": 120,
+          "x2": 1250,
+          "y2": 820,
+          "padding": 8
+        },
+        "output": {
+          "x1": 1290,
+          "y1": 180,
+          "x2": 1540,
+          "y2": 760,
+          "padding": 8
+        }
+      }
+    },
+    "tablet": {
+      "id": "tablet",
+      "width": 1100,
+      "height": 940,
+      "rankGap": 110,
+      "intraRankGap": 22,
+      "stageGapY": 64,
+      "margins": {
+        "top": 50,
+        "right": 30,
+        "bottom": 70,
+        "left": 220
+      },
+      "zoneTemplates": {
+        "source": {
+          "x1": 230,
+          "y1": 90,
+          "x2": 360,
+          "y2": 740,
+          "padding": 8
+        },
+        "hub": {
+          "x1": 310,
+          "y1": 280,
+          "x2": 480,
+          "y2": 470,
+          "padding": 8
+        },
+        "engine": {
+          "x1": 470,
+          "y1": 90,
+          "x2": 620,
+          "y2": 250,
+          "padding": 8
+        },
+        "confidence": {
+          "x1": 430,
+          "y1": 230,
+          "x2": 710,
+          "y2": 570,
+          "padding": 8
+        },
+        "storage": {
+          "x1": 430,
+          "y1": 560,
+          "x2": 700,
+          "y2": 810,
+          "padding": 8
+        },
+        "protocol": {
+          "x1": 670,
+          "y1": 60,
+          "x2": 940,
+          "y2": 830,
+          "padding": 8
+        },
+        "output": {
+          "x1": 930,
+          "y1": 160,
+          "x2": 1070,
+          "y2": 740,
+          "padding": 8
+        }
+      }
+    },
+    "mobile": {
+      "id": "mobile",
+      "width": 420,
+      "height": 1700,
+      "rankGap": 0,
+      "intraRankGap": 18,
+      "stageGapY": 40,
+      "margins": {
+        "top": 30,
+        "right": 14,
+        "bottom": 40,
+        "left": 14
+      },
+      "zoneTemplates": {
+        "source": {
+          "x1": 14,
+          "y1": 60,
+          "x2": 406,
+          "y2": 260,
+          "padding": 8
+        },
+        "hub": {
+          "x1": 14,
+          "y1": 280,
+          "x2": 406,
+          "y2": 380,
+          "padding": 8
+        },
+        "engine": {
+          "x1": 14,
+          "y1": 400,
+          "x2": 406,
+          "y2": 520,
+          "padding": 8
+        },
+        "confidence": {
+          "x1": 14,
+          "y1": 540,
+          "x2": 406,
+          "y2": 900,
+          "padding": 8
+        },
+        "storage": {
+          "x1": 14,
+          "y1": 920,
+          "x2": 406,
+          "y2": 1100,
+          "padding": 8
+        },
+        "protocol": {
+          "x1": 14,
+          "y1": 1120,
+          "x2": 406,
+          "y2": 1480,
+          "padding": 8
+        },
+        "output": {
+          "x1": 14,
+          "y1": 1500,
+          "x2": 406,
+          "y2": 1660,
+          "padding": 8
+        }
+      }
+    }
+  },
+  "zones": [
+    {
+      "id": "source",
+      "label": "Source",
+      "orderX": 1
+    },
+    {
+      "id": "hub",
+      "label": "Hub",
+      "orderX": 2
+    },
+    {
+      "id": "engine",
+      "label": "Engine",
+      "orderX": 3,
+      "orderY": 1
+    },
+    {
+      "id": "confidence",
+      "label": "Confidence",
+      "orderX": 3,
+      "orderY": 2
+    },
+    {
+      "id": "storage",
+      "label": "Storage",
+      "orderX": 3,
+      "orderY": 3
+    },
+    {
+      "id": "protocol",
+      "label": "Protocol",
+      "orderX": 4
+    },
+    {
+      "id": "output",
+      "label": "Output",
+      "orderX": 5
+    }
+  ],
+  "nodes": [
+    {
+      "id": "root",
+      "label": "Root / TLD",
+      "zoneId": "source",
+      "shape": "rect",
+      "width": 122,
+      "height": 30,
+      "tags": [
+        "source"
+      ],
+      "data": {
+        "sub": "IANA Root Zone \u00b7 TLD Registries"
+      },
+      "radius": 30,
+      "sub": "IANA Root Zone\nTLD Registries"
+    },
+    {
+      "id": "rdap",
+      "label": "RDAP / WHOIS",
+      "zoneId": "source",
+      "shape": "rect",
+      "width": 128,
+      "height": 30,
+      "tags": [
+        "source"
+      ],
+      "data": {
+        "sub": "Registration Data Access Protocol"
+      },
+      "radius": 30,
+      "sub": "Registration Data\nAccess Protocol"
+    },
+    {
+      "id": "ct",
+      "label": "CT / Subdomains",
+      "zoneId": "source",
+      "shape": "rect",
+      "width": 136,
+      "height": 30,
+      "tags": [
+        "source"
+      ],
+      "data": {
+        "sub": "crt.sh \u00b7 Certspotter Transparency Logs"
+      },
+      "radius": 30,
+      "sub": "crt.sh \u00b7 Certspotter\nTransparency Logs"
+    },
+    {
+      "id": "cisa",
+      "label": "CISA / Threat",
+      "zoneId": "source",
+      "shape": "rect",
+      "width": 126,
+      "height": 30,
+      "tags": [
+        "source"
+      ],
+      "data": {
+        "sub": "BOD 19-02 IP Scanner Detection"
+      },
+      "radius": 30,
+      "sub": "BOD 19-02\nIP Scanner Detection"
+    },
+    {
+      "id": "probes",
+      "label": "Probe Fleet",
+      "zoneId": "source",
+      "shape": "rect",
+      "width": 116,
+      "height": 30,
+      "tags": [
+        "source"
+      ],
+      "data": {
+        "sub": "SMTP \u00b7 DANE \u00b7 TLS Nmap \u00b7 testssl.sh"
+      },
+      "radius": 30,
+      "sub": "SMTP \u00b7 DANE \u00b7 TLS\nNmap \u00b7 testssl.sh"
+    },
+    {
+      "id": "hub",
+      "label": "DNS Resolvers",
+      "zoneId": "hub",
+      "shape": "roundRect",
+      "width": 136,
+      "height": 40,
+      "tags": [
+        "hub"
+      ],
+      "data": {
+        "sub": "Signal Aggregation"
+      },
+      "radius": 44,
+      "sub": "Signal Aggregation"
+    },
+    {
+      "id": "engine",
+      "label": "ICIE",
+      "zoneId": "engine",
+      "shape": "circle",
+      "width": 108,
+      "height": 108,
+      "tags": [
+        "engine"
+      ],
+      "data": {
+        "sub": "Analysis Engine"
+      },
+      "radius": 54,
+      "sub": "Analysis Engine"
+    },
+    {
+      "id": "ietf",
+      "label": "IETF Metadata",
+      "zoneId": "confidence",
+      "shape": "rect",
+      "width": 136,
+      "height": 30,
+      "tags": [
+        "confidence",
+        "intel"
+      ],
+      "data": {
+        "sub": "RFC Status \u00b7 Errata Draft Tracker"
+      },
+      "radius": 36,
+      "sub": "RFC Status \u00b7 Errata\nDraft Tracker"
+    },
+    {
+      "id": "icae",
+      "label": "ICAE",
+      "zoneId": "confidence",
+      "shape": "diamond",
+      "width": 84,
+      "height": 84,
+      "tags": [
+        "confidence"
+      ],
+      "data": {
+        "sub": "Accuracy Audit \u00b7 Calibration"
+      },
+      "radius": 42,
+      "sub": "Accuracy Audit"
+    },
+    {
+      "id": "icuae",
+      "label": "ICuAE",
+      "zoneId": "confidence",
+      "shape": "diamond",
+      "width": 84,
+      "height": 84,
+      "tags": [
+        "confidence"
+      ],
+      "data": {
+        "sub": "Currency Audit"
+      },
+      "radius": 42,
+      "sub": "Currency Audit"
+    },
+    {
+      "id": "ede",
+      "label": "EDE",
+      "zoneId": "confidence",
+      "shape": "diamond",
+      "width": 96,
+      "height": 96,
+      "tags": [
+        "confidence"
+      ],
+      "data": {
+        "sub": "Epistemic Disclosure"
+      },
+      "radius": 48,
+      "sub": "Epistemic\nDisclosure"
+    },
+    {
+      "id": "postgres",
+      "label": "PostgreSQL",
+      "zoneId": "storage",
+      "shape": "cylinder",
+      "width": 132,
+      "height": 44,
+      "tags": [
+        "storage"
+      ],
+      "data": {
+        "sub": "Scan Results \u00b7 History Drift \u00b7 Analytics"
+      },
+      "radius": 36,
+      "sub": "Scan Results \u00b7 History\nDrift \u00b7 Analytics"
+    },
+    {
+      "id": "fixtures",
+      "label": "Golden Fixtures",
+      "zoneId": "storage",
+      "shape": "cylinder",
+      "width": 152,
+      "height": 44,
+      "tags": [
+        "storage"
+      ],
+      "data": {
+        "sub": "Known-Good Baselines RFC Compliance Seeds"
+      },
+      "radius": 34,
+      "sub": "Known-Good Baselines\nRFC Compliance Seeds"
+    },
+    {
+      "id": "wayback",
+      "label": "Internet Archive",
+      "zoneId": "storage",
+      "shape": "cylinder",
+      "width": 148,
+      "height": 44,
+      "tags": [
+        "storage"
+      ],
+      "data": {
+        "sub": "Wayback Machine Permanent Record"
+      },
+      "radius": 32,
+      "sub": "Wayback Machine\nPermanent Record"
+    },
+    {
+      "id": "spf",
+      "label": "SPF",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "email"
+      ],
+      "data": {
+        "rfc": "7208"
+      },
+      "radius": 36
+    },
+    {
+      "id": "dkim",
+      "label": "DKIM",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "email"
+      ],
+      "data": {
+        "rfc": "6376"
+      },
+      "radius": 36
+    },
+    {
+      "id": "dmarc",
+      "label": "DMARC",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "email"
+      ],
+      "data": {
+        "rfc": "7489"
+      },
+      "radius": 36
+    },
+    {
+      "id": "dnssec",
+      "label": "DNSSEC",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "policy"
+      ],
+      "data": {
+        "rfc": "4035"
+      },
+      "radius": 36
+    },
+    {
+      "id": "dane",
+      "label": "DANE",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "transport"
+      ],
+      "data": {
+        "rfc": "6698"
+      },
+      "radius": 36
+    },
+    {
+      "id": "mtasts",
+      "label": "MTA-STS",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "transport"
+      ],
+      "data": {
+        "rfc": "8461"
+      },
+      "radius": 36
+    },
+    {
+      "id": "tlsrpt",
+      "label": "TLS-RPT",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "transport"
+      ],
+      "data": {
+        "rfc": "8460"
+      },
+      "radius": 36
+    },
+    {
+      "id": "bimi",
+      "label": "BIMI",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "brand"
+      ],
+      "data": {
+        "rfc": "draft"
+      },
+      "radius": 36
+    },
+    {
+      "id": "caa",
+      "label": "CAA",
+      "zoneId": "protocol",
+      "shape": "circle",
+      "width": 72,
+      "height": 72,
+      "tags": [
+        "protocol",
+        "policy"
+      ],
+      "data": {
+        "rfc": "8659"
+      },
+      "radius": 36
+    },
+    {
+      "id": "reports",
+      "label": "Reports",
+      "zoneId": "output",
+      "shape": "hexagon",
+      "width": 116,
+      "height": 48,
+      "tags": [
+        "output"
+      ],
+      "data": {
+        "sub": "Engineer \u00b7 Executive Recon \u00b7 Comparison"
+      },
+      "radius": 36,
+      "sub": "Engineer \u00b7 Executive\nRecon \u00b7 Comparison"
+    },
+    {
+      "id": "jsonapi",
+      "label": "JSON API",
+      "zoneId": "output",
+      "shape": "hexagon",
+      "width": 120,
+      "height": 48,
+      "tags": [
+        "output"
+      ],
+      "data": {
+        "sub": "Analysis \u00b7 Checksums Subdomains \u00b7 Health"
+      },
+      "radius": 36,
+      "sub": "Analysis \u00b7 Checksums\nSubdomains \u00b7 Health"
+    },
+    {
+      "id": "seo",
+      "label": "Schema.org",
+      "zoneId": "output",
+      "shape": "hexagon",
+      "width": 126,
+      "height": 48,
+      "tags": [
+        "output"
+      ],
+      "data": {
+        "sub": "JSON-LD Structured Data Google \u00b7 Rich Results"
+      },
+      "radius": 36,
+      "sub": "JSON-LD Structured Data\nGoogle \u00b7 Rich Results"
+    },
+    {
+      "id": "badges",
+      "label": "SVG Badges",
+      "zoneId": "output",
+      "shape": "hexagon",
+      "width": 128,
+      "height": 48,
+      "tags": [
+        "output"
+      ],
+      "data": {
+        "sub": "Posture Indicators Embeddable"
+      },
+      "radius": 36,
+      "sub": "Posture Indicators\nEmbeddable"
+    }
+  ],
+  "edges": [
+    {
+      "id": "f01",
+      "source": "root",
+      "target": "hub",
+      "kind": "flow"
+    },
+    {
+      "id": "f02",
+      "source": "rdap",
+      "target": "hub",
+      "kind": "flow"
+    },
+    {
+      "id": "f03",
+      "source": "ct",
+      "target": "hub",
+      "kind": "flow"
+    },
+    {
+      "id": "f04",
+      "source": "cisa",
+      "target": "hub",
+      "kind": "flow"
+    },
+    {
+      "id": "f05",
+      "source": "probes",
+      "target": "hub",
+      "kind": "flow"
+    },
+    {
+      "id": "f06",
+      "source": "hub",
+      "target": "engine",
+      "kind": "flow"
+    },
+    {
+      "id": "f07",
+      "source": "ietf",
+      "target": "engine",
+      "kind": "soft_dependency",
+      "label": "informs"
+    },
+    {
+      "id": "f08",
+      "source": "ietf",
+      "target": "icae",
+      "kind": "soft_dependency",
+      "label": "informs"
+    },
+    {
+      "id": "f09",
+      "source": "ietf",
+      "target": "icuae",
+      "kind": "soft_dependency",
+      "label": "informs"
+    },
+    {
+      "id": "f10",
+      "source": "engine",
+      "target": "icae",
+      "kind": "hard_dependency"
+    },
+    {
+      "id": "f11",
+      "source": "engine",
+      "target": "icuae",
+      "kind": "hard_dependency"
+    },
+    {
+      "id": "f12",
+      "source": "icae",
+      "target": "ede",
+      "kind": "soft_dependency",
+      "label": "discloses"
+    },
+    {
+      "id": "f13",
+      "source": "icuae",
+      "target": "ede",
+      "kind": "soft_dependency",
+      "label": "discloses"
+    },
+    {
+      "id": "f14",
+      "source": "engine",
+      "target": "postgres",
+      "kind": "hard_dependency",
+      "label": "persist"
+    },
+    {
+      "id": "f15",
+      "source": "postgres",
+      "target": "fixtures",
+      "kind": "soft_dependency",
+      "label": "seeds"
+    },
+    {
+      "id": "f16",
+      "source": "postgres",
+      "target": "wayback",
+      "kind": "soft_dependency",
+      "label": "archives"
+    },
+    {
+      "id": "f17",
+      "source": "engine",
+      "target": "spf",
+      "kind": "flow"
+    },
+    {
+      "id": "f18",
+      "source": "engine",
+      "target": "dkim",
+      "kind": "flow"
+    },
+    {
+      "id": "f19",
+      "source": "engine",
+      "target": "dmarc",
+      "kind": "flow"
+    },
+    {
+      "id": "f20",
+      "source": "engine",
+      "target": "dnssec",
+      "kind": "flow"
+    },
+    {
+      "id": "f21",
+      "source": "engine",
+      "target": "dane",
+      "kind": "flow"
+    },
+    {
+      "id": "f22",
+      "source": "engine",
+      "target": "mtasts",
+      "kind": "flow"
+    },
+    {
+      "id": "f23",
+      "source": "engine",
+      "target": "tlsrpt",
+      "kind": "flow"
+    },
+    {
+      "id": "f24",
+      "source": "engine",
+      "target": "bimi",
+      "kind": "flow"
+    },
+    {
+      "id": "f25",
+      "source": "engine",
+      "target": "caa",
+      "kind": "flow"
+    },
+    {
+      "id": "f26",
+      "source": "engine",
+      "target": "reports",
+      "kind": "flow"
+    },
+    {
+      "id": "f27",
+      "source": "engine",
+      "target": "jsonapi",
+      "kind": "flow"
+    },
+    {
+      "id": "f28",
+      "source": "engine",
+      "target": "seo",
+      "kind": "flow"
+    },
+    {
+      "id": "f29",
+      "source": "engine",
+      "target": "badges",
+      "kind": "flow"
+    },
+    {
+      "id": "f30",
+      "source": "postgres",
+      "target": "reports",
+      "kind": "flow",
+      "label": "history"
+    },
+    {
+      "id": "d01",
+      "source": "dmarc",
+      "target": "spf",
+      "kind": "hard_dependency",
+      "label": "alignment",
+      "labelT": 0.45
+    },
+    {
+      "id": "d02",
+      "source": "dmarc",
+      "target": "dkim",
+      "kind": "hard_dependency",
+      "label": "alignment",
+      "labelT": 0.45
+    },
+    {
+      "id": "d03",
+      "source": "dane",
+      "target": "dnssec",
+      "kind": "hard_dependency",
+      "label": "requires",
+      "labelT": 0.35
+    },
+    {
+      "id": "d04",
+      "source": "bimi",
+      "target": "dmarc",
+      "kind": "hard_dependency",
+      "label": "p=quarantine+",
+      "labelT": 0.5
+    },
+    {
+      "id": "d05",
+      "source": "tlsrpt",
+      "target": "mtasts",
+      "kind": "soft_dependency",
+      "label": "reports",
+      "labelT": 0.5
+    },
+    {
+      "id": "d06",
+      "source": "tlsrpt",
+      "target": "dane",
+      "kind": "soft_dependency",
+      "label": "reports",
+      "labelT": 0.4
+    },
+    {
+      "id": "d07",
+      "source": "caa",
+      "target": "dnssec",
+      "kind": "soft_dependency",
+      "label": "strengthens",
+      "labelT": 0.5
+    }
+  ],
+  "highLevelConstraints": [
+    {
+      "type": "order-zones",
+      "axis": "x",
+      "orderedZoneIds": [
+        "source",
+        "hub",
+        "engine",
+        "protocol",
+        "output"
+      ],
+      "gap": 70,
+      "priority": 1000
+    },
+    {
+      "type": "stack-zones",
+      "axis": "y",
+      "orderedZoneIds": [
+        "engine",
+        "confidence",
+        "storage"
+      ],
+      "gap": 40,
+      "priority": 1000
+    },
+    {
+      "type": "distribute",
+      "axis": "y",
+      "selector": {
+        "zoneId": "source"
+      },
+      "gap": 20,
+      "sortBy": "label",
+      "priority": 850
+    },
+    {
+      "type": "distribute",
+      "axis": "y",
+      "selector": {
+        "zoneId": "output"
+      },
+      "gap": 24,
+      "sortBy": "label",
+      "priority": 850
+    },
+    {
+      "type": "contain",
+      "selector": {
+        "zoneId": "protocol"
+      },
+      "zoneId": "protocol",
+      "padding": 10,
+      "priority": 1000
+    },
+    {
+      "type": "contain",
+      "selector": {
+        "zoneId": "storage"
+      },
+      "zoneId": "storage",
+      "padding": 10,
+      "priority": 1000
+    },
+    {
+      "type": "align",
+      "axis": "x",
+      "selector": {
+        "ids": [
+          "icae",
+          "icuae",
+          "ede"
+        ]
+      },
+      "priority": 780
+    },
+    {
+      "type": "anchor",
+      "selector": {
+        "ids": [
+          "hub"
+        ]
+      },
+      "x": 590,
+      "y": 410,
+      "weight": 0.45
+    },
+    {
+      "type": "anchor",
+      "selector": {
+        "ids": [
+          "engine"
+        ]
+      },
+      "x": 770,
+      "y": 190,
+      "weight": 0.4
+    },
+    {
+      "type": "anchor",
+      "selector": {
+        "ids": [
+          "ietf"
+        ]
+      },
+      "x": 720,
+      "y": 340,
+      "weight": 0.3
+    },
+    {
+      "type": "fixed-coordinate",
+      "nodeId": "hub",
+      "axis": "y",
+      "value": 410,
+      "priority": 930
+    },
+    {
+      "type": "prefer-compactness",
+      "selector": {
+        "zoneId": "protocol"
+      },
+      "axis": "y",
+      "weight": 0.15
+    },
+    {
+      "type": "prefer-compactness",
+      "selector": {
+        "zoneId": "storage"
+      },
+      "axis": "x",
+      "weight": 0.2
+    }
+  ],
+  "solverPolicy": {
+    "maxIterations": 80,
+    "convergenceEpsilon": 0.0001,
+    "stressWindow": 5,
+    "weights": {
+      "flow": 1,
+      "hardDependency": 0.35,
+      "softDependency": 0.15,
+      "anchor": 0.2,
+      "stability": 0.15
+    },
+    "routing": {
+      "defaultObstaclePadding": 12,
+      "flowMonotoneX": true,
+      "maxBends": 5
+    }
+  }
+}

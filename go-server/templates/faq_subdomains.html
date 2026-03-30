@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Subdomain Discovery via Certificate Transparency — DNS Tool</title>
+    <meta name="description" content="How DNS Tool discovers subdomains via Certificate Transparency, DNS probing, and CNAME traversal. Why subdomains are public and how to reduce exposure.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/faq/subdomains">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Subdomain Discovery via Certificate Transparency — DNS Tool">
+    <meta property="og:description" content="How DNS Tool discovers subdomains using Certificate Transparency, DNS probing, and CNAME traversal.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Subdomain Discovery FAQ">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/faq/subdomains">
+    <meta name="twitter:title" content="Subdomain Discovery via Certificate Transparency — DNS Tool">
+    <meta name="twitter:description" content="How DNS Tool discovers subdomains using Certificate Transparency, DNS probing, and CNAME traversal.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/faq/subdomains">
+    <meta property="article:published_time" content="2026-01-01">
+    <meta property="article:modified_time" content="2026-03-01">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <div class="text-center mb-4">
+                    <h1 class="h2">{{icon "crosshairs" "me-2 text-info"}}Subdomain Discovery &amp; Certificate Transparency</h1>
+                    <p class="text-muted lead">How we find subdomains, why they&rsquo;re publicly visible, and how to reduce future exposure.</p>
+                </div>
+
+                <div class="alert alert-info bg-info bg-opacity-10 border-info border-opacity-25 mb-4">
+                    {{icon "shield-halved" "me-2 text-info"}}<strong class="text-info">Passive OSINT Only</strong> &mdash;
+                    DNS Tool performs passive OSINT collection. We read publicly available DNS records, check publicly accessible URLs, and produce intelligence from publicly observable data. We do not attempt to exploit any vulnerability, bypass any access control, or interact with any system in a way that requires authorization.
+                </div>
+
+                <div class="accordion" id="faqAccordion">
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                {{icon "eye" "me-2 text-warning"}}Why did DNS Tool show subdomains I thought were &ldquo;internal&rdquo;?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Because subdomain names are often published indirectly, even if you never intended them to be. The biggest source is <strong>Certificate Transparency (CT)</strong>: if a hostname ever appeared on a publicly trusted TLS certificate, it is recorded in public CT logs. CT logs are designed to be public and append-only, specifically so the world can audit certificate issuance.</p>
+                                <p class="mb-0">Separately, subdomains can also be discovered through normal DNS behavior (common names like <code>www</code>, <code>mail</code>, <code>api</code>, etc.), plus CNAME chains that point to third-party infrastructure.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                {{icon "search" "me-2 text-info"}}How does DNS Tool find subdomains?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>DNS Tool uses multiple layers of discovery, all based on public data and open standards:</p>
+                                <div class="card bg-dark border-secondary mb-3">
+                                    <div class="card-body py-2">
+                                        <h6 class="text-info mb-1">{{icon "certificate" "me-1"}}Certificate Transparency Scanning</h6>
+                                        <p class="mb-0 small">We parse Certificate Transparency entries to extract subdomain names that have appeared on publicly logged certificates.</p>
+                                    </div>
+                                </div>
+                                <div class="card bg-dark border-secondary mb-3">
+                                    <div class="card-body py-2">
+                                        <h6 class="text-info mb-1">{{icon "asterisk" "me-1"}}Wildcard Certificate Detection</h6>
+                                        <p class="mb-0 small">Wildcards like <code>*.example.com</code> don&rsquo;t list every subdomain, but they signal that subdomains exist and help avoid false &ldquo;0 subdomains&rdquo; results.</p>
+                                    </div>
+                                </div>
+                                <div class="card bg-dark border-secondary mb-3">
+                                    <div class="card-body py-2">
+                                        <h6 class="text-info mb-1">{{icon "network-wired" "me-1"}}DNS Probing + CNAME Traversal</h6>
+                                        <p class="mb-0 small">We probe common service names (e.g., <code>www</code>, <code>mail</code>, <code>api</code>, <code>admin</code>, <code>vpn</code>, <code>sso</code>) using standard DNS lookups and follow CNAME chains to show where each hostname actually points.</p>
+                                    </div>
+                                </div>
+                                <p class="mb-0 text-muted small">In your report output, we explicitly disclose this: subdomains are discovered via CT logs (<a href="https://datatracker.ietf.org/doc/html/rfc6962" target="_blank" rel="noopener" class="text-info">RFC 6962</a>), DNS probing, and CNAME traversal.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                {{icon "circle-question" "me-2 text-warning"}}Why are subdomains often missed in DNS audits?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <ul class="mb-0">
+                                    <li class="mb-2"><strong>CT-only and wildcard-blind:</strong> they query CT but treat wildcard cert entries poorly, incorrectly reporting &ldquo;0 subdomains&rdquo; when only <code>*.domain</code> entries exist.</li>
+                                    <li class="mb-2"><strong>No DNS probing layer:</strong> they won&rsquo;t try common names, so they miss real-world service hostnames that never appear in CT.</li>
+                                    <li class="mb-0"><strong>Paid OSINT dependency:</strong> some tools rely on paid passive DNS or subdomain datasets. DNS Tool sticks to public, open-source layers unless a user opts into their own API key.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                {{icon "lock" "me-2 text-info"}}What is Certificate Transparency and why does it expose names?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Certificate Transparency (<a href="https://datatracker.ietf.org/doc/html/rfc6962" target="_blank" rel="noopener" class="text-info">RFC 6962</a>) describes publicly auditable, append-only logs of certificates so domain owners and auditors can detect misissuance.</p>
+                                <p>In practice, modern ecosystems enforce CT: for example, Apple requires publicly trusted TLS server certificates to comply with their CT policy (including SCT requirements).</p>
+                                <div class="alert alert-warning bg-warning bg-opacity-10 border-warning border-opacity-25 mb-0">
+                                    {{icon "lightbulb" "me-1"}}<strong>Translation:</strong> if you put a hostname on a public certificate, you should assume that hostname will be visible in CT logs.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                {{icon "ban" "me-2 text-danger"}}Can I remove a subdomain from CT logs?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p><strong>No.</strong> CT logs are designed to be append-only. Once a certificate containing a name is logged, that historical fact remains publicly auditable.</p>
+                                <p class="mb-0">What you <em>can</em> do is <strong>reduce future exposure</strong> &mdash; see the checklist below.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false" aria-controls="faq6">
+                                {{icon "shield-halved" "me-2 text-success"}}How do I reduce future subdomain exposure?
+                            </button>
+                        </h2>
+                        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <div class="alert alert-info bg-info bg-opacity-10 border-info border-opacity-25 mb-3">
+                                    {{icon "circle-info" "me-1"}}<strong>Reality:</strong> You can&rsquo;t erase history. You <em>can</em> stop creating new public breadcrumbs.
+                                </div>
+                                <ol class="mb-0">
+                                    <li class="mb-3">
+                                        <strong>Stop issuing publicly trusted certs that contain sensitive hostnames.</strong>
+                                        <br><span class="text-muted small">If it needs to remain private, don&rsquo;t put <code>internal-x.example.com</code> on a public CA certificate.</span>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>Use a private CA / internal PKI for internal-only hostnames.</strong>
+                                        <br><span class="text-muted small">Internal sites can still be HTTPS without public trust anchors. Deploy trust via MDM, GPO, Jamf, etc.</span>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>Use split-horizon DNS for internal hostnames.</strong>
+                                        <br><span class="text-muted small">Internal names should only resolve inside your VPN/private network. Public resolvers should return NXDOMAIN.</span>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>If it must be public, assume it will be discoverable.</strong>
+                                        <br><span class="text-muted small">If a hostname is Internet-reachable and uses a public cert, treat it as public metadata.</span>
+                                    </li>
+                                    <li class="mb-0">
+                                        <strong>If you must use a wildcard, know what it does and does not hide.</strong>
+                                        <br><span class="text-muted small">A wildcard (<code>*.example.com</code>) can reduce the number of explicit hostnames on certs, but the wildcard itself is still visible in CT logs.</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false" aria-controls="faq7">
+                                {{icon "clipboard-list" "me-2 text-info"}}What is the correct way to manage a subdomain?
+                            </button>
+                        </h2>
+                        <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <div class="card bg-dark border-success h-100">
+                                            <div class="card-body">
+                                                <h6 class="text-success">{{icon "check-circle" "me-1"}}Public hostname + public cert</h6>
+                                                <p class="mb-0 small text-muted">= public metadata. Treat it as discoverable.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card bg-dark border-warning h-100">
+                                            <div class="card-body">
+                                                <h6 class="text-warning">{{icon "lock" "me-1"}}Internal-only hostname</h6>
+                                                <ul class="mb-0 small text-muted ps-3">
+                                                    <li>Internal DNS only</li>
+                                                    <li>Internal PKI only</li>
+                                                    <li>Not referenced by public certs, docs, or DNS records</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false" aria-controls="faq8">
+                                {{icon "gavel" "me-2 text-warning"}}Does DNS Tool brute-force or hack to find subdomains?
+                            </button>
+                        </h2>
+                        <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p><strong>No.</strong> This is OSINT + DNS, not intrusion:</p>
+                                <ul>
+                                    <li class="mb-2">We use public CT history and standard DNS queries.</li>
+                                    <li class="mb-2">Our probing is limited to common service names (not exhaustive brute force).</li>
+                                    <li class="mb-0">We disclose the source attribution in the report output (&ldquo;Certificate Transparency + DNS Intelligence&rdquo;).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq9" aria-expanded="false" aria-controls="faq9">
+                                {{icon "terminal" "me-2 text-success"}}Can I verify these results myself?
+                            </button>
+                        </h2>
+                        <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Yes. That&rsquo;s part of the product philosophy: conclusions should be independently verifiable.</p>
+                                <div class="card bg-dark border-secondary">
+                                    <div class="card-body">
+                                        <h6 class="text-muted mb-2">Verify it yourself:</h6>
+                                        <pre class="mb-0 small"><code><span class="text-muted"># Check if a common subdomain resolves:</span>
+dig +short A www.example.com
+dig +short CNAME www.example.com
+
+<span class="text-muted"># Spot-check CT presence:</span>
+<span class="text-muted"># Visit https://crt.sh/?q=example.com</span>
+<span class="text-muted"># to search for certificates containing your domain.</span></code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

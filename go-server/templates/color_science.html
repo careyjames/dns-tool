@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Color Science — Scotopic Vision &amp; WCAG — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="CIE scotopic luminosity calculations and WCAG 2.2 contrast ratio validation for the DNS Tool Covert Recon Mode color palette.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/color-science">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Color Science — Scotopic Vision &amp; WCAG — DNS Tool">
+    <meta property="og:description" content="CIE scotopic luminosity calculations and WCAG contrast ratio validation for the Covert Recon Mode palette.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Color Science">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/color-science">
+    <meta name="twitter:title" content="Color Science — Scotopic Vision &amp; WCAG — DNS Tool">
+    <meta name="twitter:description" content="CIE scotopic luminosity calculations and WCAG contrast ratio validation for the Covert Recon Mode palette.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/color-science">
+    <meta property="article:published_time" content="2026-02-01">
+    <meta property="article:modified_time" content="2026-03-01">
+    <style nonce="{{.CspNonce}}">
+        .cs-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            flex-shrink: 0;
+        }
+        .cs-card {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(200,149,106,0.15);
+            border-radius: 12px;
+        }
+        .cs-matrix-cell {
+            font-size: 0.8rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .cs-matrix-header {
+            font-size: 0.7rem;
+            max-width: 80px;
+            word-break: break-all;
+        }
+        .cs-section {
+            background: linear-gradient(145deg, #0c1018, #101820);
+            border: 1px solid rgba(200,149,106,0.12);
+            border-radius: 10px;
+        }
+        body.covert-mode .cs-card {
+            border-color: rgba(140,40,40,0.2);
+        }
+        body.covert-mode .cs-section {
+            border-color: rgba(140,40,40,0.15);
+        }
+        @media print {
+            .d-print-none { display: none !important; }
+        }
+        @media (max-width: 575px) {
+            .cs-swatch {
+                width: 44px;
+                height: 44px;
+            }
+            .table-responsive { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="text-center mb-4">
+                    <h1 class="h2">{{icon "flask" "me-2 text-info"}}Color Science</h1>
+                    <p class="text-muted lead">Covert Recon Mode Validation</p>
+                </div>
+
+                <h2 class="h5 mb-3">{{icon "shield-halved" "me-2 text-info"}}Color Palette &mdash; Live Calculations</h2>
+                <div id="palette-cards" class="row g-3 mb-4"></div>
+
+                <h2 class="h5 mb-3 mt-5">{{icon "table" "me-2 text-info"}}WCAG 2.2 Contrast Matrix</h2>
+                <p class="text-muted small mb-2">All foreground/background pair contrast ratios. AA normal &ge; 4.5:1, AA large &ge; 3:1, AAA normal &ge; 7:1, AAA large &ge; 4.5:1.</p>
+                <div class="table-responsive mb-4">
+                    <table class="table table-dark table-bordered table-sm" id="contrast-matrix">
+                        <thead id="matrix-head"><tr><th scope="col">Color Pair</th></tr></thead>
+                        <tbody id="matrix-body"></tbody>
+                    </table>
+                </div>
+
+                <h2 class="h5 mb-3 mt-5">{{icon "flask" "me-2 text-info"}}Scotopic Vision Science</h2>
+                <div class="cs-section p-4 mb-4">
+                    <h3 class="h6 text-info">Why Red Light Preserves Dark Adaptation</h3>
+                    <p class="text-muted mb-2">Human scotopic (dark-adapted) vision is mediated by rhodopsin, a photopigment in rod cells with peak sensitivity near 507 nm (blue-green). Red light in the 620&ndash;700 nm range falls at the extreme low end of rhodopsin&rsquo;s absorption curve, meaning rod cells are nearly insensitive to it. This allows operators to read instruments and displays without bleaching rhodopsin, preserving the ability to detect dim targets in peripheral vision.</p>
+                    <h3 class="h6 text-info mt-3">MIL-STD-1472H &mdash; Human Engineering</h3>
+                    <p class="text-muted mb-2">Section 5.2.2.1 specifies that red lighting (620&ndash;700 nm) shall be used when preservation of dark adaptation is required. This is the primary standard governing human-system interface design for U.S. Department of Defense systems, last revised September 2020.</p>
+                    <h3 class="h6 text-info mt-3">MIL-STD-3009 &mdash; NVIS Compatibility</h3>
+                    <p class="text-muted mb-2">MIL-STD-3009 governs lighting and display compatibility with Night Vision Imaging Systems (NVIS). It defines spectral radiance limits to prevent cockpit/vehicle lighting from overwhelming image intensifier tubes. While primarily an aviation and vehicle standard, its spectral requirements inform any display intended for use in light-controlled environments.</p>
+                    <h3 class="h6 text-info mt-3">Honest Limitation</h3>
+                    <p class="text-muted mb-0">Consumer LCD and OLED displays cannot produce monochromatic 630 nm red. They use broadband RGB subpixels, meaning even a &ldquo;pure red&rdquo; hex value (#cc2020) produces a spectral power distribution that includes some energy outside the 620&ndash;700 nm band. True MIL-STD-3009 compliance requires narrow-band optical filters or dedicated NVIS-compatible displays. The Covert Recon Mode palette is designed to <em>approximate</em> the intent of these standards on consumer hardware &mdash; it is not a substitute for dedicated tactical lighting equipment.</p>
+                </div>
+
+                <h2 class="h5 mb-3 mt-5">{{icon "book" "me-2 text-info"}}Standards Citations</h2>
+                <div class="cs-section p-4 mb-4">
+                    <ul class="list-unstyled mb-0 text-muted">
+                        <li class="mb-2"><strong class="text-info">MIL-STD-1472H</strong> &mdash; Department of Defense Design Criteria Standard: Human Engineering (September 2020). Section 5.2.2.1: Red lighting for dark adaptation preservation.</li>
+                        <li class="mb-2"><strong class="text-info">MIL-STD-3009</strong> &mdash; Lighting, Aircraft, Night Vision Imaging System (NVIS) Compatible. Spectral radiance limits for NVIS-compatible displays.</li>
+                        <li class="mb-2"><strong class="text-info">CIE 1951 Scotopic Luminosity Function V&prime;(&lambda;)</strong> &mdash; Commission Internationale de l&rsquo;&Eacute;clairage. Standard observer for scotopic (rod-mediated) vision, peak at 507 nm.</li>
+                        <li class="mb-2"><strong class="text-info">WCAG 2.2 Contrast Requirements</strong> &mdash; W3C Web Content Accessibility Guidelines. Success Criteria 1.4.3 (AA) and 1.4.6 (AAA) for text contrast ratios.</li>
+                        <li class="mb-0"><strong class="text-info">ISO 9241-3</strong> &mdash; Ergonomic requirements for office work with visual display terminals. Display ergonomics including luminance contrast and color requirements.</li>
+                    </ul>
+                </div>
+
+                <div class="text-center mt-4 mb-2">
+                    <a href="/reference-library" class="btn btn-outline-info btn-sm me-2">{{icon "archive" "me-1"}}Reference Library</a>
+                    <a href="/brand-colors" class="btn btn-outline-info btn-sm me-2">{{icon "palette" "me-1"}}Brand Colors</a>
+                    <a href="/about" class="btn btn-outline-info btn-sm me-2">{{icon "route" "me-1"}}Origin Story</a>
+                    <a href="/architecture" class="btn btn-outline-info btn-sm">{{icon "microchip" "me-1"}}Architecture</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    (function() {
+        const colors = [
+            { hex: '#cc2020', name: 'Primary Accent', label: 'Crimson', wavelength: 630 },
+            { hex: '#0a0c10', name: 'Background', label: 'Tactical Dark', wavelength: null },
+            { hex: '#ffc6c6', name: 'Text Accent', label: 'Soft Crimson', wavelength: null },
+            { hex: '#e7e7e7', name: 'Standard Text', label: 'High-Contrast Gray', wavelength: null },
+            { hex: '#0d0f14', name: 'Navbar', label: 'Navbar', wavelength: null },
+            { hex: '#111318', name: 'Card/Panel Background', label: 'Card BG', wavelength: null },
+            { hex: '#1a1d24', name: 'Hover Border', label: 'Hover Border', wavelength: null }
+        ];
+
+        function parseHex(hex) {
+            hex = hex.replace('#', '');
+            return {
+                r: Number.parseInt(hex.substring(0, 2), 16),
+                g: Number.parseInt(hex.substring(2, 4), 16),
+                b: Number.parseInt(hex.substring(4, 6), 16)
+            };
+        }
+
+        function linearize(c) {
+            c = c / 255;
+            return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+        }
+
+        function relativeLuminance(r, g, b) {
+            return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b);
+        }
+
+        function contrastRatio(l1, l2) {
+            const lighter = Math.max(l1, l2);
+            const darker = Math.min(l1, l2);
+            return (lighter + 0.05) / (darker + 0.05);
+        }
+
+        const scotopicEfficiency = {
+            380: 0.000589, 400: 0.00929, 420: 0.0966, 440: 0.328,
+            460: 0.567, 480: 0.793, 500: 0.982, 507: 1,
+            520: 0.935, 540: 0.65, 560: 0.381, 580: 0.169,
+            600: 0.0468, 620: 0.00737, 640: 0.001, 660: 0.000148,
+            680: 0.0000212, 700: 0.00000329
+        };
+
+        const photopicEfficiency = {
+            380: 0.0002, 400: 0.004, 420: 0.04, 440: 0.023,
+            460: 0.06, 480: 0.139, 500: 0.323, 520: 0.71,
+            540: 0.954, 555: 1,
+            560: 0.995, 580: 0.87, 600: 0.631, 620: 0.381,
+            640: 0.175, 660: 0.061, 680: 0.017, 700: 0.0041
+        };
+
+        function interpolateLookup(table, wl) {
+            const keys = Object.keys(table).map(Number).sort(function(a,b){return a-b;});
+            if (wl <= keys[0]) return table[keys[0]];
+            if (wl >= keys[keys.length-1]) return table[keys[keys.length-1]];
+            for (let i = 0; i < keys.length - 1; i++) {
+                if (wl >= keys[i] && wl <= keys[i+1]) {
+                    const t = (wl - keys[i]) / (keys[i+1] - keys[i]);
+                    return table[keys[i]] * (1 - t) + table[keys[i+1]] * t;
+                }
+            }
+            return 0;
+        }
+
+        function estimateDominantWavelength(r, g, b) {
+            if (r > g && r > b && r > 100) {
+                const ratio = (r - Math.max(g, b)) / r;
+                return Math.round(620 + ratio * 30);
+            }
+            return null;
+        }
+
+        function el(tag, cls, text) {
+            const e = document.createElement(tag);
+            if (cls) e.className = cls;
+            if (text !== undefined) e.textContent = text;
+            return e;
+        }
+
+        function wcagBadgeClass(cr, passThreshold, warnThreshold) {
+            if (cr >= passThreshold) return 'bg-success';
+            if (cr >= warnThreshold) return 'bg-warning text-dark';
+            return 'bg-danger';
+        }
+
+        function wcagBadgeLabel(cr, passThreshold, warnThreshold, passLabel, warnLabel) {
+            if (cr >= passThreshold) return passLabel;
+            if (cr >= warnThreshold) return warnLabel;
+            return 'Fail';
+        }
+
+        function buildPaletteCard(color) {
+            const rgb = parseHex(color.hex);
+            const lum = relativeLuminance(rgb.r, rgb.g, rgb.b);
+            const wl = color.wavelength || estimateDominantWavelength(rgb.r, rgb.g, rgb.b);
+            const scotopic = wl ? interpolateLookup(scotopicEfficiency, wl) : null;
+            const photopic = wl ? interpolateLookup(photopicEfficiency, wl) : null;
+            const spRatio = (scotopic !== null && photopic !== null && photopic > 0) ? scotopic / photopic : null;
+            const milPass = wl !== null && wl >= 620 && wl <= 700;
+
+            const col = el('div', 'col-md-6');
+            const card = el('div', 'cs-card p-3 h-100');
+            const row = el('div', 'd-flex align-items-start gap-3');
+
+            const swatch = el('div', 'cs-swatch');
+            swatch.ariaLabel = 'Color swatch for ' + color.hex;
+            swatch.style.setProperty('background-color', color.hex);
+            row.appendChild(swatch);
+
+            const info = el('div', 'flex-grow-1');
+
+            const title = el('h3', 'h6 mb-1');
+            title.textContent = color.name;
+            const labelSpan = el('span', 'text-muted small');
+            labelSpan.textContent = ' \u2014 ' + color.label;
+            title.appendChild(labelSpan);
+            info.appendChild(title);
+
+            const hexLine = el('div', 'small text-muted');
+            hexLine.textContent = color.hex.toUpperCase() + '  \u2022  RGB(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ')';
+            info.appendChild(hexLine);
+
+            const lumLine = el('div', 'small text-muted');
+            lumLine.textContent = 'Relative Luminance: ' + lum.toFixed(4);
+            info.appendChild(lumLine);
+
+            appendWavelengthInfo(info, wl, scotopic, photopic, spRatio, milPass);
+
+            row.appendChild(info);
+            card.appendChild(row);
+            col.appendChild(card);
+            return col;
+        }
+
+        function appendWavelengthInfo(info, wl, scotopic, photopic, spRatio, milPass) {
+            if (wl) {
+                info.appendChild(el('div', 'small text-muted')).textContent = 'Dominant \u03BB \u2248 ' + wl + ' nm';
+                info.appendChild(el('div', 'small text-muted')).textContent = "V'(\u03BB) scotopic: " + scotopic.toExponential(3);
+                info.appendChild(el('div', 'small text-muted')).textContent = 'V(\u03BB) photopic: ' + photopic.toFixed(4);
+                if (spRatio !== null) {
+                    info.appendChild(el('div', 'small text-muted')).textContent = 'S/P Ratio: ' + spRatio.toExponential(3);
+                }
+                const badgeDiv = el('div', 'mt-1');
+                const badge = el('span', 'badge ' + (milPass ? 'bg-success' : 'bg-danger'));
+                badge.textContent = (milPass ? 'PASS' : 'FAIL') + ' MIL-STD-1472H (620\u2013700 nm)';
+                badgeDiv.appendChild(badge);
+                info.appendChild(badgeDiv);
+            } else {
+                info.appendChild(el('div', 'small text-muted')).textContent = 'Non-chromatic / broadband \u2014 no dominant \u03BB';
+                const naBadge = el('div', 'mt-1');
+                const nb = el('span', 'badge bg-secondary');
+                nb.textContent = 'N/A \u2014 Not a tactical red';
+                naBadge.appendChild(nb);
+                info.appendChild(naBadge);
+            }
+        }
+
+        function buildMatrixCell(fg, bg, fgLum) {
+            const bgRgb = parseHex(bg.hex);
+            const bgLum = relativeLuminance(bgRgb.r, bgRgb.g, bgRgb.b);
+            const cr = contrastRatio(fgLum, bgLum);
+            const td = el('td', 'cs-matrix-cell');
+
+            const ratioText = el('div', 'fw-bold');
+            ratioText.textContent = cr.toFixed(2) + ':1';
+            td.appendChild(ratioText);
+
+            if (fg.hex === bg.hex) {
+                td.appendChild(el('div', 'small text-muted', '\u2014'));
+            } else {
+                const aaDiv = el('div', 'small');
+                const aaBadge = el('span', 'badge ' + wcagBadgeClass(cr, 4.5, 3));
+                aaBadge.textContent = wcagBadgeLabel(cr, 4.5, 3, 'AA', 'AA-lg');
+                aaDiv.appendChild(aaBadge);
+                td.appendChild(aaDiv);
+
+                const aaaDiv = el('div', 'small');
+                const aaaBadge = el('span', 'badge ' + wcagBadgeClass(cr, 7, 4.5));
+                aaaBadge.textContent = wcagBadgeLabel(cr, 7, 4.5, 'AAA', 'AAA-lg');
+                aaaDiv.appendChild(aaaBadge);
+                td.appendChild(aaaDiv);
+            }
+            return td;
+        }
+
+        const container = document.getElementById('palette-cards');
+        for (const color of colors) {
+            container.appendChild(buildPaletteCard(color));
+        }
+
+        const matrixHead = document.getElementById('matrix-head');
+        const matrixBody = document.getElementById('matrix-body');
+
+        const headRow = el('tr');
+        headRow.appendChild(el('th', 'cs-matrix-cell', String.raw`FG \ BG`));
+        for (const c of colors) {
+            const th = el('th', 'cs-matrix-header');
+            th.textContent = c.hex;
+            headRow.appendChild(th);
+        }
+        matrixHead.appendChild(headRow);
+
+        for (const fg of colors) {
+            const fgRgb = parseHex(fg.hex);
+            const fgLum = relativeLuminance(fgRgb.r, fgRgb.g, fgRgb.b);
+            const tr = el('tr');
+            const label = el('td', 'cs-matrix-cell fw-bold');
+            label.textContent = fg.hex;
+            label.style.setProperty('color', fg.hex);
+            tr.appendChild(label);
+
+            for (const bg of colors) {
+                tr.appendChild(buildMatrixCell(fg, bg, fgLum));
+            }
+
+            matrixBody.appendChild(tr);
+        }
+    })();
+    </script>
+</body>
+</html>

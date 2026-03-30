@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Domain Confessions — Forgotten Domain — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Domain Confessions: A domain registered for ten years with no mail policy is not dormant — it is exposed. Three DNS records separate protection from spoofing.">
+    <meta property="article:published_time" content="2025-09-01">
+    <meta property="article:modified_time" content="2026-03-20">
+    <meta property="og:url" content="https://dnstool.it-help.tech/video/forgotten-domain">
+    <meta property="og:type" content="video.other">
+    <meta property="og:title" content="Domain Confessions — Forgotten Domain — DNS Tool">
+    <meta property="og:description" content="Trigger Warning: If you disable security settings just to make things work, this video may not be for you. A domain registered for ten years with no published mail policy is not dormant — it is exposed.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-forgotten-domain.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Forgotten Domain">
+    <meta property="og:site_name" content="DNS Tool">
+    {{if .YouTubeID}}
+    <meta property="og:video" content="https://www.youtube.com/embed/{{.YouTubeID}}">
+    <meta property="og:video:type" content="text/html">
+    {{else}}
+    <meta property="og:video" content="https://dnstool.it-help.tech/static/video/forgotten-domain.mp4">
+    <meta property="og:video:type" content="video/mp4">
+    {{end}}
+    <meta property="og:video:width" content="1920">
+    <meta property="og:video:height" content="1080">
+    <meta name="twitter:card" content="player">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/video/forgotten-domain">
+    <meta name="twitter:title" content="Domain Confessions — Forgotten Domain — DNS Tool">
+    <meta name="twitter:description" content="Trigger Warning: If you disable security settings just to make things work, this video may not be for you.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-forgotten-domain.png">
+    <meta name="twitter:player" content="https://dnstool.it-help.tech/video/forgotten-domain">
+    <meta name="twitter:player:width" content="1920">
+    <meta name="twitter:player:height" content="1080">
+    <link rel="canonical" href="https://dnstool.it-help.tech/video/forgotten-domain">
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Domain Confessions — Forgotten Domain — Why Dormant Domains Need Published DNS Policy",
+        "description": "Domain Confessions. Trigger Warning: If you disable security settings just to make things work, this video may not be for you. A domain registered for ten years with no published mail policy is not dormant — it is exposed. Without SPF, DMARC, and a Null MX record, any domain becomes a free spoofing vector.",
+        "thumbnailUrl": "https://dnstool.it-help.tech/static/images/og-forgotten-domain.png",
+        "uploadDate": "2026-02-14",
+        "contentUrl": "https://dnstool.it-help.tech/static/video/forgotten-domain.mp4",
+        {{if .YouTubeID}}
+        "embedUrl": "https://www.youtube.com/embed/{{.YouTubeID}}",
+        {{else}}
+        "embedUrl": "https://dnstool.it-help.tech/video/forgotten-domain",
+        {{end}}
+        "duration": "PT1M",
+        "encodingFormat": "video/mp4",
+        "inLanguage": "en",
+        "publisher": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dnstool.it-help.tech/static/images/owl-of-athena.png"
+            }
+        }
+    }
+    </script>
+    <style nonce="{{.CspNonce}}">
+        .video-page-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .video-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(200,149,106,0.15);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            background: #000;
+        }
+        .video-container video {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .video-container iframe {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+        .video-meta {
+            margin-top: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(13,17,23,0.6);
+            border: 1px solid rgba(200,149,106,0.1);
+            border-radius: 8px;
+        }
+        .video-meta h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .video-meta p {
+            color: #8b949e;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        .video-cta {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .video-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .cta-primary {
+            background: #238636;
+            color: #fff;
+            border: 1px solid #2ea043;
+        }
+        .cta-primary:hover {
+            background: #2ea043;
+        }
+        .cta-secondary {
+            background: transparent;
+            color: #c8956a;
+            border: 1px solid rgba(200,149,106,0.3);
+        }
+        .cta-secondary:hover {
+            border-color: #c8956a;
+            background: rgba(200,149,106,0.08);
+        }
+        .dns-records {
+            margin-top: 1.25rem;
+            padding: 1rem 1.25rem;
+            background: rgba(0,0,0,0.35);
+            border-radius: 6px;
+            border: 1px solid rgba(200,149,106,0.08);
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.82rem;
+            color: #7ee787;
+            line-height: 1.8;
+        }
+        .dns-records .rec-label {
+            color: #8b949e;
+            font-weight: 600;
+        }
+        .share-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(200,149,106,0.1);
+        }
+        .share-bar-label {
+            font-size: 0.78rem;
+            color: #8b949e;
+            font-weight: 600;
+            margin-right: 0.25rem;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 5px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #c9d1d9;
+            background: rgba(200,149,106,0.08);
+            border: 1px solid rgba(200,149,106,0.15);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+        .share-btn:hover {
+            background: rgba(200,149,106,0.15);
+            border-color: rgba(200,149,106,0.3);
+            color: #d4a853;
+        }
+        .share-btn-yt {
+            color: #ff4444;
+            border-color: rgba(255,68,68,0.2);
+            background: rgba(255,68,68,0.06);
+        }
+        .share-btn-yt:hover {
+            background: rgba(255,68,68,0.12);
+            border-color: rgba(255,68,68,0.35);
+            color: #ff6666;
+        }
+        .share-copied {
+            background: rgba(46,160,67,0.15);
+            border-color: #2ea043;
+            color: #7ee787;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="video-page-wrap">
+            <section class="video-container" aria-label="Video: Forgotten Domain — why dormant domains need published DNS policy">
+                {{if .YouTubeID}}
+                <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">
+                    <iframe src="https://www.youtube-nocookie.com/embed/{{.YouTubeID}}?rel=0&modestbranding=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Forgotten Domain — why dormant domains need published DNS policy"></iframe>
+                </div>
+                {{else}}
+                <video controls preload="metadata" playsinline poster="/static/images/og-forgotten-domain.png" aria-label="Forgotten Domain — why dormant domains need published DNS policy">
+                    <source src="/static/video/forgotten-domain.mp4" type="video/mp4">
+                    <track kind="captions" src="/static/video/forgotten-domain-captions.vtt" srclang="en" label="English">
+                    Your browser does not support the video tag.
+                </video>
+                {{end}}
+            </section>
+
+            <div class="video-meta">
+                <p class="mb-1" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#d4a853">Domain Confessions</p>
+                <h1>{{icon "shield-alt" "me-2 text-warning"}}Forgotten Domain</h1>
+                <p style="font-size:0.82rem;color:#c8956a;font-style:italic;margin-bottom:0.75rem">Trigger Warning: If you disable security settings just to make things work, this video may not be for you. In other words, you may experience feelings of shame.</p>
+                <p>A domain registered for ten years with no published mail policy is not dormant &mdash; it is exposed. Reputation systems do not distinguish between negligence and compromise. They only see the absence of published policy.</p>
+
+                <figure class="dns-records" aria-label="Recommended DNS records for dormant domains">
+                    <span class="rec-label">SPF:</span> v=spf1 -all<br>
+                    <span class="rec-label">DMARC:</span> v=DMARC1; p=reject;<br>
+                    <span class="rec-label">MX:</span> 0 .
+                </figure>
+
+                <p class="mt-3">If a domain sends no mail, publish SPF <code>-all</code>, DMARC <code>reject</code>, and Null MX. Silence is not protection.</p>
+
+                <div class="share-bar">
+                    <span class="share-bar-label">{{icon "share-alt"}} Share:</span>
+                    <button type="button" class="share-btn" id="copyLinkBtn"><span aria-hidden="true">{{icon "link"}}</span> Copy Link</button>
+                    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdnstool.it-help.tech%2Fvideo%2Fforgotten-domain&text=Domain%20Confessions%3A%20If%20you%20disable%20security%20settings%20just%20to%20make%20things%20work%2C%20this%20video%20may%20not%20be%20for%20you." class="share-btn" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">{{icon "twitter"}}</span> Post</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fdnstool.it-help.tech%2Fvideo%2Fforgotten-domain" class="share-btn" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">{{icon "linkedin"}}</span> Share</a>
+                    <a href="mailto:?subject=Domain%20Confessions%20%E2%80%94%20Forgotten%20Domain%20%E2%80%94%20DNS%20Tool&body=Domain%20Confessions%3A%20If%20you%20disable%20security%20settings%20just%20to%20make%20things%20work%2C%20this%20video%20may%20not%20be%20for%20you.%0A%0Ahttps%3A%2F%2Fdnstool.it-help.tech%2Fvideo%2Fforgotten-domain" class="share-btn"><span aria-hidden="true">{{icon "envelope"}}</span> Email</a>
+                    {{if .YouTubeID}}
+                    <a href="https://www.youtube.com/watch?v={{.YouTubeID}}" class="share-btn share-btn-yt" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">{{icon "play-circle"}}</span> Watch on YouTube</a>
+                    {{end}}
+                </div>
+
+                <div class="video-cta">
+                    <a href="/" class="cta-primary">{{icon "search"}} Scan Your Domain</a>
+                    <a href="/approach" class="cta-secondary">{{icon "flask"}} Our Methodology</a>
+                    <a href="/case-study/intelligence-dmarc" class="cta-secondary">{{icon "eye"}} Domain Confessions #2</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    (function() {
+        const btn = document.getElementById('copyLinkBtn');
+        if (!btn) return;
+        btn.addEventListener('click', function() {
+            const url = 'https://dnstool.it-help.tech/video/forgotten-domain';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function() {
+                    btn.classList.add('share-copied');
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.classList.remove('share-copied');
+                        btn.innerHTML = '{{icon "link"}} Copy Link';
+                    }, 2000);
+                });
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

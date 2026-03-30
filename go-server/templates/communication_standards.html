@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+{{htmlComment " A score without a citation is an opinion. A finding without readability is invisible. "}}
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Communication Standards — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="DNS Tool Clarity and Vision dual-gate quality standards. Measurable enforcement criteria for font size, contrast, heading hierarchy, and readability.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/communication-standards">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Communication Standards — DNS Tool">
+    <meta property="og:description" content="Clarity and Vision dual-gate quality standards with WCAG enforcement, font-size floors, and CI-checkable criteria.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Communication Standards">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/communication-standards">
+    <meta name="twitter:title" content="Communication Standards — DNS Tool">
+    <meta name="twitter:description" content="Clarity and Vision dual-gate quality standards with WCAG enforcement, font-size floors, and CI-checkable criteria.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/communication-standards">
+    <meta property="article:published_time" content="2026-01-15">
+    <meta property="article:modified_time" content="2026-03-15">
+    <style nonce="{{.CspNonce}}">
+        .cs-page { max-width: 900px; }
+
+        .cs-section {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(63,185,80,0.12);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .cs-section:hover {
+            border-color: rgba(63,185,80,0.3);
+            box-shadow: 0 8px 32px rgba(63,185,80,0.06);
+        }
+        .cs-section-header {
+            background: linear-gradient(90deg, rgba(63,185,80,0.1) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(63,185,80,0.12);
+            padding: 1rem 1.5rem;
+        }
+        .cs-section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin: 0;
+        }
+        .cs-section-header h2 i {
+            color: #3fb950;
+            margin-right: 0.5rem;
+        }
+        .cs-section-body {
+            padding: 1.5rem;
+        }
+        .cs-section-body p,
+        .cs-section-body li {
+            color: rgba(170,178,188,0.85);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .cs-gate-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+        }
+        .cs-gate-clarity { background: rgba(200,149,106,0.12); color: #c8956a; border: 1px solid rgba(200,149,106,0.25); }
+        .cs-gate-vision { background: rgba(63,185,80,0.12); color: #3fb950; border: 1px solid rgba(63,185,80,0.25); }
+
+        .cs-req-table {
+            width: 100%;
+            font-size: 0.82rem;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .cs-req-table th {
+            background: rgba(63,185,80,0.08);
+            color: #aab2bc;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid rgba(63,185,80,0.15);
+        }
+        .cs-req-table td {
+            padding: 0.55rem 0.8rem;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+            color: rgba(170,178,188,0.85);
+            vertical-align: top;
+        }
+        .cs-req-table tr:last-child td {
+            border-bottom: none;
+        }
+        .cs-level-must {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            background: rgba(248,81,73,0.12);
+            color: #f85149;
+            border: 1px solid rgba(248,81,73,0.25);
+        }
+        .cs-level-should {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            background: rgba(210,153,34,0.12);
+            color: #d2992a;
+            border: 1px solid rgba(210,153,34,0.25);
+        }
+
+        .cs-audience-card {
+            background: rgba(125,142,168,0.04);
+            border: 1px solid rgba(125,142,168,0.12);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .cs-audience-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin-bottom: 0.5rem;
+        }
+
+        .cs-checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .cs-checklist li {
+            padding: 0.35rem 0 0.35rem 1.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+        }
+        .cs-checklist li:last-child { border-bottom: none; }
+        .cs-checklist li::before {
+            content: '\2610';
+            position: absolute;
+            left: 0;
+            color: rgba(170,178,188,0.4);
+            font-size: 1rem;
+        }
+
+        .cs-ref-table {
+            width: 100%;
+            font-size: 0.82rem;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .cs-ref-table th {
+            background: rgba(63,185,80,0.08);
+            color: #aab2bc;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid rgba(63,185,80,0.15);
+        }
+        .cs-ref-table td {
+            padding: 0.55rem 0.8rem;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+            color: rgba(170,178,188,0.85);
+            vertical-align: top;
+        }
+        .cs-ref-table tr:last-child td { border-bottom: none; }
+        .cs-ref-table code {
+            color: #3fb950;
+            background: rgba(63,185,80,0.08);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-size: 0.78rem;
+        }
+
+        .cs-closing {
+            text-align: center;
+            padding: 1.5rem 0;
+            color: rgba(170,178,188,0.6);
+            font-style: italic;
+            font-size: 0.88rem;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content">
+        <div class="container cs-page py-4">
+
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                <div>
+                    <h1 class="h4 mb-1" style="color: #e6edf3;">Communication Standards</h1>
+                    <p class="text-muted mb-0" style="font-size: 0.82rem;">Clarity &amp; Vision Quality Gate &middot; v26.37.35</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <span class="cs-gate-badge cs-gate-clarity">{{icon "pen" "me-1"}}Clarity</span>
+                    <span class="cs-gate-badge cs-gate-vision">{{icon "eye" "me-1"}}Vision</span>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-body" style="padding-top: 1rem; padding-bottom: 0.75rem;">
+                    <p class="mb-0" style="font-size: 0.82rem; color: rgba(170,178,188,0.7);">Every piece of user-facing text must pass <strong style="color: #e6edf3;">both</strong> gates simultaneously. A page that fails any MUST-level requirement is not ready for production. These standards implement the project philosophy defined in the <a href="/manifesto" class="text-info text-decoration-none">Founder's Manifesto</a> and are grounded in the analytical framework of the <a href="/foundations" class="text-info text-decoration-none">Philosophical Foundations</a> paper.</p>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-header">
+                    <h2>{{icon "pen" "me-2"}}Gate 1: Clarity</h2>
+                </div>
+                <div class="cs-section-body">
+                    <p class="mb-3">The words chosen must be clear, communicative, and logical to the reader. Text should educate, not obscure.</p>
+                    <div class="table-responsive">
+                        <table class="cs-req-table">
+                            <thead><tr><th>Requirement</th><th>Level</th><th>Measurement</th></tr></thead>
+                            <tbody>
+                                <tr><td>Jargon with first use</td><td><span class="cs-level-must">MUST</span></td><td>Every acronym (DMARC, DNSSEC, ICAE, EDE) must be expanded on first use per page, or linked to a definition</td></tr>
+                                <tr><td>Active voice</td><td><span class="cs-level-should">SHOULD</span></td><td>Prefer &ldquo;The SPF record authorizes...&rdquo; over &ldquo;Authorization is provided by the SPF record...&rdquo;</td></tr>
+                                <tr><td>Sentence length</td><td><span class="cs-level-should">SHOULD</span></td><td>Body copy sentences should not exceed 35 words</td></tr>
+                                <tr><td>One idea per paragraph</td><td><span class="cs-level-should">SHOULD</span></td><td>Each paragraph should advance one concept</td></tr>
+                                <tr><td>Action-oriented findings</td><td><span class="cs-level-must">MUST</span></td><td>Security findings must state what was observed, why it matters, and what the reader can do about it</td></tr>
+                                <tr><td>RFC citation</td><td><span class="cs-level-must">MUST</span></td><td>Any claim about protocol behavior must cite the specific RFC section</td></tr>
+                                <tr><td>Transformative language</td><td><span class="cs-level-should">SHOULD</span></td><td>Prefer language that teaches rather than restates</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-header">
+                    <h2>{{icon "eye" "me-2"}}Gate 2: Vision</h2>
+                </div>
+                <div class="cs-section-body">
+                    <p class="mb-3">The visual presentation must not cause strain or impede comprehension. The reader's eyes matter.</p>
+                    <div class="table-responsive">
+                        <table class="cs-req-table">
+                            <thead><tr><th>Requirement</th><th>Level</th><th>Measurement</th></tr></thead>
+                            <tbody>
+                                <tr><td>Minimum font size</td><td><span class="cs-level-must">MUST</span></td><td>No rendered text below 0.75rem (12px) in standard mode</td></tr>
+                                <tr><td>Body text minimum</td><td><span class="cs-level-should">SHOULD</span></td><td>Primary reading text should be at least 0.875rem (14px)</td></tr>
+                                <tr><td>Contrast ratio (normal text)</td><td><span class="cs-level-must">MUST</span></td><td>WCAG 2.1 AA: minimum 4.5:1 against background</td></tr>
+                                <tr><td>Contrast ratio (large text)</td><td><span class="cs-level-must">MUST</span></td><td>WCAG 2.1 AA: minimum 3:1 for text 18px+ or 14px+ bold</td></tr>
+                                <tr><td>Text overflow</td><td><span class="cs-level-must">MUST</span></td><td>No text may extend beyond its container boundary</td></tr>
+                                <tr><td>Line length</td><td><span class="cs-level-should">SHOULD</span></td><td>Body text should not exceed 80 characters per line</td></tr>
+                                <tr><td>Line height</td><td><span class="cs-level-should">SHOULD</span></td><td>Body text should use at least 1.5 line-height</td></tr>
+                                <tr><td>Scotopic mode</td><td><span class="cs-level-must">MUST</span></td><td>Minimum 4.5:1 contrast against covert background (<code>#0a0c10</code>)</td></tr>
+                                <tr><td>Focus indicators</td><td><span class="cs-level-must">MUST</span></td><td>All interactive elements must have visible focus indicators</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-header">
+                    <h2>{{icon "users" "me-2"}}Audience Calibration</h2>
+                </div>
+                <div class="cs-section-body">
+                    <p class="mb-3">DNS Tool serves three primary audiences with different reading contexts:</p>
+
+                    <div class="cs-audience-card">
+                        <h3>{{icon "terminal" "me-1"}} The Engineer</h3>
+                        <p class="mb-1"><strong style="color: #c0c8d4;">Context:</strong> Analyzing a domain at a terminal, possibly at 2 AM, possibly under incident pressure.</p>
+                        <p class="mb-1"><strong style="color: #c0c8d4;">Needs:</strong> Precision, RFC references, verification commands, machine-parseable output.</p>
+                        <p class="mb-0"><strong style="color: #c0c8d4;">Vision concern:</strong> Extended reading sessions on dark backgrounds. Font size and contrast directly affect error rate.</p>
+                    </div>
+                    <div class="cs-audience-card">
+                        <h3>{{icon "briefcase" "me-1"}} The Executive</h3>
+                        <p class="mb-1"><strong style="color: #c0c8d4;">Context:</strong> Reading a brief before a board meeting or vendor assessment.</p>
+                        <p class="mb-1"><strong style="color: #c0c8d4;">Needs:</strong> Risk posture in business terms, remediation cost/complexity, decision points.</p>
+                        <p class="mb-0"><strong style="color: #c0c8d4;">Vision concern:</strong> May be reading on a phone, tablet, or printed page. Layout must be responsive.</p>
+                    </div>
+                    <div class="cs-audience-card">
+                        <h3>{{icon "user-shield" "me-1"}} The Older Professional</h3>
+                        <p class="mb-1"><strong style="color: #c0c8d4;">Context:</strong> 20+ years in infosec, may have age-related vision changes (presbyopia, reduced contrast sensitivity).</p>
+                        <p class="mb-1"><strong style="color: #c0c8d4;">Needs:</strong> Everything both audiences need, plus accommodation for reduced visual acuity.</p>
+                        <p class="mb-0"><strong style="color: #c0c8d4;">Vision concern:</strong> This is the primary reason the font-size floor exists. 10px text that &ldquo;looks fine&rdquo; to a 25-year-old developer may be unreadable to the 55-year-old CISO.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-header">
+                    <h2>{{icon "clipboard-check" "me-2"}}Enforcement</h2>
+                </div>
+                <div class="cs-section-body">
+                    <h3 style="font-size: 0.9rem; font-weight: 600; color: #e6edf3; margin-bottom: 0.75rem;">Automated Checks</h3>
+                    <div class="table-responsive mb-3">
+                        <table class="cs-req-table">
+                            <thead><tr><th>Check</th><th>Tool</th><th>Threshold</th></tr></thead>
+                            <tbody>
+                                <tr><td>Font size floor</td><td>CSS audit</td><td>Zero sub-0.75rem values</td></tr>
+                                <tr><td>Contrast ratio</td><td>squirrelscan</td><td>Zero errors</td></tr>
+                                <tr><td>Text overflow</td><td>Manual viewport testing</td><td>No horizontal scrollbar at 375px, 768px, 1024px, 1440px</td></tr>
+                                <tr><td>Heading hierarchy</td><td>squirrelscan</td><td>No skipped levels</td></tr>
+                                <tr><td>Lighthouse accessibility</td><td>Chrome Lighthouse</td><td>Score &ge; 95</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="font-size: 0.9rem; font-weight: 600; color: #e6edf3; margin-bottom: 0.75rem;">Manual Review Checklist</h3>
+                    <ul class="cs-checklist">
+                        <li><span class="cs-gate-badge cs-gate-clarity" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Clarity</span> Can a non-technical executive understand the main finding within 10 seconds?</li>
+                        <li><span class="cs-gate-badge cs-gate-clarity" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Clarity</span> Does every acronym have a first-use expansion or link?</li>
+                        <li><span class="cs-gate-badge cs-gate-clarity" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Clarity</span> Does every security finding include a &ldquo;what to do&rdquo; action?</li>
+                        <li><span class="cs-gate-badge cs-gate-vision" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Vision</span> At 50cm / 20&Prime;, can all text be read on a 13&Prime; laptop at 100% zoom?</li>
+                        <li><span class="cs-gate-badge cs-gate-vision" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Vision</span> In scotopic mode, does all text pass WCAG AA contrast (4.5:1)?</li>
+                        <li><span class="cs-gate-badge cs-gate-vision" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Vision</span> On a 375px mobile viewport, does all content fit without horizontal scroll?</li>
+                        <li><span class="cs-gate-badge cs-gate-vision" style="font-size: 0.75rem; padding: 0.1rem 0.35rem;">Vision</span> Are interactive elements large enough for touch targets (44&times;44px)?</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-header">
+                    <h2>{{icon "palette" "me-2"}}CSS Reference Values</h2>
+                </div>
+                <div class="cs-section-body">
+                    <p class="mb-3" style="font-size: 0.82rem; color: rgba(170,178,188,0.7);">Enforced values as of v26.37.35:</p>
+                    <div class="table-responsive">
+                        <table class="cs-ref-table">
+                            <thead><tr><th>Property</th><th>Value</th><th>Contrast Ratio</th><th>Standard</th></tr></thead>
+                            <tbody>
+                                <tr><td>Font size floor</td><td><code>0.75rem</code> (12px)</td><td>&mdash;</td><td>All <code>.u-fs-*</code> utility classes enforce this minimum</td></tr>
+                                <tr><td><code>.text-muted</code></td><td><code>#9ca3af</code> on <code>#0d1117</code></td><td>~7.45:1</td><td>WCAG AA (requires 4.5:1)</td></tr>
+                                <tr><td><code>.card.bg-dark .text-muted</code></td><td><code>#adb5bd</code> on <code>#21262d</code></td><td>~8.8:1</td><td>WCAG AA</td></tr>
+                                <tr><td>Secondary text minimum</td><td><code>#8b949e</code> on <code>#0d1117</code></td><td>~6.15:1</td><td>Replaces prior <code>#6c757d</code> (~4.04:1)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cs-section">
+                <div class="cs-section-header">
+                    <h2>{{icon "link" "me-2"}}Connection to Project Philosophy</h2>
+                </div>
+                <div class="cs-section-body">
+                    <p><strong style="color: #d2992a;">[ACCOUNTABILITY]</strong> &mdash; If the text is unreadable, the finding is unaccountable: it exists but cannot be acted upon.</p>
+                    <p><strong style="color: #d2992a;">[ZERO_WASTE]</strong> &mdash; Text that cannot be read is wasted: it consumes space without delivering value.</p>
+                    <p><strong style="color: #d2992a;">[VERBOSE+++++]</strong> &mdash; Clarity does not mean brevity. It means every word earns its place by advancing the reader's understanding.</p>
+                    <p class="mb-0"><strong style="color: #3fb950;">Vision as Ethics</strong> &mdash; Causing eye strain to a reader who came for security intelligence is a design failure with real consequences. The scotopic mode is the most visible implementation, but the standard-mode contrast and font-size requirements serve the same principle.</p>
+                </div>
+            </div>
+
+            <div class="cs-closing">
+                <p class="mb-2">&ldquo;A score without a citation is an opinion. A finding without readability is invisible.&rdquo;</p>
+                <p class="mb-0" style="font-size: 0.8rem;">&copy; 2024&ndash;2026 IT Help San Diego Inc. &mdash; DNS Security Intelligence</p>
+            </div>
+
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

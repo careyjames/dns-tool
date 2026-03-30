@@ -1,0 +1,22 @@
+{
+  "name": "dns-topology-solver",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Hybrid constrained layered-stress topology layout engine for DNS Tool.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "solve": "tsx src/main.ts",
+    "solve:desktop": "tsx src/main.ts --profile desktop fixtures/dns-topology-production.json",
+    "solve:tablet": "tsx src/main.ts --profile tablet fixtures/dns-topology-production.json",
+    "solve:mobile": "tsx src/main.ts --profile mobile fixtures/dns-topology-production.json",
+    "benchmark": "tsx src/benchmark.ts",
+    "report": "tsx src/benchmark.ts && echo 'Report generated in results/'",
+    "test": "tsx tests/solver.test.ts",
+    "validate": "tsx src/validate.ts fixtures/dns-topology-production.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsx": "^4.7.0"
+  }
+}

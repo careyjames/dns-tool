@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+{{htmlComment " You found one. There are more. View source is a valid attack vector against boredom. "}}
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_lcp_preload" .}}
+    {{template "head_css" .}}
+    {{template "head_katex" .}}
+    <title>System Architecture — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Public architecture overview of DNS Tool's intelligence engines, confidence framework, and open-core design. TLP:CLEAR — no restrictions on distribution.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/architecture">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="System Architecture — DNS Tool">
+    <meta property="og:description" content="Public architecture overview of DNS Tool's intelligence engines, confidence framework, and open-core design. TLP:CLEAR — no restrictions on distribution.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - System Architecture">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/architecture">
+    <meta name="twitter:title" content="System Architecture — DNS Tool">
+    <meta name="twitter:description" content="Public architecture overview of DNS Tool's intelligence engines, confidence framework, and open-core design. TLP:CLEAR — no restrictions on distribution.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/architecture">
+    <meta property="article:published_time" content="2025-06-01">
+    <meta property="article:modified_time" content="2026-03-15">
+    <style nonce="{{.CspNonce}}">
+        .arch-page { max-width: 1100px; }
+
+        .arch-tlp-banner {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+        }
+        .arch-tlp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 4px;
+            padding: 0.2rem 0.65rem;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: #e0e0e0;
+            white-space: nowrap;
+        }
+        .arch-tlp-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            flex-shrink: 0;
+        }
+        .arch-classification {
+            font-size: 0.72rem;
+            color: #8b949e;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .arch-section {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(200,149,106,0.15);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .arch-section:hover {
+            border-color: rgba(200,149,106,0.35);
+            box-shadow: 0 8px 32px rgba(200,149,106,0.08);
+        }
+        .arch-section-header {
+            background: linear-gradient(90deg, rgba(200,149,106,0.1) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(200,149,106,0.12);
+            padding: 1rem 1.5rem;
+        }
+        .arch-section-body { padding: 1.75rem 1.5rem; }
+        .arch-section-title {
+            color: #e6edf3;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .arch-section-icon { color: #c8956a; }
+
+        .arch-flow {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .arch-flow-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            min-width: 110px;
+            max-width: 160px;
+            flex: 0 1 auto;
+            position: relative;
+        }
+        .arch-flow-node-icon {
+            font-size: 1.35rem;
+            margin-bottom: 0.45rem;
+            line-height: 1;
+        }
+        .arch-flow-node-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #e6edf3;
+            line-height: 1.25;
+        }
+        .arch-flow-node-sub {
+            font-size: 0.62rem;
+            color: #8b949e;
+            margin-top: 0.2rem;
+            line-height: 1.2;
+        }
+        .arch-flow-arrow {
+            display: flex;
+            align-items: center;
+            color: #c8956a;
+            font-size: 1rem;
+            padding: 0 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .n-blue { background: rgba(184,168,152,0.15); border: 1px solid rgba(184,168,152,0.4); }
+        .n-blue .arch-flow-node-icon { color: #b8a898; }
+        .n-green { background: rgba(22,163,74,0.18); border: 1px solid rgba(74,222,128,0.4); }
+        .n-green .arch-flow-node-icon { color: #4ade80; }
+        .n-purple { background: rgba(200,149,106,0.15); border: 1px solid rgba(200,149,106,0.4); }
+        .n-purple .arch-flow-node-icon { color: #c8956a; }
+        .n-cyan { background: rgba(212,168,83,0.10); border: 1px solid rgba(212,168,83,0.30); }
+        .n-cyan .arch-flow-node-icon { color: #d4a853; }
+        .n-amber { background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.4); }
+        .n-amber .arch-flow-node-icon { color: #d4af37; }
+        .n-red { background: rgba(220,38,38,0.12); border: 1px solid rgba(248,113,113,0.35); }
+        .n-red .arch-flow-node-icon { color: #f87171; }
+
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+        .arch-grid-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            border-radius: 10px;
+        }
+        .arch-grid-node .arch-flow-node-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+        .arch-redacted-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139,148,158,0.08);
+            border: 1px dashed rgba(139,148,158,0.25);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            color: #8b949e;
+            font-size: 0.7rem;
+            letter-spacing: 0.03em;
+        }
+        .arch-redacted-icon { color: #6e7681; font-size: 0.8rem; }
+
+        .arch-standards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        .arch-standard-card {
+            background: rgba(200,149,106,0.06);
+            border: 1px solid rgba(200,149,106,0.15);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: border-color 0.3s;
+        }
+        .arch-standard-card:hover { border-color: rgba(200,149,106,0.35); }
+        .arch-standard-id {
+            font-family: 'SFMono-Regular', 'Consolas', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #c8956a;
+        }
+        .arch-standard-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin-top: 0.3rem;
+        }
+        .arch-standard-desc {
+            font-size: 0.68rem;
+            color: #8b949e;
+            margin-top: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .arch-boundary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .arch-boundary-col {
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+        .arch-boundary-public {
+            background: rgba(37,99,235,0.1);
+            border: 1px solid rgba(96,165,250,0.3);
+        }
+        .arch-boundary-private {
+            background: rgba(147,51,234,0.08);
+            border: 1px solid rgba(192,132,252,0.2);
+        }
+        .arch-boundary-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .arch-boundary-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0;
+            font-size: 0.75rem;
+            color: #c9d1d9;
+        }
+        .arch-boundary-item i { font-size: 0.7rem; width: 16px; text-align: center; }
+        .arch-boundary-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            grid-column: 1 / -1;
+            padding: 0.75rem;
+        }
+        .arch-boundary-wall {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #facc15;
+            letter-spacing: 0.04em;
+        }
+        .arch-boundary-wall-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(250,204,21,0.4), transparent);
+        }
+
+        .arch-dual-engine {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .arch-engine-card {
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        .arch-engine-icae {
+            background: linear-gradient(135deg, rgba(201,161,90,0.1) 0%, rgba(201,161,90,0.03) 100%);
+            border: 1px solid rgba(201,161,90,0.3);
+        }
+        .arch-engine-icuae {
+            background: linear-gradient(135deg, rgba(176,122,90,0.1) 0%, rgba(176,122,90,0.03) 100%);
+            border: 1px solid rgba(176,122,90,0.3);
+        }
+        .arch-engine-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+        .arch-engine-full {
+            font-size: 0.65rem;
+            color: #8b949e;
+            letter-spacing: 0.03em;
+        }
+        .arch-engine-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            color: #c9d1d9;
+            padding: 0.3rem 0;
+        }
+        .arch-engine-stat i { font-size: 0.65rem; width: 14px; text-align: center; }
+
+        .arch-protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+        }
+        .arch-protocol {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 8px;
+            background: rgba(200,149,106,0.06);
+            border: 1px solid rgba(200,149,106,0.12);
+            transition: border-color 0.3s;
+        }
+        .arch-protocol:hover { border-color: rgba(200,149,106,0.35); }
+        .arch-protocol-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #e6edf3;
+        }
+        .arch-protocol-rfc {
+            font-family: 'SFMono-Regular', 'Consolas', monospace;
+            font-size: 0.6rem;
+            color: #8b949e;
+        }
+        .arch-protocol-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .arch-footer-meta {
+            font-size: 0.65rem;
+            color: #484f58;
+            letter-spacing: 0.03em;
+        }
+
+        .arch-tlp-desc {
+            font-size: 0.72rem;
+            color: #8b949e;
+        }
+        .arch-section-desc {
+            font-size: 0.78rem;
+            color: #c9d1d9;
+        }
+        .arch-engine-icae-name {
+            color: #d4a853;
+        }
+        .arch-engine-icuae-name {
+            color: #c9a366;
+        }
+        .arch-engine-icae-hr {
+            border-color: rgba(212,168,83,0.2);
+            margin: 0.6rem 0;
+        }
+        .arch-engine-icuae-hr {
+            border-color: rgba(201,163,102,0.2);
+            margin: 0.6rem 0;
+        }
+        .arch-engine-icae-icon {
+            color: #d4a853;
+        }
+        .arch-engine-icuae-icon {
+            color: #c9a366;
+        }
+        .arch-flow-node-140 {
+            min-width: 140px;
+        }
+        .arch-boundary-public-label {
+            color: #b8a898;
+        }
+        .arch-boundary-public-icon {
+            color: #b8a898;
+        }
+        .arch-boundary-private-label {
+            color: #c9a366;
+        }
+        .arch-boundary-private-icon {
+            color: #c9a366;
+        }
+
+        .arch-diagram-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .arch-diagram-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(12, 16, 24, 0.8);
+            border: 1px solid rgba(200,149,106,0.12);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .arch-diagram-card:hover {
+            border-color: rgba(200,149,106,0.35);
+            box-shadow: 0 4px 20px rgba(200,149,106,0.08);
+            color: inherit;
+            text-decoration: none;
+        }
+        .arch-diagram-link-icon {
+            font-size: 0.55rem;
+            opacity: 0.35;
+            transition: opacity 0.3s;
+        }
+        .arch-diagram-card:hover .arch-diagram-link-icon {
+            opacity: 0.7;
+        }
+        .arch-diagram-label {
+            padding: 0.65rem 1rem;
+            background: rgba(200,149,106,0.06);
+            border-bottom: 1px solid rgba(200,149,106,0.08);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #8b949e;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .arch-diagram-label i {
+            color: #c8956a;
+            margin-right: 0.4rem;
+        }
+        .arch-diagram-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            padding: 0.75rem;
+        }
+        .arch-diagram-source {
+            font-size: 0.62rem;
+            color: #484f58;
+            letter-spacing: 0.03em;
+        }
+        .arch-diagram-source code {
+            font-size: 0.62rem;
+            color: #6e7681;
+        }
+
+        @media (max-width: 768px) {
+            .arch-boundary { grid-template-columns: 1fr; }
+            .arch-dual-engine { grid-template-columns: 1fr; }
+            .arch-protocol-grid { grid-template-columns: 1fr 1fr; }
+            .arch-flow { gap: 0.25rem; }
+            .arch-flow-node { min-width: 80px; max-width: 120px; padding: 0.6rem 0.5rem; }
+            .arch-flow-node-icon { font-size: 1.1rem; }
+            .arch-flow-node-label { font-size: 0.65rem; }
+            .arch-standards-grid { grid-template-columns: 1fr; }
+            .arch-diagram-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .arch-protocol-grid { grid-template-columns: 1fr; }
+            .arch-flow-arrow { font-size: 0.8rem; }
+        }
+
+        .arch-export-btn {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            letter-spacing: 0.03em;
+        }
+
+        @media print {
+            body { background: #0c1018 !important; color: #e6edf3 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            nav, footer, .arch-export-btn, .arch-diagram-link-icon { display: none !important; }
+            .container-fluid { max-width: 100% !important; padding: 0 1rem !important; }
+            .arch-page { max-width: 100% !important; }
+            .arch-section { break-inside: avoid; page-break-inside: avoid; margin-bottom: 1rem !important; }
+            .arch-diagram-card { break-inside: avoid; page-break-inside: avoid; }
+            .arch-standard-card { break-inside: avoid; page-break-inside: avoid; }
+            .arch-tlp-banner { border: 2px solid #33aa33 !important; }
+            a { color: inherit !important; text-decoration: none !important; }
+            h1, h2, h3 { color: #e6edf3 !important; }
+            .arch-section-header { background: rgba(200,149,106,0.08) !important; }
+            .arch-section-body { background: rgba(12,16,24,0.9) !important; }
+            .arch-footer-meta { font-size: 0.6rem; }
+            .text-center .btn { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    {{template "nav" .}}
+    <main class="container-fluid px-3 px-md-4 py-3 arch-page mx-auto" id="main-content">
+
+        <div class="arch-tlp-banner mb-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+                <h1 class="h4 mb-0 fw-bold text-light">{{icon "sitemap" "me-2 arch-section-icon"}}System Architecture</h1>
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-outline-secondary arch-export-btn text-nowrap" id="archExportPdf">{{icon "file-pdf" "me-1"}}Export PDF</button>
+                    <span class="arch-tlp-badge"><span class="arch-tlp-dot"></span>TLP:CLEAR</span>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <span class="arch-classification">{{icon "shield-halved" "me-1"}}Classification: Public Release</span>
+                <span class="arch-classification">{{icon "file-contract" "me-1"}}FIRST TLP v2.0</span>
+                <span class="arch-classification">{{icon "clock" "me-1"}}{{.AppVersion}}</span>
+            </div>
+            <p class="mb-0 mt-2 arch-tlp-desc">This document is published under TLP:CLEAR per FIRST TLP v2.0. No restrictions on distribution. Proprietary methodology, internal scoring algorithms, and infrastructure details have been withheld.</p>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "diagram-project" "me-2 arch-section-icon"}}Intelligence Pipeline</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Domain intelligence flows through a multi-stage pipeline: collection from distributed sources, analysis against RFC standards, classification into actionable verdicts, and delivery as structured intelligence products.</p>
+                <div class="arch-flow mb-3">
+                    <div class="arch-flow-node n-blue">
+                        <div class="arch-flow-node-icon">{{icon "globe"}}</div>
+                        <div class="arch-flow-node-label">Domain Input</div>
+                        <div class="arch-flow-node-sub">Target acquisition</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-cyan">
+                        <div class="arch-flow-node-icon">{{icon "satellite-dish"}}</div>
+                        <div class="arch-flow-node-label">Collection Layer</div>
+                        <div class="arch-flow-node-sub">Multi-resolver DNS<br>SMTP &middot; CT &middot; HTTP</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-blue">
+                        <div class="arch-flow-node-icon">{{icon "microscope"}}</div>
+                        <div class="arch-flow-node-label">ICIE Analysis</div>
+                        <div class="arch-flow-node-sub">Intelligence Classification<br>&amp; Interpretation Engine</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-amber">
+                        <div class="arch-flow-node-icon">{{icon "filter"}}</div>
+                        <div class="arch-flow-node-label">Privacy Gate</div>
+                        <div class="arch-flow-node-sub">Classification &amp;<br>access control</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-green">
+                        <div class="arch-flow-node-icon">{{icon "file-lines"}}</div>
+                        <div class="arch-flow-node-label">Intelligence Products</div>
+                        <div class="arch-flow-node-sub">Reports &middot; Briefs<br>Exports &middot; Badges</div>
+                    </div>
+                </div>
+                <div class="arch-redacted-bar">
+                    {{icon "lock" "arch-redacted-icon"}}
+                    <span>Internal pipeline sequencing, enrichment stages, and classification algorithms withheld</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "shield-halved" "me-2 arch-section-icon"}}Dual-Engine Confidence Framework</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Two independent engines audit the quality of every analysis using ICD 203 confidence methodology — one measures <em>correctness</em>, the other measures <em>currency</em>. Together they provide complementary confidence dimensions for a holistic assessment.</p>
+                <div class="arch-dual-engine mb-3">
+                    <div class="arch-engine-card arch-engine-icae">
+                        <div class="arch-engine-name arch-engine-icae-name">ICAE</div>
+                        <div class="arch-engine-full">Intelligence Confidence Audit Engine</div>
+                        <hr class="arch-engine-icae-hr">
+                        <div class="arch-engine-stat">{{icon "crosshairs" "arch-engine-icae-icon"}} Measures analysis <strong>correctness</strong></div>
+                        <div class="arch-engine-stat">{{icon "flask" "arch-engine-icae-icon"}} Deterministic test cases across 9 protocols</div>
+                        <div class="arch-engine-stat">{{icon "chart-line" "arch-engine-icae-icon"}} Five-tier maturity model</div>
+                        <div class="arch-engine-stat">{{icon "fingerprint" "arch-engine-icae-icon"}} SHA-3-512 tamper-evident audit trail</div>
+                        <div class="arch-engine-stat">{{icon "database" "arch-engine-icae-icon"}} Historical regression tracking</div>
+                        <div class="arch-engine-stat">{{icon "square-root-alt" "arch-engine-icae-icon"}} \(C_{\text{cal}} = w \cdot C_{\text{raw}} + (1-w) \cdot \frac{\alpha}{\alpha+\beta}\)</div>
+                    </div>
+                    <div class="arch-engine-card arch-engine-icuae">
+                        <div class="arch-engine-name arch-engine-icuae-name">ICuAE</div>
+                        <div class="arch-engine-full">Intelligence Currency Audit Engine</div>
+                        <hr class="arch-engine-icuae-hr">
+                        <div class="arch-engine-stat">{{icon "clock" "arch-engine-icuae-icon"}} Measures data <strong>timeliness</strong></div>
+                        <div class="arch-engine-stat">{{icon "layer-group" "arch-engine-icuae-icon"}} Five quality dimensions</div>
+                        <div class="arch-engine-stat">{{icon "sliders-h" "arch-engine-icuae-icon"}} Self-tuning advisory pipeline</div>
+                        <div class="arch-engine-stat">Excellence benchmarks from industry leaders</div>
+                        <div class="arch-engine-stat">{{icon "certificate" "arch-engine-icuae-icon"}} Standards: ICD 203 &middot; NIST SI-7 &middot; ISO 25012</div>
+                        <div class="arch-engine-stat">{{icon "chart-line" "arch-engine-icuae-icon"}} \(Z_t = \lambda X_t + (1-\lambda)Z_{t-1}\)</div>
+                    </div>
+                </div>
+                <div class="arch-flow justify-content-center mb-3">
+                    <div class="arch-flow-node n-cyan arch-flow-node-140">
+                        <div class="arch-flow-node-icon">{{icon "microscope"}}</div>
+                        <div class="arch-flow-node-label">ICIE Output</div>
+                        <div class="arch-flow-node-sub">Analysis results</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-blue arch-flow-node-140">
+                        <div class="arch-flow-node-icon">{{icon "crosshairs"}}</div>
+                        <div class="arch-flow-node-label">ICAE Evaluation</div>
+                        <div class="arch-flow-node-sub">Correctness audit</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-purple arch-flow-node-140">
+                        <div class="arch-flow-node-icon">{{icon "clock"}}</div>
+                        <div class="arch-flow-node-label">ICuAE Evaluation</div>
+                        <div class="arch-flow-node-sub">Currency audit</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "chevron-right"}}</div>
+                    <div class="arch-flow-node n-green arch-flow-node-140">
+                        <div class="arch-flow-node-icon">{{icon "shield-halved"}}</div>
+                        <div class="arch-flow-node-label">Confidence Score</div>
+                        <div class="arch-flow-node-sub">Holistic assessment</div>
+                    </div>
+                </div>
+                <div class="row g-3 mt-2 mb-3">
+                    <div class="col-md-6">
+                        <p class="small text-muted mb-2">{{icon "crosshairs" "me-1"}}ICAE Reliability-Weighted Shrinkage Calibration</p>
+                        <div class="math-display" data-latex="C_{\text{cal}} = w \cdot C_{\text{raw}} + (1-w) \cdot \frac{\alpha}{\alpha+\beta}">$$C_{\text{cal}} = w \cdot C_{\text{raw}} + (1-w) \cdot \frac{\alpha}{\alpha+\beta}$$</div>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="small text-muted mb-2">{{icon "chart-line" "me-1"}}ICuAE EWMA Drift Detection</p>
+                        <div class="math-display" data-latex="Z_t = \lambda \cdot X_t + (1 - \lambda) \cdot Z_{t-1}">$$Z_t = \lambda \cdot X_t + (1 - \lambda) \cdot Z_{t-1}$$</div>
+                    </div>
+                </div>
+                <div class="arch-redacted-bar">
+                    {{icon "lock" "arch-redacted-icon"}}
+                    <span>Test case inventories, scoring formulas, maturity thresholds, and tuning parameters withheld</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "network-wired" "me-2 arch-section-icon"}}Protocol Coverage</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Nine RFC-defined security protocols analyzed from multiple intelligence sources with multi-resolver consensus. All analysis uses open-standard protocols and publicly available DNS records.</p>
+                <div class="arch-protocol-grid mb-3">
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-blue">{{icon "envelope"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">SPF</div>
+                            <div class="arch-protocol-rfc">RFC 7208</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-blue">{{icon "key"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">DKIM</div>
+                            <div class="arch-protocol-rfc">RFC 6376</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-blue">{{icon "shield-halved"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">DMARC</div>
+                            <div class="arch-protocol-rfc">RFC 7489</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-green">{{icon "lock"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">DANE/TLSA</div>
+                            <div class="arch-protocol-rfc">RFC 6698</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-green">{{icon "link"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">DNSSEC</div>
+                            <div class="arch-protocol-rfc">RFC 4033–4035</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-green">{{icon "image"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">BIMI</div>
+                            <div class="arch-protocol-rfc">BIMI Working Group</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-purple">{{icon "server"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">MTA-STS</div>
+                            <div class="arch-protocol-rfc">RFC 8461</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-purple">{{icon "chart-bar"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">TLS-RPT</div>
+                            <div class="arch-protocol-rfc">RFC 8460</div>
+                        </div>
+                    </div>
+                    <div class="arch-protocol">
+                        <div class="arch-protocol-icon n-purple">{{icon "certificate"}}</div>
+                        <div>
+                            <div class="arch-protocol-name">CAA</div>
+                            <div class="arch-protocol-rfc">RFC 8659</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "code-compare" "me-2 arch-section-icon"}}Open-Core Architecture</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Dual-repository structure separates the open-core application framework from proprietary intelligence modules. Build-tag isolation enforces clean boundary contracts verified by automated integrity tests.</p>
+                <div class="arch-boundary mb-3">
+                    <div class="arch-boundary-col arch-boundary-public">
+                        <div class="arch-boundary-label arch-boundary-public-label">{{icon "lock-open" "me-1"}}Public — Open-Core (BUSL-1.1)</div>
+                        <div class="arch-boundary-item">{{icon "code-compare" "arch-boundary-public-icon"}} Application framework</div>
+                        <div class="arch-boundary-item">{{icon "file-code" "arch-boundary-public-icon"}} HTML templates &amp; static assets</div>
+                        <div class="arch-boundary-item">{{icon "flask" "arch-boundary-public-icon"}} Boundary integrity test suite</div>
+                        <div class="arch-boundary-item">{{icon "gears" "arch-boundary-public-icon"}} Build &amp; deployment scripts</div>
+                        <div class="arch-boundary-item">{{icon "file-lines" "arch-boundary-public-icon"}} OSS stub contracts</div>
+                        <div class="arch-boundary-item">{{icon "gavel" "arch-boundary-public-icon"}} BUSL-1.1 License</div>
+                    </div>
+                    <div class="arch-boundary-col arch-boundary-private">
+                        <div class="arch-boundary-label arch-boundary-private-label">{{icon "lock" "me-1"}}Private — Proprietary</div>
+                        <div class="arch-boundary-item">{{icon "microchip" "arch-boundary-private-icon"}} Intelligence modules</div>
+                        <div class="arch-boundary-item">{{icon "database" "arch-boundary-private-icon"}} Provider databases</div>
+                        <div class="arch-boundary-item">{{icon "microscope" "arch-boundary-private-icon"}} Classification methodology</div>
+                        <div class="arch-boundary-item">{{icon "eye-slash" "arch-boundary-private-icon"}} Detection algorithms</div>
+                        <div class="arch-boundary-item">{{icon "diagram-project" "arch-boundary-private-icon"}} Commercial roadmap</div>
+                        <div class="arch-boundary-item">{{icon "gavel" "arch-boundary-private-icon"}} BUSL-1.1 License</div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 mb-3 px-2">
+                    <div class="arch-boundary-wall-line"></div>
+                    <span class="arch-boundary-wall">{{icon "shield-halved" "me-1"}}Build-Tag Isolation Boundary</span>
+                    <div class="arch-boundary-wall-line"></div>
+                </div>
+                <div class="arch-redacted-bar">
+                    {{icon "lock" "arch-redacted-icon"}}
+                    <span>Repository names, build-tag identifiers, sync mechanisms, and module interfaces withheld</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "file-lines" "me-2 arch-section-icon"}}Intelligence Products</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Five distinct intelligence products serve different audiences and operational contexts — from board-ready executive briefs to adversarial-lens reconnaissance reports.</p>
+                <div class="arch-grid">
+                    <div class="arch-grid-node n-blue">
+                        <div class="arch-flow-node-icon">{{icon "microscope"}}</div>
+                        <div class="arch-flow-node-label">Engineer's Report</div>
+                        <div class="arch-flow-node-sub">Technical &middot; RFC-cited<br>Full protocol analysis</div>
+                    </div>
+                    <div class="arch-grid-node n-green">
+                        <div class="arch-flow-node-icon">{{icon "briefcase"}}</div>
+                        <div class="arch-flow-node-label">Executive's Brief</div>
+                        <div class="arch-flow-node-sub">Board-ready<br>TLP-classified</div>
+                    </div>
+                    <div class="arch-grid-node n-red">
+                        <div class="arch-flow-node-icon">{{icon "crosshairs"}}</div>
+                        <div class="arch-flow-node-label">Recon Report</div>
+                        <div class="arch-flow-node-sub">Adversarial lens<br>Red-team perspective</div>
+                    </div>
+                    <div class="arch-grid-node n-purple">
+                        <div class="arch-flow-node-icon">{{icon "clipboard-list"}}</div>
+                        <div class="arch-flow-node-label">Domain Dossier</div>
+                        <div class="arch-flow-node-sub">Aggregated<br>intelligence view</div>
+                    </div>
+                    <div class="arch-grid-node n-cyan">
+                        <div class="arch-flow-node-icon">{{icon "exchange-alt"}}</div>
+                        <div class="arch-flow-node-label">Domain Comparison</div>
+                        <div class="arch-flow-node-sub">Side-by-side<br>posture analysis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "satellite-dish" "me-2 arch-section-icon"}}Drift Engine &amp; Notification Pipeline</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Continuous posture monitoring detects DNS configuration changes between analyses. When drift is detected, the notification pipeline routes alerts to the right people through the right channels.</p>
+                <div class="arch-flow-container mb-4">
+                    <div class="arch-flow-node n-blue">
+                        <div class="arch-flow-node-icon">{{icon "magnifying-glass"}}</div>
+                        <div class="arch-flow-node-label">Domain Scan</div>
+                        <div class="arch-flow-node-sub">ICIE analysis</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-blue">
+                        <div class="arch-flow-node-icon">{{icon "fingerprint"}}</div>
+                        <div class="arch-flow-node-label">Posture Hash</div>
+                        <div class="arch-flow-node-sub">SHA-256 canonical</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-cyan">
+                        <div class="arch-flow-node-icon">{{icon "code-compare"}}</div>
+                        <div class="arch-flow-node-label">Posture Diff</div>
+                        <div class="arch-flow-node-sub">Field-by-field<br>comparison</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-amber">
+                        <div class="arch-flow-node-icon">{{icon "gauge-high"}}</div>
+                        <div class="arch-flow-node-label">Severity Engine</div>
+                        <div class="arch-flow-node-sub">danger &middot; warning<br>success &middot; info</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-green">
+                        <div class="arch-flow-node-icon">{{icon "database"}}</div>
+                        <div class="arch-flow-node-label">Drift Event</div>
+                        <div class="arch-flow-node-sub">PostgreSQL record</div>
+                    </div>
+                </div>
+                <div class="arch-flow-container mb-3">
+                    <div class="arch-flow-node n-purple">
+                        <div class="arch-flow-node-icon">{{icon "eye"}}</div>
+                        <div class="arch-flow-node-label">Watchlist Lookup</div>
+                        <div class="arch-flow-node-sub">domain_watchlist</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-purple">
+                        <div class="arch-flow-node-icon">{{icon "route"}}</div>
+                        <div class="arch-flow-node-label">Queue Notifications</div>
+                        <div class="arch-flow-node-sub">Per-endpoint routing</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-purple">
+                        <div class="arch-flow-node-icon">{{icon "paper-plane"}}</div>
+                        <div class="arch-flow-node-label">Delivery Loop</div>
+                        <div class="arch-flow-node-sub">30s poll &middot; 50/batch<br>SSRF-protected</div>
+                    </div>
+                    <div class="arch-flow-arrow">{{icon "arrow-right"}}</div>
+                    <div class="arch-flow-node n-blue">
+                        <div class="arch-flow-node-icon">{{icon "discord"}}</div>
+                        <div class="arch-flow-node-label">Discord</div>
+                        <div class="arch-flow-node-sub">Webhook embed</div>
+                    </div>
+                </div>
+                <div class="arch-redacted-bar">
+                    {{icon "lock" "me-2"}}Internal detection thresholds and flickering domain analysis methodology withheld.
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "code-branch" "me-2 arch-section-icon"}}GitHub Issues Triage</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Three-tier issue routing with automated validation. Research-critical issues require RFC-backed evidence. Security reports are auto-redirected to private channels. All issues follow a label-based state machine.</p>
+                <div class="arch-grid u-arch-grid-3col">
+                    <div class="arch-grid-node u-border-red">
+                        <div class="arch-flow-node-icon">{{icon "flask"}}</div>
+                        <div class="arch-flow-node-label">Research Mission Critical</div>
+                        <div class="arch-flow-node-sub">RFC citation required<br>P0 &mdash; immediate investigation</div>
+                    </div>
+                    <div class="arch-grid-node n-amber">
+                        <div class="arch-flow-node-icon">{{icon "palette"}}</div>
+                        <div class="arch-flow-node-label">Cosmetic / UX / UI</div>
+                        <div class="arch-flow-node-sub">Screenshot required<br>Normal cadence</div>
+                    </div>
+                    <div class="arch-grid-node n-purple">
+                        <div class="arch-flow-node-icon">{{icon "shield-halved"}}</div>
+                        <div class="arch-flow-node-label">Security Vulnerability</div>
+                        <div class="arch-flow-node-sub">Auto-close &amp; lock<br>Private channel only</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">{{icon "diagram-project" "me-2 arch-section-icon"}}Engineering Diagrams</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-1 arch-section-desc">Canonical architecture diagrams rendered from version-controlled Mermaid source files. These are the engineering source of truth — diffable, auditable, and tied to releases.</p>
+                <p class="mb-3 arch-diagram-source">{{icon "code-compare"}} Source: <code>docs/diagrams/*.mmd</code></p>
+                <div class="arch-diagram-grid">
+                    <a class="arch-diagram-card" href="/static/images/diagrams/intelligence-pipeline.svg" target="_blank" rel="noopener" title="Open full Intelligence Pipeline diagram">
+                        <div class="arch-diagram-label">{{icon "diagram-project"}} Intelligence Pipeline {{icon "external-link-alt" "ms-1 arch-diagram-link-icon"}}</div>
+                        <img src="{{staticVersionURL "images/diagrams/intelligence-pipeline.svg" .AppVersion}}" alt="Intelligence pipeline diagram showing data flow from domain input through collection, ICIE analysis, privacy gate, to intelligence products" loading="lazy" width="1137" height="109">
+                    </a>
+                    <a class="arch-diagram-card" href="/static/images/diagrams/confidence-framework.svg" target="_blank" rel="noopener" title="Open full Confidence Framework diagram">
+                        <div class="arch-diagram-label">{{icon "shield-halved"}} Confidence Framework {{icon "external-link-alt" "ms-1 arch-diagram-link-icon"}}</div>
+                        <img src="{{staticVersionURL "images/diagrams/confidence-framework.svg" .AppVersion}}" alt="Dual-engine confidence framework diagram showing ICIE output flowing through ICAE correctness audit and ICuAE currency audit to produce holistic confidence score" loading="lazy" width="863" height="505">
+                    </a>
+                    <a class="arch-diagram-card" href="/static/images/diagrams/open-core-architecture.svg" target="_blank" rel="noopener" title="Open full Open-Core Architecture diagram">
+                        <div class="arch-diagram-label">{{icon "code-compare"}} Open-Core Architecture {{icon "external-link-alt" "ms-1 arch-diagram-link-icon"}}</div>
+                        <img src="{{staticVersionURL "images/diagrams/open-core-architecture.svg" .AppVersion}}" alt="Open-core architecture diagram showing public BUSL-1.1 repository separated from private proprietary intelligence repository by build-tag isolation boundary" loading="lazy" width="466" height="762">
+                    </a>
+                    <a class="arch-diagram-card" href="/static/images/diagrams/protocol-coverage.svg" target="_blank" rel="noopener" title="Open full Protocol Coverage diagram">
+                        <div class="arch-diagram-label">{{icon "network-wired"}} Protocol Coverage {{icon "external-link-alt" "ms-1 arch-diagram-link-icon"}}</div>
+                        <img src="{{staticVersionURL "images/diagrams/protocol-coverage.svg" .AppVersion}}" alt="Protocol coverage diagram showing nine RFC-defined security protocols organized into email authentication, transport security, and policy groups feeding into the ICIE engine" loading="lazy" width="554" height="610">
+                    </a>
+                    <a class="arch-diagram-card" href="/static/images/diagrams/drift-notification-pipeline.svg" target="_blank" rel="noopener" title="Open full Drift Notification Pipeline diagram">
+                        <div class="arch-diagram-label">{{icon "satellite-dish"}} Drift Notification Pipeline {{icon "external-link-alt" "ms-1 arch-diagram-link-icon"}}</div>
+                        <img src="{{staticVersionURL "images/diagrams/drift-notification-pipeline.svg" .AppVersion}}" alt="Drift notification pipeline diagram showing detection flow from domain scan through posture hashing, diff computation, severity classification, watchlist routing, to multi-channel delivery" loading="lazy" width="1126" height="201">
+                    </a>
+                    <a class="arch-diagram-card" href="/static/images/diagrams/github-issues-triage.svg" target="_blank" rel="noopener" title="Open full GitHub Issues Triage diagram">
+                        <div class="arch-diagram-label">{{icon "code-branch"}} GitHub Issues Triage {{icon "external-link-alt" "ms-1 arch-diagram-link-icon"}}</div>
+                        <img src="{{staticVersionURL "images/diagrams/github-issues-triage.svg" .AppVersion}}" alt="GitHub issues triage diagram showing three-tier routing for research mission critical, cosmetic UX, and security vulnerability issues with automated validation and label state machine" loading="lazy" width="619" height="355">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="arch-section mb-4">
+            <div class="arch-section-header">
+                <h2 class="arch-section-title mb-0">Standards Foundation</h2>
+            </div>
+            <div class="arch-section-body">
+                <p class="mb-3 arch-section-desc">Every engine, verdict, and confidence assessment traces to published standards. No proprietary scoring without a standards citation.</p>
+                <div class="arch-standards-grid">
+                    <div class="arch-standard-card">
+                        <div class="arch-standard-id">ICD 203</div>
+                        <div class="arch-standard-name">Analytic Standards</div>
+                        <div class="arch-standard-desc">Intelligence Community Directive for confidence levels and analytic tradecraft — the framework that structures ICAE and ICuAE assessments</div>
+                    </div>
+                    <div class="arch-standard-card">
+                        <div class="arch-standard-id">NIST SP 800-53 SI-7</div>
+                        <div class="arch-standard-name">Information Integrity</div>
+                        <div class="arch-standard-desc">System and Information Integrity control for data currency — the basis for ICuAE's timeliness dimension</div>
+                    </div>
+                    <div class="arch-standard-card">
+                        <div class="arch-standard-id">ISO/IEC 25012</div>
+                        <div class="arch-standard-name">Data Quality Model</div>
+                        <div class="arch-standard-desc">International standard defining data quality characteristics — completeness, currentness, and credibility dimensions</div>
+                    </div>
+                    <div class="arch-standard-card">
+                        <div class="arch-standard-id">FIRST TLP v2.0</div>
+                        <div class="arch-standard-name">Traffic Light Protocol</div>
+                        <div class="arch-standard-desc">Information sharing classification used across all intelligence products and this architecture document</div>
+                    </div>
+                    <div class="arch-standard-card">
+                        <div class="arch-standard-id">FIPS 202</div>
+                        <div class="arch-standard-name">SHA-3 Standard</div>
+                        <div class="arch-standard-desc">SHA-3-512 used for cryptographic provenance hashing on all JSON exports — tamper-evident audit trail</div>
+                    </div>
+                    <div class="arch-standard-card">
+                        <div class="arch-standard-id">RFC 4033–8659</div>
+                        <div class="arch-standard-name">DNS Security RFCs</div>
+                        <div class="arch-standard-desc">21 IETF RFCs governing SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS, TLS-RPT, CAA, and BIMI analysis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 mb-2">
+            <a href="https://github.com/IT-Help-San-Diego/dns-tool" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="me-1 u-valign-n3" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>View Source on GitHub
+            </a>
+        </div>
+
+        <div class="text-center mt-3 mb-1 arch-footer-meta">
+            <span>{{icon "shield-halved" "me-1"}}TLP:CLEAR — No restrictions on distribution</span>
+            <span class="mx-2">&middot;</span>
+            <span>Sensitive methods and infrastructure details withheld</span>
+            <span class="mx-2">&middot;</span>
+            <span>v{{.AppVersion}}</span>
+        </div>
+
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    document.getElementById('archExportPdf').addEventListener('click', function() {
+        globalThis.print();
+    });
+    </script>
+    {{template "math_copy_script" .}}
+</body>
+</html>

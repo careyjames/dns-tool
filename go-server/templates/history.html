@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Domain Security Analysis History & Reports - DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Browse your domain security analysis history. Compare past audits, track posture changes over time, and revisit previous DNS security reports.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/history">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Analysis History - DNS Tool">
+    <meta property="og:description" content="Browse your domain security analysis history. Compare past audits, track posture changes over time, and revisit previous DNS security reports.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Analysis History">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/history">
+    <meta name="twitter:title" content="Analysis History - DNS Tool">
+    <meta name="twitter:description" content="Browse your domain security analysis history. Compare past audits, track posture changes over time, and revisit previous DNS security reports.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/history">
+    {{template "critical_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .text-center{text-align:center}
+        .my-4{margin-top:1.5rem;margin-bottom:1.5rem}
+        .mb-0{margin-bottom:0}
+        .mb-1{margin-bottom:.25rem}
+        .mb-2{margin-bottom:.5rem}
+        .mb-3{margin-bottom:1rem}
+        .mb-4{margin-bottom:1.5rem}
+        .mt-4{margin-top:1.5rem}
+        .mt-5{margin-top:3rem}
+        .py-2{padding-top:.5rem;padding-bottom:.5rem}
+        .py-5{padding-top:3rem;padding-bottom:3rem}
+        .px-3{padding-left:1rem;padding-right:1rem}
+        .me-1{margin-inline-end:.25rem}
+        .me-2{margin-inline-end:.5rem}
+        .ms-1{margin-inline-start:.25rem}
+        .ms-2{margin-inline-start:.5rem}
+        .ms-auto{margin-inline-start:auto}
+        .text-muted{color:#adb5bd!important}
+        .text-primary{color:#0d6efd!important}
+        .text-light{color:#f8f9fa!important}
+        .fw-medium{font-weight:500}
+        .small{font-size:.875em}
+        .d-flex{display:flex}
+        .d-none{display:none}
+        .gap-1{gap:.25rem}
+        .gap-2{gap:.5rem}
+        .flex-wrap{flex-wrap:wrap}
+        .flex-shrink-0{flex-shrink:0}
+        .align-items-center{align-items:center}
+        .align-items-start{align-items:start}
+        .justify-content-between{justify-content:space-between}
+        .justify-content-center{justify-content:center}
+        .min-width-0{min-width:0}
+        .text-truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .form-control{display:block;width:100%;padding:.375rem .75rem;font-size:1rem;background-color:#2b3035;border:1px solid #495057;border-radius:.375rem;color:#dee2e6}
+        .btn{display:inline-block;padding:.375rem .75rem;font-size:1rem;border-radius:.375rem;text-decoration:none;cursor:pointer;border:1px solid transparent}
+        .btn-primary{background-color:var(--bs-primary);border-color:var(--bs-primary);color:#fff}
+        .btn-sm{padding:.25rem .5rem;font-size:.875rem}
+        .btn-outline-primary{color:#0d6efd;border-color:#0d6efd;background:transparent}
+        .btn-outline-success{color:#198754;border-color:#198754;background:transparent}
+        .btn-outline-warning{color:#ffc107;border-color:#ffc107;background:transparent}
+        .btn-outline-secondary{color:#6c757d;border-color:#6c757d;background:transparent}
+        .btn-group{display:inline-flex}
+        .btn-group>.btn{border-radius:0}.btn-group>.btn:first-child{border-top-left-radius:.375rem;border-bottom-left-radius:.375rem}.btn-group>.btn:last-child{border-top-right-radius:.375rem;border-bottom-right-radius:.375rem}
+        .input-group{display:flex;flex-wrap:wrap}
+        .input-group>.form-control{flex:1 1 auto;width:1%}
+        .input-group-text{display:flex;align-items:center;padding:.375rem .75rem;font-size:1rem;border:1px solid #495057;border-radius:.375rem}
+        .table{width:100%;margin-bottom:1rem;color:#dee2e6;border-collapse:collapse;table-layout:fixed}
+        .table th,.table td{padding:.4rem .5rem;vertical-align:middle;border-top:1px solid #495057}
+        .table thead th{vertical-align:bottom;border-bottom:2px solid #495057;white-space:nowrap}
+        .table-hover tbody tr:hover{background-color:rgba(255,255,255,.075)}
+        .table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch}
+        .history-table td:last-child,.history-table th:last-child{white-space:nowrap}
+        .history-table .col-date{white-space:nowrap;font-size:.8125rem}
+        .history-table .col-domain{max-width:320px;overflow:hidden;text-overflow:ellipsis}
+        .badge{display:inline-block;padding:.35em .65em;font-size:.75em;font-weight:700;border-radius:.25rem;color:#fff;white-space:nowrap}
+        .u-w-38pct{width:38%}.u-w-26pct{width:26%}.u-w-22pct{width:22%}.u-w-23pct{width:23%}.u-w-14pct{width:14%}
+        .bg-success{background-color:#198754!important}
+        .bg-warning{background-color:#ffc107!important;color:#000!important}
+        .bg-danger{background-color:#dc3545!important}
+        .bg-info{background-color:#d4a853!important}
+        .bg-secondary{background-color:#6c757d!important}
+        .pagination{display:flex;padding-left:0;list-style:none;gap:.25rem}
+        .page-item.active .page-link{background-color:#0d6efd;border-color:#0d6efd;color:#fff}
+        .page-item.disabled .page-link{color:#6c757d;pointer-events:none}
+        .page-link{padding:.375rem .75rem;color:#6ea8fe;text-decoration:none;background-color:#2b3035;border:1px solid #495057;border-radius:.375rem}
+        .h3{font-size:1.75rem;font-weight:500}
+        .source-tag{display:inline-flex;align-items:center;gap:.3em;font-size:.6875rem;font-weight:600;color:#a78bfa;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25);border-radius:.25rem;padding:.1em .45em;white-space:nowrap;vertical-align:middle;letter-spacing:.01em;text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s}
+        .source-tag:hover{background:rgba(167,139,250,.22);border-color:rgba(167,139,250,.4);color:#c4b5fd}
+        .source-tag svg{width:.75em;height:.75em;fill:currentColor;flex-shrink:0}
+        @media(min-width:768px){.d-md-none{display:none!important}.d-none.d-md-block{display:block!important}}
+        @media(max-width:767.98px){.d-md-none{display:block}.d-none.d-md-block{display:none!important}}
+        @media(min-width:576px){.d-none.d-sm-inline{display:inline!important}}
+        .navbar-nav{display:flex;list-style:none;margin:0;padding:0}
+        .nav-link{color:rgba(255,255,255,.55);text-decoration:none;padding:.5rem 1rem}
+        .row{display:flex;flex-wrap:wrap;margin:0 -.75rem}
+    </style>
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        {{template "flash_messages" .}}
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "history" "me-2"}}Analysis History
+                </h1>
+                <p class="text-muted mb-0">View all DNS analysis records</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/" class="btn btn-analyze">
+                    {{icon "plus" "me-1"}}<span class="d-none d-sm-inline">New Analysis</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body py-2">
+                <search><form action="/history" method="GET" class="d-flex align-items-center gap-2">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-secondary">
+                            {{icon "search" "text-muted"}}
+                        </span>
+                        <input type="text" name="domain" class="form-control border-secondary" 
+                               placeholder="Search by domain name..." 
+                               aria-label="Search history by domain name"
+                               value="{{.SearchDomain}}"
+                               autocomplete="off" autocapitalize="none" spellcheck="false">
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary flex-shrink-0">Search</button>
+                    {{if .SearchDomain}}
+                        <a href="/history" class="btn btn-outline-secondary flex-shrink-0" title="Clear search">
+                            {{icon "times"}}
+                        </a>
+                    {{end}}
+                </form></search>
+            </div>
+        </div>
+
+        {{if .SearchDomain}}
+            <div class="mb-3">
+                <span class="text-muted">
+                    {{if eq .Pagination.Total 0}}
+                        No results found for "<strong>{{.SearchDomain}}</strong>"
+                    {{else if eq .Pagination.Total 1}}
+                        1 result for "<strong>{{.SearchDomain}}</strong>"
+                    {{else}}
+                        {{.Pagination.Total}} results for "<strong>{{.SearchDomain}}</strong>"
+                    {{end}}
+                </span>
+            </div>
+        {{end}}
+
+        {{if .Analyses}}
+            <div class="card d-none d-md-block">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 history-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="u-w-38pct">Domain</th>
+                                    <th scope="col" class="u-w-26pct">Email Security</th>
+                                    <th scope="col" class="col-date u-w-22pct">Date</th>
+                                    <th scope="col" class="u-w-14pct">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range $i, $a := .Analyses}}
+                                <tr>
+                                    <td class="col-domain">
+                                        <div class="d-flex align-items-center min-width-0">
+                                            {{icon "globe" "text-primary me-2 flex-shrink-0"}}
+                                            <div class="min-width-0">
+                                                <div class="fw-medium text-truncate" title="{{$a.Domain}}">{{$a.Domain}}{{if eq $a.RequestSource "agent"}} <a href="/agent/plugin" class="source-tag" title="Queried via DEVONagent Pro plugin — click to learn more"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3.5l-1.5 2-1.5-2H3a1 1 0 0 1-1-1V3zm2 1v1h8V4H4zm0 3v1h6V7H4zm0 3v1h4v-1H4z"/></svg>Plugin</a>{{end}}</div>
+                                                {{if ne $a.AsciiDomain $a.Domain}}
+                                                    <small class="text-muted text-truncate d-block">{{$a.AsciiDomain}}</small>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="proto-badge-row">
+                                            {{if eq $a.SpfStatus "success"}}
+                                                <span class="proto-badge proto-badge--success proto-spf" title="SPF configured">SPF</span>
+                                            {{else if eq $a.SpfStatus "warning"}}
+                                                <span class="proto-badge proto-badge--warning proto-spf" title="SPF configured with warnings">SPF</span>
+                                            {{else if or (eq $a.SpfStatus "error") (eq $a.SpfStatus "missing")}}
+                                                <span class="proto-badge proto-badge--danger proto-spf" title="SPF missing or misconfigured">SPF</span>
+                                            {{else}}
+                                                <span class="proto-badge proto-badge--neutral proto-spf" title="SPF status unknown">SPF</span>
+                                            {{end}}
+                                            {{if eq $a.DmarcStatus "success"}}
+                                                <span class="proto-badge proto-badge--success proto-dmarc" title="DMARC configured">DMARC</span>
+                                            {{else if eq $a.DmarcStatus "warning"}}
+                                                <span class="proto-badge proto-badge--warning proto-dmarc" title="DMARC configured in monitoring mode">DMARC</span>
+                                            {{else if or (eq $a.DmarcStatus "error") (eq $a.DmarcStatus "missing")}}
+                                                <span class="proto-badge proto-badge--danger proto-dmarc" title="DMARC missing or misconfigured">DMARC</span>
+                                            {{else}}
+                                                <span class="proto-badge proto-badge--neutral proto-dmarc" title="DMARC status unknown">DMARC</span>
+                                            {{end}}
+                                            {{if or (eq $a.DkimStatus "success") (eq $a.DkimStatus "partial")}}
+                                                <span class="proto-badge proto-badge--success proto-dkim" title="DKIM signing verified">DKIM</span>
+                                            {{else if eq $a.DkimStatus "info"}}
+                                                <span class="proto-badge proto-badge--info proto-dkim" title="DKIM may be configured but selectors were not discoverable">DKIM</span>
+                                            {{else if or (eq $a.DkimStatus "error") (eq $a.DkimStatus "missing") (eq $a.DkimStatus "warning")}}
+                                                <span class="proto-badge proto-badge--danger proto-dkim" title="DKIM missing or misconfigured">DKIM</span>
+                                            {{else}}
+                                                <span class="proto-badge proto-badge--neutral proto-dkim" title="DKIM status unknown">DKIM</span>
+                                            {{end}}
+                                        </div>
+                                    </td>
+                                    <td class="col-date">
+                                        <span class="text-muted">{{$a.CreatedDate}} {{$a.CreatedTime}}</span>
+                                        <br><small class="text-muted u-opacity-60">{{if $a.ToolVersion}}v{{$a.ToolVersion}}{{end}}{{if $a.AnalysisDuration}} &middot; {{formatFloat 1 $a.AnalysisDuration}}s{{end}}</small>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="/analysis/{{$a.ID}}/view" 
+                                               class="btn btn-sm btn-outline-primary history-view-btn" title="View this report">
+                                                {{icon "eye"}}
+                                            </a>
+                                            <a href="/analyze?domain={{$a.Domain}}" 
+                                               class="btn btn-sm btn-outline-success history-reanalyze-btn" title="Re-analyze now">
+                                                {{icon "sync-alt"}}
+                                            </a>
+                                            <a href="/compare?domain={{$a.Domain}}" 
+                                               class="btn btn-sm btn-outline-warning" title="Compare scans">
+                                                {{icon "code-compare"}}
+                                            </a>
+                                            <a href="/drift?domain={{$a.Domain}}" 
+                                               class="btn btn-sm btn-outline-info" title="Drift timeline">
+                                                {{icon "chart-line"}}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-md-none">
+                {{range $i, $a := .Analyses}}
+                <div class="card mb-2 history-mobile-card">
+                    <div class="card-body py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <div class="d-flex align-items-center min-width-0">
+                                {{icon "globe" "text-primary me-2 flex-shrink-0"}}
+                                <div class="min-width-0">
+                                    <div class="fw-medium text-truncate">{{$a.Domain}}{{if eq $a.RequestSource "agent"}} <a href="/agent/plugin" class="source-tag" title="Queried via DEVONagent Pro plugin — click to learn more"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3.5l-1.5 2-1.5-2H3a1 1 0 0 1-1-1V3zm2 1v1h8V4H4zm0 3v1h6V7H4zm0 3v1h4v-1H4z"/></svg>Plugin</a>{{end}}</div>
+                                </div>
+                            </div>
+                            <div class="btn-group flex-shrink-0 ms-2">
+                                <a href="/analysis/{{$a.ID}}/view" 
+                                   class="btn btn-sm btn-outline-primary history-view-btn" title="View">
+                                    {{icon "eye"}}
+                                </a>
+                                <a href="/analyze?domain={{$a.Domain}}" 
+                                   class="btn btn-sm btn-outline-success history-reanalyze-btn" title="Re-analyze">
+                                    {{icon "sync-alt"}}
+                                </a>
+                                <a href="/compare?domain={{$a.Domain}}" 
+                                   class="btn btn-sm btn-outline-warning" title="Compare scans">
+                                    {{icon "code-compare"}}
+                                </a>
+                                <a href="/drift?domain={{$a.Domain}}" 
+                                   class="btn btn-sm btn-outline-info" title="Drift timeline">
+                                    {{icon "chart-line"}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="proto-badge-row small">
+                            {{if eq $a.SpfStatus "success"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--success proto-spf">SPF</span>
+                            {{else if eq $a.SpfStatus "warning"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--warning proto-spf">SPF</span>
+                            {{else if or (eq $a.SpfStatus "error") (eq $a.SpfStatus "missing")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--danger proto-spf">SPF</span>
+                            {{else}}
+                                <span class="proto-badge proto-badge--compact proto-badge--neutral proto-spf">SPF</span>
+                            {{end}}
+                            {{if eq $a.DmarcStatus "success"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--success proto-dmarc">DMARC</span>
+                            {{else if eq $a.DmarcStatus "warning"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--warning proto-dmarc">DMARC</span>
+                            {{else if or (eq $a.DmarcStatus "error") (eq $a.DmarcStatus "missing")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--danger proto-dmarc">DMARC</span>
+                            {{else}}
+                                <span class="proto-badge proto-badge--compact proto-badge--neutral proto-dmarc">DMARC</span>
+                            {{end}}
+                            {{if or (eq $a.DkimStatus "success") (eq $a.DkimStatus "partial")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--success proto-dkim">DKIM</span>
+                            {{else if eq $a.DkimStatus "info"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--info proto-dkim">DKIM</span>
+                            {{else if or (eq $a.DkimStatus "error") (eq $a.DkimStatus "missing") (eq $a.DkimStatus "warning")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--danger proto-dkim">DKIM</span>
+                            {{else}}
+                                <span class="proto-badge proto-badge--compact proto-badge--neutral proto-dkim">DKIM</span>
+                            {{end}}
+                            <span class="text-muted ms-auto u-fs-070rem">
+                                {{$a.CreatedDate}} {{$a.CreatedTime}}
+                                {{if $a.AnalysisDuration}} &middot; {{formatFloat 1 $a.AnalysisDuration}}s{{end}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+
+            {{if gt .Pagination.TotalPages 1}}
+                <nav aria-label="Analysis history pagination" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {{if .Pagination.HasPrev}}
+                            <li class="page-item">
+                                <a class="page-link" href="/history?page={{.Pagination.PrevPage}}{{if .SearchDomain}}&domain={{.SearchDomain}}{{end}}">
+                                    {{icon "chevron-left"}} Previous
+                                </a>
+                            </li>
+                        {{end}}
+                        
+                        {{range $p := .Pagination.Pages}}
+                            {{if $p.IsGap}}
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            {{else}}
+                                {{if $p.IsActive}}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{$p.Number}}</span>
+                                    </li>
+                                {{else}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="/history?page={{$p.Number}}{{if $.SearchDomain}}&domain={{$.SearchDomain}}{{end}}">{{$p.Number}}</a>
+                                    </li>
+                                {{end}}
+                            {{end}}
+                        {{end}}
+                        
+                        {{if .Pagination.HasNext}}
+                            <li class="page-item">
+                                <a class="page-link" href="/history?page={{.Pagination.NextPage}}{{if .SearchDomain}}&domain={{.SearchDomain}}{{end}}">
+                                    Next {{icon "chevron-right"}}
+                                </a>
+                            </li>
+                        {{end}}
+                    </ul>
+                </nav>
+            {{end}}
+        {{else}}
+            <div class="text-center py-5">
+                {{if .SearchDomain}}
+                    {{icon "search" "icon-3x text-muted mb-3"}}
+                    <h4 class="text-muted">No Results Found</h4>
+                    <p class="text-muted mb-4">No analysis history found for "<strong>{{.SearchDomain}}</strong>"</p>
+                    <a href="/history" class="btn btn-outline-secondary me-2">
+                        {{icon "times" "me-2"}}Clear Search
+                    </a>
+                    <a href="/analyze?domain={{.SearchDomain}}" class="btn btn-primary">
+                        {{icon "search" "me-2"}}Analyze {{.SearchDomain}}
+                    </a>
+                {{else}}
+                    {{icon "history" "icon-3x text-muted mb-3"}}
+                    <h4 class="text-muted">No Analysis History</h4>
+                    <p class="text-muted mb-4">You haven't performed any DNS analyses yet.</p>
+                    <a href="/" class="btn btn-primary">
+                        {{icon "plus" "me-2"}}Start Your First Analysis
+                    </a>
+                {{end}}
+            </div>
+        {{end}}
+
+        {{template "footer" .}}
+    </main>
+
+    <output id="historyViewOverlay" class="loading-overlay" aria-live="polite" aria-label="Loading stored results">
+        <div class="loading-content">
+            <div class="spinner-border text-primary mb-3 u-icon-3rem"><span class="visually-hidden">Loading...</span></div>
+            <div class="text-light fw-medium" id="historyViewText">Loading analysis results...</div>
+        </div>
+    </output>
+
+    <output id="historyAnalyzeOverlay" class="loading-overlay" aria-live="polite" aria-busy="true" aria-label="Running domain analysis">
+        <div class="loading-content">
+            <output class="mb-2 h4 covert-hide">Running Multi-Source Intelligence Audit</output>
+            <output class="mb-2 h4 covert-show">Initiating Recon Sweep</output>
+            <p class="text-muted mb-0" id="historyAnalyzeDomain"></p>
+            <div class="loading-elapsed mt-2">
+                <span class="text-muted small" id="loadingTimer">0s</span>
+            </div>
+            <div class="loading-dots mt-2" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+            {{template "scan_topology" .}}
+            <div class="scan-checklist mt-3 d-none" id="scanChecklist" aria-hidden="true">
+                <div class="scan-phase" data-delay="0">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">DNS records &mdash; Cloudflare, Google, Quad9, OpenDNS, DNS4EU</span>
+                    <span class="covert-show">Enumerating DNS across 5 resolvers&hellip;</span>
+                </div>
+                <div class="scan-phase" data-delay="1200">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">Email auth &mdash; SPF, DMARC, DKIM selectors</span>
+                    <span class="covert-show">Probing email spoofability &mdash; SPF, DMARC, DKIM</span>
+                </div>
+                <div class="scan-phase" data-delay="2500">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">DNSSEC chain of trust &amp; DANE/TLSA</span>
+                    <span class="covert-show">Testing DNS poison resistance &mdash; DNSSEC, DANE</span>
+                </div>
+                <div class="scan-phase" data-delay="3500">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">Certificate Transparency &amp; subdomain discovery</span>
+                    <span class="covert-show">Harvesting subdomains from CT logs&hellip;</span>
+                </div>
+                <div class="scan-phase" data-delay="5000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">SMTP transport &amp; STARTTLS verification</span>
+                    <span class="covert-show">Fingerprinting SMTP &amp; checking downgrade paths</span>
+                </div>
+                <div class="scan-phase" data-delay="7000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">MTA-STS, TLS-RPT, BIMI, CAA</span>
+                    <span class="covert-show">Checking policy enforcement &mdash; MTA-STS, CAA, BIMI</span>
+                </div>
+                <div class="scan-phase" data-delay="9000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">Registrar &amp; infrastructure analysis</span>
+                    <span class="covert-show">Mapping registrar &amp; infrastructure footprint</span>
+                </div>
+                <div class="scan-phase" data-delay="12000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span class="covert-hide">Classifying &amp; Interpreting Intelligence</span>
+                    <span class="covert-show">Correlating attack surface&hellip;</span>
+                </div>
+            </div>
+            <p class="text-muted small mt-3 mb-0 u-maxw-440-fadein covert-hide" id="loadingNote">
+                Every result includes terminal commands you can run to independently verify the underlying data. No proprietary magic.
+            </p>
+            <p class="small mt-3 mb-0 u-maxw-440-fadein covert-show u-color-covert-loading" id="loadingNoteCovert">
+                Optimized for low-light tactical environments. Easy on the eyes for all-night recon.
+            </p>
+            <p class="text-warning small mt-3 mb-0 d-none u-maxw-440-center" id="historyTimeoutMsg">
+                {{icon "exclamation-triangle" "me-1"}}Analysis is taking longer than expected. <a href="/" class="text-info">Try from the home page</a> or refresh to retry.
+            </p>
+        </div>
+    </output>
+
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    function getDomain(btn){
+        const row=btn.closest('tr')||btn.closest('.history-mobile-card');
+        const el=row?row.querySelector('.fw-medium'):null;
+        return el?el.textContent.trim():'';
+    }
+    function disableAllActions(){
+        for(const b of document.querySelectorAll('.history-view-btn,.history-reanalyze-btn')){
+            b.classList.add('disabled');
+            b.ariaDisabled = 'true';
+        }
+    }
+    function isCovertActive(){
+        return document.body.classList.contains('covert-mode');
+    }
+    function covertUrl(url){
+        if(!isCovertActive()) return url;
+        const sep=url.includes('?')?'&':'?';
+        return url+sep+'covert=1';
+    }
+    function handleHistoryPage(html,respUrl){
+        document.open();document.write(html);document.close();globalThis.scrollTo(0,0);
+        const mm=document.querySelector('meta[name="x-report-mode"]');
+        const ie=document.querySelector('[data-analysis-id]');
+        const rm=mm?mm.content:'';
+        const ra=ie?ie.dataset.analysisId:'';
+        if(ra&&rm){globalThis.history.replaceState(null,'','/analysis/'+ra+'/view/'+rm);}
+        else if(respUrl&&respUrl!==globalThis.location.href){globalThis.history.replaceState(null,'',respUrl);}
+    }
+    function showHistoryTimeoutMsg(){
+        const msg=document.getElementById('historyTimeoutMsg');
+        if(msg)msg.classList.remove('d-none');
+    }
+    function handleHistoryFetchResponse(resp){
+        return resp.text().then(function(html){ handleHistoryPage(html,resp.url); });
+    }
+    function fetchHistoryReanalyze(href){
+        fetch(href,{headers:{'X-Requested-With':'fetch'},redirect:'follow'}).then(function(resp){
+            return handleHistoryFetchResponse(resp);
+        }).catch(function(){globalThis.location.href=href;});
+    }
+    document.addEventListener('DOMContentLoaded',function(){
+        for(const btn of document.querySelectorAll('.history-view-btn')){
+            btn.addEventListener('click',function(e){
+                e.preventDefault();
+                const name=getDomain(btn);
+                const overlay=document.getElementById('historyViewOverlay');
+                const txt=document.getElementById('historyViewText');
+                if(txt&&name)txt.textContent='Loading '+(isCovertActive()?'recon':'results')+' for '+name+'...';
+                if(overlay){if(typeof showOverlay==='function'){showOverlay(overlay);}else{overlay.classList.add('is-active');}}
+                disableAllActions();
+                btn.innerHTML='{{icon "spinner" "icon-spin"}}';
+                globalThis.location.href=covertUrl(btn.href);
+            });
+        }
+        for(const btn of document.querySelectorAll('.history-reanalyze-btn')){
+            btn.addEventListener('click',function(e){
+                e.preventDefault();
+                const name=getDomain(btn);
+                const overlay=document.getElementById('historyAnalyzeOverlay');
+                const domainEl=document.getElementById('historyAnalyzeDomain');
+                if(domainEl)domainEl.textContent=name;
+                if(overlay){
+                    if(typeof showOverlay==='function'){showOverlay(overlay);}else{overlay.classList.add('is-active');}
+                    if(typeof startStatusCycle==='function'){startStatusCycle(overlay);}
+                    setTimeout(showHistoryTimeoutMsg,90000);
+                }
+                disableAllActions();
+                btn.innerHTML='{{icon "spinner" "icon-spin"}}';
+                fetchHistoryReanalyze(covertUrl(btn.href));
+            });
+        }
+    });
+    </script>
+</body>
+</html>

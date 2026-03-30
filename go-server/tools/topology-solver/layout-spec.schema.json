@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/layout-spec.schema.json",
+  "title": "LayoutSpec",
+  "type": "object",
+  "required": ["metadata", "viewportProfiles", "zones", "nodes", "edges", "highLevelConstraints", "solverPolicy"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["name", "version", "seed", "units"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "seed": { "type": "integer" },
+        "units": { "const": "px" }
+      }
+    },
+    "viewportProfiles": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "zones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "orderX"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "orderX": { "type": "integer" },
+          "orderY": { "type": "integer" }
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "zoneId", "shape", "width", "height"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "zoneId": { "type": "string" },
+          "shape": {
+            "enum": ["rect", "roundRect", "circle", "diamond", "cylinder", "hexagon", "label"]
+          },
+          "width": { "type": "number", "exclusiveMinimum": 0 },
+          "height": { "type": "number", "exclusiveMinimum": 0 }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "target", "kind"],
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "kind": { "enum": ["flow", "hard_dependency", "soft_dependency"] },
+          "label": { "type": "string" },
+          "labelT": { "type": "number", "minimum": 0, "maximum": 1 },
+          "minLen": { "type": "number", "minimum": 0 },
+          "weight": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "highLevelConstraints": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "solverPolicy": {
+      "type": "object",
+      "required": ["maxIterations", "convergenceEpsilon", "stressWindow", "weights", "routing"],
+      "properties": {
+        "maxIterations": { "type": "integer", "minimum": 1 },
+        "convergenceEpsilon": { "type": "number", "minimum": 0 },
+        "stressWindow": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

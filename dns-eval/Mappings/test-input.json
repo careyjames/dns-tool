@@ -1,0 +1,11 @@
+{
+  "domain": "example.com",
+  "observations": {
+    "RRSIG": true,
+    "DNSKEY": true,
+    "DS": true,
+    "DoT": false,
+    "DoH": true,
+    "UDP53": true
+  }
+}

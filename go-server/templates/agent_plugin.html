@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_lcp_preload" .}}
+    {{template "head_css" .}}
+    <title>DEVONagent Pro Plugin — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Install the DNS Tool search plugin for DEVONagent Pro. Download the native plist or JSON configuration to add intelligence-grade domain security analysis to your research workflows.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/agent/plugin">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DEVONagent Pro Plugin — DNS Tool">
+    <meta property="og:description" content="Add DNS security intelligence to DEVONagent Pro. 15 enriched results per query — reports, badges, exports, and provenance data.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool DEVONagent Pro Plugin">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/agent/plugin">
+    <meta name="twitter:title" content="DEVONagent Pro Plugin — DNS Tool">
+    <meta name="twitter:description" content="Add DNS security intelligence to DEVONagent Pro.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/agent/plugin">
+    <style nonce="{{.CspNonce}}">
+        .plugin-code-block {
+            background: #1a1d23;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            overflow-x: auto;
+            white-space: pre;
+            color: #e0e0e0;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .plugin-code-block .xml-tag { color: #ff7b72; }
+        .plugin-code-block .xml-key { color: #79c0ff; }
+        .plugin-code-block .xml-str { color: #a5d6ff; }
+        .plugin-code-block .xml-comment { color: #8b949e; font-style: italic; }
+        .plugin-code-block .xml-doctype { color: #8b949e; }
+        .plugin-code-block .json-key { color: #79c0ff; }
+        .plugin-code-block .json-str { color: #a5d6ff; }
+        .plugin-code-block .json-num { color: #d2a8ff; }
+        .plugin-code-block .json-bool { color: #ff7b72; }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #ccc;
+            border-radius: 0.375rem;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+        .copy-btn.copied {
+            background: rgba(34,197,94,0.2);
+            border-color: rgba(34,197,94,0.4);
+            color: #22c55e;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid;
+        }
+        .download-btn-primary {
+            background: rgba(99,102,241,0.15);
+            border-color: rgba(99,102,241,0.35);
+            color: #a5b4fc;
+        }
+        .download-btn-primary:hover {
+            background: rgba(99,102,241,0.25);
+            border-color: rgba(99,102,241,0.5);
+            color: #c7d2fe;
+        }
+        .download-btn-secondary {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.12);
+            color: #9ca3af;
+        }
+        .download-btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+            color: #d1d5db;
+        }
+        .download-btn svg {
+            width: 1.1rem;
+            height: 1.1rem;
+            fill: currentColor;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.3);
+            color: #818cf8;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .results-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .results-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: baseline;
+        }
+        .results-list li:last-child { border-bottom: none; }
+        .result-num {
+            display: inline-block;
+            width: 1.75rem;
+            color: #818cf8;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .result-desc { color: #9ca3af; font-size: 0.88rem; margin-left: 0.35rem; }
+
+        .plugin-hero {
+            background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.05) 100%);
+            border: 1px solid rgba(99,102,241,0.12);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .plugin-hero-logos {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .plugin-hero-logos img {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .plugin-source-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.25);
+            color: #a5b4fc;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            vertical-align: middle;
+        }
+        .plugin-source-tag svg {
+            width: 0.75rem;
+            height: 0.75rem;
+            fill: currentColor;
+        }
+
+        .format-note {
+            background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.2);
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+        .format-note strong { color: #fbbf24; }
+
+        .format-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+        .format-tab {
+            padding: 0.5rem 1.25rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-bottom: none;
+            color: #9ca3af;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 0.5rem 0.5rem 0 0;
+            transition: all 0.2s;
+        }
+        .format-tab:first-child { margin-right: -1px; }
+        .format-tab.active {
+            background: #1a1d23;
+            color: #e0e0e0;
+            border-color: rgba(255,255,255,0.08);
+        }
+        .format-tab:not(.active):hover {
+            background: rgba(255,255,255,0.06);
+            color: #d1d5db;
+        }
+        .format-panel { display: none; }
+        .format-panel.active { display: block; }
+        .format-panel .plugin-code-block {
+            border-top-left-radius: 0;
+            margin-top: 0;
+        }
+
+        .path-highlight {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+            font-size: 0.82rem;
+            background: rgba(255,255,255,0.06);
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.25rem;
+            color: #a5d6ff;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="plugin-hero">
+                    <div class="plugin-hero-logos">
+                        <a href="https://www.devontechnologies.com/apps/devonagent" target="_blank" rel="noopener"><img src="/static/images/devonagent-pro-logo.png" alt="DEVONagent Pro" width="56" height="56"></a>
+                        <a href="https://www.devontechnologies.com/apps/devonthink" target="_blank" rel="noopener"><img src="/static/images/icon-devonthink.png" alt="DEVONthink" width="56" height="56"></a>
+                    </div>
+                    <h1 class="h2 mb-3">DEVONagent Pro Plugin</h1>
+                    <p class="text-muted mb-0">Add intelligence-grade DNS security analysis to your <a href="https://www.devontechnologies.com/apps/devonagent" target="_blank" rel="noopener">DEVONagent Pro</a> research workflows. Each query returns up to <strong>15 enriched results</strong> &mdash; security reports, reconnaissance data, integrity-verified snapshots, and provenance metadata.</p>
+                </div>
+
+                <p>When a domain is analyzed through this plugin, you'll see a <span class="plugin-source-tag"><svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3.5l-1.5 2-1.5-2H3a1 1 0 0 1-1-1V3zm2 1v1h8V4H4zm0 3v1h6V7H4zm0 3v1h4v-1H4z"/></svg>Plugin</span> tag next to the domain in your <a href="/history">analysis history</a>.</p>
+
+                <h2 class="h4 mt-4 mb-3">What You Get</h2>
+                <ul class="results-list">
+                    <li><span class="result-num">1.</span> <strong>Engineer's DNS Intelligence Report</strong> <span class="result-desc">&mdash; full security analysis with live scanning (the engineering report)</span></li>
+                    <li><span class="result-num">2.</span> <strong>Observed Records Snapshot</strong> <span class="result-desc">&mdash; reconstructed zone file, SHA-3-512 verified</span></li>
+                    <li><span class="result-num">3.</span> <strong>Detailed Security Badge</strong> <span class="result-desc">&mdash; full posture score badge</span></li>
+                    <li><span class="result-num">4.</span> <strong>Covert Security Badge</strong> <span class="result-desc">&mdash; scotopic-optimized embeddable badge</span></li>
+                    <li><span class="result-num">5.</span> <strong>Covert Recon Report</strong> <span class="result-desc">&mdash; full analysis in covert operations mode</span></li>
+                    <li><span class="result-num">6.</span> <strong>Executive Intelligence Brief</strong> <span class="result-desc">&mdash; board-ready executive summary</span></li>
+                    <li><span class="result-num">7.</span> <strong>DNS Topology</strong> <span class="result-desc">&mdash; topology visualization, signal flow, and RFC source mapping</span></li>
+                    <li><span class="result-num">8.</span> <strong>Zenodo &mdash; Concept DOI</strong> <span class="result-desc">&mdash; permanent scientific record (10.5281/zenodo.18854899)</span></li>
+                    <li><span class="result-num">9.</span> <strong>Full Intelligence Data (JSON)</strong> <span class="result-desc">&mdash; complete analysis payload with all collected intelligence</span></li>
+                    <li><span class="result-num">10.</span> <strong>Discovered Domains &amp; Subdomains</strong> <span class="result-desc">&mdash; human-readable subdomain reconnaissance data (CSV)</span></li>
+                    <li><span class="result-num">11.</span> <strong>Sources &amp; Methodology</strong> <span class="result-desc">&mdash; RFC citations, data sources, and scoring methodology</span></li>
+                    <li><span class="result-num">12.</span> <strong>SHA-3 Integrity Checksum</strong> <span class="result-desc">&mdash; cryptographic verification of analysis data</span></li>
+                    <li><span class="result-num">13.</span> <strong>Security Remediation Plan</strong> <span class="result-desc">&mdash; actionable remediation steps for the domain</span></li>
+                    <li><span class="result-num">14.</span> <strong>Internet Archive (Wayback Machine)</strong> <span class="result-desc">&mdash; permanent archived record of the analysis</span></li>
+                    <li><span class="result-num">15.</span> <strong>Confidence Page</strong> <span class="result-desc">&mdash; SHA-3 hash audit, integrity timestamps, and analysis confidence metrics</span></li>
+                </ul>
+
+                <h2 class="h4 mt-5 mb-3">Download &amp; Install</h2>
+
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="/static/plugins/dnstool.it-help.tech.plist" download="dnstool.it-help.tech.plist" class="download-btn download-btn-primary">
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                        Download Plugin (.plist)
+                    </a>
+                    <a href="/static/plugins/dnstool.it-help.tech.json" download="dnstool.it-help.tech.json" class="download-btn download-btn-secondary">
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+                        Download Plugin (.json)
+                    </a>
+                </div>
+
+                <div class="format-note">
+                    <strong>Why two formats?</strong> Every built-in DEVONagent plugin (Google, arXiv, OpenRadar, etc.) uses Apple's native <strong>plist</strong> (Property List) format &mdash; it's the documented, canonical format with full feature support including categories, crawl delays, and XML/Atom result parsing. DEVONagent also accepts <strong>JSON</strong> files in the Plugins directory, which is simpler to read and edit. Both work identically for our plugin. The plist is recommended if you want to match the native format.
+                </div>
+
+                <h3 class="h5 mt-4 mb-3">Quick Install (drag and drop)</h3>
+
+                <div class="d-flex align-items-start mb-3">
+                    <span class="step-number">1</span>
+                    <div>
+                        <strong>Download the plugin file</strong>
+                        <p class="text-muted mb-0 mt-1">Click either download button above. The <code>.plist</code> format is recommended.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-3">
+                    <span class="step-number">2</span>
+                    <div>
+                        <strong>Move it to the Plugins folder</strong>
+                        <p class="text-muted mb-0 mt-1">Place the downloaded file in:<br><span class="path-highlight">~/Library/Application Support/DEVONagent/Plugins/</span></p>
+                        <p class="text-muted mb-0 mt-1" style="font-size:0.82rem">To open this folder: in Finder, press <kbd>&#x21E7;</kbd><kbd>&#x2318;</kbd><kbd>G</kbd> and paste the path above.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-3">
+                    <span class="step-number">3</span>
+                    <div>
+                        <strong>Restart DEVONagent Pro</strong>
+                        <p class="text-muted mb-0 mt-1">Quit and relaunch DEVONagent Pro. The plugin will appear in <strong>Preferences &rarr; Plugins &amp; Scanners</strong> (<kbd>&#x2303;</kbd><kbd>&#x2318;</kbd><kbd>P</kbd>).</p>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start mb-3">
+                    <span class="step-number">4</span>
+                    <div>
+                        <strong>Enable in your search set</strong>
+                        <p class="text-muted mb-0 mt-1">Open your preferred search set and check the box next to <strong>DNS Tool - Domain Security Intelligence</strong>. It will appear under the <strong>Security</strong> category. Query any domain name to begin.</p>
+                    </div>
+                </div>
+
+                <h2 class="h4 mt-5 mb-3">Plugin Source Code</h2>
+                <p class="text-muted">Both formats contain the same configuration. View the source here, or use the download buttons above.</p>
+
+                <div class="format-tabs" role="tablist">
+                    <button type="button" class="format-tab active" role="tab" tabindex="0" id="tab-plist" aria-selected="true" aria-controls="panel-plist" onclick="switchTab('plist')">plist (native)</button>
+                    <button type="button" class="format-tab" role="tab" tabindex="-1" id="tab-json" aria-selected="false" aria-controls="panel-json" onclick="switchTab('json')">JSON</button>
+                </div>
+
+                <div id="panel-plist" class="format-panel active" role="tabpanel" aria-labelledby="tab-plist">
+                    <div class="plugin-code-block">
+                        <button class="copy-btn" onclick="copyPlist()">Copy</button>
+<span class="xml-doctype">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span>
+<span class="xml-tag">&lt;plist</span> version="1.0"<span class="xml-tag">&gt;</span>
+<span class="xml-tag">&lt;dict&gt;</span>
+  <span class="xml-key">&lt;key&gt;</span>Name<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>DNS Tool - Domain Security Intelligence<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Identifier<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>dnstool.it-help.tech<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Version<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>1.2<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Category<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>Security<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Author<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>IT Help San Diego Inc.<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>URL<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>https://dnstool.it-help.tech/agent/plugin<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Description<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>Intelligence-grade domain security analysis.
+  RFC-compliant DNS auditing with ICD 203 confidence scoring,
+  FAIR-principled data delivery, and Zenodo DOI-backed
+  reproducibility. Returns 15 enriched intelligence
+  artifacts per query.<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>EngineUrl<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>https://dnstool.it-help.tech/agent/search?q=__agentQuery__<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>ParseLinks<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;true/&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>StripHTML<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;false/&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>ResultsPerPage<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;integer&gt;</span>15<span class="xml-str">&lt;/integer&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Encoding<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>UTF-8<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Operators<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;integer&gt;</span>59<span class="xml-str">&lt;/integer&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>UserAgent<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-str">&lt;string&gt;</span>DEVONagent/3 (dnstool-plugin/1.2;
+  +https://dnstool.it-help.tech/agent/plugin)<span class="xml-str">&lt;/string&gt;</span>
+
+  <span class="xml-key">&lt;key&gt;</span>Keyword<span class="xml-key">&lt;/key&gt;</span>
+  <span class="xml-tag">&lt;array&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>dns<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>security<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>spf<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>dkim<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>dmarc<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>dnssec<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>subdomain<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>certificate<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>transparency<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>email<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>posture<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>domain<span class="xml-str">&lt;/string&gt;</span>
+    <span class="xml-str">&lt;string&gt;</span>intelligence<span class="xml-str">&lt;/string&gt;</span>
+  <span class="xml-tag">&lt;/array&gt;</span>
+<span class="xml-tag">&lt;/dict&gt;</span>
+<span class="xml-tag">&lt;/plist&gt;</span></div>
+                </div>
+
+                <div id="panel-json" class="format-panel" role="tabpanel" aria-labelledby="tab-json">
+                    <div class="plugin-code-block">
+                        <button class="copy-btn" onclick="copyJSON()">Copy</button>
+{
+  <span class="json-key">"Name"</span> : <span class="json-str">"DNS Tool - Domain Security Intelligence"</span>,
+  <span class="json-key">"Identifier"</span> : <span class="json-str">"dnstool.it-help.tech"</span>,
+  <span class="json-key">"Version"</span> : <span class="json-str">"1.2"</span>,
+  <span class="json-key">"Description"</span> : <span class="json-str">"Intelligence-grade domain security analysis.
+        RFC-compliant DNS auditing with ICD 203 confidence scoring,
+        FAIR-principled data delivery, and Zenodo DOI-backed
+        reproducibility. Returns 15 enriched intelligence
+        artifacts per query."</span>,
+  <span class="json-key">"EngineUrl"</span> : <span class="json-str">"https://dnstool.it-help.tech/agent/search?q=__agentQuery__"</span>,
+  <span class="json-key">"ParseLinks"</span> : <span class="json-bool">true</span>,
+  <span class="json-key">"ResultsPerPage"</span> : <span class="json-num">15</span>,
+  <span class="json-key">"Start"</span> : <span class="json-num">0</span>,
+  <span class="json-key">"OffsetPerPage"</span> : <span class="json-num">1</span>,
+  <span class="json-key">"Operators"</span> : <span class="json-num">59</span>,
+  <span class="json-key">"Keywords"</span> : <span class="json-str">"dns,security,spf,dkim,dmarc,dnssec,subdomain,
+        certificate-transparency,email-security,posture,
+        domain,intelligence"</span>,
+  <span class="json-key">"Keyword"</span> : [ <span class="json-str">"dns"</span>, <span class="json-str">"security"</span>, <span class="json-str">"spf"</span>, <span class="json-str">"dkim"</span>,
+              <span class="json-str">"dmarc"</span>, <span class="json-str">"dnssec"</span>, <span class="json-str">"subdomain"</span>,
+              <span class="json-str">"certificate"</span>, <span class="json-str">"transparency"</span>,
+              <span class="json-str">"email"</span>, <span class="json-str">"posture"</span>,
+              <span class="json-str">"domain"</span>, <span class="json-str">"intelligence"</span> ]
+}</div>
+                </div>
+
+                <h2 class="h4 mt-5 mb-3">How It Works</h2>
+                <p class="text-muted">When DEVONagent queries a domain through this plugin, it sends a GET request to the <code>/agent/search</code> endpoint. Because <code>ParseLinks</code> is enabled, DEVONagent extracts every <code>&lt;a href&gt;</code> from the returned HTML as a separate search result &mdash; giving you direct access to every report, badge, export, and data artifact from a single query.</p>
+                <p class="text-muted">The <code>__agentQuery__</code> placeholder in the engine URL is automatically replaced by DEVONagent with whatever domain you search for.</p>
+
+                <h2 class="h4 mt-5 mb-3">Plugin Anatomy</h2>
+                <p class="text-muted">DEVONagent plugins are defined by a small set of configuration keys. Every key below is documented in DEVONagent Pro&rsquo;s built-in Help (<strong>Help &rarr; DEVONagent Pro Help &rarr; Appendix &rarr; Search Plugin Format</strong>) and observable in the built-in plugins shipped at <code>/Applications/DEVONagent.app/Contents/Resources/Plugins/</code>.</p>
+
+                <dl class="row mt-3">
+                    <dt class="col-sm-3"><code>Name</code></dt>
+                    <dd class="col-sm-9 text-muted">Display name shown in the plugin list and search sets. Appears in Preferences &rarr; Plugins &amp; Scanners and in search set checkboxes.</dd>
+
+                    <dt class="col-sm-3"><code>Identifier</code></dt>
+                    <dd class="col-sm-9 text-muted">Unique identifier for the plugin. Convention is reverse-DNS notation or the service domain (ours: <code>dnstool.it-help.tech</code>).</dd>
+
+                    <dt class="col-sm-3"><code>Category</code></dt>
+                    <dd class="col-sm-9 text-muted">Folder group in the Plugins &amp; Scanners window (<strong>plist only</strong>). Our plugin uses <em>Security</em>. Built-in categories include <em>General</em>, <em>News</em>, <em>Science</em>, and <em>Shopping</em>.</dd>
+
+                    <dt class="col-sm-3"><code>Author</code></dt>
+                    <dd class="col-sm-9 text-muted">Plugin author metadata (<strong>plist only</strong>). Shown in the plugin info panel. Ours: <em>IT Help San Diego Inc.</em></dd>
+
+                    <dt class="col-sm-3"><code>URL</code></dt>
+                    <dd class="col-sm-9 text-muted">Homepage URL for the plugin (<strong>plist only</strong>). Links to this documentation page.</dd>
+
+                    <dt class="col-sm-3"><code>EngineUrl</code></dt>
+                    <dd class="col-sm-9 text-muted">The search endpoint. The placeholder <code>__agentQuery__</code> is replaced with the user&rsquo;s search term at query time. <code>__agentOffset__</code> handles pagination for multi-page result sets.</dd>
+
+                    <dt class="col-sm-3"><code>ParseLinks</code></dt>
+                    <dd class="col-sm-9 text-muted">When <code>true</code>, DEVONagent extracts every <code>&lt;a href&gt;</code> from the HTML response as a separate search result. This is how our single HTML page delivers 13 distinct intelligence artifacts.</dd>
+
+                    <dt class="col-sm-3"><code>StripHTML</code></dt>
+                    <dd class="col-sm-9 text-muted">When <code>false</code>, DEVONagent preserves the HTML structure of the response (<strong>plist only</strong>). Our plugin sets this to <code>false</code> to retain link context and result descriptions.</dd>
+
+                    <dt class="col-sm-3"><code>ResultsPerPage</code></dt>
+                    <dd class="col-sm-9 text-muted">Expected number of results per page. Set to <code>15</code> to match the number of links our endpoint returns.</dd>
+
+                    <dt class="col-sm-3"><code>Keyword</code></dt>
+                    <dd class="col-sm-9 text-muted">Array of trigger words. DEVONagent may prioritize this plugin when user queries match these terms. We declare 13 terms covering DNS security protocols.</dd>
+
+                    <dt class="col-sm-3"><code>Operators</code></dt>
+                    <dd class="col-sm-9 text-muted">Bitmask for supported search operators (phrase, Boolean, wildcards, etc.). Value <code>59</code> enables the standard operator set.</dd>
+
+                    <dt class="col-sm-3"><code>UserAgent</code></dt>
+                    <dd class="col-sm-9 text-muted">Custom User-Agent header sent with requests (<strong>plist only</strong>). Ours identifies the plugin version in server logs: <code>DEVONagent/3 (dnstool-plugin/1.2)</code>.</dd>
+
+                    <dt class="col-sm-3"><code>Encoding</code></dt>
+                    <dd class="col-sm-9 text-muted">Declares the character encoding for response parsing (<strong>plist only</strong>). Set to <code>UTF-8</code>.</dd>
+
+                    <dt class="col-sm-3"><code>Start</code> / <code>OffsetPerPage</code></dt>
+                    <dd class="col-sm-9 text-muted">Pagination controls. For single-page results, set <code>Start: 0</code> and <code>OffsetPerPage: 1</code>. Multi-page plugins increment the offset per page to fetch subsequent result pages.</dd>
+                </dl>
+
+                <h2 class="h4 mt-5 mb-3">Plist vs JSON &mdash; Format Comparison</h2>
+
+                <dl class="row mt-3">
+                    <dt class="col-sm-3">Status</dt>
+                    <dd class="col-sm-9 text-muted"><strong>Plist</strong> is the native format &mdash; every built-in plugin shipped with DEVONagent (Google, arXiv, Bing, Wikipedia, etc.) uses it. <strong>JSON</strong> is also supported &mdash; DEVONagent reads JSON files placed in the Plugins directory.</dd>
+
+                    <dt class="col-sm-3">Category support</dt>
+                    <dd class="col-sm-9 text-muted"><strong>Plist only.</strong> Plugins appear under named folder groups (<em>Security</em>, <em>Science</em>, <em>General</em>, etc.) in the Plugins &amp; Scanners window. JSON plugins appear ungrouped.</dd>
+
+                    <dt class="col-sm-3">Plist-only keys</dt>
+                    <dd class="col-sm-9 text-muted"><code>Author</code>, <code>URL</code>, <code>UserAgent</code>, <code>Encoding</code>, <code>StripHTML</code>, and <code>Category</code> are recognized only in plist format. JSON plugins fall back to DEVONagent defaults for these settings.</dd>
+
+                    <dt class="col-sm-3">XML/Atom parsing</dt>
+                    <dd class="col-sm-9 text-muted"><strong>Plist only.</strong> Keys like <code>ResultXPath</code>, <code>TitleXPath</code>, and <code>DescriptionXPath</code> allow structured XML extraction. Not applicable to our <code>ParseLinks</code>-based HTML plugin, but available for plugins that consume XML or Atom feeds.</dd>
+
+                    <dt class="col-sm-3">Human readability</dt>
+                    <dd class="col-sm-9 text-muted"><strong>JSON</strong> is cleaner and easier to hand-edit. <strong>Plist</strong> is verbose XML but integrates with macOS tooling (<code>plutil</code>, <code>defaults read</code>, Xcode).</dd>
+
+                    <dt class="col-sm-3">Our recommendation</dt>
+                    <dd class="col-sm-9 text-muted">Use the <strong>plist</strong>. It enables category grouping, custom User-Agent identification, and matches the format of every built-in plugin. We ship both formats for convenience.</dd>
+                </dl>
+
+                <h2 class="h4 mt-5 mb-3">References</h2>
+                <ol class="text-muted small">
+                    <li><strong>DEVONagent Pro Help</strong> &mdash; <em>Help &rarr; DEVONagent Pro Help &rarr; Appendix &rarr; Search Plugin Format</em>. In-app documentation describing all plugin configuration keys, placeholder syntax (<code>__agentQuery__</code>, <code>__agentOffset__</code>), and XPath extraction. Accessible from the DEVONagent Pro menu bar.</li>
+                    <li><strong>Built-in plugin reference implementations</strong> &mdash; <code>/Applications/DEVONagent.app/Contents/Resources/Plugins/</code>. The shipping app bundle contains the plist source for every built-in search plugin (Google, Bing, arXiv, Wikipedia, etc.), providing working examples of all supported keys and pagination patterns.</li>
+                    <li><strong>Apple Property List format</strong> &mdash; <a href="https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html" target="_blank" rel="noopener">Apple Developer Documentation: About Information Property List Files</a>. Defines the XML plist DTD and serialization format used by DEVONagent plugins.</li>
+                    <li><strong>DEVONtechnologies product page</strong> &mdash; <a href="https://www.devontechnologies.com/apps/devonagent" target="_blank" rel="noopener"><img src="/static/images/icon-devonthink.png" alt="" width="16" height="16" style="border-radius:3px;vertical-align:text-bottom;margin-right:0.3rem">devontechnologies.com/apps/devonagent</a>. Official product information and download for DEVONagent Pro.</li>
+                </ol>
+
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    function switchTab(fmt) {
+        document.querySelectorAll('.format-tab').forEach(function(t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+            t.setAttribute('tabindex', '-1');
+        });
+        document.querySelectorAll('.format-panel').forEach(function(p) { p.classList.remove('active'); });
+        var activeTab = document.getElementById('tab-' + fmt);
+        var activePanel = document.getElementById('panel-' + fmt);
+        if (activeTab) {
+            activeTab.classList.add('active');
+            activeTab.setAttribute('aria-selected', 'true');
+            activeTab.setAttribute('tabindex', '0');
+        }
+        if (activePanel) { activePanel.classList.add('active'); }
+    }
+    function flashCopyBtn(btn) {
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    }
+    function copyPlist() {
+        fetch('/static/plugins/dnstool.it-help.tech.plist').then(function(r){return r.text();}).then(function(text){
+            navigator.clipboard.writeText(text).then(function(){flashCopyBtn(document.querySelector('#panel-plist .copy-btn'));});
+        });
+    }
+    function copyJSON() {
+        fetch('/static/plugins/dnstool.it-help.tech.json').then(function(r){return r.text();}).then(function(text){
+            navigator.clipboard.writeText(text).then(function(){flashCopyBtn(document.querySelector('#panel-json .copy-btn'));});
+        });
+    }
+    </script>
+</body>
+</html>

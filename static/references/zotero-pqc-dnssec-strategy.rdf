@@ -1,0 +1,56 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Report rdf:about="https://datatracker.ietf.org/doc/draft-sheth-pqc-dnssec-strategy">
+        <z:itemType>report</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Internet Engineering Task Force</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sheth</foaf:surname>
+                        <foaf:givenName>Swapneel</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Chung</foaf:surname>
+                        <foaf:givenName>Taejoong</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Overeinder</foaf:surname>
+                        <foaf:givenName>Benno</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dcterms:isReferencedBy rdf:resource="#item_187"/>
+        <dc:title>Post-Quantum Cryptography Strategy for DNSSEC</dc:title>
+        <dcterms:abstract>This document proposes a post-quantum cryptography (PQC) strategy for Domain Name System Security (DNSSEC) that includes two types of algorithms: one or more conservatively designed algorithms that are unlikely ever to need to be replaced, and one or more low-impact drop-in algorithms that are used the same way as a traditional signature algorithm. The conservatively designed algorithms can be used in a mode of operation that mitigates the operational impact of a large signature size. The combination provides both the routine performance of the low-impact algorithm and a resilient fallback to the conservatively designed choice. The draft outlines the strategy, provides recommendations for future testing and deployment, and highlights operational considerations in adopting PQC for DNSSEC.</dcterms:abstract>
+        <dc:date>2025-10-16</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://datatracker.ietf.org/doc/draft-sheth-pqc-dnssec-strategy</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:13:51</dcterms:dateSubmitted>
+        <z:libraryCatalog>IETF</z:libraryCatalog>
+        <dc:description>Num Pages: 8</dc:description>
+        <prism:number>draft-sheth-pqc-dnssec-strategy-00</prism:number>
+        <z:type>Internet Draft</z:type>
+    </bib:Report>
+    <bib:Memo rdf:about="#item_187">
+       <rdf:value>&lt;p&gt;Work in Progress&lt;/p&gt;</rdf:value>
+    </bib:Memo>
+</rdf:RDF>

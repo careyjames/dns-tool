@@ -1,0 +1,80 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Report rdf:about="https://datatracker.ietf.org/doc/draft-brand-indicators-for-message-identification">
+        <z:itemType>report</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+               <foaf:name>Internet Engineering Task Force</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Blank</foaf:surname>
+                        <foaf:givenName>Seth</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Goldstein</foaf:surname>
+                        <foaf:givenName>Peter</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Loder</foaf:surname>
+                        <foaf:givenName>Thede</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Zink</foaf:surname>
+                        <foaf:givenName>Terry</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Bradshaw</foaf:surname>
+                        <foaf:givenName>Jemma</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Brotman</foaf:surname>
+                        <foaf:givenName>Alex</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Chuang</foaf:surname>
+                        <foaf:givenName>Wei</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dcterms:isReferencedBy rdf:resource="#item_189"/>
+        <dc:title>Brand Indicators for Message Identification (BIMI)</dc:title>
+        <dcterms:abstract>Brand Indicators for Message Identification (BIMI) permits Domain Owners to coordinate with Mail User Agents (MUAs) to display brand- specific Indicators next to properly authenticated messages. There are two aspects of BIMI coordination: a scalable mechanism for Domain Owners to publish their desired Indicators, and a mechanism for Mail Transfer Agents (MTAs) to verify the authenticity of the Indicator. This document specifies how Domain Owners communicate their desired Indicators through the BIMI Assertion Record in DNS and how that record is to be interpreted by MTAs and MUAs. MUAs and mail- receiving organizations are free to define their own policies for making use of BIMI data and for Indicator display as they see fit.</dcterms:abstract>
+        <dc:date>2025-11-03</dc:date>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://datatracker.ietf.org/doc/draft-brand-indicators-for-message-identification</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:16:30</dcterms:dateSubmitted>
+        <z:libraryCatalog>IETF</z:libraryCatalog>
+        <dc:description>Num Pages: 37</dc:description>
+        <prism:number>draft-brand-indicators-for-message-identification-12</prism:number>
+        <z:type>Internet Draft</z:type>
+    </bib:Report>
+    <bib:Memo rdf:about="#item_189">
+       <rdf:value>&lt;p&gt;Work in Progress&lt;/p&gt;</rdf:value>
+    </bib:Memo>
+</rdf:RDF>

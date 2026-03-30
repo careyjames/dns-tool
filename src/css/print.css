@@ -1,0 +1,1114 @@
+
+    .bimi-logo-box {
+        background-color: #ffffff !important;
+        border-color: #d1d5db !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
+
+    /* === Page Setup === */
+    @page {
+        margin: 14mm 12mm 12mm 12mm;
+        size: letter;
+    }
+
+    /* === Force Color Rendering === */
+    body,
+    .card, .card-header, .card-body, .card-footer,
+    .badge, .alert, .table, .table th, .table td,
+    .table-striped tbody tr,
+    .print-report-header, .print-domain-banner, .print-report-footer,
+    .print-header-accent, .print-footer-accent,
+    .print-tlp-badge, .code-block,
+    .dns-diff-container, .dns-diff-header,
+    .dns-diff-type-header, .dns-diff-row, .dns-diff-col,
+    .section-dns-history .table, .section-dns-history .table th,
+    .section-dns-history .table td,
+    .esm-provider-card, .provider-badge, .rfc-link,
+    .progress, .progress-bar,
+    .subdomain-table th, .subdomain-table td {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* ================================================
+       CSS CUSTOM PROPERTY RESET FOR PRINT
+       Chrome honours ALL custom properties in print mode,
+       including dark-theme values. Safari ignores them.
+       Override both Bootstrap --bs-* AND app-specific
+       custom properties to light values so both engines
+       produce identical output.
+       ================================================ */
+    :root,
+    [data-bs-theme="dark"] {
+        /* --- App custom properties (dark → light) --- */
+        --bg-primary: #ffffff !important;
+        --bg-secondary: #f5f7fa !important;
+        --bg-tertiary: #f0f4f8 !important;
+        --bg-elevated: #e5e7eb !important;
+        --text-primary: #1a1a2e !important;
+        --text-secondary: #6b7280 !important;
+        --code-bg: #f5f7fa !important;
+        --code-border: #d1d5db !important;
+        --status-success: #166534 !important;
+        --status-success-bg: #f0fdf4 !important;
+        --status-warning: #d97706 !important;
+        --status-warning-bg: #fffdf5 !important;
+        --status-danger: #991b1b !important;
+        --status-danger-bg: #fef2f2 !important;
+        --status-info: #0e7490 !important;
+        --status-info-bg: #ecfeff !important;
+        --status-neutral: #6b7280 !important;
+        --border-default: #d1d5db !important;
+        --border-muted: #e5e7eb !important;
+
+        /* --- Bootstrap custom properties (dark → light) --- */
+        --bs-body-bg: #ffffff !important;
+        --bs-body-color: #1a1a2e !important;
+        --bs-emphasis-color: #1a1a2e !important;
+        --bs-secondary-color: #6b7280 !important;
+        --bs-tertiary-color: #9ca3af !important;
+        --bs-body-bg-rgb: 255, 255, 255 !important;
+        --bs-body-color-rgb: 26, 26, 46 !important;
+        --bs-emphasis-color-rgb: 26, 26, 46 !important;
+        --bs-link-color: #1e40af !important;
+        --bs-link-color-rgb: 30, 64, 175 !important;
+        --bs-link-hover-color: #1e3a5f !important;
+        --bs-card-bg: #ffffff !important;
+        --bs-card-color: #1a1a2e !important;
+        --bs-card-border-color: #d1d5db !important;
+        --bs-card-cap-bg: #f0f4f8 !important;
+        --bs-card-cap-color: #1a1a2e !important;
+        --bs-border-color: #d1d5db !important;
+        --bs-border-color-translucent: rgba(0, 0, 0, 0.12) !important;
+        --bs-heading-color: #1a1a2e !important;
+        --bs-table-bg: #ffffff !important;
+        --bs-table-color: #1a1a2e !important;
+        --bs-table-border-color: #e5e7eb !important;
+        --bs-table-striped-bg: #f5f7fa !important;
+        --bs-table-striped-color: #1a1a2e !important;
+        --bs-table-hover-bg: #f0f4f8 !important;
+        --bs-table-hover-color: #1a1a2e !important;
+        --bs-tertiary-bg: #f5f7fa !important;
+        --bs-secondary-bg: #e5e7eb !important;
+        --bs-input-bg: #ffffff !important;
+        --bs-input-color: #1a1a2e !important;
+        --bs-input-border-color: #d1d5db !important;
+    }
+
+    /* === Global Reset — Clean White Canvas === */
+    body {
+        background-color: #ffffff !important;
+        color: #1a1a2e !important;
+        font-family: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif !important;
+        font-size: 9.5pt !important;
+        line-height: 1.55 !important;
+        -webkit-font-smoothing: antialiased !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* === Hide Screen-Only Elements === */
+    .screen-only,
+    .navbar,
+    .btn,
+    button,
+    .loading-overlay,
+    .no-print,
+    #reanalyze-btn,
+    #reanalyzeBtn,
+    .results-header-actions,
+    .alert-dismissible .btn-close,
+    [data-bs-toggle="collapse"],
+    [data-bs-toggle="tooltip"],
+    .loading-content,
+    .loading-status {
+        display: none !important;
+    }
+
+    /* ================================================
+       REPORT HEADER — Navy accent bar + two-column
+       ================================================ */
+    .print-report-header {
+        display: block !important;
+        margin-bottom: 20pt;
+    }
+
+    .print-header-accent {
+        height: 5pt;
+        background: linear-gradient(90deg, #1e3a5f 0%, #0e7490 60%, #d97706 100%) !important;
+        border-radius: 2pt;
+        margin-bottom: 14pt;
+    }
+
+    .print-header-toprow {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14pt;
+    }
+
+    .print-header-left {
+        flex: 1;
+    }
+
+    .print-header-right {
+        text-align: right;
+        flex-shrink: 0;
+        padding-left: 20pt;
+        min-width: 140pt;
+    }
+
+    .print-report-brand {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4pt;
+    }
+
+    .print-brand-logo {
+        width: 24pt;
+        height: 24pt;
+        border-radius: 50%;
+        margin-right: 7pt;
+        background: #0d1117;
+        padding: 1pt;
+        border: 1pt solid #C8A878;
+        box-shadow: 0 1pt 4pt rgba(0,0,0,0.3);
+    }
+
+    .print-brand-name {
+        font-size: 8.5pt;
+        font-weight: 700;
+        color: #1e3a5f;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .print-report-title {
+        font-size: 15pt;
+        font-weight: 800;
+        color: #1a1a2e;
+        letter-spacing: -0.2pt;
+        line-height: 1.2;
+        margin-top: 2pt;
+    }
+
+    .print-report-meta {
+        font-size: 7.5pt;
+        color: #6b7280;
+        line-height: 1.7;
+        white-space: nowrap;
+    }
+
+    .print-meta-label {
+        font-weight: 600;
+        color: #4b5563;
+        text-transform: uppercase;
+        font-size: 6.5pt;
+        letter-spacing: 0.05em;
+    }
+
+    .print-tlp-badge {
+        display: inline-block;
+        margin-top: 6pt;
+        padding: 2pt 10pt;
+        font-size: 7.5pt;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: #000000;
+        background-color: #ffc000 !important;
+        border-radius: 2pt;
+    }
+    .print-tlp-badge.tlp-clear {
+        color: #374151;
+        background-color: #ffffff !important;
+        border: 1pt solid #6b7280;
+    }
+    .print-tlp-badge.tlp-green {
+        color: #ffffff;
+        background-color: #33a532 !important;
+    }
+    .print-tlp-badge.tlp-amber {
+        color: #000000;
+        background-color: #ffc000 !important;
+    }
+    .print-tlp-badge.tlp-red {
+        color: #ffffff;
+        background-color: #ff2b2b !important;
+    }
+    .print-tlp-badge.tlp-amber-strict {
+        color: #000000;
+        background-color: #ffc000 !important;
+        border: 2pt solid #b8860b;
+    }
+
+    .print-tlp-note {
+        font-size: 6pt;
+        color: #9ca3af;
+        margin-top: 2pt;
+        letter-spacing: 0.03em;
+    }
+
+    /* --- Domain Banner — The focal point of the report --- */
+    .print-domain-banner {
+        background-color: #1e3a5f !important;
+        padding: 14pt 16pt 16pt;
+        border-radius: 4pt;
+        text-align: center;
+        margin-bottom: 6pt;
+    }
+
+    .print-domain-label {
+        font-size: 7pt;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #94a3b8 !important;
+        margin-bottom: 3pt;
+    }
+
+    .print-domain-name {
+        font-size: 22pt;
+        font-weight: 800;
+        color: #ffffff !important;
+        font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace !important;
+        letter-spacing: 0.5pt;
+        line-height: 1.2;
+    }
+
+    /* ================================================
+       REPORT FOOTER — Accent bar + three-column
+       ================================================ */
+    .print-report-footer {
+        display: block !important;
+        margin-top: 28pt;
+        page-break-inside: avoid;
+    }
+
+    .print-footer-accent {
+        height: 3pt;
+        background: linear-gradient(90deg, #1e3a5f 0%, #0e7490 60%, #d97706 100%) !important;
+        border-radius: 1pt;
+        margin-bottom: 8pt;
+    }
+
+    .print-footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 7.5pt;
+        color: #4b5563;
+    }
+
+    .print-footer-left {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .print-footer-left strong {
+        font-size: 8pt;
+        color: #1e3a5f;
+    }
+
+    .print-footer-left span {
+        color: #6b7280;
+    }
+
+    .print-footer-center {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 2pt;
+    }
+
+    .print-footer-tagline {
+        font-weight: 700;
+        font-size: 8pt;
+        color: #1e3a5f;
+        letter-spacing: 0.03em;
+    }
+
+    .print-footer-note {
+        font-style: italic;
+        font-size: 7pt;
+        color: #9ca3af;
+    }
+
+    .print-footer-right {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+    }
+
+    .print-footer-right strong {
+        font-size: 8pt;
+        color: #1e3a5f;
+    }
+
+    .print-footer-right span {
+        color: #6b7280;
+    }
+
+    .print-footer-disclaimer {
+        font-size: 6.5pt;
+        color: #9ca3af;
+        margin-top: 6pt;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    /* ================================================
+       TYPOGRAPHY — Strong Hierarchy
+       ================================================ */
+    h1, h2, h3, h4, h5, h6 {
+        color: #1a1a2e !important;
+        page-break-after: avoid;
+        font-weight: 700 !important;
+    }
+
+    h1, .h1 { font-size: 17pt !important; }
+    h2, .h2 { font-size: 14pt !important; }
+    h3, .h3 { font-size: 12pt !important; }
+    h4, .h4, h5, .h5 { font-size: 10.5pt !important; }
+    h6, .h6 { font-size: 9pt !important; }
+
+    p { orphans: 3; widows: 3; }
+
+    strong, b { color: #1a1a2e !important; }
+
+    a {
+        color: #1e40af !important;
+        text-decoration: none !important;
+    }
+
+    .text-muted { color: #6b7280 !important; }
+    .text-light { color: #374151 !important; }
+    .text-white { color: #1a1a2e !important; }
+    .text-info { color: #0e7490 !important; }
+    .text-success { color: #166534 !important; }
+    .text-warning { color: #92400e !important; }
+    .text-danger { color: #991b1b !important; }
+    .text-primary { color: #1e3a5f !important; }
+    .text-secondary { color: #4b5563 !important; }
+
+    .text-danger-emphasis { color: #991b1b !important; }
+    .text-warning-emphasis { color: #92400e !important; }
+    .text-success-emphasis { color: #166534 !important; }
+
+    .small, small { font-size: 8pt !important; }
+
+    .opacity-75, .opacity-50 { opacity: 1 !important; }
+
+    .text-truncate {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: normal !important;
+    }
+
+    /* ================================================
+       CARDS — Professional containers with accent top
+       ================================================ */
+    .card {
+        background-color: #ffffff !important;
+        border: 1pt solid #d1d5db !important;
+        border-radius: 4pt !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        margin-bottom: 12pt;
+    }
+
+    .card-header {
+        background-color: #f0f4f8 !important;
+        color: #1a1a2e !important;
+        border-bottom: 1.5pt solid #1e3a5f !important;
+        padding: 7pt 12pt !important;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        break-after: avoid;
+    }
+
+    .card-header h5,
+    .card-header .h5 {
+        color: #1e3a5f !important;
+    }
+
+    .card-body {
+        background-color: #ffffff !important;
+        color: #1a1a2e !important;
+        padding: 10pt 12pt !important;
+    }
+
+    .card.border-0 { border: 1pt solid #d1d5db !important; }
+
+    .bg-dark,
+    .bg-opacity-25,
+    .bg-opacity-50,
+    .bg-opacity-75,
+    .bg-opacity-10 {
+        background-color: #ffffff !important;
+    }
+
+    .card.border-primary { border-color: #1e3a5f !important; }
+    .card.bg-primary { background-color: #f0f7ff !important; }
+
+    /* --- Posture Card — Colored left border + tinted background --- */
+    .card.border-success.bg-success {
+        background-color: #f0fdf4 !important;
+        border-color: #d1d5db !important;
+        border-left: 4pt solid #166534 !important;
+    }
+    .card.border-warning.bg-warning {
+        background-color: #fffbeb !important;
+        border-color: #d1d5db !important;
+        border-left: 4pt solid #d97706 !important;
+    }
+    .card.border-danger.bg-danger {
+        background-color: #fef2f2 !important;
+        border-color: #d1d5db !important;
+        border-left: 4pt solid #991b1b !important;
+    }
+    .card.border-info.bg-info {
+        background-color: #ecfeff !important;
+        border-color: #d1d5db !important;
+        border-left: 4pt solid #0e7490 !important;
+    }
+
+    /* Top Fixes panel — amber accent */
+    .card[style*="border-left: 3px solid"] {
+        border-left: 3.5pt solid #d97706 !important;
+        background-color: #fffdf5 !important;
+    }
+
+    .card .bg-dark {
+        background-color: #f5f7fa !important;
+        border: 1pt solid #e5e7eb !important;
+        border-radius: 3pt !important;
+    }
+
+    /* Domain summary card */
+    .card.border-primary.bg-primary {
+        background-color: #f0f7ff !important;
+        border: 1pt solid #1e3a5f !important;
+        border-left: 4pt solid #1e3a5f !important;
+    }
+
+    /* ================================================
+       EXECUTIVE SCORECARD — 4 Quadrants with color
+       ================================================ */
+    .card.bg-dark.bg-opacity-25 {
+        background-color: #f8fafc !important;
+        border: 1.5pt solid #1e3a5f !important;
+        border-radius: 4pt !important;
+        margin-bottom: 14pt !important;
+    }
+
+    .card.bg-dark.bg-opacity-25 .card-body {
+        padding: 0 !important;
+    }
+
+    .card.bg-dark.bg-opacity-25 .row.g-3 > div {
+        padding: 10pt 8pt !important;
+        border-right: 0.5pt solid #e5e7eb !important;
+    }
+
+    .card.bg-dark.bg-opacity-25 .row.g-3 > div:last-child {
+        border-right: none !important;
+    }
+
+    .card.bg-dark.bg-opacity-25 .text-uppercase {
+        color: #1e3a5f !important;
+        font-size: 7pt !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.08em;
+    }
+
+    /* Findings summary card */
+    .card.border-0.bg-dark.bg-opacity-50 {
+        background-color: #f5f7fa !important;
+        border: 1pt solid #d1d5db !important;
+    }
+
+    /* ================================================
+       BADGES — Solid colors, B&W-safe contrast
+       Colors map to distinct grayscale values:
+       Green=#166534(dark), Blue=#0e7490(mid-dark),
+       Amber=#d97706(mid-light), Red=#991b1b(dark),
+       Gray=#6b7280(medium)
+       ================================================ */
+    .badge {
+        font-size: 8pt !important;
+        font-weight: 700 !important;
+        padding: 2.5pt 7pt !important;
+        border-radius: 3pt !important;
+        letter-spacing: 0.02em;
+    }
+
+    .badge.bg-success,
+    .badge.bg-success-subtle {
+        background-color: #166534 !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    .badge.bg-warning,
+    .badge.bg-warning-subtle {
+        background-color: #92400e !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    .badge.bg-danger,
+    .badge.bg-danger-subtle {
+        background-color: #991b1b !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    .badge.bg-info,
+    .badge.bg-info-subtle {
+        background-color: #0e7490 !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    .badge.bg-secondary,
+    .badge.bg-secondary-subtle {
+        background-color: #6b7280 !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+
+    .badge.bg-primary {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+    }
+
+    .badge.fs-6 {
+        font-size: 10pt !important;
+        padding: 4pt 12pt !important;
+    }
+
+    .badge.text-success { color: #ffffff !important; }
+    .badge.text-warning { color: #ffffff !important; }
+    .badge.text-info { color: #ffffff !important; }
+    .badge.text-dark { color: #ffffff !important; }
+
+    /* ================================================
+       CODE BLOCKS — Tinted background, left accent
+       ================================================ */
+    .code-block {
+        background-color: #f5f7fa !important;
+        border: 1pt solid #d1d5db !important;
+        border-left: 3pt solid #0e7490 !important;
+        border-radius: 0 3pt 3pt 0 !important;
+        color: #1a1a2e !important;
+        font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace !important;
+        font-size: 7.5pt !important;
+        line-height: 1.6 !important;
+        padding: 7pt 10pt !important;
+        margin-top: 6pt !important;
+        margin-bottom: 6pt !important;
+        page-break-inside: avoid;
+        word-break: break-all;
+    }
+
+    .code-block .copy-btn {
+        display: none !important;
+    }
+
+    /* ================================================
+       ALERTS — Colored left border + subtle tint
+       ================================================ */
+    .alert {
+        background-color: #f9fafb !important;
+        color: #1a1a2e !important;
+        border: none !important;
+        border-left: 3.5pt solid #6b7280 !important;
+        border-radius: 0 4pt 4pt 0 !important;
+        padding: 9pt 12pt !important;
+        margin-bottom: 10pt !important;
+    }
+
+    .alert-success {
+        border-left-color: #166534 !important;
+        background-color: #f0fdf4 !important;
+    }
+    .alert-warning {
+        border-left-color: #d97706 !important;
+        background-color: #fffdf5 !important;
+    }
+    .alert-danger {
+        border-left-color: #991b1b !important;
+        background-color: #fef2f2 !important;
+    }
+    .alert-info {
+        border-left-color: #0e7490 !important;
+        background-color: #ecfeff !important;
+    }
+
+    /* === Provider Badges === */
+    .provider-badge {
+        background: #fef3c7 !important;
+        color: #78350f !important;
+        border: 1pt solid #d97706 !important;
+        font-size: 7.5pt !important;
+    }
+
+    /* === RFC Links — Teal accent === */
+    .rfc-link {
+        background-color: #ecfeff !important;
+        border: 0.5pt solid #0e7490 !important;
+        border-radius: 2pt !important;
+        color: #0e7490 !important;
+        font-size: 7pt !important;
+        padding: 1pt 4pt !important;
+        font-weight: 600 !important;
+    }
+
+    /* ================================================
+       TABLES — Striped rows, colored headers
+       ================================================ */
+    table, .table {
+        font-size: 8.5pt !important;
+        border-collapse: collapse !important;
+    }
+
+    .table th {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 7.5pt !important;
+        letter-spacing: 0.03em;
+        text-transform: uppercase !important;
+        border: 1pt solid #1e3a5f !important;
+        padding: 5pt 8pt !important;
+    }
+
+    .table td {
+        border: 1pt solid #e5e7eb !important;
+        padding: 4pt 8pt !important;
+        color: #374151 !important;
+    }
+
+    .table tbody tr:nth-child(even) td {
+        background-color: #f5f7fa !important;
+    }
+
+    .table tbody tr:nth-child(odd) td {
+        background-color: #ffffff !important;
+    }
+
+    /* ================================================
+       DNS DIFF SECTION
+       ================================================ */
+    .dns-diff-container {
+        background-color: #ffffff !important;
+        border: 1pt solid #d1d5db !important;
+        border-radius: 3pt !important;
+    }
+
+    .dns-diff-header {
+        background-color: #1e3a5f !important;
+        border-bottom: none !important;
+    }
+
+    .dns-diff-header .dns-diff-col {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 8pt !important;
+        letter-spacing: 0.03em;
+    }
+
+    .dns-diff-type-header {
+        background-color: #f0f4f8 !important;
+        border: none !important;
+        color: #1e3a5f !important;
+        font-weight: 700 !important;
+    }
+
+    .dns-diff-row .dns-diff-col {
+        background-color: #ffffff !important;
+        color: #1a1a2e !important;
+        border-color: #e5e7eb !important;
+    }
+
+    .dns-diff-col.dns-diff-empty {
+        background-color: #f9fafb !important;
+    }
+
+    .dns-diff-value {
+        color: #1a1a2e !important;
+        font-family: 'SF Mono', Consolas, monospace !important;
+        font-size: 7pt !important;
+    }
+
+    .dns-diff-placeholder {
+        color: #9ca3af !important;
+    }
+
+    .dns-diff-highlight-old {
+        background-color: #fef2f2 !important;
+    }
+
+    .dns-diff-highlight-new {
+        background-color: #f0fdf4 !important;
+    }
+
+    /* ================================================
+       SECTION HEADERS — Colored top bar on major sections
+       ================================================ */
+    .section-email-security > .col-12 > .card > .card-header {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+        border-bottom: none !important;
+    }
+    .section-email-security > .col-12 > .card > .card-header h5,
+    .section-email-security > .col-12 > .card > .card-header .h5,
+    .section-email-security > .col-12 > .card > .card-header span,
+    .section-email-security > .col-12 > .card > .card-header small,
+    .section-email-security > .col-12 > .card > .card-header .text-muted {
+        color: #ffffff !important;
+    }
+    .section-email-security > .col-12 > .card > .card-header .badge {
+        border: 1pt solid rgba(255,255,255,0.3) !important;
+    }
+
+    .section-dns-history > .col-12 > .card > .card-header {
+        background-color: #0e7490 !important;
+        color: #ffffff !important;
+        border-bottom: none !important;
+    }
+    .section-dns-history > .col-12 > .card > .card-header h5,
+    .section-dns-history > .col-12 > .card > .card-header .h5,
+    .section-dns-history > .col-12 > .card > .card-header span,
+    .section-dns-history > .col-12 > .card > .card-header small,
+    .section-dns-history > .col-12 > .card > .card-header .text-muted {
+        color: #ffffff !important;
+    }
+    .section-dns-history > .col-12 > .card > .card-header p.text-warning-emphasis {
+        color: #fef3c7 !important;
+        font-style: italic;
+    }
+
+    .section-dns-history .table th {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+    }
+
+    .section-dns-history .text-success {
+        color: #166534 !important;
+        font-weight: 700 !important;
+    }
+
+    .section-dns-history .text-danger {
+        color: #991b1b !important;
+        font-weight: 700 !important;
+    }
+
+    .section-brand-security > .col-12 > .card > .card-header {
+        background-color: #0e7490 !important;
+        color: #ffffff !important;
+        border-bottom: none !important;
+    }
+    .section-brand-security > .col-12 > .card > .card-header h5,
+    .section-brand-security > .col-12 > .card > .card-header .h5,
+    .section-brand-security > .col-12 > .card > .card-header span,
+    .section-brand-security > .col-12 > .card > .card-header small,
+    .section-brand-security > .col-12 > .card > .card-header .text-muted {
+        color: #ffffff !important;
+    }
+    .section-brand-security > .col-12 > .card > .card-header .badge {
+        border: 1pt solid rgba(255,255,255,0.3) !important;
+    }
+
+    .section-domain-security > .col-12 > .card > .card-header {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+        border-bottom: none !important;
+    }
+    .section-domain-security > .col-12 > .card > .card-header h5,
+    .section-domain-security > .col-12 > .card > .card-header .h5,
+    .section-domain-security > .col-12 > .card > .card-header span,
+    .section-domain-security > .col-12 > .card > .card-header small,
+    .section-domain-security > .col-12 > .card > .card-header .text-muted {
+        color: #ffffff !important;
+    }
+    .section-domain-security > .col-12 > .card > .card-header .badge {
+        border: 1pt solid rgba(255,255,255,0.3) !important;
+    }
+
+    .section-traffic-routing > .col-12 > .card > .card-header {
+        background-color: #0e7490 !important;
+        color: #ffffff !important;
+        border-bottom: none !important;
+    }
+    .section-traffic-routing > .col-12 > .card > .card-header h5,
+    .section-traffic-routing > .col-12 > .card > .card-header .h5,
+    .section-traffic-routing > .col-12 > .card > .card-header span,
+    .section-traffic-routing > .col-12 > .card > .card-header small,
+    .section-traffic-routing > .col-12 > .card > .card-header .text-muted {
+        color: #ffffff !important;
+    }
+
+    /* ================================================
+       POSTURE CARD — Enhanced visual treatment
+       ================================================ */
+    .card.border-success.bg-success .card-body,
+    .card.border-warning.bg-warning .card-body,
+    .card.border-danger.bg-danger .card-body,
+    .card.border-info.bg-info .card-body {
+        padding: 12pt 14pt !important;
+    }
+
+    .card.border-success.bg-success,
+    .card.border-warning.bg-warning,
+    .card.border-danger.bg-danger,
+    .card.border-info.bg-info {
+        margin-bottom: 14pt !important;
+    }
+
+    /* ================================================
+       MTA-STS/TLS-RPT Row — Stack Vertically
+       ================================================ */
+    .mta-sts-tlsrpt-row {
+        display: block !important;
+    }
+
+    .mta-sts-tlsrpt-row > .col-md-6 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin-bottom: 8pt;
+    }
+
+    /* ================================================
+       CHROME PRINT GRID FIX — Force Bootstrap columns
+       Chrome print uses ~800px viewport, causing col-md-*
+       to stack. These rules force multi-column layout in
+       all print engines.
+       ================================================ */
+    .row > .col-md-4 {
+        flex: 0 0 33.333% !important;
+        max-width: 33.333% !important;
+        width: 33.333% !important;
+    }
+
+    .row > .col-md-6 {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+        width: 50% !important;
+    }
+
+    .row > .col-md-8 {
+        flex: 0 0 66.666% !important;
+        max-width: 66.666% !important;
+        width: 66.666% !important;
+    }
+
+    .row > .col-md-3 {
+        flex: 0 0 25% !important;
+        max-width: 25% !important;
+        width: 25% !important;
+    }
+
+    .row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
+    /* ================================================
+       DOMAIN SUMMARY GRID
+       ================================================ */
+    .domain-summary-row .col-md-3,
+    .domain-summary-row .col-6 {
+        flex: 0 0 25% !important;
+        max-width: 25% !important;
+    }
+
+    .domain-summary-col .text-uppercase {
+        color: #1e3a5f !important;
+        font-size: 6pt !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.08em;
+    }
+
+    /* ================================================
+       PAGE BREAK CONTROLS
+       ================================================ */
+    .section-email-security {
+        page-break-before: always;
+    }
+
+    .section-dns-history {
+        page-break-before: always;
+    }
+
+    .section-dns-history .card {
+        page-break-inside: auto;
+    }
+
+    .section-brand-security {
+        page-break-before: always;
+    }
+
+    .section-domain-security {
+        page-break-before: always;
+    }
+
+    .section-traffic-routing {
+        page-break-before: always;
+    }
+
+    .section-email-security .card,
+    .section-traffic-routing .card {
+        page-break-inside: auto;
+    }
+
+    .section-brand-security .card,
+    .section-domain-security .card {
+        page-break-inside: avoid;
+    }
+
+    .row.g-4 {
+        page-break-inside: auto;
+    }
+
+    .card-header + .card-body {
+        break-before: avoid;
+    }
+
+    h5, h6, .h5, .h6 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    .collapse,
+    .collapse:not(.show) {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+        visibility: visible !important;
+    }
+
+    /* ================================================
+       SUBDOMAIN DISCOVERY TABLE
+       ================================================ */
+    .subdomain-table th {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+        font-size: 7pt !important;
+        letter-spacing: 0.03em;
+    }
+
+    .subdomain-table td {
+        font-size: 7.5pt !important;
+    }
+
+    .subdomain-table tbody tr:nth-child(even) td {
+        background-color: #f5f7fa !important;
+    }
+
+    /* ================================================
+       EMAIL SECURITY MANAGEMENT CARD
+       ================================================ */
+    .esm-provider-card {
+        background-color: #f5f7fa !important;
+        border: 1pt solid #d1d5db !important;
+        border-left: 3pt solid #0e7490 !important;
+    }
+
+    /* ================================================
+       SPACING ADJUSTMENTS
+       ================================================ */
+    .mb-4 { margin-bottom: 12pt !important; }
+    .mb-3 { margin-bottom: 8pt !important; }
+    .mt-4 { margin-top: 12pt !important; }
+    .mt-5 { margin-top: 14pt !important; }
+    .py-3 { padding-top: 8pt !important; padding-bottom: 8pt !important; }
+    .px-3 { padding-left: 10pt !important; padding-right: 10pt !important; }
+
+    /* ================================================
+       INLINE STYLE OVERRIDES
+       ================================================ */
+    [style*="opacity: 0.7"] { opacity: 1 !important; }
+    [style*="background-color: rgba"] { background-color: transparent !important; }
+    [style*="font-size: 0.55rem"] { font-size: 6pt !important; }
+    [style*="font-size: 0.65rem"] { font-size: 6.5pt !important; }
+    [style*="font-size: 0.7rem"] { font-size: 7pt !important; }
+    [style*="font-size: 0.75rem"] { font-size: 7.5pt !important; }
+    [style*="font-size: 0.8rem"] { font-size: 8pt !important; }
+
+    /* ================================================
+       BACKGROUND RESETS FOR DARK THEME
+       ================================================ */
+    [class*="bg-dark"],
+    [class*="bg-opacity"] {
+        background-color: transparent !important;
+    }
+
+    .card [class*="bg-dark"] {
+        background-color: #f5f7fa !important;
+    }
+
+    .border-opacity-25 { border-color: #e5e7eb !important; }
+    .border-opacity-50 { border-color: #d1d5db !important; }
+
+    /* ================================================
+       SVG ICONS — Semantic Colors
+       ================================================ */
+    .icon.text-success { color: #166534 !important; }
+    .icon.text-warning { color: #d97706 !important; }
+    .icon.text-danger { color: #991b1b !important; }
+    .icon.text-info { color: #0e7490 !important; }
+    .icon.text-primary { color: #1e3a5f !important; }
+    .icon.text-secondary { color: #6b7280 !important; }
+    .icon.text-muted { color: #9ca3af !important; }
+
+    .icon-2x { font-size: 14pt !important; }
+    .icon-4x { font-size: 20pt !important; }
+
+    /* === DANE Transport Security Explainer === */
+    .card-body dl dt {
+        color: #1a1a2e !important;
+        font-weight: 700 !important;
+    }
+
+    .card-body dl dd {
+        color: #374151 !important;
+    }
+
+    /* === Live/Cached badges === */
+    .badge[style*="font-size: 0.55rem"] {
+        font-size: 5.5pt !important;
+        padding: 1pt 4pt !important;
+        background-color: #e5e7eb !important;
+        color: #374151 !important;
+        border: none !important;
+    }
+
+    /* ================================================
+       VERDICT BLOCKS — Enhanced visual treatment
+       ================================================ */
+    .card-body .alert:first-child {
+        margin-top: 0 !important;
+    }
+
+    /* Brand icon palette — print overrides */
+    .text-brand-cobalt { color: #1e3a5f !important; }
+    .text-brand-gold   { color: #8b6914 !important; }
+    .text-brand-violet { color: #4a3c99 !important; }
+    .text-brand-steel  { color: #5a6878 !important; }
+    .text-brand-amber  { color: #8b6914 !important; }
+    .icon-premium, .icon-premium-gold, .icon-premium-cobalt, .icon-premium-violet { filter: none; }
+
+    /* Record type badges inside cards */
+    .card-body > h6 .badge.bg-primary,
+    .card-body .badge.bg-primary {
+        background-color: #1e3a5f !important;
+        color: #ffffff !important;
+    }

@@ -1,0 +1,29 @@
+name: Off-site Backup
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '15 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  backup:
+    name: Push to off-site-backup
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Mirror to off-site-backup
+        env:
+          BACKUP_TOKEN: ${{ secrets.GH_SYNC_TOKEN }}
+        run: |
+          git remote add backup "https://x-access-token:${BACKUP_TOKEN}@github.com/IT-Help-San-Diego/off-site-backup.git"
+          git push --force --all backup
+          git push --force --tags backup
+          echo "Off-site backup complete."

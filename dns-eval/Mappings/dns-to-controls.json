@@ -1,0 +1,245 @@
+{
+  "schema_version": 8,
+  "engine": "ICSAE",
+  "engine_name": "Intelligence Compliance & Standards Assessment Engine",
+  "citation_style": "chicago-note",
+  "standards_registry": {
+    "ISO_27002_2022": {
+      "title": "Information Security, Cybersecurity and Privacy Protection — Information Security Controls",
+      "publisher": "ISO/IEC",
+      "date": "2022",
+      "identifier": "INCITS/ISO/IEC 27002:2022",
+      "ansi_order": "X_1179149"
+    },
+    "ISO_27001_2005": {
+      "title": "Information Technology — Security Techniques — Information Security Management Systems — Requirements",
+      "publisher": "ISO/IEC",
+      "date": "2005",
+      "identifier": "INCITS/ISO/IEC 27001:2005"
+    },
+    "INCITS_585_2025": {
+      "title": "Information Technology — Cybersecurity — Secure Software Development Framework",
+      "publisher": "INCITS / ANSI",
+      "date": "2025",
+      "identifier": "INCITS 585-2025"
+    },
+    "NIST_800_177": {
+      "title": "Trustworthy Email",
+      "publisher": "NIST",
+      "date": "2019",
+      "identifier": "NIST SP 800-177 Rev. 1",
+      "url": "https://csrc.nist.gov/publications/detail/sp/800-177/rev-1/final"
+    },
+    "NIST_800_218": {
+      "title": "Secure Software Development Framework (SSDF)",
+      "publisher": "NIST",
+      "date": "2022",
+      "identifier": "NIST SP 800-218",
+      "url": "https://csrc.nist.gov/publications/detail/sp/800-218/final"
+    }
+  },
+  "rfc_registry": {
+    "RFC1035": { "title": "Domain Names — Implementation and Specification", "authors": ["Mockapetris, P."], "date": "1987-11", "status": "Internet Standard", "url": "https://datatracker.ietf.org/doc/html/rfc1035" },
+    "RFC3207": { "title": "SMTP Service Extension for Secure SMTP over Transport Layer Security", "authors": ["Hoffman, P."], "date": "2002-02", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc3207" },
+    "RFC4033": { "title": "DNS Security Introduction and Requirements", "authors": ["Arends, R.", "Austein, R.", "Larson, M.", "Massey, D.", "Rose, S."], "date": "2005-03", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc4033" },
+    "RFC4034": { "title": "Resource Records for the DNS Security Extensions", "authors": ["Arends, R.", "Austein, R.", "Larson, M.", "Massey, D.", "Rose, S."], "date": "2005-03", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc4034" },
+    "RFC4035": { "title": "Protocol Modifications for the DNS Security Extensions", "authors": ["Arends, R.", "Austein, R.", "Larson, M.", "Massey, D.", "Rose, S."], "date": "2005-03", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc4035" },
+    "RFC5321": { "title": "Simple Mail Transfer Protocol", "authors": ["Klensin, J."], "date": "2008-10", "status": "Draft Standard", "url": "https://datatracker.ietf.org/doc/html/rfc5321" },
+    "RFC6376": { "title": "DomainKeys Identified Mail (DKIM) Signatures", "authors": ["Crocker, D.", "Hansen, T.", "Kucherawy, M."], "date": "2011-09", "status": "Internet Standard", "url": "https://datatracker.ietf.org/doc/html/rfc6376" },
+    "RFC6698": { "title": "The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA", "authors": ["Hoffman, P.", "Schlyter, J."], "date": "2012-08", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc6698" },
+    "RFC6962": { "title": "Certificate Transparency", "authors": ["Laurie, B.", "Langley, A.", "Kasper, E."], "date": "2013-06", "status": "Experimental", "url": "https://datatracker.ietf.org/doc/html/rfc6962" },
+    "RFC7208": { "title": "Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1", "authors": ["Kitterman, S."], "date": "2014-04", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc7208" },
+    "RFC7489": { "title": "Domain-based Message Authentication, Reporting, and Conformance (DMARC)", "authors": ["Kucherawy, M.", "Zwicky, E."], "date": "2015-03", "status": "Informational", "url": "https://datatracker.ietf.org/doc/html/rfc7489" },
+    "RFC7672": { "title": "SMTP Security via Opportunistic DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS)", "authors": ["Dukhovni, V.", "Hardaker, W."], "date": "2015-10", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc7672" },
+    "RFC8078": { "title": "Managing DS Records from the Parent via CDS/CDNSKEY", "authors": ["Gudmundsson, O.", "Wouters, P."], "date": "2017-03", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc8078" },
+    "RFC8301": { "title": "Cryptographic Algorithm and Key Usage Update to DomainKeys Identified Mail (DKIM)", "authors": ["Kitterman, S."], "date": "2018-01", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc8301" },
+    "RFC8460": { "title": "SMTP TLS Reporting", "authors": ["Margolis, D."], "date": "2018-09", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc8460" },
+    "RFC8461": { "title": "SMTP MTA Strict Transport Security (MTA-STS)", "authors": ["Margolis, D.", "Risher, M.", "Ramakrishnan, B.", "Brotman, A.", "Jones, J."], "date": "2018-09", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc8461" },
+    "RFC8659": { "title": "DNS Certification Authority Authorization (CAA) Resource Record", "authors": ["Hallam-Baker, P.", "Stradling, R."], "date": "2019-11", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc8659" },
+    "RFC9460": { "title": "Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)", "authors": ["Schwartz, B.", "Bishop, M.", "Nygren, E."], "date": "2023-11", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc9460" },
+    "RFC9495": { "title": "Certification Authority Authorization (CAA) Processing for Email Addresses", "authors": ["Bonnell, C."], "date": "2023-10", "status": "Proposed Standard", "url": "https://datatracker.ietf.org/doc/html/rfc9495" }
+  },
+  "mappings": [
+    {
+      "id": "DNSSEC_AUTHENTICATED",
+      "title": "DNSSEC Authentication",
+      "severity": "high",
+      "requires": ["DNSSEC_VALID"],
+      "standards": ["ISO_27002_2022:8.24", "INCITS_585_2025:PW.6"],
+      "rfcs": ["RFC4033", "RFC4034", "RFC4035"],
+      "rationale": "DNSSEC provides cryptographic authentication of DNS data, preventing cache poisoning and man-in-the-middle attacks. ISO/IEC 27002:2022 §8.24 requires cryptographic controls to protect data integrity and authenticity. INCITS 585-2025 PW.6 mandates verification of software integrity, which extends to the DNS infrastructure delivering that software.",
+      "evidence_keys": ["dnssec_analysis.status", "dnssec_analysis.ad_flag"],
+      "fail_explanation": "DNSSEC not authenticated — DNS responses for this domain are not cryptographically validated. An attacker positioned between the resolver and authoritative server can forge responses (Kaminsky attack, RFC 5452). Per RFC 4033 §2, \"DNSSEC provides origin authentication and integrity assurance.\""
+    },
+    {
+      "id": "DNSSEC_CHAIN_TRUSTED",
+      "title": "DNSSEC Chain of Trust Validated",
+      "severity": "high",
+      "requires": ["DNSSEC_CHAIN_VALID"],
+      "standards": ["ISO_27002_2022:8.24"],
+      "rfcs": ["RFC4033", "RFC4035"],
+      "rationale": "A valid DNSSEC chain of trust — whether complete (apex zone with own DS/DNSKEY) or inherited (subdomain validated via parent zone) — ensures cryptographic authentication. RFC 4035 §5 specifies the authentication chain validation process. Both 'complete' and 'inherited' chain states are valid when the AD flag is set. Subdomains on managed platforms (Route 53, Cloudflare, etc.) typically inherit trust from the parent zone — this is correct behavior, not a deficiency.",
+      "evidence_keys": ["dnssec_analysis.chain_of_trust", "dnssec_analysis.ad_flag"],
+      "fail_explanation": "DNSSEC chain of trust not validated. Per RFC 4035 §5, validators must be able to trace a chain of signed DNSKEY and DS records from a trust anchor to the zone. The AD (Authenticated Data) flag was not set by the validating resolver."
+    },
+    {
+      "id": "DNSSEC_KEY_ROLLOVER",
+      "title": "DNSSEC Key Rollover Readiness",
+      "severity": "medium",
+      "requires": ["DNSSEC_ROLLOVER_READY"],
+      "standards": ["ISO_27002_2022:8.24", "INCITS_585_2025:PS.3"],
+      "rfcs": ["RFC8078"],
+      "rationale": "CDS/CDNSKEY automation (RFC 8078) enables safe, automated DS record updates at the parent zone. Without rollover readiness, key compromise or algorithm migration requires manual registrar intervention. INCITS 585-2025 PS.3 requires archived and protected releases, which extends to cryptographic key lifecycle management.",
+      "evidence_keys": ["cds_cdnskey.has_cds", "cds_cdnskey.has_cdnskey", "cds_cdnskey.automation"],
+      "fail_explanation": "No CDS/CDNSKEY automation — DNSSEC key rollover requires manual registrar coordination. Per RFC 8078, CDS and CDNSKEY records enable automated, authenticated DS updates at the parent."
+    },
+    {
+      "id": "NO_MAIL_HARDENED",
+      "title": "No-Mail Domain Hardening",
+      "severity": "medium",
+      "applies_when": ["NO_MAIL_DOMAIN"],
+      "requires": ["NO_MAIL_DOMAIN", "NULL_MX", "DMARC_REJECT"],
+      "requires_spf": ["SPF_HARD_FAIL"],
+      "standards": ["ISO_27002_2022:8.23", "NIST_800_177:§4.3"],
+      "rfcs": ["RFC7208", "RFC7489", "RFC5321"],
+      "rationale": "Domains that do not send email must explicitly declare this posture. The critical requirements are null MX (RFC 7505), DMARC p=reject (RFC 7489 §6.3), and a restrictive SPF policy. For no-mail domains, SPF -all is ideal (RFC 7208 §10.1.2), but ~all with DMARC p=reject achieves equivalent enforcement. NIST SP 800-177 Rev. 1 §4.3 recommends null MX for non-mail domains. ISO/IEC 27002:2022 §8.23 requires controlled access to external networks.",
+      "evidence_keys": ["mail_posture.verdict", "has_null_mx", "spf_analysis.all_mechanism", "dmarc_analysis.policy"],
+      "fail_explanation": "No-mail domain not fully hardened — missing null MX record or DMARC reject policy. Attackers exploit domains without explicit no-mail declarations to send spoofed email."
+    },
+    {
+      "id": "SPF_EFFECTIVE_POLICY",
+      "title": "SPF Effective Authorization Policy",
+      "severity": "medium",
+      "requires_any": ["SPF_HARD_FAIL", "SPF_SOFTFAIL_WITH_DMARC"],
+      "standards": ["ISO_27002_2022:8.23", "NIST_800_177:§4.3.1"],
+      "rfcs": ["RFC7208", "RFC7489"],
+      "rationale": "RFC 7208 §10.1 describes softfail (~all) as transitional, and NIST SP 800-177 Rev. 1 §4.3.1 recommends hard fail (-all). However, RFC 7208 §2.6.3 explicitly defines softfail as a valid policy, not a deficiency. In operational practice, softfail (~all) is the industry standard because it enables DMARC alignment (RFC 7489) to function as the primary enforcement mechanism. A domain with SPF ~all + DMARC p=reject achieves stronger effective protection than SPF -all alone, because DMARC reject instructs receivers to discard unauthenticated messages regardless of SPF result. Hard fail (-all) without DMARC can break legitimate mail flows (forwarding, mailing lists) without providing the enforcement DMARC delivers. The effective security posture depends on the SPF + DMARC combination, not SPF in isolation.",
+      "evidence_keys": ["spf_analysis.all_mechanism", "dmarc_analysis.policy"],
+      "fail_explanation": "SPF policy is permissive without DMARC enforcement. SPF softfail (~all) without DMARC p=reject or p=quarantine leaves email authorization unenforced. Per RFC 7489, DMARC provides the enforcement layer that makes SPF softfail operationally effective. Either tighten SPF to -all or deploy DMARC with an enforcement policy."
+    },
+    {
+      "id": "DMARC_ENFORCEMENT",
+      "title": "DMARC Policy Enforcement",
+      "severity": "high",
+      "requires": ["DMARC_REJECT"],
+      "standards": ["ISO_27002_2022:8.23", "NIST_800_177:§4.6.1"],
+      "rfcs": ["RFC7489"],
+      "rationale": "RFC 7489 §6.3 defines p=reject as the strongest DMARC policy. NIST SP 800-177 Rev. 1 §4.6.1 recommends reject for all domains. Per RFC 7489 §6.7, quarantine and none policies leave the domain vulnerable to phishing impersonation.",
+      "evidence_keys": ["dmarc_analysis.policy"],
+      "fail_explanation": "DMARC policy is not set to reject. Per RFC 7489 §6.3, only p=reject instructs receivers to discard unauthenticated messages. NIST SP 800-177 Rev. 1 §4.6.1 recommends reject for all production domains."
+    },
+    {
+      "id": "DKIM_PRESENT",
+      "title": "DKIM Signature Availability",
+      "severity": "medium",
+      "applies_when": ["MAIL_DOMAIN"],
+      "requires": ["DKIM_FOUND"],
+      "standards": ["ISO_27002_2022:8.24", "NIST_800_177:§4.5"],
+      "rfcs": ["RFC6376", "RFC8301"],
+      "rationale": "RFC 6376 §1 states DKIM provides \"a method for associating a domain name with an email message, thereby permitting a person, role, or organization to claim some responsibility.\" NIST SP 800-177 Rev. 1 §4.5 recommends DKIM for all mail-sending domains. RFC 8301 updates required algorithms to RSA-2048 minimum.",
+      "evidence_keys": ["dkim_analysis.status", "dkim_analysis.primary_has_dkim"],
+      "fail_explanation": "DKIM not discoverable for this mail-sending domain. Per RFC 6376, DKIM provides cryptographic proof of message origin. Without DKIM, email from this domain cannot be cryptographically verified by receivers."
+    },
+    {
+      "id": "MAIL_POLICY_SIGNALING",
+      "title": "Mail Transport Policy Signaling",
+      "severity": "low",
+      "requires_any": ["MTA_STS_DNS", "TLS_RPT"],
+      "standards": ["ISO_27002_2022:8.20", "NIST_800_177:§5.2"],
+      "rfcs": ["RFC8461", "RFC8460"],
+      "rationale": "RFC 8461 defines MTA-STS for declaring SMTP TLS requirements. RFC 8460 defines TLS-RPT for monitoring TLS delivery failures. Together they signal transport security policy and enable failure detection. ISO/IEC 27002:2022 §8.20 requires network monitoring and control.",
+      "evidence_keys": ["mta_sts_analysis.status", "tlsrpt_analysis.status"],
+      "fail_explanation": "No mail transport policy signaling detected. Per RFC 8461, MTA-STS allows domains to declare TLS requirements for inbound SMTP. Per RFC 8460, TLS-RPT enables monitoring of TLS delivery failures."
+    },
+    {
+      "id": "CAA_RESTRICTION_PRESENT",
+      "title": "CAA Certificate Issuance Restriction",
+      "severity": "medium",
+      "requires": ["CAA_PRESENT"],
+      "standards": ["ISO_27002_2022:8.24"],
+      "rfcs": ["RFC8659", "RFC9495"],
+      "rationale": "RFC 8659 §1 states CAA \"allows a DNS domain name holder to specify one or more Certification Authorities (CAs) authorized to issue certificates for that domain.\" Per RFC 8659 §4.2, CAs must check CAA before issuance. ISO/IEC 27002:2022 §8.24 requires cryptographic controls for authenticity.",
+      "evidence_keys": ["caa_analysis.status", "caa_analysis.records", "caa_analysis.issuers"],
+      "fail_explanation": "No CAA records found — any Certificate Authority can issue certificates for this domain. Per RFC 8659 §4.2, CAs are required to check CAA records before issuance. Without CAA, misissued certificates cannot be prevented at the DNS layer."
+    },
+    {
+      "id": "DANE_DEPLOYED",
+      "title": "DANE / TLSA Deployment",
+      "severity": "low",
+      "applies_when": ["MAIL_DOMAIN"],
+      "requires": ["DANE_PRESENT"],
+      "standards": ["ISO_27002_2022:8.24", "ISO_27002_2022:8.20"],
+      "rfcs": ["RFC6698", "RFC7672"],
+      "rationale": "RFC 6698 §1 defines DANE as binding TLS certificates to DNS names via DNSSEC. RFC 7672 extends DANE to SMTP, providing authenticated encryption without reliance on the CA system. Requires DNSSEC (RFC 6698 §1).",
+      "evidence_keys": ["dane_analysis.has_dane", "dane_analysis.dane_deployable"],
+      "fail_explanation": "DANE/TLSA not deployed. Per RFC 6698, DANE binds TLS server certificates to DNS names using DNSSEC, providing authentication independent of the Certificate Authority system."
+    },
+    {
+      "id": "BIMI_CONFIGURED",
+      "title": "BIMI Brand Indicator",
+      "severity": "low",
+      "applies_when": ["MAIL_DOMAIN"],
+      "requires": ["BIMI_VALID"],
+      "standards": [],
+      "rfcs": [],
+      "rationale": "BIMI (Brand Indicators for Message Identification) displays verified brand logos in email clients. While not yet an RFC, it builds on DMARC enforcement and provides a visual trust signal. Requires p=reject DMARC.",
+      "evidence_keys": ["bimi_analysis.status", "bimi_analysis.logo_valid"],
+      "fail_explanation": "BIMI not configured or logo invalid. BIMI requires DMARC p=reject and a valid SVG logo to display brand indicators in supporting email clients."
+    },
+    {
+      "id": "SECURITY_TXT_PRESENT",
+      "title": "security.txt Vulnerability Disclosure",
+      "severity": "low",
+      "requires": ["SECURITY_TXT_FOUND"],
+      "standards": ["ISO_27002_2022:5.5", "INCITS_585_2025:RV.1"],
+      "rfcs": [],
+      "rationale": "RFC 9116 defines security.txt for machine-readable vulnerability disclosure policies. ISO/IEC 27002:2022 §5.5 requires contact with authorities for security incident coordination. INCITS 585-2025 RV.1 requires vulnerability response processes.",
+      "evidence_keys": ["security_txt.found", "security_txt.expired"],
+      "fail_explanation": "No security.txt found or file has expired. Per RFC 9116, security.txt provides a standardized location for vulnerability disclosure contact information."
+    },
+    {
+      "id": "DANGLING_DNS_CLEAN",
+      "title": "No Dangling DNS Records",
+      "severity": "high",
+      "requires": ["NO_DANGLING_DNS"],
+      "standards": ["ISO_27002_2022:8.20", "INCITS_585_2025:PW.4"],
+      "rfcs": ["RFC1035"],
+      "rationale": "Dangling DNS records (CNAME, MX, NS pointing to non-existent targets) enable subdomain takeover attacks. ISO/IEC 27002:2022 §8.20 requires network security monitoring. INCITS 585-2025 PW.4 mandates review and verification of software and infrastructure.",
+      "evidence_keys": ["dangling_dns.status", "dangling_dns.dangling_count"],
+      "fail_explanation": "Dangling DNS records detected — records point to non-existent infrastructure. This enables subdomain takeover: an attacker can claim the abandoned target and serve content under your domain name."
+    },
+    {
+      "id": "DELEGATION_CONSISTENT",
+      "title": "DNS Delegation Consistency",
+      "severity": "medium",
+      "requires": ["DELEGATION_OK"],
+      "standards": ["ISO_27002_2022:8.20"],
+      "rfcs": ["RFC1035"],
+      "rationale": "Consistent delegation between parent and child zones ensures DNS resolution reliability. RFC 1035 §2.1 specifies the hierarchical delegation model. Inconsistent NS records, missing glue, or SOA serial mismatches indicate misconfiguration that can cause resolution failures.",
+      "evidence_keys": ["delegation_consistency.status"],
+      "fail_explanation": "DNS delegation inconsistency detected. Parent and child zone NS records, glue records, or SOA serials do not agree. This can cause intermittent resolution failures and makes the zone vulnerable to hijacking."
+    },
+    {
+      "id": "SECRET_EXPOSURE_CLEAN",
+      "title": "No Exposed Secrets",
+      "severity": "high",
+      "requires": ["NO_SECRETS_EXPOSED"],
+      "standards": ["ISO_27002_2022:8.4", "INCITS_585_2025:PW.6"],
+      "rfcs": [],
+      "rationale": "ISO/IEC 27002:2022 §8.4 requires access control to source code and configuration. INCITS 585-2025 PW.6 requires verification of software integrity, including absence of exposed credentials.",
+      "evidence_keys": ["secret_exposure.status", "secret_exposure.finding_count"],
+      "fail_explanation": "Exposed secrets detected in public page source. API keys, tokens, or credentials found in publicly accessible pages can be harvested by automated scanners."
+    },
+    {
+      "id": "HTTPS_SVCB_MODERN",
+      "title": "HTTPS/SVCB Record Deployment",
+      "severity": "low",
+      "requires": ["HTTPS_SVCB_PRESENT"],
+      "standards": ["ISO_27002_2022:8.20"],
+      "rfcs": ["RFC9460"],
+      "rationale": "RFC 9460 defines SVCB and HTTPS resource records for service binding, enabling features like HTTP/3, ECH, and connection coalescing directly in DNS. These records signal modern transport capabilities.",
+      "evidence_keys": ["https_svcb.has_https", "https_svcb.has_svcb"],
+      "fail_explanation": "No HTTPS or SVCB records found. Per RFC 9460, these records enable clients to discover HTTP/3, ECH, and alternative endpoints via DNS, improving connection performance and privacy."
+    }
+  ]
+}

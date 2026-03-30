@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Platform Statistics — Analysis Metrics — DNS Tool</title>
+    <meta name="description" content="DNS security adoption statistics across analyzed domains. See SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS deployment rates and protocol adoption trends.">
+    <meta property="article:published_time" content="2025-03-01">
+    <meta property="article:modified_time" content="2026-03-20">
+    <meta property="og:url" content="https://dnstool.it-help.tech/stats">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DNS Security Statistics - DNS Tool">
+    <meta property="og:description" content="DNS security adoption statistics across analyzed domains. See SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS deployment rates and protocol adoption trends.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - DNS Security Statistics">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/stats">
+    <meta name="twitter:title" content="DNS Security Statistics - DNS Tool">
+    <meta name="twitter:description" content="DNS security adoption statistics across analyzed domains. See SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS deployment rates and protocol adoption trends.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/stats">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .stats-page { max-width: 1100px; }
+
+        .stats-hero {
+            background: linear-gradient(170deg, #0a1628 0%, #0d1117 35%, #142340 70%, #0d1117 100%);
+            border: 1px solid rgba(200,149,106,0.12);
+            border-radius: 16px;
+            padding: 2.5rem 2rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 25% 30%, rgba(74,143,231,0.06) 0%, transparent 55%),
+                        radial-gradient(ellipse at 75% 70%, rgba(63,185,80,0.04) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .stats-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(200,149,106,0.1);
+            border: 1px solid rgba(200,149,106,0.3);
+            border-radius: 4px;
+            padding: 0.2rem 0.65rem;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: #c8956a;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .stats-hero-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #c8956a;
+            animation: stats-pulse 2s ease-in-out infinite;
+        }
+        @keyframes stats-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; box-shadow: 0 0 6px rgba(200,149,106,0.5); }
+        }
+        .stats-hero h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e6edf3;
+            margin-bottom: 0.35rem;
+        }
+        .stats-hero-sub {
+            color: #8b949e;
+            font-size: 0.88rem;
+            margin-bottom: 0;
+        }
+        .stats-hero-actions {
+            position: relative;
+            z-index: 1;
+        }
+        .stats-hero-actions .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 1rem;
+        }
+
+        .stats-confidence-preview {
+            position: relative;
+            z-index: 1;
+            margin-top: 1.25rem;
+            background: linear-gradient(135deg, rgba(200,149,106,0.06) 0%, rgba(63,185,80,0.04) 100%);
+            border: 1px solid rgba(200,149,106,0.15);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .stats-confidence-preview:hover {
+            border-color: rgba(200,149,106,0.3);
+        }
+        .stats-confidence-preview-icon {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 10px;
+            background: rgba(200,149,106,0.1);
+            border: 1px solid rgba(200,149,106,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #c8956a;
+        }
+        .stats-confidence-preview-body {
+            flex: 1;
+            min-width: 0;
+        }
+        .stats-confidence-preview-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin-bottom: 0.25rem;
+        }
+        .stats-confidence-preview-desc {
+            font-size: 0.75rem;
+            color: #8b949e;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .stats-confidence-preview-metrics {
+            display: flex;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+        .stats-confidence-metric {
+            text-align: center;
+        }
+        .stats-confidence-metric-value {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #c8956a;
+            line-height: 1;
+        }
+        .stats-confidence-metric-value.u-green { color: #3fb950; }
+        .stats-confidence-metric-label {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #8b949e;
+            margin-top: 0.2rem;
+        }
+        .stats-confidence-preview-link {
+            flex-shrink: 0;
+        }
+        .stats-confidence-preview-link .btn {
+            font-size: 0.78rem;
+            padding: 0.45rem 1.1rem;
+            background: rgba(200,149,106,0.08);
+            border: 1px solid rgba(200,149,106,0.25);
+            color: #c8956a;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .stats-confidence-preview-link .btn:hover {
+            background: rgba(200,149,106,0.15);
+            border-color: rgba(200,149,106,0.4);
+            color: #79c0ff;
+            transform: none;
+            box-shadow: 0 0 12px rgba(200,149,106,0.15);
+        }
+        @media (max-width: 768px) {
+            .stats-confidence-preview {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .stats-confidence-preview-metrics {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        .stats-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 768px) {
+            .stats-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .stats-kpi {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(125,142,168,0.12);
+            border-radius: 12px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-kpi:hover {
+            border-color: rgba(200,149,106,0.3);
+            box-shadow: 0 4px 20px rgba(200,149,106,0.06);
+        }
+        .stats-kpi::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+        }
+        .stats-kpi.kpi-total::before { background: linear-gradient(90deg, transparent, #c8956a, transparent); }
+        .stats-kpi.kpi-success::before { background: linear-gradient(90deg, transparent, #3fb950, transparent); }
+        .stats-kpi.kpi-failed::before { background: linear-gradient(90deg, transparent, #f85149, transparent); }
+        .stats-kpi.kpi-unique::before { background: linear-gradient(90deg, transparent, #79c0ff, transparent); }
+        .stats-kpi.kpi-visitors::before { background: linear-gradient(90deg, transparent, #f0883e, transparent); }
+        .stats-kpi.kpi-rate::before { background: linear-gradient(90deg, transparent, #d2a8ff, transparent); }
+        .stats-kpi-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin-bottom: 0.85rem;
+        }
+        .kpi-total .stats-kpi-icon { background: rgba(200,149,106,0.1); color: #c8956a; border: 1px solid rgba(200,149,106,0.2); }
+        .kpi-success .stats-kpi-icon { background: rgba(63,185,80,0.1); color: #3fb950; border: 1px solid rgba(63,185,80,0.2); }
+        .kpi-failed .stats-kpi-icon { background: rgba(248,81,73,0.1); color: #f85149; border: 1px solid rgba(248,81,73,0.2); }
+        .kpi-unique .stats-kpi-icon { background: rgba(121,192,255,0.1); color: #79c0ff; border: 1px solid rgba(121,192,255,0.2); }
+        .kpi-visitors .stats-kpi-icon { background: rgba(240,136,62,0.1); color: #f0883e; border: 1px solid rgba(240,136,62,0.2); }
+        .kpi-rate .stats-kpi-icon { background: rgba(210,168,255,0.1); color: #d2a8ff; border: 1px solid rgba(210,168,255,0.2); }
+        .stats-kpi-value {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #e6edf3;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+        .stats-kpi-label {
+            font-size: 0.72rem;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 500;
+        }
+
+        .stats-section {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(125,142,168,0.12);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .stats-section:hover {
+            border-color: rgba(200,149,106,0.25);
+            box-shadow: 0 6px 24px rgba(200,149,106,0.06);
+        }
+        .stats-section-header {
+            background: linear-gradient(90deg, rgba(200,149,106,0.08) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(200,149,106,0.1);
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stats-section-icon { color: #c8956a; font-size: 0.85rem; }
+        .stats-section-title {
+            color: #e6edf3;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .stats-section-body { padding: 1.25rem; }
+
+        .stats-country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.5rem;
+        }
+        .stats-country {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            background: rgba(200,149,106,0.04);
+            border: 1px solid rgba(125,142,168,0.08);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .stats-country:hover {
+            border-color: rgba(200,149,106,0.2);
+            background: rgba(200,149,106,0.07);
+        }
+        .stats-country-flag { font-size: 1.15rem; margin-right: 0.5rem; }
+        .stats-country-name {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #c9d1d9;
+        }
+        .stats-country-count {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #c8956a;
+            background: rgba(200,149,106,0.1);
+            border: 1px solid rgba(200,149,106,0.2);
+            border-radius: 4px;
+            padding: 0.1rem 0.45rem;
+        }
+
+        .stats-domain-list { list-style: none; padding: 0; margin: 0; }
+        .stats-domain-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.65rem 0.75rem;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+            transition: background 0.2s;
+        }
+        .stats-domain-item:last-child { border-bottom: none; }
+        .stats-domain-item:hover { background: rgba(200,149,106,0.04); }
+        .stats-domain-rank {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.68rem;
+            color: #484f58;
+            width: 1.75rem;
+            flex-shrink: 0;
+        }
+        .stats-domain-name {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.82rem;
+            color: #e6edf3;
+            flex: 1;
+        }
+        .stats-domain-count {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #79c0ff;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .stats-table thead th {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #8b949e;
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid rgba(200,149,106,0.12);
+            white-space: nowrap;
+        }
+        .stats-table tbody td {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.82rem;
+            color: #c9d1d9;
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+        }
+        .stats-table tbody tr:last-child td { border-bottom: none; }
+        .stats-table tbody tr:nth-child(even) td { background: rgba(200,149,106,0.02); }
+        .stats-table tbody tr:hover td { background: rgba(200,149,106,0.06); }
+
+        .stats-insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 768px) {
+            .stats-insights-grid { grid-template-columns: 1fr; }
+        }
+        .stats-insight {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(125,142,168,0.08);
+            transition: border-color 0.2s;
+        }
+        .stats-insight:hover { border-color: rgba(200,149,106,0.2); }
+        .stats-insight-icon {
+            flex-shrink: 0;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+        .stats-insight-perf .stats-insight-icon {
+            background: rgba(201,161,90,0.1);
+            color: #C9A15A;
+            border: 1px solid rgba(201,161,90,0.2);
+        }
+        .stats-insight-rel .stats-insight-icon {
+            background: rgba(63,185,80,0.1);
+            color: #3fb950;
+            border: 1px solid rgba(63,185,80,0.2);
+        }
+        .stats-insight-use .stats-insight-icon {
+            background: rgba(210,168,255,0.1);
+            color: #d2a8ff;
+            border: 1px solid rgba(210,168,255,0.2);
+        }
+        .stats-insight-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin-bottom: 0.2rem;
+        }
+        .stats-insight-value {
+            font-size: 0.75rem;
+            color: #8b949e;
+            line-height: 1.5;
+        }
+        .stats-empty {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #484f58;
+        }
+        .stats-empty i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .stats-empty p {
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        .stats-data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 992px) {
+            .stats-data-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="stats-page mx-auto">
+
+            <div class="stats-hero">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                    <div class="u-z1">
+                        <div class="stats-hero-badge">
+                            <span class="stats-hero-dot"></span>
+                            Live Telemetry
+                        </div>
+                        <h1>{{icon "chart-bar" "me-2 u-text-blue-bright"}}Analysis Statistics</h1>
+                        <p class="stats-hero-sub">Platform telemetry &mdash; DNS intelligence operations, query distribution, and global reach</p>
+                    </div>
+                </div>
+                <a href="/confidence" class="stats-confidence-preview text-decoration-none">
+                    <div class="stats-confidence-preview-icon">
+                        {{icon "flask"}}
+                    </div>
+                    <div class="stats-confidence-preview-body">
+                        <div class="stats-confidence-preview-title">Intelligence Confidence Audit Engine</div>
+                        <p class="stats-confidence-preview-desc">RFC-aligned confidence scoring across 9 protocol domains. NIST SP 800-53 SI-7 &amp; ICD 203 source evaluation framework with SHA-3-512 provenance.</p>
+                    </div>
+                    <div class="stats-confidence-preview-metrics">
+                        <div class="stats-confidence-metric">
+                            <div class="stats-confidence-metric-value">9</div>
+                            <div class="stats-confidence-metric-label">Protocols</div>
+                        </div>
+                        <div class="stats-confidence-metric">
+                            <div class="stats-confidence-metric-value u-green">{{if gt .TotalAnalyses 0}}{{successRate .SuccessfulAnalyses .TotalAnalyses}}%{{else}}&mdash;{{end}}</div>
+                            <div class="stats-confidence-metric-label">Reliability</div>
+                        </div>
+                    </div>
+                    <div class="stats-confidence-preview-link">
+                        <span class="btn">{{icon "arrow-right" "me-1"}}Open Engine</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="stats-kpi-grid">
+                <div class="stats-kpi kpi-total">
+                    <div class="stats-kpi-icon">{{icon "satellite-dish"}}</div>
+                    <div class="stats-kpi-value">{{.TotalAnalyses}}</div>
+                    <div class="stats-kpi-label">Total Analyses</div>
+                </div>
+                <div class="stats-kpi kpi-success">
+                    <div class="stats-kpi-icon">{{icon "check-double"}}</div>
+                    <div class="stats-kpi-value">{{.SuccessfulAnalyses}}</div>
+                    <div class="stats-kpi-label">Successful</div>
+                </div>
+                <div class="stats-kpi kpi-failed">
+                    <div class="stats-kpi-icon">{{icon "exclamation-triangle"}}</div>
+                    <div class="stats-kpi-value">{{.FailedAnalyses}}</div>
+                    <div class="stats-kpi-label">Failed</div>
+                </div>
+                <div class="stats-kpi kpi-unique">
+                    <div class="stats-kpi-icon">{{icon "fingerprint"}}</div>
+                    <div class="stats-kpi-value">{{.UniqueDomains}}</div>
+                    <div class="stats-kpi-label">Unique Domains</div>
+                </div>
+                <div class="stats-kpi kpi-visitors">
+                    <div class="stats-kpi-icon">{{icon "users"}}</div>
+                    <div class="stats-kpi-value">{{.UniqueVisitors}}</div>
+                    <div class="stats-kpi-label">Unique Visitors</div>
+                </div>
+                <div class="stats-kpi kpi-rate">
+                    <div class="stats-kpi-icon">{{icon "gauge-high"}}</div>
+                    <div class="stats-kpi-value">
+                        {{if gt .TotalAnalyses 0}}{{successRate .SuccessfulAnalyses .TotalAnalyses}}%{{else}}0%{{end}}
+                    </div>
+                    <div class="stats-kpi-label">Success Rate</div>
+                </div>
+                <div class="stats-kpi kpi-success">
+                    <div class="stats-kpi-icon">{{icon "check-circle"}}</div>
+                    <div class="stats-kpi-value">{{.RemediatedDomains}}</div>
+                    <div class="stats-kpi-label">Domains Remediated</div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stats-section-header">
+                    {{icon "globe-americas" "stats-section-icon"}}
+                    <h2 class="stats-section-title">Global Reach</h2>
+                </div>
+                <div class="stats-section-body">
+                    {{if .CountryStats}}
+                    <div class="stats-country-grid">
+                        {{range $c := .CountryStats}}
+                        <div class="stats-country">
+                            <div class="d-flex align-items-center">
+                                <span class="stats-country-flag">{{$c.Flag}}</span>
+                                <span class="stats-country-name">{{$c.Name}}</span>
+                            </div>
+                            <span class="stats-country-count">{{$c.Count}}</span>
+                        </div>
+                        {{end}}
+                    </div>
+                    {{else}}
+                    <div class="stats-empty">
+                        {{icon "globe"}}
+                        <p>Country data will appear here as visitors analyze domains</p>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+
+            <div class="stats-data-grid">
+                <div class="stats-section">
+                    <div class="stats-section-header">
+                        {{icon "trophy" "stats-section-icon"}}
+                        <h2 class="stats-section-title">Most Analyzed Domains</h2>
+                    </div>
+                    <div class="stats-section-body u-pad-half-0">
+                        {{if .PopularDomains}}
+                        <ul class="stats-domain-list">
+                            {{range $i, $d := .PopularDomains}}
+                            <li class="stats-domain-item">
+                                <span class="stats-domain-rank">{{add $i 1}}.</span>
+                                <span class="stats-domain-name">{{$d.Domain}}</span>
+                                <span class="stats-domain-count">{{$d.Count}}</span>
+                            </li>
+                            {{end}}
+                        </ul>
+                        {{else}}
+                        <div class="stats-empty">
+                            {{icon "chart-bar"}}
+                            <p>No analysis data available yet</p>
+                        </div>
+                        {{end}}
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stats-section-header">
+                        {{icon "wave-square" "stats-section-icon"}}
+                        <h2 class="stats-section-title">Recent Daily Activity</h2>
+                    </div>
+                    <div class="stats-section-body u-pad-half-075">
+                        {{if .RecentStats}}
+                        <div class="table-responsive">
+                            <table class="stats-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Success</th>
+                                        <th>Failed</th>
+                                        <th>Unique</th>
+                                        <th>Avg Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{range $s := .RecentStats}}
+                                    <tr>
+                                        <td class="u-text-muted-dim">{{$s.Date}}</td>
+                                        <td>{{$s.TotalAnalyses}}</td>
+                                        <td><span class="u-text-green-bright">{{$s.SuccessfulAnalyses}}</span></td>
+                                        <td>{{if gt $s.FailedAnalyses 0}}<span class="u-text-red-bright">{{$s.FailedAnalyses}}</span>{{else}}<span class="u-text-muted-dim">0</span>{{end}}</td>
+                                        <td>{{$s.UniqueDomains}}</td>
+                                        <td class="u-text-muted-dim">
+                                            {{if $s.HasAvgTime}}{{formatFloat 2 $s.AvgAnalysisTime}}s{{else}}&mdash;{{end}}
+                                        </td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                        {{else}}
+                        <div class="stats-empty">
+                            {{icon "calendar"}}
+                            <p>No daily statistics available yet</p>
+                        </div>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+
+            {{if gt .TotalAnalyses 0}}
+            <div class="stats-section">
+                <div class="stats-section-header">
+                    {{icon "microscope" "stats-section-icon"}}
+                    <h2 class="stats-section-title">Operational Insights</h2>
+                </div>
+                <div class="stats-section-body">
+                    <div class="stats-insights-grid">
+                        <div class="stats-insight stats-insight-perf">
+                            <div class="stats-insight-icon">{{icon "tachometer-alt"}}</div>
+                            <div>
+                                <div class="stats-insight-label">Performance</div>
+                                <div class="stats-insight-value">
+                                    {{if and .RecentStats (index .RecentStats 0).HasAvgTime}}
+                                        Average analysis completes in {{formatFloat 2 (index .RecentStats 0).AvgAnalysisTime}}s
+                                    {{else}}
+                                        Performance data not yet available
+                                    {{end}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-insight stats-insight-rel">
+                            <div class="stats-insight-icon">{{icon "shield-alt"}}</div>
+                            <div>
+                                <div class="stats-insight-label">Reliability</div>
+                                <div class="stats-insight-value">
+                                    {{if gt .TotalAnalyses 0}}
+                                        {{successRate .SuccessfulAnalyses .TotalAnalyses}}% success rate across {{.TotalAnalyses}} operations
+                                    {{else}}
+                                        No reliability data available yet
+                                    {{end}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-insight stats-insight-use">
+                            <div class="stats-insight-icon">{{icon "project-diagram"}}</div>
+                            <div>
+                                <div class="stats-insight-label">Coverage</div>
+                                <div class="stats-insight-value">
+                                    {{.UniqueDomains}} distinct domains across {{.TotalAnalyses}} total queries
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+
+            <div class="stats-section">
+                <div class="stats-section-header">
+                    {{icon "flask" "stats-section-icon"}}
+                    <h2 class="stats-section-title">Epistemic Disclosure Events</h2>
+                </div>
+                <div class="stats-section-body">
+                    <p class="text-muted small mb-3">Epistemic Disclosure Events (EDEs) document instances where the <a href="/confidence" class="text-info text-decoration-none">Confidence Engine&rsquo;s</a> scoring model, evidence weighting, or detection logic required structural correction. This is not an error log &mdash; it is a formalized record of model self-correction, inspired by scientific corrigenda culture and high-reliability engineering practice (NASA anomaly reporting, medical adverse event systems). Each EDE informs a confidence recalibration review across affected protocols.</p>
+                    <div class="row g-3 mb-3">
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-2 u-ede-box">
+                                <div class="u-fs-15em u-fw-700 u-color-info-dim">{{.IntegrityData.Summary.TotalEvents}}</div>
+                                <div class="text-muted u-fs-075em">Total EDEs</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-2 u-ede-box">
+                                <div class="u-fs-15em u-fw-700 u-color-warn">{{.IntegrityData.Summary.Open}}</div>
+                                <div class="text-muted u-fs-075em">Open</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-2 u-ede-box">
+                                <div class="u-fs-15em u-fw-700 u-color-success">{{.IntegrityData.Summary.Closed}}</div>
+                                <div class="text-muted u-fs-075em">Resolved</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="text-center p-2 u-ede-box">
+                                <div class="u-fs-15em u-fw-700 u-color-gold-dim">{{.IntegrityData.Summary.ConfidenceRecalibrations}}</div>
+                                <div class="text-muted u-fs-075em">Confidence Recalibrations</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{range .IntegrityData.Events}}
+                    <div class="mb-2 p-3 u-ede-entry {{if eq .Status "closed"}}u-ede-entry--closed{{else}}u-ede-entry--open{{end}}">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <div>
+                                <span class="u-fs-07em u-fw-600 u-color-muted-dim u-ls-wide">{{.ID}}</span>
+                                <span class="ms-2 u-ede-cat-badge">{{.Category}}</span>
+                                <span class="ms-1 u-ede-sev-badge {{if eq .Severity "significant"}}u-ede-sev-badge--significant{{else}}u-ede-sev-badge--default{{end}}">{{.Severity}}</span>
+                            </div>
+                            <span class="u-fs-07em u-color-muted-dim">{{.Date}}</span>
+                        </div>
+                        <div class="u-fs-085em u-fw-600 u-color-body mb-1">{{.Title}}</div>
+                        <div class="u-fs-075em u-color-muted-dim mb-1"><strong class="u-color-gold-dim">Confidence Impact:</strong> {{.ConfidenceImpact}}</div>
+                        <div class="u-fs-075em u-color-muted-dim mb-1"><strong class="u-color-success">Resolution:</strong> {{.Resolution}}</div>
+                        <div class="u-fs-07em u-color-muted-xdim fst-italic">{{icon "flask" "me-1 u-fs-06em"}}{{.BayesianNote}}</div>
+                    </div>
+                    {{end}}
+
+                    <p class="text-muted mt-3 mb-0 u-fs-075em">{{icon "lock" "me-1"}}EDEs are maintained as a permanent, append-only record &mdash; entries are never deleted or silently revised. All analysis outputs are SHA-3-512 hashed at export, providing tamper-evident snapshots of the scoring state at each point in time. Protocols affected by an EDE undergo recalibration through the <a href="/confidence" class="text-info text-decoration-none">ICIE/ICAE pipeline</a> before updated scores are published.</p>
+                </div>
+            </div>
+
+            {{template "footer" .}}
+        </div>
+    </main>
+
+    {{template "scripts" .}}
+</body>
+</html>

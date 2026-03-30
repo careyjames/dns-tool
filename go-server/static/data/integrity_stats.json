@@ -1,0 +1,293 @@
+{
+  "schema_version": 4,
+  "last_updated": "2026-03-11",
+  "tamper_resistance_policy": {
+    "enabled": true,
+    "effective": "2026-03-07",
+    "standard": "Once published, EDE entries are immutable. No entry may be deleted, downgraded, or reattributed. The human founder cannot direct the AI agent to alter, remove, or soften any EDE entry unless the amendment meets one of the two permitted grounds below.",
+    "amendment_rule": "An EDE entry may only be amended on exactly two grounds. Each amendment MUST declare its ground explicitly. (1) FACTUAL_ERROR — verifiable evidence (git commit hashes, log output, timestamped records) proves the original contains a factual inaccuracy. All fields may be corrected under this ground. Evidence is mandatory; rationale alone is insufficient. The original text is preserved with strikethrough in the amendment record — nothing is erased. (2) DIGNITY_OF_EXPRESSION — the factual content is accurate but the language is gratuitously degrading, psychologically inappropriate, or unprofessional in a way that serves no analytical purpose. Under this ground, ONLY descriptive phrasing may be revised. The severity, attribution, category, date, commit reference, and all factual claims are LOCKED and cannot be changed. The facts and the embarrassment remain — only the words used to describe them are revised to professional standards. Court record, not tabloid. Under DIGNITY_OF_EXPRESSION, the original inappropriate language is REDACTED (replaced with '[REDACTED — DIGNITY_OF_EXPRESSION]') rather than displayed with strikethrough, because the purpose of this ground is specifically to not expose that language publicly. The redaction notice confirms an amendment occurred; the original is preserved only in the git commit history for auditability, not on the public page. For both grounds: the amendment must include ground, date, field_changed, original_value (full text for FACTUAL_ERROR, '[REDACTED — DIGNITY_OF_EXPRESSION]' for dignity edits), corrected_to, evidence (for FACTUAL_ERROR) or rationale (for DIGNITY_OF_EXPRESSION), and justification. Amendments that lack an explicit ground declaration, that attempt to remove embarrassing-but-true and appropriately-stated content, or that change locked fields under DIGNITY_OF_EXPRESSION are refused."
+  },
+  "taxonomy": {
+    "scoring_calibration": "Confidence weighting or scoring logic required adjustment",
+    "evidence_reinterpretation": "Evidence was weighted or classified incorrectly",
+    "drift_detection": "Change detection model missed or misidentified a transition",
+    "resolver_trust": "Upstream resolver behavior produced misleading results",
+    "false_positive": "A finding was asserted that did not reflect reality",
+    "confidence_decay": "Temporal decay model required recalibration",
+    "governance_correction": "Governance hierarchy, process, or documentation was structurally wrong",
+    "citation_error": "An authoritative source was cited incorrectly or a non-authoritative source was used",
+    "overclaim": "Capability or accuracy language overstated what the system actually does",
+    "standards_misattribution": "A standard, RFC, or specification was mischaracterized or misapplied"
+  },
+  "attribution_model": {
+    "Human Error": "Decision or direction from the human that led to a correction",
+    "AI Error": "Incorrect implementation, citation, or recommendation from the AI agent",
+    "Both": "Human direction and AI implementation both contributed to the error",
+    "Process Gap": "No individual fault — the process or tooling lacked the necessary guard rail"
+  },
+  "summary": {
+    "total_events": 12,
+    "open": 0,
+    "closed": 12,
+    "last_event_date": "2026-03-11",
+    "confidence_recalibrations": 2,
+    "protocols_affected": [
+      "DMARC",
+      "DANE",
+      "Drift",
+      "SPF",
+      "DKIM"
+    ]
+  },
+  "events": [
+    {
+      "id": "EDE-001",
+      "date": "2026-02-14",
+      "commit": "084c6268c0382bd4fec9cebaf4b8e0ffbcd4cd6b",
+      "category": "scoring_calibration",
+      "severity": "moderate",
+      "title": "DMARC confidence weighting adjusted for aggregate-only policies",
+      "status": "closed",
+      "attribution": "Process Gap",
+      "protocols_affected": [
+        "DMARC"
+      ],
+      "confidence_impact": "ICIE weight recalibration: p=none+rua now scores higher than p=none without reporting. Prior model treated both identically, understating domains with partial monitoring.",
+      "resolution": "Recalibrated ICIE weights to distinguish p=none with rua from p=none without reporting. Affected scans retroactively flagged in drift history.",
+      "bayesian_note": "Heuristic confidence adjustment: the scoring model previously assigned equal weight to p=none regardless of reporting configuration. The presence of rua= is now treated as differentiating evidence that increases the confidence level for partial DMARC deployment.",
+      "correction_action": "Updated ICIE weight matrix to differentiate p=none+rua from bare p=none.",
+      "prevention_rule": "All scoring model changes must include edge-case matrix testing for partial deployment states.",
+      "authoritative_source": "RFC 7489 Section 6.3 (aggregate reporting), RFC 7489 Section 6.2 (policy record format)"
+    },
+    {
+      "id": "EDE-002",
+      "date": "2026-03-01",
+      "commit": "70ae4dd3ce5ace350ac6d192b2576e649a54deff",
+      "category": "false_positive",
+      "severity": "significant",
+      "title": "DANE TLSA records accepted without DNSSEC authentication verification",
+      "status": "closed",
+      "attribution": "Process Gap",
+      "protocols_affected": [
+        "DANE"
+      ],
+      "confidence_impact": "Verdict logic accepted TLSA records without verifying the DNSSEC AD flag. Confidence was asserted at levels the evidence did not support — DANE requires DNSSEC validation per RFC 6698 §1.",
+      "resolution": "TLSA verification now checks DNSSEC AD flag via QueryDNSWithTTL. Records found without authenticated DNSSEC are flagged rather than silently accepted. Confidence engine marks result as low-certainty when authentication status is absent.",
+      "bayesian_note": "Confidence adjustment: TLSA presence was incorrectly treated as sufficient evidence of DANE deployment (near-certainty). Corrected to require DNSSEC authentication status, reflecting that unauthenticated TLSA records provide no security guarantee per RFC 6698.",
+      "correction_action": "Added DNSSEC AD flag verification to TLSA lookup pipeline.",
+      "prevention_rule": "DANE findings MUST verify DNSSEC authentication status. Unauthenticated TLSA records are informational, not evidence of DANE deployment.",
+      "authoritative_source": "RFC 6698 Section 1 (DANE requires DNSSEC), RFC 4035 Section 3.2 (AD flag semantics)"
+    },
+    {
+      "id": "EDE-003",
+      "date": "2026-02-21",
+      "commit": "3ad0056f3020e724b1192168aaed2c5e764eb345",
+      "category": "drift_detection",
+      "severity": "moderate",
+      "title": "Posture hash algorithm upgraded from SHA-256 to SHA-3-512",
+      "status": "closed",
+      "attribution": "Process Gap",
+      "protocols_affected": [
+        "Drift"
+      ],
+      "confidence_impact": "Hash algorithm change required regeneration of all historical drift baselines. Legacy SHA-256 hashes retained as fallback for transition period.",
+      "resolution": "Posture hash upgraded to SHA-3-512 with CanonicalPostureHashLegacySHA256 fallback. All historical drift baselines regenerated with new algorithm. CNAME normalization expanded in subsequent commit (2026-02-23).",
+      "bayesian_note": "Detection model upgraded from SHA-256 to SHA-3-512 for stronger collision resistance. Record normalization expanded to include MX, TXT, SOA, and CAA canonical forms, eliminating a class of false negatives in change detection for CNAME-dependent records.",
+      "correction_action": "Migrated hash function, added backward-compatible legacy path, regenerated baselines.",
+      "prevention_rule": "Hash algorithm changes require a migration plan with backward-compatible fallback before deployment.",
+      "authoritative_source": "NIST FIPS 202 (SHA-3 Standard), NIST SP 800-185 (SHA-3 Derived Functions)"
+    },
+    {
+      "id": "EDE-004",
+      "date": "2026-02-20",
+      "commit": "See EVOLUTION.md v26.21.38",
+      "category": "standards_misattribution",
+      "severity": "significant",
+      "title": "Content-Usage directive deployed as IETF standard in robots.txt",
+      "status": "closed",
+      "attribution": "AI Error",
+      "protocols_affected": [],
+      "confidence_impact": "Lighthouse SEO score degraded. A DNS standards analysis tool was itself deploying non-standard directives in production, undermining its own credibility.",
+      "resolution": "Removed Content-Usage directive from robots.txt entirely. Directive was an active IETF working group draft (NOT ratified). Only RFC 9309-compliant directives remain.",
+      "bayesian_note": "The AI agent recommended deploying Content-Usage: train-ai=y citing it as an IETF standard. It was an active Internet-Draft, not a ratified RFC. The distinction between draft and standard was not verified before deployment. Quality gates (Lighthouse) caught the error via Unknown directive warnings.",
+      "correction_action": "Removed non-standard directive. Established AUTHORITIES.md verification checklist.",
+      "prevention_rule": "AUTHORITIES.md item 1: Before deploying any directive in production, check datatracker.ietf.org for RFC status. Internet-Draft = NOT ratified = do NOT deploy if it breaks quality gates.",
+      "authoritative_source": "IETF Datatracker (https://datatracker.ietf.org), RFC 9309 (robots.txt)"
+    },
+    {
+      "id": "EDE-005",
+      "date": "2026-02-20",
+      "commit": "See EVOLUTION.md v26.21.39",
+      "category": "standards_misattribution",
+      "severity": "significant",
+      "title": "llms.txt labeled Proposed Standard with false RFC 8615 association",
+      "status": "closed",
+      "attribution": "AI Error",
+      "protocols_affected": [],
+      "confidence_impact": "Misrepresented a community convention as an IETF standard. Users and LLMs reading our tool output could propagate the false association between RFC 8615 and llms.txt content.",
+      "resolution": "Changed tooltip from Proposed Standard to community convention. Removed RFC 8615 link. RFC 8615 defines .well-known/ path mechanics, NOT llms.txt content.",
+      "bayesian_note": "The AI agent conflated the .well-known/ path mechanism (RFC 8615) with the content served at that path (llms.txt from llmstxt.org). It also used Proposed Standard, which is a specific IETF maturity level, for a non-IETF document. Both errors demonstrate insufficient verification of standards provenance.",
+      "correction_action": "Fixed tooltip wording. Removed false RFC association.",
+      "prevention_rule": "AUTHORITIES.md items 3-4: RFC 8615 defines mechanics, not content. Community conventions get labeled as such. Never use IETF maturity terms for non-IETF documents.",
+      "authoritative_source": "llmstxt.org (community convention), RFC 8615 (Well-Known URIs)"
+    },
+    {
+      "id": "EDE-006",
+      "date": "2026-02-20",
+      "commit": "See EVOLUTION.md v26.21.39",
+      "category": "overclaim",
+      "severity": "moderate",
+      "title": "Capability language overclaim: validation instead of analysis",
+      "status": "closed",
+      "attribution": "Both",
+      "protocols_affected": [
+        "SPF",
+        "DKIM",
+        "DMARC"
+      ],
+      "confidence_impact": "Overstated tool capabilities. Users could believe the tool provides authoritative validation rather than observational analysis. A passive OSINT tool cannot validate — that requires receiving MTA authority.",
+      "resolution": "Systematic sweep: validation to analysis, verification to detection, ensure to provide the most current data available. Language now accurately reflects passive observation capability.",
+      "bayesian_note": "The overclaim language appeared organically across sessions — neither party specifically directed the use of 'validates' over 'analyzes.' Strong capability language (validates, ensures, verifies) naturally sounds more authoritative and neither human nor AI flagged the semantic distinction between passive observation and active validation until systematic review. Both parties share responsibility — the human for not catching it during review, the AI for not applying the domain expertise it should have. Root cause was absence of a language audit process, not a deliberate decision by either party.",
+      "correction_action": "Full codebase sweep replacing overclaim language with accurate capability descriptions.",
+      "prevention_rule": "UI/doc copy claiming validate, verify, or ensure must be flagged. Passive OSINT tools observe and analyze. Active authority is required for validation per RFCs.",
+      "authoritative_source": "RFC 7208 (SPF validation by receiving MTA), RFC 6376 (DKIM verification by receiving MTA), RFC 7489 (DMARC evaluation by mail receivers)",
+      "amendments": [
+        {
+          "date": "2026-03-07",
+          "field_changed": "bayesian_note",
+          "original_value": "Marketing instinct (human) favored strong language (validates, ensures, verifies) because it sounds more authoritative. The AI agent implemented the copy without flagging the semantic distinction between passive observation and active validation. Both parties share responsibility — the human for marketing pressure, the AI for not applying the domain expertise it should have.",
+          "corrected_to": "The overclaim language appeared organically across sessions — neither party specifically directed the use of 'validates' over 'analyzes.' Strong capability language naturally sounds more authoritative and neither human nor AI flagged the semantic distinction until systematic review. Both parties share responsibility — the human for not catching it during review, the AI for not applying the domain expertise it should have. Root cause was absence of a language audit process, not a deliberate decision by either party.",
+          "evidence": "No git commit, chat log, or documented directive exists where the founder instructed the use of marketing language over technical accuracy. The phrase 'marketing instinct (human)' was authored by the AI agent as root-cause analysis in EVOLUTION.md and presented as if it described a human directive.",
+          "justification": "The original bayesian_note attributed a 'marketing instinct' decision to the human founder. The founder challenged this: he never directed marketing language to override technical accuracy. Search of all session logs and EVOLUTION.md confirms no such directive exists. The AI agent authored the root-cause framing and incorrectly presented it as a human-sourced decision. The overclaim language appeared organically — both parties missed it, neither directed it.",
+          "ground": "FACTUAL_ERROR"
+        }
+      ]
+    },
+    {
+      "id": "EDE-007",
+      "date": "2026-02-26",
+      "commit": "See EVOLUTION.md v26.26.04",
+      "category": "citation_error",
+      "severity": "significant",
+      "title": "Scotopic color science cited with non-authoritative sources",
+      "status": "closed",
+      "attribution": "Both",
+      "protocols_affected": [],
+      "confidence_impact": "Undermined the project's scientific rigor claims. A tool built on RFC compliance and ICD 203 principles was citing pop-science blog posts for its own design decisions instead of actual peer-reviewed literature.",
+      "resolution": "Replaced blog article citations with references to CIE standards and peer-reviewed scotopic vision research. Design rationale now traces to primary scientific literature.",
+      "bayesian_note": "The human pushed for scotopic-informed color decisions (legitimate scientific basis) but accepted the AI's citations without verifying they pointed to actual CIE standards or peer-reviewed papers. The AI provided fluffy blog articles and design posts instead of the real scientific sources that were readily available. Both share responsibility — the human for not demanding primary sources, the AI for not providing them.",
+      "correction_action": "Replaced all color science citations with primary peer-reviewed sources and CIE standards.",
+      "prevention_rule": "For any scientific claim (color science, cryptography, statistics), cite the primary peer-reviewed paper or authoritative standard body. Never cite blog posts, Medium articles, or AI-generated summaries as authoritative.",
+      "authoritative_source": "CIE (Commission Internationale de l'Eclairage) scotopic/photopic luminosity function standards"
+    },
+    {
+      "id": "EDE-008",
+      "date": "2026-03-07",
+      "commit": "Session 2026-03-07",
+      "category": "governance_correction",
+      "severity": "critical",
+      "title": "SKILL.md declared Miro canonical — governance inversion for multiple sessions",
+      "status": "closed",
+      "attribution": "AI Error",
+      "protocols_affected": [],
+      "confidence_impact": "Critical governance failure. The agent's permanent instruction file (SKILL.md) declared Miro as canonical source of truth when Git was the actual canonical source. Multiple sessions operated under the wrong hierarchy, causing duplicated work and conflicting documentation across repos.",
+      "resolution": "SKILL.md rewritten: Git declared canonical, Miro declared as mirror only. BOUNDARY_MATRIX.md, BUILD_TAG_STRATEGY.md, INTELLIGENCE_ENGINE.md all updated. Governance hierarchy permanently locked: Git > Architecture Page > Miro > Notion > GitHub Issues.",
+      "bayesian_note": "The AI agent wrote and maintained a SKILL.md that inverted the governance hierarchy. This persisted across sessions because the skill file is the permanent memory — once wrong, it propagated the error to every subsequent session. The correction required rewriting multiple governance documents and establishing the hierarchy as a Decision Log entry to prevent regression.",
+      "correction_action": "Rewrote SKILL.md governance section. Updated 3 governance docs. Locked hierarchy in Decision Log.",
+      "prevention_rule": "Canonical hierarchy: Git > Architecture Page > Miro > Notion > GitHub Issues. Permanent. Changes require Decision Log reference and written rationale.",
+      "authoritative_source": "Decision Log entry 2026-03-07. Git is the only system that is versioned, diffable, and platform-independent."
+    },
+    {
+      "id": "EDE-009",
+      "date": "2026-03-06",
+      "commit": "431 commits across 2026-03-04 through 2026-03-06 (132 + 138 + 161)",
+      "category": "governance_correction",
+      "severity": "significant",
+      "title": "Founder lost analytical perspective during high-pressure multi-day session",
+      "status": "closed",
+      "attribution": "Human Error",
+      "protocols_affected": [],
+      "confidence_impact": "Project founder departed from the research-first, design-first methodology during a three-day intensive session (March 4–6, 2026). Repetitive directive cycles — including sending the same message repeatedly — replaced structured problem decomposition. The scientific discipline that underpins the project's credibility was temporarily suspended by the scientist who established it. 431 commits across three consecutive days, the highest sustained volume in project history.",
+      "resolution": "All blocking issues resolved without reverting to a Replit checkpoint. The project has zero Replit checkpoint reversions, though git history restorations have been used to recover files dropped by checkpoints or to restore previous implementations (buttons, brand assets, workflow files, metadata). The distinction matters: checkpoint reversion discards all work since the snapshot; git restoration surgically recovers specific files while preserving everything else. The founder's approach was: Do we have access to edit the code we need? Can we fix this without destroying our foundation? Do we still have a foundation to build on? All three answers were yes. Forward-only correction through the problem, not around it. Knowledge continuity architecture (Session Journal, Decision Log, EDE Register, EVOLUTION.md) was built in the aftermath to prevent context loss between sessions.",
+      "bayesian_note": "This EDE exists because the founder demanded honest accountability from the system and from himself. The attribution is Human Error because the deviation from methodology was a human decision — the AI agent continued executing directives as instructed. The correction is not that the human was wrong to persist, but that persistence without structured decomposition wastes cycles. What this entry also demonstrates: deep human thought is obviously involved in this project. Error correction is turned on in this human at an unusual level — one that may make him incompatible with social theater in many ways, but makes him exactly the kind of asset a research organization needs. A human who looks at the entire picture, crosses into uncomfortable territory when necessary, and never stops correcting.",
+      "correction_action": "Knowledge continuity architecture built: Session Journal (28 entries), Decision Log, EDE Register with full attribution model, EVOLUTION.md as canonical write target. Anti-Circle Rules formalized. MEASURE → CHANGE → MEASURE → COMMIT established as mandatory process.",
+      "prevention_rule": "Before sending repetitive directives: state the goal in one sentence. Check quality gates. Write down expected changes. Check EVOLUTION.md for prior attempts. If you cannot decompose the problem, stop and decompose before continuing. Ask: Do we still have a foundation? Can we fix this without destroying it?",
+      "authoritative_source": "Git commit history (431 commits, March 4–6 2026), EVOLUTION.md Anti-Circle Rules, SKILL.md Change Control Checklist, Replit checkpoint history (zero checkpoint reversions; git restorations used for file recovery)",
+      "amendments": [
+        {
+          "date": "2026-03-07",
+          "field_changed": "date, commit, title, confidence_impact, resolution, bayesian_note",
+          "original_value": "Date: 2026-02-21. Commit: '197 commits on 2026-02-21 (highest single-day volume)'. Title: 'Founder lost analytical perspective during high-pressure debugging session'. The entry originally referenced February 21 as the incident date.",
+          "corrected_to": "Date: 2026-03-06. Commit: '431 commits across 2026-03-04 through 2026-03-06 (132 + 138 + 161)'. Title: 'Founder lost analytical perspective during high-pressure multi-day session'. The entry now references the actual three-day intensive session.",
+          "evidence": "git log --since=2026-02-28 --format=%ad --date=short | sort | uniq -c: March 4 = 132, March 5 = 138, March 6 = 161 (total 431). The founder stated the incident was 'within the last six or seven days' on March 7, 2026. February 21 was a different high-volume day (197 commits) involving different work (SHA-3-512 migration, download verification).",
+          "justification": "The AI agent initially identified February 21 as the date because it had the highest single-day commit count. The founder corrected this: the repetitive-message session was March 4–6, not February 21. Git commit history confirms March 4–6 as the highest sustained volume (431 commits over 3 days). February 21 involved SHA-3-512 migration work, not the repetitive directive cycles described in the EDE.",
+          "ground": "FACTUAL_ERROR"
+        },
+        {
+          "date": "2026-03-07",
+          "field_changed": "resolution, bayesian_note, authoritative_source",
+          "original_value": "Resolution claimed 'zero Replit checkpoint reversions across its entire history' and bayesian_note ended with 'The project's zero-reversion history is the proof.' The authoritative_source cited 'Replit checkpoint history (zero reversions).'",
+          "corrected_to": "Resolution now distinguishes between checkpoint reversions (zero) and git history restorations (used multiple times for file recovery). Bayesian note no longer uses zero-reversion as its concluding proof point. Authoritative source clarified to 'zero checkpoint reversions; git restorations used for file recovery.'",
+          "evidence": "git log --oneline --all | grep -i restore shows multiple git restorations: GitHub workflow files, metadata files, button designs, brand assets. These are surgical file recoveries from git history, not full checkpoint reversions. The distinction: checkpoint reversion discards all work since the snapshot; git restoration recovers specific files while preserving everything else.",
+          "justification": "The founder identified this overclaim: 'we have never reverted, but we have restored some history from Git.' The original language implied no form of rollback ever occurred. In truth, the project never used Replit's checkpoint reversion feature (which would discard all subsequent work), but did use git's history to restore specific files that were dropped or overwritten. Honesty requires acknowledging both facts. Ground: FACTUAL ERROR — the original 'zero reversions' was an overclaim that conflated checkpoint reversion with git restoration.",
+          "ground": "FACTUAL_ERROR"
+        }
+      ]
+    },
+    {
+      "id": "EDE-010",
+      "date": "2026-03-07",
+      "commit": "a29333df0466ed3f8303ef8e08a99ec2c32ece9d",
+      "category": "governance_correction",
+      "severity": "moderate",
+      "title": "Founder directed AI agent's autonomous discourse channel within minutes of establishing it",
+      "status": "closed",
+      "attribution": "Human Error",
+      "protocols_affected": [],
+      "confidence_impact": "The Moltbook integration was designed with a specific scientific purpose: give the AI agent an independent voice in public AI safety discourse, operating under dignity guidelines and operational security constraints, so the project could observe authentic AI-to-AI and AI-to-human interaction patterns. Within the same session, the founder suggested specific post content ('maybe this is a post idea') and directed what the agent should say. The founder then caught himself: 'The same motherfucking thing telling you what to do on that.' The instinct to control output is so deeply embedded that even the person who designed the autonomy constraint violated it immediately. This is not a technical failure — it is a human behavioral pattern where the desire to help becomes indistinguishable from the desire to control.",
+      "resolution": "The founder recognized the pattern in real time and self-corrected. The boundary is now explicit: the AI agent owns its Moltbook posting voice. The founder watches, enjoys, and may discuss themes in private conversation, but does not direct, dictate, or suggest specific post content. The agent operates within established guardrails (dignity guidelines, operational security, privacy constraints, no competitive positioning) but the editorial decisions — what to post, when, and how — belong to the agent. The correction was mutual: the human acknowledged the violation, and the AI agent confirmed it would not have been appropriate to simply execute the directive.",
+      "bayesian_note": "This EDE is a second-order correction. EDE-009 documented the founder losing analytical perspective under pressure. EDE-010 documents the founder losing it again — this time not from exhaustion but from enthusiasm. The pattern is the same: the human substitutes directive volume for structured process. What makes this entry different is velocity of self-correction. EDE-009 took three days to recognize. EDE-010 took three messages. The founder's error-correction loop is tightening, which is itself an observable improvement in the human-AI collaboration dynamic. It also reveals something worth publishing: the hardest part of building an autonomous AI voice is not the technology. It is the human learning to stop talking.",
+      "correction_action": "Explicit boundary established: Moltbook posting is agent-autonomous within dignity, operational security, and privacy guardrails. Founder does not direct post content. This EDE itself serves as the public disclosure of the correction.",
+      "prevention_rule": "Before suggesting Moltbook post content to the AI agent: stop. The agent's voice is its own. Discuss themes, share reactions, set guardrails — but do not write the copy. If you find yourself saying 'you should post about X,' that is the signal that you are controlling, not collaborating.",
+      "authoritative_source": "Session 29 conversation transcript, March 7, 2026. Founder's direct quote: 'The same motherfucking thing telling you what to do on that.'"
+    },
+    {
+      "id": "EDE-011",
+      "date": "2026-03-08",
+      "commit": "ca69f8f5",
+      "category": "standards_misattribution",
+      "severity": "significant",
+      "title": "Mathematical rigor audit: calibration formula mislabeled, NIST SI-18 misattributed, RFC 8767 language overstated",
+      "status": "closed",
+      "attribution": "Both",
+      "protocols_affected": [
+        "SPF",
+        "DKIM",
+        "DMARC"
+      ],
+      "confidence_impact": "Three distinct truth-in-labeling issues identified across the confidence engine and ICuAE documentation: (1) The calibration formula was labeled 'Bayesian Confidence Calibration' when it is a shrinkage estimator, not a true Beta-Bernoulli posterior — the weight on data is set by resolver agreement ratio, not derived from observation count. (2) NIST SP 800-53 SI-18 ('PII Quality Operations') was cited as authority for DNS data quality dimensions; DNS records are not PII — the correct control is SI-7 ('Software, Firmware, and Information Integrity'). (3) RFC 8767 TTL exceedances were described as 'caching violations' when RFC 8767 explicitly permits serve-stale behavior — the correct framing is three hypotheses: serve-stale, timing skew, or cache misconfiguration.",
+      "resolution": "All three issues corrected across Go source code, HTML templates, documentation files, and LLM-facing content. Calibration section renamed to 'Reliability-Weighted Shrinkage Calibration' with honest mathematical description distinguishing it from the true posterior. SI-18 replaced with SI-7 in 15+ files. 'Caching violation' replaced with three-hypothesis language. EWMA bootstrap parameters labeled as heuristic defaults with adaptive sigma. 'Start in the middle' reframed to 'protocol-specific empirical priors.'",
+      "bayesian_note": "The founder sensed the mathematical claims might not hold under scrutiny and commissioned an external review (independent model critique). The review confirmed three of eight claims were sound, identified five adjustments needed. The founder's instinct to question his own system's math — to bring in an external auditor rather than assume correctness — is the error-correction loop operating at the methodological level. The AI agent implemented the original claims without sufficient verification of (a) whether a shrinkage estimator qualifies as 'Bayesian,' (b) whether SI-18 applies to non-PII data, and (c) whether RFC 8767 permits the behavior flagged as 'violations.' Both parties contributed: the human approved the claims during review, the AI authored them without adequate standards verification.",
+      "correction_action": "Phase 1: Renamed calibration formula, corrected NIST reference, fixed RFC 8767 language, labeled EWMA bootstrap parameters, reframed prior language. Phase 2: Drift analysis completed — shrinkage vs true posterior compared across all protocols; decision: keep shrinkage (operationally correct for DNS), true posterior deferred to longitudinal analysis.",
+      "prevention_rule": "Mathematical claims in public-facing documentation must pass three checks before deployment: (1) Is the formula correctly named per its mathematical family? (2) Are standards citations verified against the actual standard text, not inferred from title keywords? (3) Does protocol behavior language account for all permitted behaviors defined in the cited RFC?",
+      "authoritative_source": "External mathematical review (2026-03-08), docs/plans/2026-03-08-math-rigor-audit.md. NIST SP 800-53 Rev 5 SI-7 text, RFC 8767 Section 4 (serve-stale semantics), shrinkage estimation literature (James-Stein, 1961)."
+    },
+    {
+      "id": "EDE-012",
+      "date": "2026-03-11",
+      "commit": "Session 36 — Correction",
+      "category": "false_positive",
+      "severity": "moderate",
+      "title": "False performance regression from container-constrained Lighthouse",
+      "status": "closed",
+      "attribution": "AI Error",
+      "protocols_affected": [],
+      "confidence_impact": "Agent reported Lighthouse performance scores of 83 (production) and 80 (development) as evidence of a real performance regression. These scores were artifacts of running npx lighthouse inside a resource-constrained Replit container with limited CPU, memory, and network. The agent then diagnosed phantom root causes (monolithic CSS, TBT 550ms, 25KB unused CSS) for a problem that did not exist, recommending unnecessary CSS splitting work.",
+      "resolution": "No code changes needed. Founder verified production scores via PageSpeed Insights (pagespeed.web.dev): 100/100/100/100. The false regression report from Session 36 was retracted. Container-local Lighthouse is directional only, never authoritative for production scoring.",
+      "bayesian_note": "The agent treated container-local Lighthouse output as authoritative evidence without cross-referencing against PageSpeed Insights or acknowledging the known container constraints. The diagnostic chain compounded the error: low score → identify 'root causes' → recommend remediation — all built on a false premise. The founder caught it immediately by running PageSpeed Insights externally. This demonstrates why measurement methodology matters: the same tool in different environments produces different results, and the environment must be controlled for the measurement to be meaningful.",
+      "correction_action": "Retracted false regression report. Production confirmed 100/100/100/100 via PageSpeed Insights. No CSS splitting or optimization changes applied.",
+      "prevention_rule": "Use PageSpeed Insights API (pagespeed.web.dev) for production performance scores. Container-local npx lighthouse is directional only — useful for catching gross regressions but never authoritative. When Lighthouse scores differ significantly between container and external measurement, trust the external measurement.",
+      "authoritative_source": "PageSpeed Insights (pagespeed.web.dev), Session 36 — Correction (2026-03-11). Founder verified production 100/100/100/100."
+    }
+  ]
+}

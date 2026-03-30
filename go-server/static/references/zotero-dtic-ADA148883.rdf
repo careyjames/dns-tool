@@ -1,0 +1,65 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/"
+ xmlns:dcterms="http://purl.org/dc/terms/">
+    <bib:Report rdf:about="http://www.dtic.mil/docs/citations/ADA148883">
+        <z:itemType>report</z:itemType>
+        <dc:publisher>
+            <foaf:Organization>
+                <vcard:adr>
+                    <vcard:Address>
+                       <vcard:locality>Fort Belvoir, VA</vcard:locality>
+                    </vcard:Address>
+                </vcard:adr>
+                <foaf:name>Defense Technical Information Center</foaf:name>
+            </foaf:Organization>
+        </dc:publisher>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Luria</foaf:surname>
+                        <foaf:givenName>S. M.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kobus</foaf:surname>
+                        <foaf:givenName>David A.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_194"/>
+        <dc:title>The Relative Effectiveness of Red and White Light for Subsequent Dark-Adaptation:</dc:title>
+        <dc:date>1984-7-3</dc:date>
+        <dc:identifier>DOI 10.21236/ADA148883</dc:identifier>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://www.dtic.mil/docs/citations/ADA148883</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:26:16</dcterms:dateSubmitted>
+        <z:shortTitle>The Relative Effectiveness of Red and White Light for Subsequent Dark-Adaptation</z:shortTitle>
+        <z:language>en</z:language>
+        <z:libraryCatalog>DOI.org (Crossref)</z:libraryCatalog>
+    </bib:Report>
+    <z:Attachment rdf:about="#item_194">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/194/Luria and Kobus - 1984 - The Relative Effectiveness of Red and White Light for Subsequent Dark-Adaptation.pdf"/>
+        <dc:title>PDF</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://apps.dtic.mil/sti/tr/pdf/ADA148883.pdf</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:26:14</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>application/pdf</link:type>
+    </z:Attachment>
+</rdf:RDF>

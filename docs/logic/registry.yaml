@@ -1,0 +1,433 @@
+version: 1
+schema_version: "1.0.0"
+description: >
+  Golden Logic Rule Registry — Traceable Logic Drift Detection.
+  Every logical decision traces from RFC foundation to reasoning to code to test to visual.
+  Each rule gets a deterministic ID, an origin type, and links to code, tests, and standards.
+  This registry is the canonical source of truth for DNS Tool's decision logic.
+
+metadata:
+  created: "2026-03-18"
+  author: "Carey James Balboa / IT Help San Diego Inc."
+  project: "DNS Tool"
+  purpose: "1000-year maintainable logic — every rule traceable, every decision auditable"
+  hash_algorithm: "SHA-3-512"
+
+rules:
+
+  - id: "LR-SPF-NOMAIL-v1"
+    title: "Null MX domain bypasses spoofing analysis"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7505"
+    reasoning: >
+      A domain publishing Null MX (RFC 7505) explicitly declares it sends no mail.
+      Spoofing analysis is not applicable — the answer is definitively "No."
+    verdict: "No — null MX indicates no-mail domain"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildEmailAnswer"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestEmailAnswerNoMailDomain"
+
+  - id: "LR-SPF-REJECT-v1"
+    title: "SPF + DMARC reject policy prevents spoofing"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7208"
+      - "rfc:7489"
+    reasoning: >
+      When both SPF alignment and DMARC reject policy (p=reject) are enforced,
+      spoofed mail is rejected at the receiving MTA. This is the strongest
+      email authentication posture.
+    verdict: "No — SPF and DMARC reject policy enforced"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildEmailAnswer"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestEmailAnswerRejectPolicy"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleUSAGov"
+
+  - id: "LR-SPF-NOPROTECTION-v1"
+    title: "No SPF or DMARC means domain is spoofable"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7208"
+      - "rfc:7489"
+    reasoning: >
+      Without SPF or DMARC, any SMTP server can send mail claiming to be from
+      this domain. There is no mechanism for receivers to distinguish legitimate
+      from forged mail.
+    verdict: "Yes — no SPF or DMARC protection"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildEmailAnswer"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestEmailAnswerNoProtection"
+
+  - id: "LR-DMARC-MONITOR-v1"
+    title: "DMARC p=none is monitor-only, spoofing still possible"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7489"
+    reasoning: >
+      DMARC p=none (RFC 7489 §6.3) instructs receivers to deliver all mail
+      regardless of authentication results. It provides visibility via aggregate
+      reports but no enforcement. Spoofing remains possible.
+    verdict: "Yes — DMARC is monitor-only (p=none)"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildEmailAnswer"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestEmailAnswerMonitorOnly"
+
+  - id: "LR-DMARC-QUARANTINE-v1"
+    title: "DMARC quarantine at 100% reduces but does not eliminate spoofing"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7489"
+    reasoning: >
+      DMARC quarantine policy at pct=100 instructs receivers to treat failing
+      messages as suspicious (typically move to spam). This significantly reduces
+      spoofing impact but does not reject the mail outright.
+    verdict: "Unlikely — SPF and DMARC quarantine policy enforced"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildEmailAnswer"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestEmailAnswerQuarantineFull"
+
+  - id: "LR-SPF-ALONE-v1"
+    title: "SPF alone cannot prevent spoofing"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7208"
+      - "rfc:7489"
+    reasoning: >
+      SPF (RFC 7208) validates the envelope sender (MAIL FROM) but not the
+      header From. Without DMARC alignment, an attacker can spoof the visible
+      From address while passing SPF checks on a different domain.
+    verdict: "Likely — SPF alone cannot prevent spoofing"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildEmailAnswer"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestEmailAnswerSPFOnly"
+
+  - id: "LR-BRAND-FULL-v1"
+    title: "DMARC reject + BIMI + CAA = full brand protection"
+    origin: hybrid
+    domain: brand-protection
+    foundation:
+      - "rfc:7489"
+      - "rfc:8659"
+    reasoning: >
+      Brand impersonation requires blocking three vectors: email spoofing
+      (DMARC reject), visual identity forgery (BIMI/VMC verification), and
+      certificate issuance to imposters (CAA constraints). When all three
+      are in place, the answer is definitively "No."
+    verdict: "No — full brand protection"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildBrandVerdict"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestBrandVerdictFullProtection"
+
+  - id: "LR-BRAND-PARTIAL-v1"
+    title: "DMARC reject + BIMI without CAA = well protected"
+    origin: hybrid
+    domain: brand-protection
+    foundation:
+      - "rfc:7489"
+      - "rfc:8659"
+    reasoning: >
+      DMARC reject blocks email spoofing, BIMI/VMC verifies brand identity
+      visually. CAA is a secondary certificate-issuance vector. Without CAA,
+      brand protection is strong but not complete — an attacker could still
+      obtain a legitimate certificate for a lookalike domain.
+    verdict: "Unlikely — well protected"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildBrandVerdict"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestBrandVerdictPartialGaps"
+
+  - id: "LR-BRAND-NOCAA-NOBIMI-v1"
+    title: "DMARC reject without BIMI or CAA leaves brand partially exposed"
+    origin: hybrid
+    domain: brand-protection
+    foundation:
+      - "rfc:7489"
+    reasoning: >
+      RFC 7489 §6.3 blocks email spoofing, but without BIMI there is no
+      verified visual identity, and without CAA there is no certificate
+      issuance constraint. Two of three brand-faking vectors remain open.
+    verdict: "Possible — partially protected"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildBrandVerdict"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestBrandVerdictRejectNoBIMINoCAA"
+
+  - id: "LR-BRAND-EXPOSED-v1"
+    title: "No DMARC means brand is fully exposed"
+    origin: rfc_derived
+    domain: brand-protection
+    foundation:
+      - "rfc:7489"
+    reasoning: >
+      Without DMARC, there is no RFC 7489 protection at all. Any party
+      can send email appearing to be from this domain, use the brand
+      identity, and potentially obtain certificates for the domain.
+    verdict: "Yes — exposed"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:buildBrandVerdict"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestBrandVerdictDMARCMissing"
+
+  - id: "LR-REMEDIATION-NOTSTUBBED-v1"
+    title: "Remediation engine must produce non-empty fixes for missing protocols"
+    origin: invented
+    domain: remediation
+    foundation: []
+    reasoning: >
+      A domain missing SPF, DMARC, DKIM, and other protocols must receive
+      actionable remediation guidance. An empty remediation response indicates
+      a stubbed or broken engine — this is a correctness invariant.
+    verdict: "Non-empty top_fixes and all_fixes required"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:GenerateRemediation"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleRemediationNotStubbed"
+
+  - id: "LR-REMEDIATION-WELLCONFIGURED-v1"
+    title: "Well-configured domain should have minimal remediation items"
+    origin: invented
+    domain: remediation
+    foundation: []
+    reasoning: >
+      A domain with SPF, DMARC reject, DKIM, MTA-STS, TLS-RPT, BIMI,
+      DANE, CAA, and DNSSEC all passing should have at most 3 fixes.
+      More than 3 indicates false positives in the remediation engine.
+    verdict: "At most 3 fixes for well-configured domains"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:GenerateRemediation"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleRemediationWellConfiguredDomain"
+
+  - id: "LR-REMEDIATION-SOFTFAIL-v1"
+    title: "Never recommend upgrading SPF ~all to -all when DMARC reject is active"
+    origin: hybrid
+    domain: remediation
+    foundation:
+      - "rfc:7208"
+      - "rfc:7489"
+    reasoning: >
+      SPF ~all (softfail) is industry-standard practice when DMARC reject
+      is enforced. RFC 7489 alignment makes the SPF qualifier less relevant
+      because DMARC handles enforcement. Recommending -all with DMARC reject
+      is misleading and can break legitimate mail flows.
+    verdict: "Never suggest upgrading ~all to -all with DMARC reject"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:GenerateRemediation"
+      - "go-server/internal/analyzer/analyzer.go:CalculatePosture"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleRemediationProviderAware"
+
+  - id: "LR-DANE-PROVIDER-v1"
+    title: "Do not recommend DANE for hosted providers that do not support it"
+    origin: hybrid
+    domain: remediation
+    foundation:
+      - "rfc:7671"
+      - "rfc:7672"
+    reasoning: >
+      Hosted email providers (Google Workspace, Microsoft 365) control the
+      MX endpoints. Recommending DANE/TLSA for their domains is misleading
+      because the domain owner cannot publish TLSA records for infrastructure
+      they do not control. The benefit of the doubt goes to unknown providers.
+    verdict: "Skip DANE recommendation for known hosted providers"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:providerSupportsDANE"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleHostedProviderNoDANE"
+
+  - id: "LR-BIMI-ALWAYS-v1"
+    title: "Always recommend BIMI regardless of provider"
+    origin: hybrid
+    domain: brand-protection
+    foundation: []
+    reasoning: >
+      Unlike DANE, BIMI is a DNS TXT record the domain owner controls.
+      All providers benefit from BIMI because it enables verified brand
+      display in supporting email clients. No provider exception applies.
+    verdict: "Always recommend BIMI"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:providerSupportsBIMI"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleBIMIRecommendedRegardlessOfProvider"
+
+  - id: "LR-POSTURE-NOTSTUBBED-v1"
+    title: "Mail posture classification must produce non-empty results"
+    origin: invented
+    domain: posture
+    foundation: []
+    reasoning: >
+      The mail posture classification engine must always produce a non-empty
+      response with level, label, color, and monitoring items. An empty or
+      stubbed response indicates a broken classification engine.
+    verdict: "Non-empty posture output required"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:CalculatePosture"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleMailPostureNotStubbed"
+
+  - id: "LR-STUB-COMPLETE-v1"
+    title: "All stub registry functions must be registered"
+    origin: invented
+    domain: architecture
+    foundation: []
+    reasoning: >
+      The OSS boundary stub system must register every function that has
+      an intel-gated implementation. Missing stubs cause nil pointer panics
+      in production. This is a completeness invariant.
+    verdict: "All boundary functions must have registered stubs"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleStubRegistryComplete"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleStubBoundaryFunctionsRegistered"
+
+  - id: "LR-CT-WILDCARD-v1"
+    title: "Detect wildcard certificates from Certificate Transparency logs"
+    origin: hybrid
+    domain: security
+    foundation:
+      - "rfc:6962"
+    reasoning: >
+      Wildcard certificates (*.example.com) in CT logs indicate broad
+      certificate coverage. This detection is used for subdomain discovery
+      and security posture assessment.
+    verdict: "Wildcard CT entries detected and flagged"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleWildcardCTDetection"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleWildcardNotFalsePositive"
+
+  - id: "LR-SUBDOMAIN-PERF-v1"
+    title: "Subdomain discovery must complete within 60 seconds"
+    origin: invented
+    domain: performance
+    foundation: []
+    reasoning: >
+      Subdomain discovery via Certificate Transparency must complete within
+      the scan timeout window. A 60-second budget ensures the scan does not
+      time out while still allowing comprehensive CT log traversal.
+    verdict: "Subdomain discovery under 60s"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleSubdomainDiscoveryUnder60s"
+
+  - id: "LR-SPF-CORROBORATION-v1"
+    title: "SPF ancillary evidence corroborates provider detection"
+    origin: hybrid
+    domain: email-authentication
+    foundation:
+      - "rfc:7208"
+    reasoning: >
+      SPF include mechanisms (e.g., include:_spf.google.com) provide
+      ancillary evidence for provider detection. This corroboration
+      strengthens the confidence of provider inference.
+    verdict: "SPF includes corroborate provider detection"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleSPFAncillaryCorroboration"
+
+  - id: "LR-DKIM-DELEGATION-v1"
+    title: "DKIM delegation CNAME records match provider patterns"
+    origin: hybrid
+    domain: email-authentication
+    foundation:
+      - "rfc:6376"
+    reasoning: >
+      DKIM delegation via CNAME records (e.g., selector._domainkey.example.com
+      CNAME to provider infrastructure) provides evidence of provider
+      integration and verifiable key delegation.
+    verdict: "DKIM delegation CNAMEs match provider patterns"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleDKIMDelegationProviderMatching"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestGoldenRuleDKIMDelegationStructure"
+
+  - id: "LR-MISPLACED-DMARC-v1"
+    title: "Detect misplaced DMARC records in TXT at apex"
+    origin: rfc_derived
+    domain: email-authentication
+    foundation:
+      - "rfc:7489"
+    reasoning: >
+      DMARC records must be published at _dmarc.example.com, not at the
+      apex. A DMARC-like TXT record at the apex is a misconfiguration that
+      will not be processed by receivers. Detection is case-insensitive.
+    verdict: "Misplaced DMARC at apex detected and flagged"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go:detectMisplacedDMARC"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestDetectMisplacedDMARCNone"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestDetectMisplacedDMARCReject"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestDetectMisplacedDMARCCaseInsensitive"
+
+  - id: "LR-DELIBERATE-MONITORING-v1"
+    title: "Distinguish deliberate DMARC monitoring from inadequate protection"
+    origin: hybrid
+    domain: email-authentication
+    foundation:
+      - "rfc:7489"
+    reasoning: >
+      DMARC p=none with rua (aggregate reporting) is deliberate monitoring —
+      a legitimate deployment phase. DMARC p=none without rua is negligent
+      because there is neither enforcement nor visibility. The distinction
+      affects severity classification.
+    verdict: "p=none + rua = monitoring; p=none - rua = negligent"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestDeliberateMonitoringNoneWithRua"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestDeliberateMonitoringNoRua"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestDeliberateMonitoringRejectNotMonitoring"
+
+  - id: "LR-MAILPOSTURE-NOMAIL-v1"
+    title: "No-mail domain posture classifications"
+    origin: hybrid
+    domain: posture
+    foundation:
+      - "rfc:7505"
+    reasoning: >
+      No-mail domains have three posture levels: verified (Null MX + SPF -all +
+      DMARC reject), partial (some but not all protections), and intent
+      (detected as no-mail but missing formal declarations).
+    verdict: "Three-tier no-mail classification"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestMailPostureClassificationNoMailVerified"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestMailPostureClassificationNoMailPartial"
+      - "go-server/internal/analyzer/golden_rules_test.go:TestMailPostureClassificationNoMailIntent"
+
+  - id: "LR-MAILPOSTURE-PROTECTED-v1"
+    title: "Protected mail posture classification"
+    origin: hybrid
+    domain: posture
+    foundation:
+      - "rfc:7208"
+      - "rfc:7489"
+    reasoning: >
+      A domain with SPF and DMARC reject achieves "protected" posture.
+      This is the baseline for mail-sending domains and indicates that
+      the fundamental authentication mechanisms are properly deployed.
+    verdict: "Protected posture when SPF + DMARC reject"
+    code_refs:
+      - "go-server/internal/analyzer/analyzer.go"
+    test_refs:
+      - "go-server/internal/analyzer/golden_rules_test.go:TestMailPostureClassificationProtected"

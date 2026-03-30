@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>Name</key>
+        <string>DNS Tool - Domain Security Intelligence</string>
+
+        <key>Identifier</key>
+        <string>dnstool.it-help.tech</string>
+
+        <key>Version</key>
+        <string>1.2</string>
+
+        <key>Category</key>
+        <string>Security</string>
+
+        <key>Author</key>
+        <string>IT Help San Diego Inc.</string>
+
+        <key>URL</key>
+        <string>https://dnstool.it-help.tech/agent/plugin</string>
+
+        <key>Description</key>
+        <string>Intelligence-grade domain security analysis. RFC-compliant DNS auditing with ICD 203 confidence scoring, FAIR-principled data delivery, and Zenodo DOI-backed reproducibility. Returns 15 enriched intelligence artifacts per query.</string>
+
+        <key>Info</key>
+        <string>DNS Security Intelligence — RFC-grounded domain analysis with Bayesian confidence scoring. Returns enriched reports with security badges, observed-records snapshots (SHA-3-512), DNS topology maps, Wayback Machine archives, CSV exports, remediation playbooks, and Zotero-compatible citation metadata. Concept DOI: 10.5281/zenodo.18854899. Plugin homepage: https://dnstool.it-help.tech/agent/plugin</string>
+
+        <key>EngineUrl</key>
+        <string>https://dnstool.it-help.tech/agent/search?q=__agentQuery__</string>
+
+        <key>ParseLinks</key>
+        <true/>
+
+        <key>StripHTML</key>
+        <false/>
+
+        <key>ResultsPerPage</key>
+        <integer>15</integer>
+
+        <key>Start</key>
+        <integer>0</integer>
+
+        <key>OffsetPerPage</key>
+        <integer>1</integer>
+
+        <key>Encoding</key>
+        <string>UTF-8</string>
+
+        <key>Operators</key>
+        <integer>59</integer>
+
+        <key>UserAgent</key>
+        <string>DEVONagent/3 (dnstool-plugin/1.2; +https://dnstool.it-help.tech/agent/plugin)</string>
+
+        <key>Keywords</key>
+        <string>dns,security,spf,dkim,dmarc,dnssec,subdomain,certificate-transparency,email-security,posture,domain,intelligence</string>
+
+        <key>Keyword</key>
+        <array>
+                <string>dns</string>
+                <string>security</string>
+                <string>spf</string>
+                <string>dkim</string>
+                <string>dmarc</string>
+                <string>dnssec</string>
+                <string>subdomain</string>
+                <string>certificate</string>
+                <string>transparency</string>
+                <string>email</string>
+                <string>posture</string>
+                <string>domain</string>
+                <string>intelligence</string>
+        </array>
+</dict>
+</plist>

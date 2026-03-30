@@ -1,0 +1,61 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "DNS Tool: Domain Security Audit Platform"
+type: software
+version: "26.38.35"
+date-released: 2026-03-25
+doi: 10.5281/zenodo.18854899
+
+abstract: >-
+  DNS Tool is an open-core OSINT platform for RFC-compliant domain
+  security analysis. It evaluates SPF, DKIM, DMARC, DANE/TLSA,
+  DNSSEC, BIMI, MTA-STS, TLS-RPT, and CAA configurations using
+  confidence-scored interpretation derived from ICD 203 taxonomy
+  to produce structured security intelligence outputs.
+
+authors:
+  - family-names: Balboa
+    given-names: Carey James
+    orcid: "https://orcid.org/0009-0000-5237-9065"
+    affiliation: "IT Help San Diego Inc."
+
+contact:
+  - name: "IT Help San Diego Inc."
+    website: "https://it-help.tech"
+
+repository-code: "https://github.com/IT-Help-San-Diego/dns-tool"
+repository-artifact: "https://zenodo.org/doi/10.5281/zenodo.18854899"
+url: "https://dnstool.it-help.tech"
+license: "BUSL-1.1"
+license-url: "https://spdx.org/licenses/BUSL-1.1.html"
+
+keywords:
+  - DNS security
+  - OSINT
+  - SPF
+  - DKIM
+  - DMARC
+  - DNSSEC
+  - DANE
+  - BIMI
+  - MTA-STS
+  - TLS-RPT
+  - CAA
+  - email authentication
+  - cybersecurity research
+  - domain security posture
+  - confidence scoring
+
+references:
+  - type: report
+    title: "DNS Tool Methodology"
+    url: "https://dnstool.it-help.tech/docs/dns-tool-methodology.pdf"
+    authors:
+      - family-names: Balboa
+        given-names: Carey James
+  - type: report
+    title: "DNS Tool Philosophical Foundations"
+    url: "https://dnstool.it-help.tech/docs/philosophical-foundations.pdf"
+    authors:
+      - family-names: Balboa
+        given-names: Carey James

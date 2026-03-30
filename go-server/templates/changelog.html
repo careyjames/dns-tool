@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>What's New — Changelog and Release Notes — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Complete changelog of DNS Tool improvements, new protocol coverage, transparency disclosures, intelligence capabilities, and version history.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/changelog">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="What's New - DNS Tool">
+    <meta property="og:description" content="Complete changelog of DNS Tool improvements, new features, transparency disclosures, and intelligence capabilities.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Changelog">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/changelog">
+    <meta name="twitter:title" content="What's New - DNS Tool">
+    <meta name="twitter:description" content="Complete changelog of DNS Tool improvements, new features, transparency disclosures, and intelligence capabilities.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/changelog">
+    <meta property="article:published_time" content="2025-01-15">
+    <meta property="article:modified_time" content="2026-03-20">
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "What's New — DNS Tool Changelog",
+        "description": "Complete changelog of DNS Tool improvements, new protocol coverage, transparency disclosures, intelligence capabilities, and version history.",
+        "url": "https://dnstool.it-help.tech/changelog",
+        "datePublished": "2025-01-15",
+        "dateModified": "2026-03-20",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "DNS Tool",
+            "url": "https://dnstool.it-help.tech"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech"
+        },
+        "about": {
+            "@type": "SoftwareApplication",
+            "name": "DNS Tool",
+            "url": "https://dnstool.it-help.tech"
+        }
+    }
+    </script>
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="text-center mb-4">
+                    <h1 class="h2">{{icon "bolt" "me-2 text-info"}}What's New</h1>
+                    <p class="text-muted lead">All improvements to analysis accuracy, transparency, and intelligence depth</p>
+                </div>
+
+                <p class="text-muted text-center mb-4" style="font-size:0.78rem;">{{.TotalCount}} releases tracked</p>
+
+                <div class="row g-3">
+                    {{range .RecentChangelog}}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card bg-dark border-secondary h-100 {{if .IsIncident}}changelog-card-incident{{end}}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-2">
+                                    {{if .IsIncident}}{{icon .Icon "text-warning me-2"}}{{else}}{{icon .Icon "text-info me-2"}}{{end}}
+                                    <span class="badge changelog-badge changelog-badge-{{.Category | lower}} me-2 u-fs-065rem">{{.Category}}</span>
+                                    <span class="text-muted small ms-auto">{{.Date}}</span>
+                                </div>
+                                <p class="card-title mb-1 fw-semibold">{{.Title}}</p>
+                                <p class="card-text text-muted small mb-0">{{.Description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+
+                {{if .ArchiveChangelog}}
+                <div class="text-center my-4">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#archiveEntries" aria-expanded="false" aria-controls="archiveEntries">
+                        {{icon "archive" "me-1"}} Show {{.ArchiveCount}} earlier releases
+                    </button>
+                </div>
+                <div class="collapse" id="archiveEntries">
+                    <div class="row g-3">
+                        {{range .ArchiveChangelog}}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card bg-dark border-secondary h-100 {{if .IsIncident}}changelog-card-incident{{end}}">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-2">
+                                        {{if .IsIncident}}{{icon .Icon "text-warning me-2"}}{{else}}{{icon .Icon "text-info me-2"}}{{end}}
+                                        <span class="badge changelog-badge changelog-badge-{{.Category | lower}} me-2 u-fs-065rem">{{.Category}}</span>
+                                        <span class="text-muted small ms-auto">{{.Date}}</span>
+                                    </div>
+                                    <p class="card-title mb-1 fw-semibold">{{.Title}}</p>
+                                    <p class="card-text text-muted small mb-0">{{.Description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+                </div>
+                {{end}}
+
+                {{if .LegacyChangelog}}
+                <hr class="my-5 border-secondary">
+                <div class="text-center mb-4">
+                    <h2 class="h3">{{icon "archive" "me-2 u-color-purple"}}Origins</h2>
+                    <p class="text-muted">How DNS Tool evolved — from a Python CLI script to a full web intelligence platform</p>
+                </div>
+
+                <div class="row g-3">
+                    {{range .LegacyChangelog}}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card bg-dark h-100 u-border-purple">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-2">
+                                    {{icon .Icon "me-2 u-color-purple"}}
+                                    <span class="badge me-2 u-fs-065rem u-color-purple u-bg-purple-light">{{.Category}}</span>
+                                    <span class="text-muted small ms-auto">{{.Date}}</span>
+                                </div>
+                                <p class="card-title mb-1 fw-semibold">{{.Title}}</p>
+                                <p class="card-text text-muted small mb-0">{{.Description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+                {{end}}
+
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

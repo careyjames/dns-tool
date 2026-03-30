@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Accountability Log - DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Cryptographic accountability log — every analysis result's SHA-3-512 posture hash, timestamped and retained for tamper-evident verification.">
+    <link rel="canonical" href="https://dnstool.it-help.tech/confidence/audit-log">
+    <meta property="og:url" content="https://dnstool.it-help.tech/confidence/audit-log">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Accountability Log - DNS Tool">
+    <meta property="og:description" content="Cryptographic accountability log — every analysis SHA-3-512 posture hash, timestamped for tamper-evident verification.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Accountability Log">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Accountability Log - DNS Tool">
+    <meta name="twitter:description" content="Cryptographic accountability log — every analysis SHA-3-512 posture hash, timestamped for tamper-evident verification.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main class="container py-5 u-max-w-900">
+
+        <div class="mb-4">
+            <a href="/confidence" class="text-info text-decoration-none small">{{icon "arrow-left" "me-1"}}Back to Intelligence Confidence Levels</a>
+        </div>
+
+        <div class="mb-5">
+            <h1 class="fw-bold mb-2">Accountability Log</h1>
+            <p class="text-muted mb-0">
+                Every analysis result is SHA-3-512 (Keccak) hashed at creation using canonical, deterministic serialization of all protocol findings.
+                This log records each hash alongside its timestamp for independent verification. No entries are redacted or removed.
+            </p>
+        </div>
+
+        {{if .AuditLog}}
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <span class="text-muted small">{{.AuditLog.Total}} hashed analyses on record &mdash; page {{.AuditLog.Page}} of {{.AuditLog.TotalPages}}</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-sm table-bordered mb-4 u-fs-082">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-muted u-w-3rem">#</th>
+                        <th scope="col" class="text-muted">Domain</th>
+                        <th scope="col" class="text-muted">Timestamp (UTC)</th>
+                        <th scope="col" class="text-muted">SHA-3-512 Posture Hash</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .AuditLog.Entries}}
+                    <tr>
+                        <td class="text-muted">{{.ID}}</td>
+                        <td>{{.Domain}}</td>
+                        <td class="text-nowrap">{{.Timestamp}}</td>
+                        <td><code class="text-info u-fs-075 u-break-all">{{.Hash}}</code></td>
+                    </tr>
+                    {{end}}
+                    {{if not .AuditLog.Entries}}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-3">No hashed analyses recorded yet.</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+        {{if or .AuditLog.HasPrev .AuditLog.HasNext}}
+        <nav aria-label="Audit log pagination">
+            <div class="d-flex justify-content-between align-items-center">
+                {{if .AuditLog.HasPrev}}
+                <a href="/confidence/audit-log?page={{.AuditLog.PrevPage}}" class="btn btn-sm btn-outline-secondary">&larr; Previous</a>
+                {{else}}
+                <span></span>
+                {{end}}
+                <span class="text-muted small">Page {{.AuditLog.Page}} of {{.AuditLog.TotalPages}}</span>
+                {{if .AuditLog.HasNext}}
+                <a href="/confidence/audit-log?page={{.AuditLog.NextPage}}" class="btn btn-sm btn-outline-secondary">Next &rarr;</a>
+                {{else}}
+                <span></span>
+                {{end}}
+            </div>
+        </nav>
+        {{end}}
+        {{end}}
+
+        <div class="mt-5 pt-3 border-top border-secondary">
+            <p class="text-muted small mb-0">
+                {{icon "lock" "me-1"}}
+                Hashes are computed using SHA-3-512 (Keccak, NIST FIPS 202) over a canonical JSON serialization of all protocol findings at analysis time.
+                The serialization is deterministic &mdash; identical inputs always produce identical hashes. Any post-analysis modification
+                to stored results would produce a different hash, detectable by the <a href="/confidence" class="text-info">Hash Integrity Audit</a>.
+            </p>
+        </div>
+
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

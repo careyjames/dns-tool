@@ -1,0 +1,752 @@
+{
+  "auth_query_status": {},
+  "auth_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "CAA": 300,
+    "MX": 1800,
+    "NS": 86400,
+    "SOA": 300,
+    "TXT": 300
+  },
+  "authoritative_records": {
+    "A": [
+      "104.16.133.229",
+      "104.16.132.229"
+    ],
+    "AAAA": [
+      "2606:4700::6810:84e5",
+      "2606:4700::6810:85e5"
+    ],
+    "CAA": [
+      "0 iodef \"mailto:tls-abuse@cloudflare.com\"",
+      "0 issue \"comodoca.com\"",
+      "0 issue \"digicert.com; cansignhttpexchanges=yes\"",
+      "0 issue \"letsencrypt.org\"",
+      "0 issue \"pki.goog; cansignhttpexchanges=yes\"",
+      "0 issue \"ssl.com\"",
+      "0 issuewild \"comodoca.com\"",
+      "0 issuewild \"digicert.com; cansignhttpexchanges=yes\"",
+      "0 issuewild \"letsencrypt.org\"",
+      "0 issuewild \"pki.goog; cansignhttpexchanges=yes\"",
+      "0 issuewild \"ssl.com\""
+    ],
+    "DMARC": [
+      "v=DMARC1; p=reject; pct=100; rua=mailto:rua@cloudflare.com,mailto:cloudflare@dmarc.area1reports.com; ruf=mailto:cloudflare@dmarc.area1reports.com"
+    ],
+    "MTA-STS": [],
+    "MX": [
+      "10 mxa.global.inbound.cf-emailsecurity.net.",
+      "10 mxb.global.inbound.cf-emailsecurity.net.",
+      "5 mxa-canary.global.inbound.cf-emailsecurity.net.",
+      "5 mxb-canary.global.inbound.cf-emailsecurity.net."
+    ],
+    "NS": [
+      "ns3.cloudflare.com.",
+      "ns4.cloudflare.com.",
+      "ns5.cloudflare.com.",
+      "ns6.cloudflare.com.",
+      "ns7.cloudflare.com."
+    ],
+    "SOA": [
+      "ns3.cloudflare.com. dns.cloudflare.com. 2395431159 10000 2400 604800 300"
+    ],
+    "TLS-RPT": [],
+    "TXT": [
+      "MS=ms70274184",
+      "ZOOM_verify_7LFBvOO9SIigypFG2xRlMA",
+      "_neqmkgaq1lq9it5s8qmetrhbnu121wb",
+      "_saml-domain-challenge.2dc00405-79cd-457b-b288-a119c6f0c7b7.71996d53-d178-4ba9-bef4-7f7e46edab74.cloudflare.com=1c8736fd-84b2-4197-985f-3fb2852f2457",
+      "_wkjc0fot0d7qrvrdt78bxkj2e2o67d2",
+      "apple-domain-verification=DNnWJoArJobFJKhJ",
+      "asv=894f6d1f9f83bcf44e4b1bc40bc1c4aa",
+      "atlassian-domain-verification=WxxKyN9aLnjEsoOjUYI6T0bb5vcqmKzaIkC9Rx2QkNb751G3LL/cus8/ZDOgh8xB",
+      "canva-site-verification=oOyaVnHC-OiFoR1BPvetNA",
+      "cisco-ci-domain-verification=27e926884619804ef987ae4aa1c4168f6b152ada84f4c8bfc74eb2bd2912ad72",
+      "creatopy-domain-verification=97d2ca50-9b6f-4a21-9bdb-fbb630e4cec7",
+      "docker-verification=c578e21c-34fb-4474-9b90-d55ee4cba10c",
+      "drift-domain-verification=f037808a26ae8b25bc13b1f1f2b4c3e0f78c03e67f24cefdd4ec520efa8e719f",
+      "facebook-domain-verification=h9mm6zopj6p2po54woa16m5bskm6oo",
+      "google-site-verification=C7thfNeXVahkVhniiqTI1iSVnElKR_kBBtnEHkeGDlo",
+      "google-site-verification=ZdlQZLBBAPkxeFTCM1rpiB_ibtGff_JF5KllNKwDR9I",
+      "liveramp-site-verification=EhH1MqgwbndTWl1AN64hOTKz7hc1s80yUpchLbgpfY0",
+      "logmein-verification-code=b3433c86-3823-4808-8a7e-58042469f654",
+      "miro-verification=bdd7dfa0a49adfb43ad6ddfaf797633246c07356",
+      "onetrust-domain-verification=bd5cd08a1e9644799fdb98ed7d60c9cb",
+      "status-page-domain-verification=r14frwljwbxs",
+      "stripe-verification=5096d01ff2cf194285dd51cae18f24fa9c26dc928cebac3636d462b4c6925623",
+      "stripe-verification=bf1a94e6b16ace2502a4a7fff574a25c8a45291054960c883c59be39d1788db9",
+      "uber-domain-verification=58086039-150a-42a4-a4be-b4032921aa0f",
+      "v=spf1 ip4:199.15.212.0/22 ip4:173.245.48.0/20 include:_spf.google.com include:spf1.mcsv.net include:spf.mandrillapp.com include:mail.zendesk.com include:stspg-customer.com include:_spf.salesforce.com -all"
+    ]
+  },
+  "basic_records": {
+    "A": [
+      "104.16.132.229",
+      "104.16.133.229"
+    ],
+    "AAAA": [
+      "2606:4700::6810:85e5",
+      "2606:4700::6810:84e5"
+    ],
+    "CAA": [
+      "0 issue \"letsencrypt.org\"",
+      "0 issuewild \"pki.goog; cansignhttpexchanges=yes\"",
+      "0 issuewild \"ssl.com\"",
+      "0 issue \"pki.goog; cansignhttpexchanges=yes\"",
+      "0 issuewild \"letsencrypt.org\"",
+      "0 issuewild \"digicert.com; cansignhttpexchanges=yes\"",
+      "0 issue \"ssl.com\"",
+      "0 issue \"digicert.com; cansignhttpexchanges=yes\"",
+      "0 iodef \"mailto:tls-abuse@cloudflare.com\"",
+      "0 issuewild \"comodoca.com\"",
+      "0 issue \"comodoca.com\""
+    ],
+    "CNAME": null,
+    "DMARC": [
+      "v=DMARC1; p=reject; pct=100; rua=mailto:rua@cloudflare.com,mailto:cloudflare@dmarc.area1reports.com; ruf=mailto:cloudflare@dmarc.area1reports.com"
+    ],
+    "MX": [
+      "5 mxa-canary.global.inbound.cf-emailsecurity.net.",
+      "5 mxb-canary.global.inbound.cf-emailsecurity.net.",
+      "10 mxb.global.inbound.cf-emailsecurity.net.",
+      "10 mxa.global.inbound.cf-emailsecurity.net."
+    ],
+    "NS": [
+      "ns3.cloudflare.com.",
+      "ns6.cloudflare.com.",
+      "ns4.cloudflare.com.",
+      "ns5.cloudflare.com.",
+      "ns7.cloudflare.com."
+    ],
+    "SOA": [
+      "ns3.cloudflare.com. dns.cloudflare.com. 2395431159 10000 2400 604800 300"
+    ],
+    "SRV": [],
+    "TXT": [
+      "google-site-verification=ZdlQZLBBAPkxeFTCM1rpiB_ibtGff_JF5KllNKwDR9I",
+      "MS=ms70274184",
+      "apple-domain-verification=DNnWJoArJobFJKhJ",
+      "status-page-domain-verification=r14frwljwbxs",
+      "onetrust-domain-verification=bd5cd08a1e9644799fdb98ed7d60c9cb",
+      "_saml-domain-challenge.2dc00405-79cd-457b-b288-a119c6f0c7b7.71996d53-d178-4ba9-bef4-7f7e46edab74.cloudflare.com=1c8736fd-84b2-4197-985f-3fb2852f2457",
+      "drift-domain-verification=f037808a26ae8b25bc13b1f1f2b4c3e0f78c03e67f24cefdd4ec520efa8e719f",
+      "canva-site-verification=oOyaVnHC-OiFoR1BPvetNA",
+      "v=spf1 ip4:199.15.212.0/22 ip4:173.245.48.0/20 include:_spf.google.com include:spf1.mcsv.net include:spf.mandrillapp.com include:mail.zendesk.com include:stspg-customer.com include:_spf.salesforce.com -all",
+      "_wkjc0fot0d7qrvrdt78bxkj2e2o67d2",
+      "miro-verification=bdd7dfa0a49adfb43ad6ddfaf797633246c07356",
+      "_neqmkgaq1lq9it5s8qmetrhbnu121wb",
+      "cisco-ci-domain-verification=27e926884619804ef987ae4aa1c4168f6b152ada84f4c8bfc74eb2bd2912ad72",
+      "stripe-verification=5096d01ff2cf194285dd51cae18f24fa9c26dc928cebac3636d462b4c6925623",
+      "google-site-verification=C7thfNeXVahkVhniiqTI1iSVnElKR_kBBtnEHkeGDlo",
+      "asv=894f6d1f9f83bcf44e4b1bc40bc1c4aa",
+      "uber-domain-verification=58086039-150a-42a4-a4be-b4032921aa0f",
+      "atlassian-domain-verification=WxxKyN9aLnjEsoOjUYI6T0bb5vcqmKzaIkC9Rx2QkNb751G3LL/cus8/ZDOgh8xB",
+      "liveramp-site-verification=EhH1MqgwbndTWl1AN64hOTKz7hc1s80yUpchLbgpfY0",
+      "logmein-verification-code=b3433c86-3823-4808-8a7e-58042469f654",
+      "ZOOM_verify_7LFBvOO9SIigypFG2xRlMA",
+      "creatopy-domain-verification=97d2ca50-9b6f-4a21-9bdb-fbb630e4cec7",
+      "docker-verification=c578e21c-34fb-4474-9b90-d55ee4cba10c",
+      "facebook-domain-verification=h9mm6zopj6p2po54woa16m5bskm6oo",
+      "stripe-verification=bf1a94e6b16ace2502a4a7fff574a25c8a45291054960c883c59be39d1788db9"
+    ]
+  },
+  "bimi_analysis": {
+    "logo_error": null,
+    "logo_format": "SVG",
+    "logo_url": "https://www.cloudflare.com/cloudflare_1171114652.svg",
+    "logo_valid": true,
+    "message": "BIMI with VMC certificate (from Verified CA)",
+    "record": "v=BIMI1; l=https://www.cloudflare.com/cloudflare_1171114652.svg; a=https://www.cloudflare.com/cloudflare_1171114652.pem",
+    "status": "success",
+    "vmc_error": null,
+    "vmc_issuer": "Verified CA",
+    "vmc_subject": null,
+    "vmc_url": "https://www.cloudflare.com/cloudflare_1171114652.pem",
+    "vmc_valid": true
+  },
+  "caa_analysis": {
+    "has_iodef": true,
+    "has_wildcard": true,
+    "issuers": [
+      "cansignhttpexchanges=yes",
+      "DigiCert",
+      "ssl.com",
+      "Let's Encrypt",
+      "Sectigo"
+    ],
+    "message": "CAA configured - only cansignhttpexchanges=yes, DigiCert, ssl.com, Let's Encrypt, Sectigo can issue certificates (wildcard issuance: Let's Encrypt, cansignhttpexchanges=yes, DigiCert, ssl.com, Sectigo per RFC 8659 \u00a74.3)",
+    "mpic_note": "Since September 2025, all public CAs must verify domain control from multiple geographic locations (Multi-Perspective Issuance Corroboration, CA/B Forum Ballot SC-067). CAA records are now checked from multiple network perspectives before certificate issuance.",
+    "records": [
+      "0 issuewild \"comodoca.com\"",
+      "0 issue \"comodoca.com\"",
+      "0 iodef \"mailto:tls-abuse@cloudflare.com\"",
+      "0 issue \"pki.goog; cansignhttpexchanges=yes\"",
+      "0 issue \"digicert.com; cansignhttpexchanges=yes\"",
+      "0 issue \"ssl.com\"",
+      "0 issue \"letsencrypt.org\"",
+      "0 issuewild \"letsencrypt.org\"",
+      "0 issuewild \"pki.goog; cansignhttpexchanges=yes\"",
+      "0 issuewild \"digicert.com; cansignhttpexchanges=yes\"",
+      "0 issuewild \"ssl.com\""
+    ],
+    "status": "success",
+    "wildcard_issuers": [
+      "Let's Encrypt",
+      "cansignhttpexchanges=yes",
+      "DigiCert",
+      "ssl.com",
+      "Sectigo"
+    ]
+  },
+  "ct_subdomains": {
+    "message": "Certificate Transparency lookup failed",
+    "source": "Certificate Transparency Logs",
+    "status": "warning",
+    "subdomains": [],
+    "total_certs": 0,
+    "unique_subdomains": 0
+  },
+  "dane_analysis": {
+    "dane_deployable": true,
+    "has_dane": false,
+    "issues": null,
+    "message": "No DANE/TLSA records found (checked 4 MX hosts)",
+    "mx_hosts_checked": 4,
+    "mx_hosts_with_dane": 0,
+    "mx_provider": null,
+    "requires_dnssec": true,
+    "status": "info",
+    "tlsa_records": null
+  },
+  "dkim_analysis": {
+    "found_providers": [
+      "MailChimp",
+      "MailChimp (Mandrill)",
+      "SendGrid",
+      "Zendesk"
+    ],
+    "key_issues": null,
+    "key_strengths": null,
+    "message": "Found DKIM for 5 selector(s) but none for primary mail platform (Google Workspace)",
+    "primary_dkim_note": "DKIM verified for MailChimp, MailChimp (Mandrill), SendGrid, Zendesk only \u2014 no DKIM found for primary mail platform (Google Workspace). The primary provider may use custom selectors not discoverable through standard checks.",
+    "primary_has_dkim": false,
+    "primary_provider": "Google Workspace",
+    "security_gateway": null,
+    "selectors": {
+      "k1._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "MailChimp",
+        "records": [
+          "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDbNrX2cY/GUKIFx2G/1I00ftdAj713WP9AQ1xir85i89sA2guU0ta4UX1Xzm06XIU6iBP41VwmPwBGRNofhBVR+e6WHUoNyIR4Bn84LVcfZE20rmDeXQblIupNWBqLXM1Q+VieI/eZu/7k9/vOkLSaQQdml4Cv8lb3PcnluMVIhQIDAQAB;"
+        ],
+        "user_hint": false
+      },
+      "mandrill._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "MailChimp (Mandrill)",
+        "records": [
+          "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLHiExVd55zd/IQ/J/mRwSRMAocV/hMB3jXwaHH36d9NaVynQFYV8NaWi69c1veUtRzGt7yAioXqLj7Z4TeEUoOLgrKsn8YnckGs9i3B3tVFB+Ch/4mPhXWiNfNdynHWBcPcbJ8kjEQ2U8y78dHZj1YeRXXVvWob2OaKynO8/lQIDAQAB"
+        ],
+        "user_hint": false
+      },
+      "s1._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "SendGrid",
+        "records": [
+          "k=rsa; t=s; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1m74n5R+xcz+ICbNBWRIlQeHI65Hjp67+P59XSe71jItafrcJ4/5y/UvU+uNg7KNeOcEsotGo7QvLN87hqZSZqfzVyyGnQuEUXoKPdKokD6Pa5KmJSqbA5Y/f977HpikU9Xtd7Orc7ctRLK6H5QFvGwRi+oC9NRkgNB55UUnLbbkKK+LGeTw4Ghmr5gupw7iYzFXZ1qlFNqV6s9Pmgb+b7oDv+OfQxB/MJyUzQ5eWdKlJWfmW3s77J3fHFfysUbKKUBxEXPxNiMFRG1ClllZ4+AYRh1jrFpjbvZ5j43kqahKXeHDNkF+Gpptd7ufWIevAPTQDSVdKB9vyJQN6wfcQQIDAQAB"
+        ],
+        "user_hint": false
+      },
+      "zendesk1._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "Zendesk",
+        "records": [
+          "v=DKIM1;t=s;n=core;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9IqdLrO3Zr2/56MHt8oQVCQorP0Bl2Fz9sM2tFBnJCdB/HogQmuudEg2xAovCN2PYpw44UijIvPuBoT9vxiv6ZCBJTLJXa82r6ke5rE4tbe9NKFIrVIb9S306cJDrnKFMDb8p0dU/Su0+eUR5gVAOtCuz2L8HAzs5edvsEvD/Fb4ny1RLNSEPZkIQLfGhVxQeWANm3+1Jwb/OBVXV9k0nKpWrpgqcmO7NzroJirp014RQY7rGi60JLUubc6XhvoFQBQrtOAdVlZC5wvfS1bgpq5kQpdP7cajIqWCeqxPTeo0ZUpey2ZcaygEsZz0Z3Gs5wDzyuqd7/ADpr2jNF7ozwIDAQAB"
+        ],
+        "user_hint": false
+      },
+      "zendesk2._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "Zendesk",
+        "records": [
+          "v=DKIM1; t=s; n=core; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmiSFNkgXrO3I8aOaPONDZWHv027rkiGIwb838OyXPgvFDEkCV/qGcdXSjZnaVAadrTm/oKnL8WOltP9zB1FLEuKt0fTi5zRyKPE4oIYCnEzXwrGqzjUcCABQBawQVqvXjDOaYh9Lhp8W5PYOLo905vRW7ipyIMDhuzBOJls91/WWXnNK0OwP3RghiisZjA3K2KqtRwf7w6GjNeNuAMNhvcmgAN15d/mhK+dev/hcRbal66RoYyTD8c0F0isahWH0envEX8aj+SBhheNk0/U37dGE+4nFaY5yP9CUlYjFKDSIKZgHzG4Hci3t/RubU58pi6BCrQQdAFvIOeDFeCZ0ywIDAQAB"
+        ],
+        "user_hint": false
+      }
+    },
+    "status": "partial",
+    "third_party_only": true
+  },
+  "dmarc_analysis": {
+    "adkim": "relaxed",
+    "aspf": "relaxed",
+    "dmarc_like": null,
+    "dmarcbis_tags": {},
+    "issues": [
+      "No np= tag (DMARCbis) \u2014 non-existent subdomains inherit p= policy but adding np=reject provides explicit protection against subdomain spoofing",
+      "Forensic reports (ruf) configured - many providers ignore these"
+    ],
+    "message": "DMARC policy reject (100%) - excellent protection",
+    "np_policy": null,
+    "pct": 100,
+    "policy": "reject",
+    "psd_flag": null,
+    "records": [
+      "v=DMARC1; p=reject; pct=100; rua=mailto:rua@cloudflare.com,mailto:cloudflare@dmarc.area1reports.com; ruf=mailto:cloudflare@dmarc.area1reports.com"
+    ],
+    "rua": "mailto:rua@cloudflare.com,mailto:cloudflare@dmarc.area1reports.com",
+    "ruf": "mailto:cloudflare@dmarc.area1reports.com",
+    "status": "success",
+    "subdomain_policy": null,
+    "t_testing": null,
+    "valid_records": [
+      "v=DMARC1; p=reject; pct=100; rua=mailto:rua@cloudflare.com,mailto:cloudflare@dmarc.area1reports.com; ruf=mailto:cloudflare@dmarc.area1reports.com"
+    ]
+  },
+  "dns_infrastructure": {
+    "alt_security_items": [
+      "CAA records configured",
+      "DNSSEC validated"
+    ],
+    "assessment": "Enterprise-grade DNS infrastructure",
+    "is_government": false,
+    "provider_features": [
+      "DDoS protection",
+      "Anycast",
+      "Auto-DNSSEC available"
+    ],
+    "provider_name": "Cloudflare",
+    "provider_tier": "enterprise"
+  },
+  "dnssec_analysis": {
+    "ad_flag": true,
+    "ad_resolver": "8.8.8.8",
+    "algorithm": 13,
+    "algorithm_name": "ECDSA P-256/SHA-256",
+    "chain_of_trust": "complete",
+    "dnskey_records": [
+      "257 3 13 mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ==",
+      "256 3 13 oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA=="
+    ],
+    "ds_records": [
+      "2371 13 2 32996839A6D808AFE3EB4A795A0E6A7A39A76FC52FF228B22B76F6D63826F2B9"
+    ],
+    "has_dnskey": true,
+    "has_ds": true,
+    "message": "DNSSEC fully configured and validated \u2014 AD (Authenticated Data) flag set by resolver 8.8.8.8 confirming cryptographic chain of trust from root to zone (RFC 4035 \u00a73.2.3)",
+    "status": "success"
+  },
+  "domain_exists": true,
+  "domain_status": "active",
+  "domain_status_message": null,
+  "email_security_mgmt": {
+    "actively_managed": false,
+    "provider_count": 0,
+    "providers": [],
+    "spf_flattening": null
+  },
+  "has_null_mx": false,
+  "hosting_summary": {
+    "dns_hosting": "Cloudflare",
+    "domain": "cloudflare.com",
+    "email_hosting": "Unknown",
+    "hosting": "Unknown"
+  },
+  "is_no_mail_domain": false,
+  "mail_posture": {
+    "badge": "warning",
+    "dns_tier": "enterprise",
+    "verdict": "Partially"
+  },
+  "mta_sts_analysis": {
+    "dns_id": null,
+    "hosting_cname": null,
+    "message": "No MTA-STS record found",
+    "mode": null,
+    "policy": null,
+    "policy_error": null,
+    "policy_fetched": false,
+    "policy_max_age": null,
+    "policy_mode": null,
+    "policy_mx": [],
+    "record": null,
+    "status": "warning"
+  },
+  "ns_delegation_analysis": {
+    "child_ns": [
+      "ns3.cloudflare.com",
+      "ns4.cloudflare.com",
+      "ns5.cloudflare.com",
+      "ns6.cloudflare.com",
+      "ns7.cloudflare.com"
+    ],
+    "delegation_ok": true,
+    "match": null,
+    "message": "5 nameserver(s) configured",
+    "note": "Parent zone delegation could not be verified",
+    "parent_ns": [],
+    "status": "success"
+  },
+  "posture": {
+    "absent": [
+      "DKIM",
+      "MTA-STS",
+      "TLS-RPT"
+    ],
+    "color": "warning",
+    "configured": [
+      "SPF",
+      "DMARC (reject)",
+      "BIMI",
+      "CAA",
+      "DNSSEC"
+    ],
+    "critical_issues": [
+      "No DKIM found"
+    ],
+    "deliberate_monitoring": false,
+    "deliberate_monitoring_note": "",
+    "grade": "FAIR",
+    "icon": "exclamation-triangle",
+    "issues": [
+      "No DKIM found"
+    ],
+    "label": "SPF and DMARC present but DKIM not verified. DKIM signing is required for full DMARC alignment.",
+    "message": "SPF and DMARC present but DKIM not verified. DKIM signing is required for full DMARC alignment.",
+    "monitoring": null,
+    "recommendations": null,
+    "score": 66,
+    "state": "FAIR",
+    "verdicts": {
+      "brand": "Attackers cannot easily spoof your logo or obtain fraudulent TLS certificates.",
+      "brand_answer": "No",
+      "brand_secure": true,
+      "dns": "DNS responses are cryptographically signed and verified via DNSSEC.",
+      "dns_secure": true,
+      "domain_answer": "No",
+      "email": "Partial email authentication configured \u2014 some spoofed messages may be delivered.",
+      "email_answer": "Partially",
+      "email_secure": false
+    }
+  },
+  "propagation_status": {
+    "A": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "AAAA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "CAA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "CNAME": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "DMARC": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "MX": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "NS": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SOA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SRV": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "TXT": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    }
+  },
+  "registrar_info": {
+    "registrar": "Cloudflare, Inc.",
+    "source": "RDAP",
+    "status": "success"
+  },
+  "remediation": {
+    "all_fixes": [
+      {
+        "dns_record": "selector1._domainkey.yourdomain.com TXT \"v=DKIM1; k=rsa; p=<public_key>\"",
+        "fix": "DKIM (DomainKeys Identified Mail) adds a cryptographic signature to outgoing emails, proving they haven't been tampered with. Enable DKIM in your email provider's settings.",
+        "rfc": "RFC 6376 \u00a73.6",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc6376#section-3.6",
+        "severity_color": "danger",
+        "severity_label": "Critical",
+        "severity_order": 1,
+        "title": "Configure DKIM signing"
+      },
+      {
+        "dns_record": "_mta-sts.yourdomain.com TXT \"v=STSv1; id=20240101\"",
+        "fix": "Publish an MTA-STS DNS record and host a policy file at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt. This tells senders to require TLS when delivering mail to your domain.",
+        "rfc": "RFC 8461 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8461#section-3",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Deploy MTA-STS policy"
+      },
+      {
+        "dns_record": "_smtp._tls.yourdomain.com TXT \"v=TLSRPTv1; rua=mailto:tls-reports@yourdomain.com\"",
+        "fix": "TLS-RPT (TLS Reporting) sends you reports about TLS connection failures when other servers try to deliver mail to your domain. Helps diagnose MTA-STS and STARTTLS issues.",
+        "rfc": "RFC 8460 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8460#section-3",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure TLS-RPT reporting"
+      }
+    ],
+    "fix_count": 3,
+    "posture_achievable": "STRONG",
+    "top_fixes": [
+      {
+        "dns_record": "selector1._domainkey.yourdomain.com TXT \"v=DKIM1; k=rsa; p=<public_key>\"",
+        "fix": "DKIM (DomainKeys Identified Mail) adds a cryptographic signature to outgoing emails, proving they haven't been tampered with. Enable DKIM in your email provider's settings.",
+        "rfc": "RFC 6376 \u00a73.6",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc6376#section-3.6",
+        "severity_color": "danger",
+        "severity_label": "Critical",
+        "severity_order": 1,
+        "title": "Configure DKIM signing"
+      },
+      {
+        "dns_record": "_mta-sts.yourdomain.com TXT \"v=STSv1; id=20240101\"",
+        "fix": "Publish an MTA-STS DNS record and host a policy file at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt. This tells senders to require TLS when delivering mail to your domain.",
+        "rfc": "RFC 8461 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8461#section-3",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Deploy MTA-STS policy"
+      },
+      {
+        "dns_record": "_smtp._tls.yourdomain.com TXT \"v=TLSRPTv1; rua=mailto:tls-reports@yourdomain.com\"",
+        "fix": "TLS-RPT (TLS Reporting) sends you reports about TLS connection failures when other servers try to deliver mail to your domain. Helps diagnose MTA-STS and STARTTLS issues.",
+        "rfc": "RFC 8460 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8460#section-3",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure TLS-RPT reporting"
+      }
+    ]
+  },
+  "resolver_consensus": {
+    "checks_performed": 4,
+    "consensus_reached": true,
+    "discrepancies": null,
+    "per_record_consensus": {
+      "A": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "MX": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "NS": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "TXT": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      }
+    },
+    "resolvers_queried": 4
+  },
+  "resolver_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "CAA": 300,
+    "MX": 226,
+    "NS": 21600,
+    "SOA": 300,
+    "TXT": 300
+  },
+  "section_status": {
+    "auth": {
+      "status": "ok"
+    },
+    "basic": {
+      "status": "ok"
+    },
+    "bimi": {
+      "status": "ok"
+    },
+    "caa": {
+      "status": "ok"
+    },
+    "ct_subdomains": {
+      "status": "ok"
+    },
+    "dane": {
+      "status": "ok"
+    },
+    "dkim": {
+      "status": "ok"
+    },
+    "dmarc": {
+      "status": "ok"
+    },
+    "dnssec": {
+      "status": "ok"
+    },
+    "mta_sts": {
+      "status": "ok"
+    },
+    "ns_delegation": {
+      "status": "ok"
+    },
+    "registrar": {
+      "status": "ok"
+    },
+    "resolver_consensus": {
+      "status": "ok"
+    },
+    "spf": {
+      "status": "ok"
+    },
+    "tlsrpt": {
+      "status": "ok"
+    }
+  },
+  "smtp_transport": null,
+  "spf_analysis": {
+    "all_mechanism": "-all",
+    "includes": [
+      "_spf.google.com",
+      "spf1.mcsv.net",
+      "spf.mandrillapp.com",
+      "mail.zendesk.com",
+      "stspg-customer.com",
+      "_spf.salesforce.com"
+    ],
+    "issues": [
+      "RFC 7489 \u00a710.1: -all may cause rejection before DMARC evaluation, preventing DKIM from being checked"
+    ],
+    "lookup_count": 6,
+    "lookup_mechanisms": [
+      "include:_spf.google.com",
+      "include:spf1.mcsv.net",
+      "include:spf.mandrillapp.com",
+      "include:mail.zendesk.com",
+      "include:stspg-customer.com",
+      "include:_spf.salesforce.com"
+    ],
+    "message": "SPF valid with strict enforcement (-all), 6/10 lookups",
+    "no_mail_intent": false,
+    "permissiveness": "STRICT",
+    "records": [
+      "logmein-verification-code=b3433c86-3823-4808-8a7e-58042469f654",
+      "onetrust-domain-verification=bd5cd08a1e9644799fdb98ed7d60c9cb",
+      "cisco-ci-domain-verification=27e926884619804ef987ae4aa1c4168f6b152ada84f4c8bfc74eb2bd2912ad72",
+      "google-site-verification=ZdlQZLBBAPkxeFTCM1rpiB_ibtGff_JF5KllNKwDR9I",
+      "docker-verification=c578e21c-34fb-4474-9b90-d55ee4cba10c",
+      "stripe-verification=bf1a94e6b16ace2502a4a7fff574a25c8a45291054960c883c59be39d1788db9",
+      "atlassian-domain-verification=WxxKyN9aLnjEsoOjUYI6T0bb5vcqmKzaIkC9Rx2QkNb751G3LL/cus8/ZDOgh8xB",
+      "apple-domain-verification=DNnWJoArJobFJKhJ",
+      "creatopy-domain-verification=97d2ca50-9b6f-4a21-9bdb-fbb630e4cec7",
+      "uber-domain-verification=58086039-150a-42a4-a4be-b4032921aa0f",
+      "liveramp-site-verification=EhH1MqgwbndTWl1AN64hOTKz7hc1s80yUpchLbgpfY0",
+      "_wkjc0fot0d7qrvrdt78bxkj2e2o67d2",
+      "_saml-domain-challenge.2dc00405-79cd-457b-b288-a119c6f0c7b7.71996d53-d178-4ba9-bef4-7f7e46edab74.cloudflare.com=1c8736fd-84b2-4197-985f-3fb2852f2457",
+      "canva-site-verification=oOyaVnHC-OiFoR1BPvetNA",
+      "status-page-domain-verification=r14frwljwbxs",
+      "facebook-domain-verification=h9mm6zopj6p2po54woa16m5bskm6oo",
+      "v=spf1 ip4:199.15.212.0/22 ip4:173.245.48.0/20 include:_spf.google.com include:spf1.mcsv.net include:spf.mandrillapp.com include:mail.zendesk.com include:stspg-customer.com include:_spf.salesforce.com -all",
+      "asv=894f6d1f9f83bcf44e4b1bc40bc1c4aa",
+      "drift-domain-verification=f037808a26ae8b25bc13b1f1f2b4c3e0f78c03e67f24cefdd4ec520efa8e719f",
+      "ZOOM_verify_7LFBvOO9SIigypFG2xRlMA",
+      "_neqmkgaq1lq9it5s8qmetrhbnu121wb",
+      "google-site-verification=C7thfNeXVahkVhniiqTI1iSVnElKR_kBBtnEHkeGDlo",
+      "miro-verification=bdd7dfa0a49adfb43ad6ddfaf797633246c07356",
+      "stripe-verification=5096d01ff2cf194285dd51cae18f24fa9c26dc928cebac3636d462b4c6925623",
+      "MS=ms70274184"
+    ],
+    "spf_like": null,
+    "status": "success",
+    "valid_records": [
+      "v=spf1 ip4:199.15.212.0/22 ip4:173.245.48.0/20 include:_spf.google.com include:spf1.mcsv.net include:spf.mandrillapp.com include:mail.zendesk.com include:stspg-customer.com include:_spf.salesforce.com -all"
+    ]
+  },
+  "tlsrpt_analysis": {
+    "message": "No TLS-RPT record found",
+    "record": null,
+    "rua": null,
+    "status": "warning"
+  },
+  "_captured_at": "2026-02-10T07:00:00Z",
+  "_captured_version": "go-server",
+  "_domain": "cloudflare.com",
+  "_schema_version": 2,
+  "_tool_version": "go-server"
+}

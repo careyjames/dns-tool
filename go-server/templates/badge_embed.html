@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Security Badge - DNS Tool</title>
+    <meta name="description" content="Embed a DNS security posture badge for your domain. Show your security score on your website, README, or profile.">
+    <link rel="canonical" href="https://dnstool.it-help.tech/badge/embed">
+    <meta property="og:url" content="https://dnstool.it-help.tech/badge/embed">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Security Badge - DNS Tool">
+    <meta property="og:description" content="Embed a DNS security posture badge for your domain. Show your security score on your website, README, or profile.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Security Badge">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Security Badge - DNS Tool">
+    <meta name="twitter:description" content="Embed a DNS security posture badge for your domain.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .badge-style-btn { padding: .5rem 1rem; border-radius: 6px; border: 2px solid #30363d; background: transparent; color: #8b949e; font-size: .85rem; font-weight: 500; cursor: pointer; transition: all .15s; display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 100px; }
+        .badge-style-btn:hover { border-color: #484f58; color: #c9d1d9; }
+        .badge-style-btn.active-detailed { border-color: #b8a089; background: rgba(184,160,137,.1); color: #b8a089; box-shadow: 0 0 12px rgba(184,160,137,.15); }
+        .badge-style-btn.active-compact { border-color: #3fb950; background: rgba(63,185,80,.1); color: #3fb950; box-shadow: 0 0 12px rgba(63,185,80,.15); }
+        .badge-style-btn.active-covert { border-color: #f85149; background: rgba(248,81,73,.08); color: #f85149; box-shadow: 0 0 12px rgba(248,81,73,.12); }
+        .badge-style-btn .style-label { font-weight: 600; font-size: .9rem; }
+        .badge-style-btn .style-desc { font-size: .7rem; opacity: .7; }
+        .badge-preview-area { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 1rem; min-height: 80px; display: flex; align-items: center; justify-content: center; }
+        .badge-preview-area > a { display: block; max-width: 720px; width: 100%; }
+        .badge-preview-area svg, .badge-preview-area img { display: block; width: 100%; height: auto; }
+        #badgePreviewCard { scroll-margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        {{template "flash_messages" .}}
+
+        <h1 class="h3 mb-1">{{icon "shield-halved" "me-2 text-brand-cobalt"}}Security Badge</h1>
+        <p class="text-muted mb-4">Generate a live security posture badge for any scanned domain. Embed it in your GitHub README, documentation, blog, or website.</p>
+
+        <div class="card mb-4 d-none" id="badgePreviewCard">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{icon "eye" "me-2"}}Live Preview</h5>
+                <span class="badge bg-secondary small" id="badgeStyleLabel">detailed</span>
+            </div>
+            <div class="card-body p-0">
+                <div class="badge-preview-area" id="badgePreview"></div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{icon "search" "me-2"}}Generate Badge</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="badgeInput" class="form-label small fw-semibold">Domain or Scan Number</label>
+                            <input type="text" class="form-control" id="badgeInput" placeholder="example.com or 1234" autocomplete="off" autocapitalize="none" spellcheck="false">
+                            <div class="form-text">Enter a domain name or a scan number from any report URL.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="form-label small fw-semibold d-block mb-2">Style</span>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button type="button" class="badge-style-btn active-detailed" id="btnStyleDetailed" data-style="detailed">
+                                    <span class="style-label">{{icon "chart-bar" "me-1"}}Detailed</span>
+                                    <span class="style-desc">Full assessment card</span>
+                                </button>
+                                <button type="button" class="badge-style-btn" id="btnStyleFlat" data-style="flat">
+                                    <span class="style-label">{{icon "tag" "me-1"}}Compact</span>
+                                    <span class="style-desc">Inline badge</span>
+                                </button>
+                                <button type="button" class="badge-style-btn" id="btnStyleCovert" data-style="covert">
+                                    <span class="style-label">{{icon "user-secret" "me-1"}}Covert</span>
+                                    <span class="style-desc">Terminal aesthetic</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary w-100" id="btnGenerateBadge">
+                            {{icon "bolt" "me-1"}}Generate Badge
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card border-secondary">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{icon "question-circle" "me-2"}}Where to Find Your Scan Number</h5>
+                    </div>
+                    <div class="card-body small text-muted">
+                        <p class="mb-2">After running a scan, look at the URL in your browser address bar:</p>
+                        <div class="bg-dark rounded p-2 mb-2 font-monospace small u-border-subtle">
+                            dnstool.it-help.tech/analyze?domain=example.com&amp;id=<strong class="text-info">1234</strong>
+                        </div>
+                        <p class="mb-2">The number after <code>id=</code> is your scan number. Using a scan number pins the badge to that specific scan result.</p>
+                        <p class="mb-0">Using a <strong>domain name</strong> always shows the most recent public scan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="card mb-4 d-none" id="badgeEmbedCard">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{icon "code" "me-2"}}Embed Code</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="embedMarkdown" class="form-label small fw-semibold font-monospace">Markdown (GitHub, GitLab, docs)</label>
+                            <div class="input-group">
+                                <textarea class="form-control font-monospace small" id="embedMarkdown" rows="2" readonly></textarea>
+                                <button type="button" class="btn btn-outline-secondary" id="copyMarkdown" title="Copy Markdown">{{icon "copy"}}</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="embedHTML" class="form-label small fw-semibold font-monospace">HTML (website, blog)</label>
+                            <div class="input-group">
+                                <textarea class="form-control font-monospace small" id="embedHTML" rows="3" readonly></textarea>
+                                <button type="button" class="btn btn-outline-secondary" id="copyHTML" title="Copy HTML">{{icon "copy"}}</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="embedURL" class="form-label small fw-semibold font-monospace">Direct Image URL</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace small" id="embedURL" readonly>
+                                <button type="button" class="btn btn-outline-secondary" id="copyURL" title="Copy URL">{{icon "copy"}}</button>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <label for="embedCurl" class="form-label small fw-semibold font-monospace">curl</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace small" id="embedCurl" readonly>
+                                <button type="button" class="btn btn-outline-secondary" id="copyCurl" title="Copy curl">{{icon "copy"}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 d-none" id="badgeAnimatedCard">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{icon "image" "me-2"}}Animated Badge</h5>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-info active" id="btnFormatAPNG" data-format="apng">APNG</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnFormatGIF" data-format="gif">GIF</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small mb-2" id="formatDescription">Full-color animated PNG. Crystal clear, lossless quality. Supported by all modern browsers, Apple Mail, Notion, and most platforms.</p>
+                        <p class="text-muted small mb-3 d-none" id="formatDescriptionGIF">256-color animated GIF. Universal compatibility for legacy platforms. Use APNG for full quality.</p>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <a class="btn btn-outline-info btn-sm d-none" id="btnDownloadAnimated" download>
+                                {{icon "download" "me-1"}}Download Animated Badge
+                            </a>
+                            <span class="badge bg-dark text-muted align-self-center d-none" id="animSizeLabel"></span>
+                        </div>
+                        <div class="badge-preview-area d-none u-max-h-500" id="animatedPreview">
+                            <img id="animatedPreviewImg" alt="Animated DNS Topology Badge" class="u-badge-preview-img">
+                        </div>
+                        <p class="text-muted small mt-3 mb-0 u-caption-muted">
+                            This badge visualizes publicly available DNS records, certificate transparency logs, and protocol configurations &mdash;
+                            the same data queryable via <code>dig</code>, <code>nslookup</code>, or any CT log search.
+                            Domains missing SPF, DKIM, DMARC, or DNSSEC records are verifiably exposed to spoofing, impersonation, and interception.
+                            That is not an opinion. It is what the protocol specifications require and what the absence of those records permits.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card mb-4 d-none" id="badgeShieldsCard">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{icon "shield-halved" "me-2"}}GitHub &amp; Shields.io</h5>
+                    </div>
+                    <div class="card-body small">
+                        <p class="text-muted mb-2">Use the <strong>Shields.io endpoint</strong> for dynamic badges rendered by Shields.io. These always produce their standard compact format.</p>
+                        <div class="mb-3">
+                            <label for="embedShieldsURL" class="form-label small fw-semibold font-monospace">Shields.io Endpoint URL</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace small" id="embedShieldsURL" readonly placeholder="Generate a badge first">
+                                <button type="button" class="btn btn-outline-secondary" id="copyShieldsURL" title="Copy Shields.io URL">{{icon "copy"}}</button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="embedShieldsMarkdown" class="form-label small fw-semibold font-monospace">Shields.io Markdown</label>
+                            <div class="input-group">
+                                <textarea class="form-control font-monospace small" id="embedShieldsMarkdown" rows="2" readonly placeholder="Generate a badge first"></textarea>
+                                <button type="button" class="btn btn-outline-secondary" id="copyShieldsMarkdown" title="Copy Shields.io Markdown">{{icon "copy"}}</button>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">{{icon "lock" "me-1"}}Private scans are excluded. Only public domain posture data is exposed. Badge data cached for 1 hour.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Where Each Badge Works</h5>
+                    </div>
+                    <div class="card-body small text-muted">
+                        <div class="mb-3">
+                            <strong class="text-info">Detailed</strong> &mdash; Topology-style assessment card with score gauge, protocol nodes (SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS, TLS-RPT, BIMI, CAA), risk level, and scan date. Works in GitHub README (<code>![](url)</code>), any website, documentation, wikis. Our server renders the SVG &mdash; full control over the design.
+                        </div>
+                        <div class="mb-3">
+                            <strong class="text-success">Compact</strong> &mdash; Shields-style inline badge showing your domain and risk level. Works everywhere including Shields.io integration. For CI dashboards, inline references, and anywhere you need a quick visual indicator.
+                        </div>
+                        <div class="mb-3">
+                            <strong class="text-danger">Covert</strong> &mdash; Terminal-aesthetic card. For security researchers, red-team documentation, and anyone who likes their indicators dark.
+                        </div>
+                        <div class="alert alert-secondary bg-transparent border-secondary mb-0 py-2">
+                            {{icon "github" "me-1"}}<strong>GitHub compatibility:</strong> All three styles work in GitHub README files. Use the <strong>Direct Image URL</strong> in Markdown. Shields.io always renders its own compact format regardless of which style you select here.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{template "footer" .}}
+    </main>
+
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    let _svgCheck = '{{icon "check"}}';
+    let _svgCopy = '{{icon "copy"}}';
+    function onCopyFieldSuccess(btnId) {
+        const btn = document.getElementById(btnId);
+        const iconEl = btn.querySelector('.icon');
+        if (iconEl) { iconEl.outerHTML = _svgCheck; }
+        setTimeout(function() {
+            const el = btn.querySelector('.icon');
+            if (el) { el.outerHTML = _svgCopy; }
+        }, 1500);
+    }
+
+    function handleCopyFieldClick(btnId, fieldId) {
+        const el = document.getElementById(fieldId);
+        navigator.clipboard.writeText(el.value).then(function() {
+            onCopyFieldSuccess(btnId);
+        });
+    }
+
+    function copyField(btnId, fieldId) {
+        document.getElementById(btnId).addEventListener('click', function() {
+            handleCopyFieldClick(btnId, fieldId);
+        });
+    }
+
+    (function() {
+        const baseURL = '{{.BaseURL}}';
+        const input = document.getElementById('badgeInput');
+        let style = 'detailed';
+        const previewCard = document.getElementById('badgePreviewCard');
+        const embedCard = document.getElementById('badgeEmbedCard');
+        const shieldsCard = document.getElementById('badgeShieldsCard');
+        const preview = document.getElementById('badgePreview');
+        const styleLabel = document.getElementById('badgeStyleLabel');
+        const styleButtons = document.querySelectorAll('.badge-style-btn');
+
+        let styleClasses = {detailed: 'active-detailed', flat: 'active-compact', covert: 'active-covert'};
+
+        styleButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                styleButtons.forEach(function(b) {
+                    b.classList.remove('active-detailed', 'active-compact', 'active-covert');
+                });
+                style = this.dataset.style;
+                this.classList.add(styleClasses[style]);
+            });
+        });
+
+        let animatedCard = document.getElementById('badgeAnimatedCard');
+        let btnDownloadAnim = document.getElementById('btnDownloadAnimated');
+        let animSizeLabel = document.getElementById('animSizeLabel');
+        let animatedPreview = document.getElementById('animatedPreview');
+        let animatedImg = document.getElementById('animatedPreviewImg');
+        let btnAPNG = document.getElementById('btnFormatAPNG');
+        let btnGIFfmt = document.getElementById('btnFormatGIF');
+        let fmtDescAPNG = document.getElementById('formatDescription');
+        let fmtDescGIF = document.getElementById('formatDescriptionGIF');
+        let animState = { param: '', style: '', val: '' };
+
+        function loadAnimatedBadge(fmt) {
+            let ext = fmt === 'gif' ? 'gif' : 'png';
+            let animURL = baseURL + '/badge/animated?' + animState.param + '&style=' + animState.style + '&format=' + fmt;
+            btnDownloadAnim.href = animURL;
+            btnDownloadAnim.download = animState.val.replaceAll(/[^a-zA-Z0-9.-]/g, '_') + '-dns-topology.' + ext;
+            btnDownloadAnim.classList.remove('d-none');
+            animSizeLabel.textContent = 'rendering\u2026';
+            animSizeLabel.classList.remove('d-none');
+            animatedPreview.classList.add('d-none');
+            animatedImg.src = '';
+
+            if (fmt === 'apng') {
+                btnAPNG.classList.remove('btn-outline-secondary');
+                btnAPNG.classList.add('btn-outline-info', 'active');
+                btnGIFfmt.classList.remove('btn-outline-info', 'active');
+                btnGIFfmt.classList.add('btn-outline-secondary');
+                fmtDescAPNG.classList.remove('d-none');
+                fmtDescGIF.classList.add('d-none');
+            } else {
+                btnGIFfmt.classList.remove('btn-outline-secondary');
+                btnGIFfmt.classList.add('btn-outline-info', 'active');
+                btnAPNG.classList.remove('btn-outline-info', 'active');
+                btnAPNG.classList.add('btn-outline-secondary');
+                fmtDescGIF.classList.remove('d-none');
+                fmtDescAPNG.classList.add('d-none');
+            }
+
+            fetch(animURL).then(function(r) {
+                if (!r.ok) throw new Error('render failed');
+                let size = r.headers.get('content-length');
+                return r.blob().then(function(b) { return {blob: b, size: size || b.size}; });
+            }).then(function(res) {
+                let kb = Math.round(Number.parseInt(res.size, 10) / 1024);
+                animSizeLabel.textContent = kb + ' KB';
+                animatedImg.src = URL.createObjectURL(res.blob);
+                animatedPreview.classList.remove('d-none');
+            }).catch(function() {
+                animSizeLabel.textContent = 'generation failed';
+            });
+        }
+
+        btnAPNG.addEventListener('click', function() { loadAnimatedBadge('apng'); });
+        btnGIFfmt.addEventListener('click', function() { loadAnimatedBadge('gif'); });
+
+        function isNumeric(val) {
+            return /^\d+$/.test(val);
+        }
+
+        document.getElementById('btnGenerateBadge').addEventListener('click', function() {
+            let val = input.value.trim();
+            if (!val) return;
+
+            let param;
+            let reportURL;
+            if (isNumeric(val)) {
+                param = 'id=' + encodeURIComponent(val);
+                reportURL = baseURL + '/analyze?id=' + encodeURIComponent(val);
+            } else {
+                param = 'domain=' + encodeURIComponent(val);
+                reportURL = baseURL + '/analyze?domain=' + encodeURIComponent(val);
+            }
+
+            let badgeURL = baseURL + '/badge?' + param + (style === 'flat' ? '' : '&style=' + style) + '&t=' + Date.now();
+
+            if (style === 'detailed' || style === 'covert') {
+                animatedCard.classList.remove('d-none');
+                animState.param = param;
+                animState.style = style;
+                animState.val = val;
+                loadAnimatedBadge('apng');
+            } else {
+                animatedCard.classList.add('d-none');
+            }
+
+            fetch(badgeURL).then(function(r) {
+                if (!r.ok) { throw new Error('fetch failed'); }
+                return r.text();
+            }).then(function(svgText) {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(svgText, 'image/svg+xml');
+                let svgEl = doc.querySelector('svg');
+                if (!svgEl || doc.querySelector('parsererror')) throw new Error('invalid svg');
+                svgEl.querySelectorAll('script,foreignObject').forEach(function(el) { el.remove(); });
+                svgEl.removeAttribute('width');
+                svgEl.removeAttribute('height');
+                svgEl.classList.add('u-badge-preview-img');
+                if (!svgEl.getAttribute('preserveAspectRatio')) svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                let link = document.createElement('a');
+                link.href = reportURL;
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.classList.add('d-block');
+                link.appendChild(svgEl);
+                preview.textContent = '';
+                preview.appendChild(link);
+            }).catch(function() {
+                preview.innerHTML = '<a href="' + reportURL + '" target="_blank" rel="noopener" class="d-block"><img src="' + badgeURL + '" alt="DNS Tool Security Badge" class="u-badge-preview-img"></a>';
+            });
+            previewCard.classList.remove('d-none');
+            embedCard.classList.remove('d-none');
+            shieldsCard.classList.remove('d-none');
+            styleLabel.textContent = style === 'flat' ? 'compact' : style;
+
+            setTimeout(function() {
+                previewCard.scrollIntoView({behavior: 'smooth', block: 'start'});
+            }, 100);
+
+            document.getElementById('embedMarkdown').value = '[![DNS Tool Security](' + badgeURL + ')](' + reportURL + ')';
+            document.getElementById('embedHTML').value = '<a href="' + reportURL + '"><img src="' + badgeURL + '" alt="DNS Tool Security Badge"></a>';
+            document.getElementById('embedURL').value = badgeURL;
+            document.getElementById('embedCurl').value = "curl -s '" + badgeURL + "' > dns-badge.svg";
+
+            let shieldsParam = isNumeric(val) ? 'id=' : 'domain=';
+            let shieldsEndpoint = baseURL + '/badge/shields?' + shieldsParam + encodeURIComponent(val);
+            let shieldsURL = 'https://img.shields.io/endpoint?url=' + encodeURIComponent(shieldsEndpoint);
+            document.getElementById('embedShieldsURL').value = shieldsURL;
+            document.getElementById('embedShieldsMarkdown').value = '[![DNS Tool Security](' + shieldsURL + ')](' + reportURL + ')';
+        });
+
+        copyField('copyHTML', 'embedHTML');
+        copyField('copyMarkdown', 'embedMarkdown');
+        copyField('copyURL', 'embedURL');
+        copyField('copyCurl', 'embedCurl');
+        copyField('copyShieldsURL', 'embedShieldsURL');
+        copyField('copyShieldsMarkdown', 'embedShieldsMarkdown');
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('btnGenerateBadge').click();
+        });
+
+        let params = new URLSearchParams(globalThis.location.search);
+        if (params.get('domain')) {
+            input.value = params.get('domain');
+            document.getElementById('btnGenerateBadge').click();
+        } else if (params.get('id')) {
+            input.value = params.get('id');
+            document.getElementById('btnGenerateBadge').click();
+        }
+    })();
+    </script>
+</body>
+</html>

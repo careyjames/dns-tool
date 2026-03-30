@@ -1,0 +1,12 @@
+{
+  "captured_at": "2026-02-10T07:00:00Z",
+  "tool_version": "go-server",
+  "domains": [
+    "google.com",
+    "example.com",
+    "thisdoesnotexist-xz9q.com",
+    "whitehouse.gov",
+    "cloudflare.com"
+  ],
+  "total": 5
+}

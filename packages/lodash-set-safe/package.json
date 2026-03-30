@@ -1,0 +1,7 @@
+{
+  "name": "lodash.set",
+  "version": "4.3.3",
+  "description": "Safe drop-in replacement for lodash.set with prototype pollution protection",
+  "main": "index.js",
+  "license": "MIT"
+}

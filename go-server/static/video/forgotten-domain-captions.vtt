@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+A domain registered for ten years with no published mail policy.
+
+00:00:04.000 --> 00:00:08.000
+No SPF. No DMARC. No Null MX record.
+
+00:00:08.000 --> 00:00:12.000
+Without these controls, any domain becomes a free spoofing vector.
+
+00:00:12.000 --> 00:00:16.000
+Reputation systems do not distinguish between negligence and compromise.
+
+00:00:16.000 --> 00:00:20.000
+They only see the absence of published policy.
+
+00:00:20.000 --> 00:00:24.000
+This domain was exposed for a decade — without anyone noticing.

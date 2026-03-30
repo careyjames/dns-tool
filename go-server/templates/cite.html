@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+{{htmlComment " You found one. There are more. View source is a valid attack vector against boredom. "}}
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Cite This Research — DOI &amp; ORCID — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Citation information, DOI, ORCID, and machine-readable research metadata for DNS Tool. Published research software for RFC-compliant domain security analysis.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/cite">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cite This Research — DOI &amp; ORCID — DNS Tool">
+    <meta property="og:description" content="Citation information, DOI, ORCID, and machine-readable research metadata for DNS Tool.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Cite This Research">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/cite">
+    <meta name="twitter:title" content="Cite This Research — DOI &amp; ORCID — DNS Tool">
+    <meta name="twitter:description" content="Citation information, DOI, ORCID, and machine-readable research metadata for DNS Tool.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/cite">
+    <meta property="article:published_time" content="2025-01-15">
+    <meta property="article:modified_time" content="2026-03-20">
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "{{.Title}}",
+        "version": "{{.Version}}",
+        "description": "RFC-compliant domain security analysis platform providing multi-resolver DNS intelligence, email authentication auditing, and CVSS-aligned risk scoring across 9 protocol families.",
+        "url": "https://dnstool.it-help.tech",
+        "codeRepository": "https://dnstool.it-help.tech",
+        "programmingLanguage": ["Go", "JavaScript"],
+        "runtimePlatform": "Web",
+        "license": "https://dnstool.it-help.tech/roe",
+        "datePublished": "2025-01-15",
+        "dateModified": "{{.Date}}",
+        "author": {
+            "@type": "Person",
+            "name": "{{.AuthorGiven}} {{.AuthorFamily}}",
+            "sameAs": "https://orcid.org/{{.ORCID}}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech"
+        },
+        "identifier": [
+            {
+                "@type": "PropertyValue",
+                "propertyID": "DOI",
+                "value": "{{.DOI}}"
+            },
+            {
+                "@type": "PropertyValue",
+                "propertyID": "Concept DOI",
+                "value": "10.5281/zenodo.18854899"
+            },
+            {
+                "@type": "PropertyValue",
+                "propertyID": "ORCID",
+                "value": "{{.ORCID}}"
+            }
+        ]
+    }
+    </script>
+    <style nonce="{{.CspNonce}}">
+        .cite-page { max-width: 860px; }
+        .cite-card {
+            background: var(--bs-dark-bg-subtle, #1a1d21);
+            border: 1px solid var(--bs-border-color, #373b3e);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .cite-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--bs-emphasis-color);
+            margin-bottom: 0.75rem;
+        }
+        .cite-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--bs-secondary-color, #6c757d);
+        }
+        .cite-value {
+            font-size: 0.9rem;
+            color: var(--bs-body-color);
+            word-break: break-all;
+        }
+        .cite-block {
+            background: var(--bs-body-bg, #0d1117);
+            border: 1px solid var(--bs-border-color, #373b3e);
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            font-family: var(--bs-font-monospace);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: var(--bs-body-color);
+            white-space: pre-wrap;
+            word-break: break-word;
+            position: relative;
+        }
+        .cite-block .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+        }
+        .doc-link {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--bs-border-color, #373b3e);
+        }
+        .doc-link:last-child { border-bottom: none; }
+        .doc-link .doc-type {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--bs-primary-bg-subtle, #1a2744);
+            color: var(--bs-primary-text-emphasis, #6ea8fe);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+        .endpoint-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            padding: 0.4rem 0;
+            font-family: var(--bs-font-monospace);
+            font-size: 0.82rem;
+        }
+        .endpoint-row .method {
+            font-weight: 700;
+            color: var(--bs-success-text-emphasis, #75b798);
+            min-width: 2.5rem;
+        }
+        .gold-accent { color: #C8A878; }
+        .orcid-icon {
+            width: 16px; height: 16px; vertical-align: -2px;
+        }
+        .stat-box {
+            border: 1px solid var(--bs-border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--bs-emphasis-color);
+        }
+        .stat-desc {
+            font-size: 0.75rem;
+        }
+        .stat-detail {
+            font-size: 0.7rem;
+            margin-top: 0.25rem;
+        }
+        .doc-desc {
+            font-size: 0.82rem;
+        }
+        .maturity-note {
+            font-size: 0.75rem;
+        }
+        .endpoint-desc {
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body class="bg-dark text-light">
+    {{template "nav" .}}
+
+    <main id="main-content" class="container py-4 cite-page">
+        <div class="mb-4">
+            <h1 class="h3 fw-bold mb-1">Cite This Research</h1>
+            <p class="text-secondary mb-0">Published research software for RFC-compliant domain security analysis</p>
+        </div>
+
+        <div class="cite-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Recommended Citation</h3>
+            <div class="cite-block" id="citation-text">Balboa, C. J. ({{.Year}}). {{.Title}} (Version {{.Version}}) [Computer software]. https://doi.org/{{.DOI}}<button class="copy-btn btn btn-outline-secondary" id="copy-cite-btn" aria-label="Copy citation">Copy</button></div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <div class="cite-card h-100">
+                    <h3>Identifiers</h3>
+                    <div class="mb-2">
+                        <span class="cite-label">Concept DOI</span><br>
+                        <span class="cite-value"><a href="https://doi.org/10.5281/zenodo.18854899" class="gold-accent" target="_blank" rel="noopener">10.5281/zenodo.18854899</a></span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="cite-label">Latest DOI</span><br>
+                        <span class="cite-value"><a href="https://doi.org/{{.DOI}}" class="gold-accent" target="_blank" rel="noopener">{{.DOI}}</a></span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="cite-label">ORCID</span><br>
+                        <span class="cite-value">
+                            <a href="https://orcid.org/{{.ORCID}}" target="_blank" rel="noopener" class="gold-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" class="orcid-icon me-1" aria-hidden="true"><path fill="#a6ce39" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128z"/><path fill="#fff" d="M86.3 186.2H70.9V79.1h15.4v107.1zm22.6 0h41.4c39.9 0 57.6-28.8 57.6-53.9 0-25.3-17.5-53.2-57.6-53.2h-41.4v107.1zm15.4-93.2h24.5c34.3 0 43.7 22.4 43.7 39.7 0 19.4-11.8 39.6-43.7 39.6h-24.5V93zm-37.4-23.5c5.7 0 10.3-4.6 10.3-10.3S92.6 49 86.9 49s-10.3 4.6-10.3 10.3 4.6 10.2 10.3 10.2z"/></svg>
+                                {{.ORCID}}
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="cite-card h-100">
+                    <h3>Software Metadata</h3>
+                    <div class="mb-2">
+                        <span class="cite-label">Version</span><br>
+                        <span class="cite-value">{{.Version}}</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="cite-label">Author</span><br>
+                        <span class="cite-value">{{.AuthorGiven}} {{.AuthorFamily}}</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="cite-label">Date</span><br>
+                        <span class="cite-value">{{.Date}}</span>
+                    </div>
+                    <div>
+                        <span class="cite-label">License</span><br>
+                        <span class="cite-value">BUSL-1.1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cite-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Confidence Engines</h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="stat-box">
+                        <div class="cite-label mb-1">ICAE</div>
+                        <div class="stat-number">{{.ICAETotal}}</div>
+                        <div class="text-secondary stat-desc">deterministic test cases</div>
+                        <div class="text-secondary stat-detail">{{.ICAEAnalysis}} analysis · {{.ICAECollection}} collection</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-box">
+                        <div class="cite-label mb-1">ICuAE</div>
+                        <div class="stat-number">{{.ICuAETotal}}</div>
+                        <div class="text-secondary stat-desc">currency assurance tests</div>
+                        <div class="text-secondary stat-detail">{{.ICuAEDimensions}} timeliness dimensions</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-box">
+                        <div class="cite-label mb-1">Authorities</div>
+                        <div class="stat-number">{{.AuthoritiesTotal}}</div>
+                        <div class="text-secondary stat-desc">RFC/standards citations</div>
+                        <div class="text-secondary stat-detail">{{.ICAEProtocols}} protocols covered</div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-secondary mt-2 maturity-note">Five-tier maturity model: Development → Verified → Consistent → Gold → Gold Master</div>
+        </div>
+
+        <div class="cite-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Research Documents</h3>
+            <div class="doc-link">
+                <span class="doc-type">Methodology</span>
+                <div>
+                    <a href="/methodology" class="text-decoration-none fw-semibold">DNS Tool: Confidence-Scored Analysis of Domain Security Infrastructure</a>
+                    <div class="text-secondary doc-desc">Primary methodology — ICAE/ICuAE confidence framework, multi-resolver consensus, RFC-grounded analysis engines.</div>
+                </div>
+            </div>
+            <div class="doc-link">
+                <span class="doc-type">Companion</span>
+                <div>
+                    <a href="/foundations" class="text-decoration-none fw-semibold">Philosophical Foundations for Security Analysis Communication</a>
+                    <div class="text-secondary doc-desc">Aristotelian rhetoric, Socratic verification, scotopic interface design, and narrative architecture.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cite-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>Export Formats</h3>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="/cite/software?format=bibtex" class="btn btn-outline-secondary btn-sm">BibTeX</a>
+                <a href="/cite/software?format=ris" class="btn btn-outline-secondary btn-sm">RIS</a>
+                <a href="/cite/software?format=csljson" class="btn btn-outline-secondary btn-sm">CSL-JSON</a>
+            </div>
+        </div>
+
+        <div class="cite-card">
+            <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Machine-Readable API</h3>
+            <div class="endpoint-row">
+                <span class="method">GET</span>
+                <code><a href="/api/research" class="text-decoration-none">/api/research</a></code>
+                <span class="text-secondary endpoint-desc">— JSON research metadata, DOIs, documents</span>
+            </div>
+            <div class="endpoint-row">
+                <span class="method">GET</span>
+                <code><a href="/api/authorities" class="text-decoration-none">/api/authorities</a></code>
+                <span class="text-secondary endpoint-desc">— RFC/standards citation registry</span>
+            </div>
+            <div class="mt-3">
+                <span class="cite-label">Terminal</span>
+                <div class="cite-block mt-1">curl -s https://dnstool.it-help.tech/api/research | jq .</div>
+            </div>
+        </div>
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    document.getElementById('copy-cite-btn').addEventListener('click',(ev)=>{const e=document.getElementById('citation-text');let t=e.textContent.trim();const btn=ev.currentTarget;if(t.endsWith('Copy')){t=t.slice(0,-4).trim();}navigator.clipboard.writeText(t).then(()=>{btn.textContent='Copied';setTimeout(()=>{btn.textContent='Copy'},2000)});});
+    </script>
+</body>
+</html>

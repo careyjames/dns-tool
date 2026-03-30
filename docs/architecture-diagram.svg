@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1050" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#00e5ff"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff4444"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4caf50"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="1050" fill="#0a0f1a" rx="8"/>
+
+  <!-- Title -->
+  <text x="700" y="38" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="bold">DNS Tool Intelligence Architecture — CONFIDENTIAL</text>
+  <text x="700" y="58" text-anchor="middle" fill="#ff6666" font-size="12" font-weight="bold">TLP:RED — DO NOT DISTRIBUTE OUTSIDE dnstool-intel</text>
+
+  <!-- ==================== ZONE 1: PUBLIC REPO ==================== -->
+  <rect x="20" y="72" width="520" height="580" rx="10" fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="280" y="93" text-anchor="middle" fill="#4caf50" font-size="13" font-weight="bold">PUBLIC REPO — IT-Help-San-Diego/dns-tool</text>
+
+  <!-- Go Web Server -->
+  <rect x="35" y="105" width="230" height="160" rx="8" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="128" text-anchor="middle" fill="#4caf50" font-size="14" font-weight="bold">Go Web Server (Gin)</text>
+  <text x="50" y="150" fill="#b0ccb0" font-size="11">• Routes &amp; Handlers</text>
+  <text x="50" y="167" fill="#b0ccb0" font-size="11">• HTML Templates</text>
+  <text x="50" y="184" fill="#b0ccb0" font-size="11">• CSRF Middleware</text>
+  <text x="50" y="201" fill="#b0ccb0" font-size="11">• Rate Limiting</text>
+  <text x="50" y="218" fill="#b0ccb0" font-size="11">• SSRF Hardening</text>
+  <text x="50" y="235" fill="#b0ccb0" font-size="11">• CSP Nonce (Obs 130+)</text>
+  <text x="50" y="252" fill="#b0ccb0" font-size="11">• Telemetry</text>
+
+  <!-- DNS Client -->
+  <rect x="35" y="280" width="230" height="120" rx="8" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="303" text-anchor="middle" fill="#4caf50" font-size="14" font-weight="bold">DNS Client</text>
+  <text x="50" y="325" fill="#b0ccb0" font-size="11">• miekg/dns library</text>
+  <text x="50" y="342" fill="#b0ccb0" font-size="11">• Multi-resolver (4 providers)</text>
+  <text x="50" y="359" fill="#b0ccb0" font-size="11">• TTL=0 (no cross-req cache)</text>
+  <text x="50" y="376" fill="#b0ccb0" font-size="11">• DoH fallback</text>
+  <text x="50" y="393" fill="#b0ccb0" font-size="11">• Concurrent orchestrator</text>
+
+  <!-- Frontend -->
+  <rect x="35" y="415" width="230" height="105" rx="8" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="438" text-anchor="middle" fill="#4caf50" font-size="14" font-weight="bold">Frontend</text>
+  <text x="50" y="458" fill="#b0ccb0" font-size="11">• Bootstrap Dark Theme</text>
+  <text x="50" y="475" fill="#b0ccb0" font-size="11">• PWA / Accessibility</text>
+  <text x="50" y="492" fill="#b0ccb0" font-size="11">• Print/PDF (TLP:CLEAR)</text>
+  <text x="50" y="509" fill="#b0ccb0" font-size="11">• Email Header Analyzer</text>
+
+  <!-- SMTP Probe -->
+  <rect x="35" y="535" width="230" height="55" rx="8" fill="#1a2a1a" stroke="#4caf50" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="558" text-anchor="middle" fill="#4caf50" font-size="14" font-weight="bold">SMTP Probes</text>
+  <text x="50" y="578" fill="#b0ccb0" font-size="11">• Port 25 TLS validation (live)</text>
+
+  <!-- Golden Rules -->
+  <rect x="35" y="605" width="230" height="38" rx="8" fill="#1a2a1a" stroke="#ffeb3b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="150" y="630" text-anchor="middle" fill="#ffeb3b" font-size="12" font-weight="bold">Golden Rules Tests (20+)</text>
+
+  <!-- ==================== 13 STUB FILES (center) ==================== -->
+  <rect x="280" y="105" width="248" height="540" rx="8" fill="#2a1a00" stroke="#ff9800" stroke-width="2" filter="url(#shadow)"/>
+  <text x="404" y="128" text-anchor="middle" fill="#ff9800" font-size="14" font-weight="bold">13 Stub Files</text>
+  <text x="404" y="145" text-anchor="middle" fill="#ffcc80" font-size="10">(public repo — empty implementations)</text>
+
+  <text x="295" y="168" fill="#ffcc80" font-size="11" font-weight="bold">Core Stubs:</text>
+  <text x="295" y="185" fill="#ffe0b0" font-size="10.5"> 1. providers.go</text>
+  <text x="295" y="200" fill="#ffe0b0" font-size="10.5"> 2. infrastructure.go</text>
+  <text x="295" y="215" fill="#ffe0b0" font-size="10.5"> 3. commands.go</text>
+  <text x="295" y="230" fill="#ffe0b0" font-size="10.5"> 4. confidence.go ✓</text>
+  <text x="295" y="245" fill="#ffe0b0" font-size="10.5"> 5. dkim_state.go ✓</text>
+  <text x="295" y="260" fill="#ffe0b0" font-size="10.5"> 6. edge_cdn.go</text>
+  <text x="295" y="275" fill="#ffe0b0" font-size="10.5"> 7. ip_investigation.go</text>
+  <text x="295" y="290" fill="#ffe0b0" font-size="10.5"> 8. manifest.go</text>
+  <text x="295" y="305" fill="#ffe0b0" font-size="10.5"> 9. saas_txt.go</text>
+
+  <text x="295" y="328" fill="#ffcc80" font-size="11" font-weight="bold">AI Surface Stubs:</text>
+  <text x="295" y="345" fill="#ffe0b0" font-size="10.5">10. ai_surface/http.go</text>
+  <text x="295" y="360" fill="#ffe0b0" font-size="10.5">11. ai_surface/llms_txt.go</text>
+  <text x="295" y="375" fill="#ffe0b0" font-size="10.5">12. ai_surface/poisoning.go</text>
+  <text x="295" y="390" fill="#ffe0b0" font-size="10.5">13. ai_surface/robots_txt.go</text>
+
+  <text x="295" y="418" fill="#ffcc80" font-size="11" font-weight="bold">Boundary Functions:</text>
+  <rect x="290" y="425" width="228" height="65" rx="5" fill="#3a2a00" stroke="#ffeb3b" stroke-width="1"/>
+  <text x="404" y="443" text-anchor="middle" fill="#ffeb3b" font-size="10.5">isHostedEmailProvider() → false</text>
+  <text x="404" y="460" text-anchor="middle" fill="#ffeb3b" font-size="10.5">isBIMICapableProvider() → true</text>
+  <text x="404" y="477" text-anchor="middle" fill="#ff4444" font-size="10.5" font-weight="bold">isKnownDKIMProvider() → false ★NEW</text>
+
+  <text x="295" y="505" fill="#ffcc80" font-size="11" font-weight="bold">Stub Behavior:</text>
+  <text x="295" y="522" fill="#ffe0b0" font-size="10">• Empty maps {} returned</text>
+  <text x="295" y="537" fill="#ffe0b0" font-size="10">• Functions return false/nil/empty</text>
+  <text x="295" y="552" fill="#ffe0b0" font-size="10">• ✓ = self-contained (no override)</text>
+  <text x="295" y="567" fill="#ffe0b0" font-size="10">• ★ = needs private repo push</text>
+
+  <text x="404" y="595" text-anchor="middle" fill="#ff9800" font-size="10">Build tag: replaced at compile time</text>
+  <text x="404" y="610" text-anchor="middle" fill="#ff9800" font-size="10">by dnstool-intel real implementations</text>
+  <text x="404" y="625" text-anchor="middle" fill="#ff9800" font-size="10">Registry enforced by golden rules test</text>
+
+  <!-- ==================== ZONE 2: PRIVATE REPO ==================== -->
+  <rect x="555" y="72" width="420" height="580" rx="10" fill="none" stroke="#ff4444" stroke-width="2.5" stroke-dasharray="8,4"/>
+  <text x="765" y="93" text-anchor="middle" fill="#ff4444" font-size="13" font-weight="bold">INTEL BUILD — go build -tags intel</text>
+
+  <!-- Real Implementations -->
+  <rect x="570" y="105" width="390" height="155" rx="8" fill="#2a0a0a" stroke="#ff4444" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="765" y="128" text-anchor="middle" fill="#ff4444" font-size="14" font-weight="bold">Real Implementations</text>
+  <text x="585" y="150" fill="#ffb0b0" font-size="11">• Provider detection maps (populated)</text>
+  <text x="585" y="167" fill="#ffb0b0" font-size="11">• Scoring algorithms (CVSS-aligned)</text>
+  <text x="585" y="184" fill="#ffb0b0" font-size="11">• Infrastructure classification logic</text>
+  <text x="585" y="201" fill="#ffb0b0" font-size="11">• Verification command generators</text>
+  <text x="585" y="218" fill="#ffb0b0" font-size="11">• AI surface detection (patterns, regexes)</text>
+  <text x="585" y="235" fill="#ffb0b0" font-size="11">• IP investigation intelligence</text>
+  <text x="585" y="252" fill="#ffb0b0" font-size="11">• Edge/CDN detection (ASN + CNAME maps)</text>
+
+  <!-- Provider Databases -->
+  <rect x="570" y="275" width="390" height="195" rx="8" fill="#2a0a0a" stroke="#ff4444" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="765" y="298" text-anchor="middle" fill="#ff4444" font-size="14" font-weight="bold">Provider Intelligence Databases</text>
+  <text x="585" y="320" fill="#ffb0b0" font-size="11">• Enterprise DNS providers (18 entries)</text>
+  <text x="585" y="337" fill="#ffb0b0" font-size="11">• Legacy provider blocklist</text>
+  <text x="585" y="354" fill="#ffb0b0" font-size="11">• DKIM providers (17 entries) ★NEW</text>
+  <text x="585" y="371" fill="#ffb0b0" font-size="11">• Email hosting providers</text>
+  <text x="585" y="388" fill="#ffb0b0" font-size="11">• DMARC monitoring providers</text>
+  <text x="585" y="405" fill="#ffb0b0" font-size="11">• SPF flattening providers</text>
+  <text x="585" y="422" fill="#ffb0b0" font-size="11">• CDN/Edge ASN maps</text>
+  <text x="585" y="439" fill="#ffb0b0" font-size="11">• SaaS TXT patterns</text>
+  <text x="585" y="456" fill="#ffb0b0" font-size="11">• AI crawler identifiers</text>
+
+  <!-- Build Process -->
+  <rect x="570" y="485" width="390" height="80" rx="8" fill="#1a0a2a" stroke="#bb86fc" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="765" y="508" text-anchor="middle" fill="#bb86fc" font-size="14" font-weight="bold">Build Process</text>
+  <text x="585" y="530" fill="#d4b0ff" font-size="11">• Private files override public stubs</text>
+  <text x="585" y="547" fill="#d4b0ff" font-size="11">• Same package name (analyzer)</text>
+  <text x="585" y="557" fill="#d4b0ff" font-size="10">  Go build picks private over stub at compile</text>
+
+  <!-- Staging -->
+  <rect x="570" y="580" width="390" height="60" rx="8" fill="#1a1a00" stroke="#ffeb3b" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="765" y="603" text-anchor="middle" fill="#ffeb3b" font-size="13" font-weight="bold">Staging: dnstool-intel-staging/</text>
+  <text x="585" y="623" fill="#fff9c4" font-size="10.5">In .gitignore — prep area for private repo pushes</text>
+  <text x="585" y="636" fill="#fff9c4" font-size="10.5">Contains: STUB_AUDIT.md + dkim_providers.go ★</text>
+
+  <!-- ==================== ZONE 3: DATA & EXTERNAL SERVICES ==================== -->
+  <rect x="20" y="670" width="955" height="170" rx="10" fill="none" stroke="#2196f3" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="497" y="691" text-anchor="middle" fill="#2196f3" font-size="13" font-weight="bold">DATA LAYER &amp; EXTERNAL SERVICES</text>
+
+  <!-- PostgreSQL -->
+  <rect x="35" y="700" width="200" height="125" rx="8" fill="#0a1a2a" stroke="#2196f3" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="135" y="723" text-anchor="middle" fill="#64b5f6" font-size="13" font-weight="bold">PostgreSQL (Neon)</text>
+  <text x="50" y="743" fill="#90caf9" font-size="10.5">• Scan history</text>
+  <text x="50" y="758" fill="#90caf9" font-size="10.5">• Statistics / Compare</text>
+  <text x="50" y="773" fill="#90caf9" font-size="10.5">• Dev ≠ Prod (separate DBs)</text>
+  <text x="50" y="788" fill="#90caf9" font-size="10.5">• pgx v5 + sqlc</text>
+  <text x="50" y="803" fill="#90caf9" font-size="10.5">• Rollback-capable</text>
+  <text x="50" y="818" fill="#90caf9" font-size="10.5">• Platform-enforced separation</text>
+
+  <!-- Caches -->
+  <rect x="250" y="700" width="185" height="125" rx="8" fill="#0a1a2a" stroke="#2196f3" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="342" y="723" text-anchor="middle" fill="#64b5f6" font-size="13" font-weight="bold">Defensible Caches</text>
+  <text x="265" y="743" fill="#90caf9" font-size="10.5">• RDAP: 24h (rate limit)</text>
+  <text x="265" y="758" fill="#90caf9" font-size="10.5">• DNS History: 24h</text>
+  <text x="265" y="773" fill="#90caf9" font-size="10.5">  (50 calls/mo limit)</text>
+  <text x="265" y="788" fill="#90caf9" font-size="10.5">• CT Subdomains: 1h</text>
+  <text x="265" y="803" fill="#90caf9" font-size="10.5">  (append-only)</text>
+  <text x="265" y="818" fill="#90caf9" font-size="10.5">• RFC metadata: 24h</text>
+
+  <!-- External APIs -->
+  <rect x="450" y="700" width="250" height="125" rx="8" fill="#0a1a2a" stroke="#2196f3" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="575" y="723" text-anchor="middle" fill="#64b5f6" font-size="13" font-weight="bold">External APIs</text>
+  <text x="465" y="743" fill="#90caf9" font-size="10.5">• Cloudflare DNS (1.1.1.1)</text>
+  <text x="465" y="758" fill="#90caf9" font-size="10.5">• Google Public DNS (8.8.8.8)</text>
+  <text x="465" y="773" fill="#90caf9" font-size="10.5">• Quad9 (9.9.9.9)</text>
+  <text x="465" y="788" fill="#90caf9" font-size="10.5">• OpenDNS/Cisco Umbrella</text>
+  <text x="465" y="803" fill="#90caf9" font-size="10.5">• crt.sh / RDAP / Team Cymru</text>
+  <text x="465" y="818" fill="#90caf9" font-size="10.5">• SecurityTrails / OpenPhish</text>
+
+  <!-- SMTP target -->
+  <rect x="715" y="700" width="245" height="125" rx="8" fill="#0a1a2a" stroke="#2196f3" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="837" y="723" text-anchor="middle" fill="#64b5f6" font-size="13" font-weight="bold">Target Domain</text>
+  <text x="730" y="743" fill="#90caf9" font-size="10.5">• DNS records (all types)</text>
+  <text x="730" y="758" fill="#90caf9" font-size="10.5">• SMTP port 25 (TLS probe)</text>
+  <text x="730" y="773" fill="#90caf9" font-size="10.5">• HTTPS (security.txt, MTA-STS)</text>
+  <text x="730" y="788" fill="#90caf9" font-size="10.5">• llms.txt / robots.txt (AI scan)</text>
+  <text x="730" y="803" fill="#90caf9" font-size="10.5">• HTML body (poisoning scan)</text>
+  <text x="730" y="818" fill="#90caf9" font-size="10.5">• DANE/TLSA, SVCB, CDS/CDNSKEY</text>
+
+  <!-- ==================== CONNECTIVITY ARROWS ==================== -->
+
+  <!-- Web Server → Stubs -->
+  <line x1="265" y1="180" x2="280" y2="180" stroke="#00e5ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Web Server → DNS Client -->
+  <line x1="150" y1="265" x2="150" y2="280" stroke="#00e5ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Web Server → PostgreSQL -->
+  <line x1="100" y1="520" x2="100" y2="700" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+
+  <!-- Web Server → Caches -->
+  <line x1="200" y1="520" x2="342" y2="700" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+
+  <!-- DNS Client → External APIs -->
+  <line x1="150" y1="400" x2="150" y2="590" stroke="#00e5ff" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="150" y1="590" x2="450" y2="700" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+
+  <!-- SMTP → Target -->
+  <line x1="150" y1="590" x2="837" y2="700" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="4,3"/>
+
+  <!-- Stubs ←→ Private (build-time link) -->
+  <line x1="528" y1="200" x2="570" y2="200" stroke="#ff4444" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+  <line x1="570" y1="350" x2="528" y2="350" stroke="#ff4444" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+  <text x="549" y="270" text-anchor="middle" fill="#ff6666" font-size="9" transform="rotate(-90,549,270)">BUILD-TIME OVERRIDE</text>
+
+  <!-- ==================== LEGEND ==================== -->
+  <rect x="1000" y="72" width="380" height="300" rx="10" fill="#0d1320" stroke="#555" stroke-width="1"/>
+  <text x="1190" y="97" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="bold">Legend</text>
+
+  <rect x="1020" y="110" width="16" height="16" rx="3" fill="none" stroke="#4caf50" stroke-width="2"/>
+  <text x="1045" y="123" fill="#b0ccb0" font-size="11">Public repo (safe to expose)</text>
+
+  <rect x="1020" y="135" width="16" height="16" rx="3" fill="none" stroke="#ff4444" stroke-width="2"/>
+  <text x="1045" y="148" fill="#ffb0b0" font-size="11">Private repo (secret sauce)</text>
+
+  <rect x="1020" y="160" width="16" height="16" rx="3" fill="#2a1a00" stroke="#ff9800" stroke-width="2"/>
+  <text x="1045" y="173" fill="#ffcc80" font-size="11">Stub interface (replaced at build)</text>
+
+  <rect x="1020" y="185" width="16" height="16" rx="3" fill="none" stroke="#ffeb3b" stroke-width="2"/>
+  <text x="1045" y="198" fill="#fff9c4" font-size="11">Boundary functions / golden rules</text>
+
+  <rect x="1020" y="210" width="16" height="16" rx="3" fill="none" stroke="#2196f3" stroke-width="2"/>
+  <text x="1045" y="223" fill="#90caf9" font-size="11">Data layer &amp; external services</text>
+
+  <rect x="1020" y="235" width="16" height="16" rx="3" fill="none" stroke="#bb86fc" stroke-width="2"/>
+  <text x="1045" y="248" fill="#d4b0ff" font-size="11">Build process</text>
+
+  <line x1="1020" y1="268" x2="1040" y2="268" stroke="#00e5ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="1050" y="273" fill="#80deea" font-size="11">Runtime data flow</text>
+
+  <line x1="1020" y1="293" x2="1040" y2="293" stroke="#ff4444" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+  <text x="1050" y="298" fill="#ff6666" font-size="11">Build-time override (compile)</text>
+
+  <text x="1020" y="323" fill="#ff4444" font-size="10">★ = Needs private repo push today</text>
+  <text x="1020" y="340" fill="#4caf50" font-size="10">✓ = Self-contained (no override needed)</text>
+  <text x="1020" y="357" fill="#aaaaaa" font-size="10">Dashed borders = security zone boundary</text>
+
+  <!-- ==================== SECURITY CALLOUTS ==================== -->
+  <rect x="1000" y="390" width="380" height="255" rx="10" fill="#1a0a0a" stroke="#ff4444" stroke-width="1.5"/>
+  <text x="1190" y="415" text-anchor="middle" fill="#ff4444" font-size="14" font-weight="bold">Security Controls</text>
+
+  <text x="1020" y="440" fill="#ffb0b0" font-size="11">1. Stubs return empty/false — app works</text>
+  <text x="1030" y="455" fill="#ff8080" font-size="10">   but without proprietary intelligence</text>
+
+  <text x="1020" y="478" fill="#ffb0b0" font-size="11">2. Private files override stubs at build</text>
+  <text x="1030" y="493" fill="#ff8080" font-size="10">   Same Go package, Go picks real impl</text>
+
+  <text x="1020" y="516" fill="#ffb0b0" font-size="11">3. Golden rules enforce stub registry</text>
+  <text x="1030" y="531" fill="#ff8080" font-size="10">   New stubs MUST be registered or test fails</text>
+
+  <text x="1020" y="554" fill="#ffb0b0" font-size="11">4. .gitignore blocks staging directory</text>
+  <text x="1030" y="569" fill="#ff8080" font-size="10">   dnstool-intel-staging/ never in public repo</text>
+
+  <text x="1020" y="592" fill="#ffb0b0" font-size="11">5. No provider data in public docs</text>
+  <text x="1030" y="607" fill="#ff8080" font-size="10">   DOCS.md, README: high-level only</text>
+
+  <text x="1020" y="630" fill="#ffb0b0" font-size="11">6. Secrets never requested or logged</text>
+
+  <!-- ==================== DATA FLOW SUMMARY ==================== -->
+  <rect x="1000" y="660" width="380" height="170" rx="10" fill="#0a1a0a" stroke="#4caf50" stroke-width="1"/>
+  <text x="1190" y="685" text-anchor="middle" fill="#4caf50" font-size="14" font-weight="bold">Data Flow Summary</text>
+
+  <text x="1020" y="708" fill="#b0ccb0" font-size="10.5">User → Web Server → Orchestrator</text>
+  <text x="1020" y="725" fill="#b0ccb0" font-size="10.5">  → DNS Client → 4 resolvers (consensus)</text>
+  <text x="1020" y="742" fill="#b0ccb0" font-size="10.5">  → SMTP probe → port 25 TLS check</text>
+  <text x="1020" y="759" fill="#b0ccb0" font-size="10.5">  → HTTPS fetch → security.txt, MTA-STS</text>
+  <text x="1020" y="776" fill="#b0ccb0" font-size="10.5">  → AI surface → llms.txt, robots.txt</text>
+  <text x="1020" y="793" fill="#b0ccb0" font-size="10.5">  → Results + intelligence (if private linked)</text>
+  <text x="1020" y="810" fill="#b0ccb0" font-size="10.5">  → PostgreSQL (save scan) → User sees report</text>
+  <text x="1020" y="827" fill="#90caf9" font-size="10">No DNS cache between requests (TTL=0)</text>
+
+  <!-- Footer -->
+  <text x="700" y="870" text-anchor="middle" fill="#555555" font-size="10">Generated 2026-02-14 — For internal use only — IT-Help-San-Diego/dns-tool</text>
+  <text x="700" y="885" text-anchor="middle" fill="#444444" font-size="9">13 stubs | 3 boundary functions | 20+ golden rule tests | Dev/Prod DB separation</text>
+</svg>

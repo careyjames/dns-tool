@@ -1,0 +1,42 @@
+%%{ init: { 'theme': 'dark', 'themeVariables': { 'primaryColor': '#1e3a5f', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#58a6ff', 'lineColor': '#58a6ff', 'secondaryColor': '#0c1018', 'tertiaryColor': '#111720', 'fontSize': '14px' } } }%%
+graph LR
+    subgraph detect["Detection"]
+        SCAN["<b>Domain Scan</b><br/><i>ICIE analysis</i>"]:::blue
+        HASH["<b>Posture Hash</b><br/><i>SHA-256 canonical</i>"]:::blue
+        DIFF["<b>Posture Diff</b><br/><i>Field-by-field</i><br/><i>comparison</i>"]:::cyan
+    end
+
+    subgraph classify["Classification"]
+        SEV["<b>Severity Engine</b><br/><i>danger · warning</i><br/><i>success · info</i>"]:::amber
+        EVENT["<b>Drift Event</b><br/><i>PostgreSQL record</i>"]:::green
+    end
+
+    subgraph notify["Notification"]
+        WATCH["<b>Watchlist Lookup</b><br/><i>domain_watchlist</i>"]:::purple
+        QUEUE["<b>Queue Notifications</b><br/><i>Per-endpoint routing</i>"]:::purple
+        DELIVER["<b>Delivery Loop</b><br/><i>30s poll · 50/batch</i><br/><i>SSRF-protected</i>"]:::purple
+    end
+
+    subgraph channels["Channels"]
+        DISCORD["<b>Discord</b><br/><i>Webhook embed</i>"]:::blue
+        WEBHOOK["<b>Generic Webhook</b><br/><i>JSON POST</i>"]:::blue
+        EMAIL["<b>Email</b><br/><i>SES/SMTP (planned)</i>"]:::gray
+    end
+
+    SCAN --> HASH
+    HASH -->|"hash changed"| DIFF
+    DIFF --> SEV
+    SEV --> EVENT
+    EVENT --> WATCH
+    WATCH --> QUEUE
+    QUEUE --> DELIVER
+    DELIVER --> DISCORD
+    DELIVER --> WEBHOOK
+    DELIVER -.-> EMAIL
+
+    classDef blue fill:#1a3a6b,stroke:#60a5fa,stroke-width:2px,color:#e6edf3
+    classDef cyan fill:#0a3a4a,stroke:#22d3ee,stroke-width:2px,color:#e6edf3
+    classDef amber fill:#3a2e0a,stroke:#facc15,stroke-width:2px,color:#e6edf3
+    classDef green fill:#0a3a1a,stroke:#4ade80,stroke-width:2px,color:#e6edf3
+    classDef purple fill:#2a1a4b,stroke:#c084fc,stroke-width:2px,color:#e6edf3
+    classDef gray fill:#1a1a2a,stroke:#6b7280,stroke-width:2px,color:#9ca3af,stroke-dasharray:5

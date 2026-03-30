@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+{{htmlComment " Every tool has a story. This one started in a closet with Radio Shack parts. "}}
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_lcp_preload" .}}
+    {{template "head_css" .}}
+    <title>Origin Story — How DNS Tool Was Built — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="The story behind DNS Tool — from a Radio Shack computer build in the early 1980s to a DEF CON-caliber domain security intelligence platform.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/about">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Origin Story - DNS Tool">
+    <meta property="og:description" content="The story behind DNS Tool — from Radio Shack parts to domain security intelligence.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Origin Story">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/about">
+    <meta name="twitter:title" content="Origin Story - DNS Tool">
+    <meta name="twitter:description" content="The story behind DNS Tool — from Radio Shack parts to domain security intelligence.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/about">
+    <meta property="article:published_time" content="2025-01-15">
+    <meta property="article:modified_time" content="2026-03-18">
+    <style nonce="{{.CspNonce}}">
+        .about-timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .about-timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: -2rem;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(200,149,106,0.4), rgba(200,149,106,0.1));
+        }
+        .about-timeline-item:last-child::before {
+            bottom: 0;
+        }
+        .about-timeline-dot {
+            position: absolute;
+            left: 0.25rem;
+            top: 0.25rem;
+            width: 1.1rem;
+            height: 1.1rem;
+            border-radius: 50%;
+            background: #0d1117;
+            border: 2px solid #c8956a;
+            z-index: 1;
+        }
+        .about-timeline-item:first-child .about-timeline-dot {
+            border-color: #3fb950;
+            box-shadow: 0 0 8px rgba(63,185,80,0.3);
+        }
+        .about-era {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #c8956a;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .about-card {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(200,149,106,0.15);
+            border-radius: 12px;
+        }
+        .about-acknowledgment {
+            background: linear-gradient(145deg, #0c1018, #101820);
+            border: 1px solid rgba(200,149,106,0.12);
+            border-radius: 10px;
+        }
+        .about-acknowledgment p {
+            line-height: 1.45;
+        }
+        .about-quote {
+            border-left: 3px solid rgba(200,149,106,0.3);
+            padding-left: 1rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.7);
+        }
+        body.covert-mode .about-timeline-item::before {
+            background: linear-gradient(180deg, rgba(196,60,60,0.4), rgba(196,60,60,0.1));
+        }
+        body.covert-mode .about-timeline-dot {
+            border-color: #c43c3c;
+        }
+        body.covert-mode .about-timeline-item:first-child .about-timeline-dot {
+            border-color: #e87070;
+            box-shadow: 0 0 8px rgba(196,60,60,0.3);
+        }
+        body.covert-mode .about-era {
+            color: #c43c3c;
+        }
+        body.covert-mode .about-card {
+            border-color: rgba(140,40,40,0.2);
+        }
+        body.covert-mode .about-acknowledgment {
+            border-color: rgba(140,40,40,0.15);
+        }
+        body.covert-mode .about-quote {
+            border-left-color: rgba(196,60,60,0.3);
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="text-center mb-4">
+                    <h1 class="h2">{{icon "route" "me-2 text-accent-gold"}}Origin Story</h1>
+                    <p class="text-muted lead">How a closet computer build and 27 years of proving what actually happened became a domain security intelligence platform.</p>
+                </div>
+
+                <div class="about-card p-4 mb-4">
+                    <p class="mb-2">DNS Tool exists because of a simple reality: when something breaks, someone has to prove what happened.</p>
+                    <p class="mb-2 text-muted">Across 27 years in IT and security, the pattern repeated itself &mdash; something goes down, executives want answers, and the explanation had better come with verifiable facts. A graphic designer edits the website and breaks DNS. A vendor change cascades into a mail outage. Every time, it was either going to be your fault for no reason, or you found the real cause and proved it.</p>
+                    <p class="mb-0 text-muted">That pressure &mdash; needing to pull up RFCs, run dig commands, craft one-liners, and produce evidence under fire &mdash; is why this tool exists. After doing that hundreds of times, the obvious question became: <em>why isn&rsquo;t there a tool that just does this automatically?</em></p>
+                </div>
+
+                <h2 class="h5 mb-3 text-accent-gold">{{icon "clock-rotate-left" "me-2 text-accent-gold"}}The Long Road Here</h2>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">Circa 1980 &middot; Memphis, Tennessee</div>
+                    <p class="mb-1 text-muted">A father and son bought parts at Radio Shack and built a computer in a closet. That was the first time the builder behind this tool touched a keyboard. The fascination never stopped.</p>
+                    <p class="mb-1 text-muted">The father, <strong class="text-info">John</strong>, was a Navy veteran who served in Vietnam and the Philippines, a Memphis State graduate, and a career technologist &mdash; Systems Analyst, Chief Radio Officer, Chief Electronics Officer across shipping, defense, and technology companies. He worked in a real data center with walk-through server rooms and walls of tape drives. His son heard military phonetics and Morse code before he was probably learning to read. The lullabies were literally Morse code messages beeping away from a room that looked like a NASA control center.</p>
+                    <p class="mb-0 text-muted">Today, listening to <a href="https://somafm.com/defcon/" target="_blank" rel="noopener" class="text-info">DEF CON Radio</a> brings those sounds back.</p>
+                </div>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">The Next Two Decades &middot; Nashville, Tennessee</div>
+                    <p class="mb-1 text-muted">Years of IT work &mdash; networks, servers, clients, and the slow accumulation of knowledge that only comes from being the person who gets called when things break. And when things broke, someone had to explain why to executives who wanted answers.</p>
+                    <p class="mb-0 text-muted">Eventually, high-end AV integration companies and other IT firms started calling when they hit the limits of their own expertise &mdash; port forwarding, static IP configurations, deep DNS work. The kind of infrastructure problems that don&rsquo;t have a GUI button. DNS was always there, quietly underpinning everything, same protocol since 1983.</p>
+                </div>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">The Raspberry Pi Breakthrough</div>
+                    <p class="mb-1 text-muted">The Linux and command-line breakthrough came from an unexpected place: <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener" class="text-info">Raspberry Pi</a>. Not just the hardware &mdash; the community. They didn&rsquo;t punish bad questions. They didn&rsquo;t gatekeep. They taught. That culture of patience and genuine knowledge-sharing made the difference between dabbling and real competence.</p>
+                </div>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">The Offensive Security Era</div>
+                    <p class="mb-1 text-muted"><a href="https://hak5.org/" target="_blank" rel="noopener" class="text-info">Hak5</a> was the next catalyst. OMG cables, Bash Bunnies, and the hands-on offensive security work that teaches you to think like an adversary. Understanding attack vectors changes how you evaluate defenses &mdash; you stop accepting &ldquo;it&rsquo;s probably fine&rdquo; and start demanding proof.</p>
+                    <p class="mb-1 text-muted">Nobody was doing Mac hacking &mdash; even in big cities, Mac-focused security people were almost nonexistent, so the only option was to learn it from scratch. That path started years earlier at <a href="https://phreaknic.info/" target="_blank" rel="noopener" class="text-info">PhreakNIC</a>, Nashville 2600&rsquo;s hacker conference, walking in around 2006 with a PC laptop running fully functional macOS &mdash; Wi-Fi, everything &mdash; right when Apple had just made the Intel switch. A Hackintosh, before most people had heard the word. His father was there for that one.</p>
+                    <p class="mb-0 text-muted">High-profile clients &mdash; the kind who needed to understand lockdown mode, why their credentials leaked, and how an attacker could walk into their office with a cable that looks like a charger &mdash; needed live demonstrations, not slide decks. The offensive tools made those demonstrations possible and turned abstract threats into something tangible.</p>
+                </div>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">2015&ndash;2024 &middot; Defensive Security and Email Hardening</div>
+                    <p class="mb-1 text-muted">Around 2015, the question shifted from &ldquo;how do you break in?&rdquo; to &ldquo;why does spam still work?&rdquo; A deep dive into email authentication &mdash; SPF, DKIM, DMARC &mdash; revealed that most IT professionals weren&rsquo;t implementing it correctly, and most organizations had no idea their domains could be spoofed. That frustration became a mission.</p>
+                    <p class="mb-1 text-muted">The same year, <a href="https://objective-see.org/" target="_blank" rel="noopener" class="text-info">Objective-See</a> entered the picture &mdash; Patrick Wardle&rsquo;s free, open-source Mac security tools became a cornerstone of endpoint defense. <a href="https://objective-see.org/products/lulu.html" target="_blank" rel="noopener" class="text-info">LuLu</a>, his open-source firewall, became standard kit.</p>
+                    <p class="mb-1 text-muted">That defensive posture was validated in January 2022 during a <a href="https://www.cisa.gov/cyber-hygiene-services" target="_blank" rel="noopener" class="text-info">CISA Cyber Hygiene</a> Remote Penetration Test. The DHS CISA Assessments team, operating from their Arlington, VA lab, ran network penetration testing with Nmap, Nessus, and Metasploit, plus a phishing assessment using Cobalt Strike. They tested 34 payloads across both Mac and Windows &mdash; every single one was blocked at the host level. Zero critical, zero high, zero low findings. The CISA report specifically named <a href="https://objective-see.org/products/lulu.html" target="_blank" rel="noopener" class="text-info">LuLu</a> in its &ldquo;Noted System Strengths&rdquo; section as the tool that &ldquo;successfully identified and prevented the execution of most payloads during the phishing assessment.&rdquo;</p>
+                    <p class="mb-0 text-muted">In September 2023, the offensive side came full circle with a <a href="https://payloadhub.com/blogs/payloads/mac_exfil" target="_blank" rel="noopener" class="text-info">Hak5 Payload Award</a> for an exfiltration payload (mac_exfil) &mdash; a Mac-targeted payload, because that&rsquo;s where the expertise was. A different discipline from defensive security, but part of the same path &mdash; understanding how systems actually work, not how they&rsquo;re supposed to work.</p>
+                </div>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">The Python Era &middot; Early DNS Tool</div>
+                    <p class="mb-1 text-muted">The earliest version of this tool was a Python CLI &mdash; a terminal app that pulled back DNS results in one quick scroll. Out in the field doing DMARC audits for clients, the alternative was running a dozen dig commands and crafting one-liners. The CLI was basic &mdash; no RFC citations, no intelligence analysis &mdash; but it was the seed: type a domain, get an honest answer about what&rsquo;s actually configured.</p>
+                    <p class="mb-0 text-muted">By November 2023, the CLI &mdash; then called DNS Scout &mdash; was published to the <a href="https://snapcraft.io/" target="_blank" rel="noopener" class="text-info">Snap Store</a> and Launchpad PPA as a packaged, installable release. The earliest externally verifiable timestamp of the project.</p>
+                </div>
+
+                <div class="about-timeline-item">
+                    <div class="about-timeline-dot"></div>
+                    <div class="about-era">February 2025 &middot; San Diego</div>
+                    <p class="mb-0 text-muted">That CLI became what you see now &mdash; a Go-powered intelligence platform that queries five independent DNS resolvers for consensus, cryptographically hashes every analysis with SHA-3-512, cites the RFC for every finding, and produces reports that would hold up at a DEF CON presentation or a board meeting. The reports are the r&eacute;sum&eacute;.</p>
+                </div>
+
+                <div class="about-card p-4 mb-4 mt-4">
+                    <h2 class="h5 mb-3">{{icon "flask" "me-2 text-accent-gold"}}Q in the Lab</h2>
+                    <p class="mb-2 text-muted">Every intelligence operation needs someone in the lab &mdash; the one who builds the tools, not the one who carries them into the field. This platform is 27 years of field experience distilled into code. Every analysis, every RFC citation, every confidence score is the product of having done it manually, for years, and knowing exactly what matters and what doesn&rsquo;t.</p>
+                    <p class="mb-0 text-muted">No hacker handle. Never had one. Every commit, every payload, every changelog credit is under a real name. Always has been.</p>
+                </div>
+
+                <div class="about-acknowledgment p-4 mb-4">
+                    <h2 id="acknowledgments" class="h5 mb-3">{{icon "handshake" "me-2 text-accent-gold"}}Acknowledgments</h2>
+
+                    <div class="mb-3">
+                        <strong class="text-info">Elle</strong> <span class="text-muted small">&middot; Family</span><br>
+                        <span class="text-muted">She made sure her brother had the machine he needed to keep building. The supercomputer that powered the early development of this platform exists because she stepped in when it mattered most.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">corydon76</strong> <span class="text-muted small">&middot; Nashville 2600</span><br>
+                        <span class="text-muted">In the early Python days, <strong>corydon76</strong> helped suss out a lot of the core DNS logic. A Linux admin, hacker, and friend from the <a href="https://www.2600.com/" target="_blank" rel="noopener" class="text-info">Nashville 2600 Club</a> who contributed time and knowledge when the project was still a terminal script. The tool has evolved enormously since then &mdash; rewritten from scratch in Go, expanded into a full intelligence platform &mdash; but the early collaboration mattered and deserves recognition.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">Silvia O&rsquo;Dwyer</strong> <span class="text-muted small">&middot; <a href="https://github.com/silvia-odwyer" target="_blank" rel="noopener" class="text-info">GitHub</a></span><br>
+                        <span class="text-muted">Volunteered to build <a href="https://github.com/IT-Help-San-Diego/dns-tool/issues/1" target="_blank" rel="noopener" class="text-info">MKDocs documentation</a> for the original DNS Tool CLI. Showed up, offered help, followed through.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">Raspberry Pi Foundation</strong><br>
+                        <span class="text-muted">For building a community that proves you can teach technical skills without being hostile about it. The <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener" class="text-info">Raspberry Pi community</a> is proof that intellectual generosity produces better engineers than gatekeeping ever will. <a href="https://forums.raspberrypi.com/viewtopic.php?t=358732" target="_blank" rel="noopener" class="text-info">The thank-you post</a>&nbsp;still stands.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">Hak5</strong><br>
+                        <span class="text-muted">For the hardware, the community, and the mindset. <a href="https://hak5.org/" target="_blank" rel="noopener" class="text-info">Hak5</a> tools teach you to think like an adversary, which is exactly the perspective that makes a defensive tool worth using.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">Cody Thomas</strong> <span class="text-muted small">&middot; <a href="https://github.com/its-a-feature/Mythic" target="_blank" rel="noopener" class="text-info">Mythic</a></span><br>
+                        <span class="text-muted">For building <a href="https://github.com/its-a-feature/Mythic" target="_blank" rel="noopener" class="text-info">Mythic</a> &mdash; the collaborative red teaming framework that made the O.MG Cable work operationally viable. The cable is the hardware; Mythic is the command-and-control infrastructure that makes it useful in a real engagement. The offensive demonstrations that changed how clients understood threat exposure could not have happened without Mythic behind them. We corresponded, and his willingness to support the community around his work deserves recognition.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">MG</strong> <span class="text-muted small">&middot; <a href="https://mg.lol" target="_blank" rel="noopener" class="text-info">O.MG</a></span><br>
+                        <span class="text-muted">For creating the <a href="https://o.mg.lol" target="_blank" rel="noopener" class="text-info">O.MG Cable</a> &mdash; the hardware that made abstract threats tangible. Never met, never corresponded, but his work changed how we demonstrated attack vectors to clients. When you can hand someone a cable that looks identical to a charger and show them what an adversary can do, slide decks become unnecessary. That&rsquo;s a contribution to the field that deserves acknowledgment.</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <strong class="text-info">Patrick Wardle</strong> <span class="text-muted small">&middot; <a href="https://objective-see.org/" target="_blank" rel="noopener" class="text-info">Objective-See</a></span><br>
+                        <span class="text-muted">For building the <a href="https://objective-see.org/tools.html" target="_blank" rel="noopener" class="text-info">Objective-See tools</a> &mdash; free, open-source Mac security tools from an ex-NSA researcher who chose to give them away. <a href="https://objective-see.org/products/lulu.html" target="_blank" rel="noopener" class="text-info">LuLu</a> in particular proved its worth when it mattered most &mdash; CISA&rsquo;s own RPT report named it in the &ldquo;Noted System Strengths&rdquo; section for preventing payload execution during their January 2022 assessment. 34 payloads, zero successful executions. Nearly a decade of learning from his research is part of the defensive mindset behind this platform.</span>
+                    </div>
+
+                    <div>
+                        <strong class="text-info">Fyodor</strong> <span class="text-muted small">&middot; <a href="https://nmap.org/" target="_blank" rel="noopener" class="text-info">Nmap</a></span><br>
+                        <span class="text-muted">For creating <a href="https://nmap.org/" target="_blank" rel="noopener" class="text-info">Nmap</a> &mdash; the tool that taught a generation of security professionals what network reconnaissance actually looks like. Nmap was a major part of the path that led here. We&rsquo;ve corresponded, and his work remains an inspiration. The&nbsp;builder of this platform is credited in the official <a href="https://nmap.org/changelog.html" target="_blank" rel="noopener" class="text-info">Nmap 7.94 changelog</a> (May 19, 2023) for Python 3-related contributions.</span>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4 mb-2">
+                    <a href="/sources" class="btn btn-outline-info btn-sm me-2">{{icon "diagram-project" "me-1"}}Intelligence Sources</a>
+                    <a href="/architecture" class="btn btn-outline-info btn-sm me-2">{{icon "microchip" "me-1"}}Architecture</a>
+                    <a href="/confidence" class="btn btn-outline-info btn-sm">{{icon "bullseye" "me-1"}}Confidence</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

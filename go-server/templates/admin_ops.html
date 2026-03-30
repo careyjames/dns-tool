@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Operations — DNS Tool Admin</title>
+    <meta name="robots" content="noindex, nofollow">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .ops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .ops-card {
+            background: rgba(12, 16, 24, 0.8);
+            border: 1px solid rgba(200,149,106,0.12);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: border-color 0.3s;
+        }
+        .ops-card:hover {
+            border-color: rgba(200,149,106,0.3);
+        }
+        .ops-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .ops-card-icon {
+            color: #c8956a;
+            font-size: 1rem;
+        }
+        .ops-card-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .ops-card-cmd {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.62rem;
+            color: #6e7681;
+            background: rgba(0,0,0,0.3);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            word-break: break-all;
+        }
+        .ops-result {
+            background: rgba(12, 16, 24, 0.95);
+            border: 1px solid rgba(200,149,106,0.15);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .ops-result-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .ops-output {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.7rem;
+            color: #c9d1d9;
+            background: rgba(0,0,0,0.4);
+            border-radius: 4px;
+            padding: 0.75rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "terminal" "me-2"}}Operations
+                </h1>
+                <p class="text-muted mb-0">Quality gates, pipeline scripts, and asset management</p>
+            </div>
+            <div>
+                <a href="/ops" class="btn btn-outline-secondary me-2">
+                    {{icon "arrow-left" "me-1"}}Dashboard
+                </a>
+                <a href="/architecture" class="btn btn-outline-info">
+                    {{icon "sitemap" "me-1"}}Architecture
+                </a>
+            </div>
+        </div>
+
+        {{if .OpResult}}
+        <div class="ops-result mb-4">
+            <div class="ops-result-header">
+                {{if .OpResult.Success}}
+                <span class="text-success">{{icon "check-circle" "me-1"}}Completed</span>
+                {{else}}
+                <span class="text-danger">{{icon "times-circle" "me-1"}}Failed</span>
+                {{end}}
+                <span class="fw-bold">{{.OpResult.Task.Label}}</span>
+            </div>
+            <div class="ops-output">{{.OpResult.Output}}</div>
+        </div>
+        {{end}}
+
+        <h2 class="h5 mb-3">{{icon "shield-check" "me-2 text-info"}}Quality Gates</h2>
+        <div class="ops-grid mb-4">
+            {{range .OpsTasks}}
+            <div class="ops-card">
+                <div class="ops-card-header">
+                    {{icon .Icon "ops-card-icon"}}
+                    <span class="ops-card-label">{{.Label}}</span>
+                </div>
+                <div class="ops-card-cmd">{{.Command}} {{index .Args 0}}</div>
+                <form method="POST" action="/ops/run/{{.ID}}">
+                    <input type="hidden" name="csrf_token" value="{{$.CsrfToken}}">
+                    <button type="submit" class="btn btn-outline-info btn-sm text-nowrap">
+                        {{icon "play" "me-1"}}Run
+                    </button>
+                </form>
+            </div>
+            {{end}}
+        </div>
+
+        <h2 class="h5 mb-3">{{icon "file-pdf" "me-2 text-info"}}Exports</h2>
+        <div class="ops-grid mb-4">
+            <div class="ops-card">
+                <div class="ops-card-header">
+                    {{icon "file-pdf" "ops-card-icon"}}
+                    <span class="ops-card-label">Architecture PDF</span>
+                </div>
+                <div class="ops-card-cmd">Browser print → /architecture</div>
+                <a href="/architecture" target="_blank" rel="noopener" class="btn btn-outline-info btn-sm text-nowrap">
+                    {{icon "external-link-alt" "me-1"}}Open Architecture Page
+                </a>
+            </div>
+        </div>
+
+        <div class="text-muted small mt-4">
+            {{icon "info-circle" "me-1"}}All operations run server-side with a 30-second timeout. Scripts are whitelisted — only approved commands can execute.
+        </div>
+
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Compare Analyses{{if .Domain}} - {{.Domain}}{{end}} - DNS Tool</title>
+    <meta name="description" content="Select two DNS security analyses{{if .Domain}} for {{.Domain}}{{end}} to compare side by side. Track how domain security posture has changed over time.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/compare/select{{if .Domain}}?domain={{.Domain}}{{end}}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Compare Analyses{{if .Domain}} — {{.Domain}}{{end}} - DNS Tool">
+    <meta property="og:description" content="Select two DNS security analyses{{if .Domain}} for {{.Domain}}{{end}} to compare side by side. Track how domain security posture has changed over time.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Compare Analysis Selection">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/compare/select{{if .Domain}}?domain={{.Domain}}{{end}}">
+    <meta name="twitter:title" content="Compare Analyses{{if .Domain}} — {{.Domain}}{{end}} - DNS Tool">
+    <meta name="twitter:description" content="Select two DNS security analyses{{if .Domain}} for {{.Domain}}{{end}} to compare side by side. Track how domain security posture has changed over time.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta name="robots" content="noindex, nofollow">
+    {{template "critical_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .selected-row{background-color:rgba(13,110,253,0.15)!important}
+    </style>
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="mb-4">
+            <h1 class="h3 mb-1">
+                {{icon "code-compare" "me-2"}}Compare Analyses
+            </h1>
+            <p class="text-muted mb-0">Select two analyses of <strong>{{.Domain}}</strong> to compare</p>
+        </div>
+
+        {{template "flash_messages" .}}
+
+        {{if and .Analyses (gt (len .Analyses) 1)}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="mb-2">{{icon "info-circle" "text-info me-1"}} Click two rows to select them for comparison, then press Compare.</p>
+                <form id="compareForm" action="/compare" method="GET">
+                    <input type="hidden" name="a" id="inputA" value="">
+                    <input type="hidden" name="b" id="inputB" value="">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="u-w-40px"></th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">SPF</th>
+                                    <th scope="col">DMARC</th>
+                                    <th scope="col">DKIM</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Version</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range $a := .Analyses}}
+                                <tr class="compare-row u-pointer" data-id="{{$a.ID}}" tabindex="0" aria-label="Select analysis from {{$a.CreatedAt}}" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
+                                    <td>{{icon "square" "compare-check"}}</td>
+                                    <td>
+                                        {{$a.CreatedAt}}
+                                    </td>
+                                    <td>
+                                        {{if eq $a.SpfStatus "success"}}
+                                            <span class="proto-badge proto-badge--success proto-spf">SPF</span>
+                                        {{else if eq $a.SpfStatus "warning"}}
+                                            <span class="proto-badge proto-badge--warning proto-spf">SPF</span>
+                                        {{else if or (eq $a.SpfStatus "error") (eq $a.SpfStatus "missing")}}
+                                            <span class="proto-badge proto-badge--danger proto-spf">SPF</span>
+                                        {{else}}
+                                            <span class="proto-badge proto-badge--neutral proto-spf">SPF</span>
+                                        {{end}}
+                                    </td>
+                                    <td>
+                                        {{if eq $a.DmarcStatus "success"}}
+                                            <span class="proto-badge proto-badge--success proto-dmarc">DMARC</span>
+                                        {{else if eq $a.DmarcStatus "warning"}}
+                                            <span class="proto-badge proto-badge--warning proto-dmarc">DMARC</span>
+                                        {{else if or (eq $a.DmarcStatus "error") (eq $a.DmarcStatus "missing")}}
+                                            <span class="proto-badge proto-badge--danger proto-dmarc">DMARC</span>
+                                        {{else}}
+                                            <span class="proto-badge proto-badge--neutral proto-dmarc">DMARC</span>
+                                        {{end}}
+                                    </td>
+                                    <td>
+                                        {{if or (eq $a.DkimStatus "success") (eq $a.DkimStatus "partial")}}
+                                            <span class="proto-badge proto-badge--success proto-dkim">DKIM</span>
+                                        {{else if eq $a.DkimStatus "info"}}
+                                            <span class="proto-badge proto-badge--info proto-dkim">DKIM</span>
+                                        {{else if or (eq $a.DkimStatus "error") (eq $a.DkimStatus "missing") (eq $a.DkimStatus "warning")}}
+                                            <span class="proto-badge proto-badge--danger proto-dkim">DKIM</span>
+                                        {{else}}
+                                            <span class="proto-badge proto-badge--neutral proto-dkim">DKIM</span>
+                                        {{end}}
+                                    </td>
+                                    <td>
+                                        {{if gt $a.AnalysisDuration 0.0}}
+                                            {{formatFloat 2 $a.AnalysisDuration}}s
+                                        {{else}}
+                                            -
+                                        {{end}}
+                                    </td>
+                                    <td>
+                                        {{if $a.ToolVersion}}
+                                            v{{$a.ToolVersion}}
+                                        {{else}}
+                                            -
+                                        {{end}}
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                        <span class="text-muted" id="selectionHint">Select 2 analyses to compare</span>
+                        <button type="submit" class="btn btn-primary" id="compareBtn" disabled>
+                            {{icon "code-compare" "me-1"}}Compare
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{else}}
+        <div class="card mb-3 border-0 u-bg-soft">
+            <div class="card-body text-center py-5">
+                {{icon "code-compare" "text-muted mb-3 u-fs-3rem-faded"}}
+                {{if .Domain}}
+                    {{if .Analyses}}
+                    <h5 class="text-muted mb-2">Only 1 analysis on file for <strong class="text-light">{{.Domain}}</strong></h5>
+                    <p class="text-muted mb-3">Comparison requires at least two analyses of the same domain.<br>Run another analysis, then come back to see what changed.</p>
+                    <a href="/analyze?domain={{.Domain}}&refresh=1" class="btn btn-primary me-2">
+                        {{icon "search" "me-1"}}Analyze {{.Domain}} Again
+                    </a>
+                    {{else}}
+                    <h5 class="text-muted mb-2">No analyses found for <strong class="text-light">{{.Domain}}</strong></h5>
+                    <p class="text-muted mb-3">This domain hasn't been analyzed yet. Run your first analysis to get started.</p>
+                    <a href="/analyze?domain={{.Domain}}" class="btn btn-primary me-2">
+                        {{icon "search" "me-1"}}Analyze {{.Domain}}
+                    </a>
+                    {{end}}
+                    <a href="/history" class="btn btn-outline-secondary">
+                        {{icon "history" "me-1"}}View History
+                    </a>
+                {{else}}
+                    <h5 class="text-muted mb-2">No domain selected</h5>
+                    <p class="text-muted mb-3">Enter a domain on the homepage to analyze, then visit History to access comparisons.</p>
+                    <a href="/" class="btn btn-primary">
+                        {{icon "search" "me-1"}}Analyze a Domain
+                    </a>
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+
+        {{template "footer" .}}
+    </main>
+
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    globalThis._iconSquare = '{{icon "square"}}';
+    globalThis._iconCheckSquare = '{{icon "check-square"}}';
+    document.addEventListener('DOMContentLoaded', function() {
+        let selected = [];
+        const rows = document.querySelectorAll('.compare-row');
+        const inputA = document.getElementById('inputA');
+        const inputB = document.getElementById('inputB');
+        const btn = document.getElementById('compareBtn');
+        const hint = document.getElementById('selectionHint');
+
+        rows.forEach(function(row) {
+            row.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    row.click();
+                }
+            });
+            row.addEventListener('click', function() {
+                const id = row.dataset.id;
+                const idx = selected.indexOf(id);
+                if (idx > -1) {
+                    selected.splice(idx, 1);
+                    row.classList.remove('selected-row');
+                    row.setAttribute('aria-pressed', 'false');
+                    row.querySelector('.compare-check').innerHTML = globalThis._iconSquare;
+                    row.querySelector('.compare-check').classList.remove('text-primary');
+                } else {
+                    if (selected.length >= 2) {
+                        const oldId = selected.shift();
+                        const oldRow = document.querySelector('[data-id="' + oldId + '"]');
+                        if (oldRow) {
+                            oldRow.classList.remove('selected-row');
+                            oldRow.setAttribute('aria-pressed', 'false');
+                            oldRow.querySelector('.compare-check').innerHTML = globalThis._iconSquare;
+                            oldRow.querySelector('.compare-check').classList.remove('text-primary');
+                        }
+                    }
+                    selected.push(id);
+                    row.classList.add('selected-row');
+                    row.setAttribute('aria-pressed', 'true');
+                    row.querySelector('.compare-check').innerHTML = globalThis._iconCheckSquare;
+                    row.querySelector('.compare-check').classList.add('text-primary');
+                }
+
+                if (selected.length === 2) {
+                    inputA.value = selected[0];
+                    inputB.value = selected[1];
+                    btn.disabled = false;
+                    hint.textContent = '2 analyses selected';
+                } else {
+                    inputA.value = '';
+                    inputB.value = '';
+                    btn.disabled = true;
+                    hint.textContent = selected.length === 1 ? '1 selected — pick one more' : 'Select 2 analyses to compare';
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

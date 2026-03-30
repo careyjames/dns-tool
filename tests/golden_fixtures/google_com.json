@@ -1,0 +1,2184 @@
+{
+  "auth_query_status": {},
+  "auth_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "CAA": 86400,
+    "MX": 300,
+    "NS": 345600,
+    "SOA": 60,
+    "TXT": 300
+  },
+  "authoritative_records": {
+    "A": [
+      "192.178.210.138",
+      "192.178.210.101",
+      "192.178.210.102",
+      "192.178.210.139",
+      "192.178.210.113",
+      "192.178.210.100"
+    ],
+    "AAAA": [
+      "2607:f8b0:4001:c72::8b",
+      "2607:f8b0:4001:c72::65",
+      "2607:f8b0:4001:c72::66",
+      "2607:f8b0:4001:c72::8a"
+    ],
+    "CAA": [
+      "0 issue \"pki.goog\""
+    ],
+    "DMARC": [
+      "v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+    ],
+    "MTA-STS": [
+      "v=STSv1; id=20210803T010101;"
+    ],
+    "MX": [
+      "10 smtp.google.com."
+    ],
+    "NS": [
+      "ns3.google.com.",
+      "ns4.google.com.",
+      "ns2.google.com.",
+      "ns1.google.com."
+    ],
+    "SOA": [
+      "ns1.google.com. dns-admin.google.com. 867511810 900 900 1800 60"
+    ],
+    "TLS-RPT": [
+      "v=TLSRPTv1;rua=mailto:sts-reports@google.com"
+    ],
+    "TXT": [
+      "cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b",
+      "MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB",
+      "apple-domain-verification=30afIBcvSuDV2PLX",
+      "google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ",
+      "docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e",
+      "facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95",
+      "globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=",
+      "onetrust-domain-verification=6d685f1d41a94696ad7ef771f68993e0",
+      "docusign=1b0a6754-49b1-4db5-8540-d2c12664b289",
+      "google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0",
+      "v=spf1 include:_spf.google.com ~all",
+      "google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o"
+    ]
+  },
+  "basic_records": {
+    "A": [
+      "74.125.69.101",
+      "74.125.69.102",
+      "74.125.69.113",
+      "74.125.69.100",
+      "74.125.69.139",
+      "74.125.69.138"
+    ],
+    "AAAA": [
+      "2607:f8b0:4001:c08::65",
+      "2607:f8b0:4001:c08::8b",
+      "2607:f8b0:4001:c08::71",
+      "2607:f8b0:4001:c08::66"
+    ],
+    "CAA": [
+      "0 issue \"pki.goog\""
+    ],
+    "CNAME": null,
+    "DMARC": [
+      "v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+    ],
+    "MTA-STS": [
+      "v=STSv1; id=20210803T010101;"
+    ],
+    "MX": [
+      "10 smtp.google.com."
+    ],
+    "NS": [
+      "ns4.google.com.",
+      "ns2.google.com.",
+      "ns3.google.com.",
+      "ns1.google.com."
+    ],
+    "SOA": [
+      "ns1.google.com. dns-admin.google.com. 867511810 900 900 1800 60"
+    ],
+    "SRV": [
+      "_caldavs._tcp: 5 0 443 calendar.google.com.",
+      "_carddavs._tcp: 5 0 443 google.com."
+    ],
+    "TLS-RPT": [
+      "v=TLSRPTv1;rua=mailto:sts-reports@google.com"
+    ],
+    "TXT": [
+      "globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8=",
+      "google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o",
+      "MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB",
+      "facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95",
+      "google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0",
+      "v=spf1 include:_spf.google.com ~all",
+      "cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b",
+      "apple-domain-verification=30afIBcvSuDV2PLX",
+      "google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ",
+      "docusign=1b0a6754-49b1-4db5-8540-d2c12664b289",
+      "onetrust-domain-verification=6d685f1d41a94696ad7ef771f68993e0",
+      "docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e"
+    ]
+  },
+  "bimi_analysis": {
+    "logo_error": null,
+    "logo_format": null,
+    "logo_url": null,
+    "logo_valid": null,
+    "message": "No BIMI record found",
+    "record": null,
+    "status": "warning",
+    "vmc_error": null,
+    "vmc_issuer": null,
+    "vmc_subject": null,
+    "vmc_url": null,
+    "vmc_valid": null
+  },
+  "caa_analysis": {
+    "has_iodef": false,
+    "has_wildcard": false,
+    "issuers": [
+      "pki.goog"
+    ],
+    "message": "CAA configured - only pki.goog can issue certificates",
+    "mpic_note": "Since September 2025, all public CAs must verify domain control from multiple geographic locations (Multi-Perspective Issuance Corroboration, CA/B Forum Ballot SC-067). CAA records are now checked from multiple network perspectives before certificate issuance.",
+    "records": [
+      "0 issue \"pki.goog\""
+    ],
+    "status": "success",
+    "wildcard_issuers": null
+  },
+  "ct_subdomains": {
+    "ct_source": "cache",
+    "source": "Certificate Transparency Logs",
+    "status": "success",
+    "subdomains": [
+      {
+        "cert_count": 1,
+        "has_dns": false,
+        "issuer": "C=IL, O=StartCom Ltd., OU=Secure Digital Certificate Signing, CN=StartCom Class 1 Primary Intermediate Server CA",
+        "not_after": "2014-01-18T05:03:46",
+        "not_before": "2013-01-16T10:58:02",
+        "subdomain": "aarjav-b480g7k2ab9@checkout.google.com"
+      },
+      {
+        "cert_count": 20,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "accounts.flexpack.google.com"
+      },
+      {
+        "cert_count": 48,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "accounts.freezone.google.com"
+      },
+      {
+        "cert_count": 48,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-07-13T06:03:53",
+        "not_before": "2011-07-13T05:53:53",
+        "subdomain": "accounts.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-11-23T04:10:49",
+        "not_before": "2011-11-23T04:00:49",
+        "subdomain": "ads-compare.eem.corp.google.com"
+      },
+      {
+        "cert_count": 75,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-05-11T06:50:19",
+        "not_before": "2011-05-11T06:40:19",
+        "subdomain": "adwords.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt1.aspmx.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt1.gmail-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt1.gmr-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt2.aspmx.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt2.gmail-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt2.gmr-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt3.aspmx.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt3.gmail-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt3.gmr-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt4.aspmx.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt4.gmail-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "alt4.gmr-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "cname": "www3.l.google.com.",
+        "has_dns": true,
+        "issuer": "C=US, O=Equifax, OU=Equifax Secure Certificate Authority",
+        "not_after": "2008-05-06T18:21:11",
+        "not_before": "2006-03-07T19:21:11",
+        "subdomain": "answers.google.com"
+      },
+      {
+        "cert_count": 7,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "apis.corp.google.com"
+      },
+      {
+        "cert_count": 93,
+        "cname": "www3.l.google.com.",
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-08-14T21:43:23",
+        "subdomain": "appengine.google.com"
+      },
+      {
+        "cert_count": 4,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-08-17T11:43:22",
+        "subdomain": "apps-secure-data-connector.google.com"
+      },
+      {
+        "cert_count": 1,
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "aspmx.l.google.com"
+      },
+      {
+        "cert_count": 3,
+        "cname": "audioads.l.google.com.",
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2009-05-27T17:07:55",
+        "not_before": "2008-05-27T16:57:55",
+        "subdomain": "audioads.google.com"
+      },
+      {
+        "cert_count": 5,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "auth.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "bigstore-test.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "cname": "uberproxy.l.google.com.",
+        "has_dns": true,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "bigstore.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "blogspot.corp.google.com"
+      },
+      {
+        "cert_count": 10,
+        "has_dns": false,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "c.docs.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-10-17T00:00:00",
+        "not_before": "2013-10-17T10:11:06",
+        "subdomain": "c.pack.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "c.play.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache1.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache1.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache1.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache2.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache2.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache2.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache3.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache3.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache3.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache4.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache4.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache4.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache5.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache5.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache5.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache6.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache6.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache6.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache7.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache7.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache7.c.video.google.com"
+      },
+      {
+        "cert_count": 9,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-29T11:42:49",
+        "not_before": "2011-09-29T11:32:49",
+        "subdomain": "cache8.c.docs.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache8.c.play.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-03-13T12:16:37",
+        "not_before": "2012-03-13T12:06:37",
+        "subdomain": "cache8.c.video.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-07-12T01:36:17",
+        "subdomain": "cag.ext.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, ST=California, L=Mountain View, O=Google Inc, OU=GeoRoot Certification Authority, CN=Google Inc CA",
+        "not_after": "2012-12-28T00:00:00",
+        "not_before": "2012-03-28T00:00:00",
+        "subdomain": "cert-test.sandbox.google.com"
+      },
+      {
+        "cert_count": 44,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-11-12T20:45:54",
+        "not_before": "2009-11-12T20:35:54",
+        "subdomain": "checkout.google.com"
+      },
+      {
+        "cert_count": 11,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-08-14T21:46:12",
+        "subdomain": "chrome.google.com"
+      },
+      {
+        "cert_count": 39,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-02-20T13:37:05",
+        "subdomain": "client-channel.google.com"
+      },
+      {
+        "cert_count": 50,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-02-06T22:59:28",
+        "subdomain": "clients.google.com"
+      },
+      {
+        "cert_count": 122,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-08-14T21:43:23",
+        "subdomain": "cloud.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2011-08-05T19:25:15",
+        "not_before": "2010-08-05T19:15:15",
+        "subdomain": "cod.ext.google.com"
+      },
+      {
+        "cert_count": 39,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-02-06T22:58:43",
+        "subdomain": "code.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "corp-backups.corp.google.com"
+      },
+      {
+        "cert_count": 13,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-10-11T12:17:07",
+        "subdomain": "corp.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-09-05T02:53:45",
+        "subdomain": "da.ext.corp.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-08-17T08:30:01",
+        "subdomain": "da.ext.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "dasher-qa.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "dasher.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "demetrius-codespot.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "demetrius-googlecode.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "demetrius.corp.google.com"
+      },
+      {
+        "cert_count": 14,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-22T00:00:00",
+        "not_before": "2014-04-23T11:37:18",
+        "subdomain": "devconsole-testers.sandbox.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:16:49",
+        "subdomain": "developer.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-22T00:00:00",
+        "not_before": "2014-04-23T11:25:46",
+        "subdomain": "developers.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "dfa7.corp.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:14:23",
+        "subdomain": "dg.video.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "docs-dev.corp.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "docs-nightly.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "docs-platinum.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "docs-qa.corp.google.com"
+      },
+      {
+        "cert_count": 137,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-07-13T06:03:39",
+        "not_before": "2011-07-13T05:53:39",
+        "subdomain": "docs.google.com"
+      },
+      {
+        "cert_count": 56,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-22T08:19:54",
+        "not_before": "2012-05-22T08:09:54",
+        "subdomain": "docs.sandbox.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "drive-test.corp.google.com"
+      },
+      {
+        "cert_count": 121,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-10T02:57:12",
+        "not_before": "2012-05-10T02:47:12",
+        "subdomain": "drive.google.com"
+      },
+      {
+        "cert_count": 52,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-22T08:19:54",
+        "not_before": "2012-05-22T08:09:54",
+        "subdomain": "drive.sandbox.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "dthree.corp.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-12-31T15:58:50",
+        "not_before": "2013-04-11T12:50:29",
+        "subdomain": "ecc-test.sandbox.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2011-08-18T07:13:53",
+        "not_before": "2010-08-18T07:03:53",
+        "subdomain": "eggroll.ext.google.com"
+      },
+      {
+        "cert_count": 88,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:10:00",
+        "subdomain": "ext.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "flexpack.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "focus.corp.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-09-05T02:54:44",
+        "subdomain": "fra-da.ext.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-06-14T06:43:59",
+        "subdomain": "freezone.accounts.google.com"
+      },
+      {
+        "cert_count": 48,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "freezone.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-06-14T06:43:59",
+        "subdomain": "freezone.m.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-06-14T06:43:59",
+        "subdomain": "freezone.mail.google.com"
+      },
+      {
+        "cert_count": 11,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:59:32",
+        "subdomain": "friendconnect.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "gaiastaging.flexpack.google.com"
+      },
+      {
+        "cert_count": 48,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "gaiastaging.freezone.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "games.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "git.corp.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-04-02T19:28:54",
+        "not_before": "2009-04-02T19:18:54",
+        "subdomain": "glass-eur.ext.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-04-02T19:28:54",
+        "not_before": "2009-04-02T19:18:54",
+        "subdomain": "glass-mtv.ext.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-04-02T19:28:54",
+        "not_before": "2009-04-02T19:18:54",
+        "subdomain": "glass-twd.ext.google.com"
+      },
+      {
+        "cert_count": 17,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-10-21T05:01:50",
+        "not_before": "2009-10-21T04:51:50",
+        "subdomain": "glass.ext.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "gmail-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Equifax, OU=Equifax Secure Certificate Authority",
+        "not_after": "2010-06-03T16:34:00",
+        "not_before": "2007-04-04T16:34:00",
+        "subdomain": "gmail.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "gmr-smtp-in.l.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "googlesource.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2013-11-24T00:00:00",
+        "not_before": "2013-11-22T00:00:00",
+        "subdomain": "hosted-id.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-09-05T02:53:45",
+        "subdomain": "hot-da.ext.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-09-05T02:55:45",
+        "subdomain": "hyd-da.ext.google.com"
+      },
+      {
+        "cert_count": 10,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-10-21T05:01:50",
+        "not_before": "2009-10-21T04:51:50",
+        "subdomain": "ice.ext.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "ics.prod.google.com"
+      },
+      {
+        "cert_count": 8,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-05-27T01:33:18",
+        "not_before": "2011-05-27T01:23:18",
+        "subdomain": "jmt0.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "jotspot-qa08.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-27T10:25:05",
+        "subdomain": "login.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "loop.corp.google.com"
+      },
+      {
+        "cert_count": 45,
+        "issuer": "C=ZA, O=Thawte Consulting (Pty) Ltd., CN=Thawte SGC CA",
+        "not_after": "2009-05-27T19:40:37",
+        "not_before": "2008-05-27T19:40:37",
+        "subdomain": "m.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "m.guts.corp.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "m.gutsdev.corp.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "mail.flexpack.google.com"
+      },
+      {
+        "cert_count": 48,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "mail.freezone.google.com"
+      },
+      {
+        "cert_count": 153,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-07-13T06:03:39",
+        "not_before": "2011-07-13T05:53:39",
+        "subdomain": "mail.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-02-27T12:04:59",
+        "subdomain": "meeting.ext.google.com"
+      },
+      {
+        "cert_count": 15,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:59:32",
+        "subdomain": "misc-sni.google.com"
+      },
+      {
+        "cert_count": 47,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-02-20T13:37:24",
+        "subdomain": "misc.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-05-13T09:20:51",
+        "subdomain": "mtalk.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-25T11:10:19",
+        "not_before": "2012-05-25T11:00:19",
+        "subdomain": "mtv-da-1.ad.corp.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-25T11:10:19",
+        "not_before": "2012-05-25T11:00:19",
+        "subdomain": "mtv-da.corp.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-08-17T08:30:01",
+        "subdomain": "mtv-da.ext.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-07-11T21:21:10",
+        "subdomain": "mx.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "mygeist.corp.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "mygeist2010.corp.google.com"
+      },
+      {
+        "cert_count": 30,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "news.freezone.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-02-28T09:59:41",
+        "not_before": "2012-02-29T09:49:41",
+        "subdomain": "onex.wifi.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-fixprod.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-impersonation.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-ocdemo.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-qa.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-staging.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-uberproxy.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-vctask0.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-vcvrfy.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-yhtask0.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-yhvrfy.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-yqtask0.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "orkut-yqvrfy.corp.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "oz-gmail.corp.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "oz-s2.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "oz-www.corp.google.com"
+      },
+      {
+        "cert_count": 15,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T12:12:17",
+        "subdomain": "photos.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "plus.corp.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "plus.flexpack.google.com"
+      },
+      {
+        "cert_count": 48,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "plus.freezone.google.com"
+      },
+      {
+        "cert_count": 73,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-07-13T06:03:39",
+        "not_before": "2011-07-13T05:53:39",
+        "subdomain": "plus.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "plusone.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "postini.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "profiles.corp.google.com"
+      },
+      {
+        "cert_count": 39,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "prom-qa.corp.google.com"
+      },
+      {
+        "cert_count": 60,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-06-07T04:54:58",
+        "not_before": "2011-06-07T04:44:58",
+        "subdomain": "prom-qa.sandbox.google.com"
+      },
+      {
+        "cert_count": 32,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-22T00:00:00",
+        "not_before": "2014-04-23T11:37:18",
+        "subdomain": "prom-test.corp.google.com"
+      },
+      {
+        "cert_count": 32,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-22T00:00:00",
+        "not_before": "2014-04-23T11:37:18",
+        "subdomain": "prom-test.sandbox.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "prom.corp.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "proxyconfig.corp.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "qa.adz.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "reseed.corp.google.com"
+      },
+      {
+        "cert_count": 130,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-05-11T06:51:23",
+        "not_before": "2011-05-11T06:41:23",
+        "subdomain": "sandbox.google.com"
+      },
+      {
+        "cert_count": 52,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-22T08:19:54",
+        "not_before": "2012-05-22T08:09:54",
+        "subdomain": "script.sandbox.google.com"
+      },
+      {
+        "cert_count": 6,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-04T03:21:36",
+        "not_before": "2012-06-04T03:11:36",
+        "subdomain": "search.corp.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "search.flexpack.google.com"
+      },
+      {
+        "cert_count": 48,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "search.freezone.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2009-11-14T16:01:08",
+        "not_before": "2008-11-14T15:51:08",
+        "subdomain": "services.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-nightly.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa01.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa02.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa03.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa04.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa05.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa06.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa07.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-qa08.corp.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-04-27T08:50:52",
+        "not_before": "2012-04-27T08:40:52",
+        "subdomain": "sites-googlegroups-tctest.corp.google.com"
+      },
+      {
+        "cert_count": 76,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-07-13T06:03:39",
+        "not_before": "2011-07-13T05:53:39",
+        "subdomain": "sites.google.com"
+      },
+      {
+        "cert_count": 52,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-05-22T08:19:54",
+        "not_before": "2012-05-22T08:09:54",
+        "subdomain": "sites.sandbox.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-10-15T00:02:23",
+        "subdomain": "soaproxyprod01.ext.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-08-20T08:53:05",
+        "subdomain": "soaproxytest01.ext.google.com"
+      },
+      {
+        "cert_count": 3,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-01-31T04:37:19",
+        "subdomain": "spdy-proxy-debug.ext.google.com"
+      },
+      {
+        "cert_count": 7,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-01-31T04:37:19",
+        "subdomain": "spdy-proxy.ext.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-a.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-b.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-c.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-d.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-daily.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-daily.blogspot.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-gaia.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-git.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-googlesource.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-prod.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-weekly.blogger.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "staging-weekly.blogspot.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-01-20T01:14:11",
+        "not_before": "2012-01-20T01:04:11",
+        "subdomain": "talk.google.com"
+      },
+      {
+        "cert_count": 77,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-07-13T06:03:39",
+        "not_before": "2011-07-13T05:53:39",
+        "subdomain": "talkgadget.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "test.postini.corp.google.com"
+      },
+      {
+        "cert_count": 2,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-09-05T04:28:59",
+        "subdomain": "twd-da.ext.google.com"
+      },
+      {
+        "cert_count": 1,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-06T03:55:40",
+        "not_before": "2012-06-06T03:45:40",
+        "subdomain": "twdsalesgsa.twd.corp.google.com"
+      },
+      {
+        "cert_count": 4,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:18",
+        "subdomain": "uberproxy-nocert.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "uberproxy-san.corp.google.com"
+      },
+      {
+        "cert_count": 13,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-10-11T12:17:07",
+        "subdomain": "uberproxy.corp.google.com"
+      },
+      {
+        "cert_count": 84,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2013-02-06T22:59:28",
+        "subdomain": "upload.google.com"
+      },
+      {
+        "cert_count": 65,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-06-07T04:55:30",
+        "not_before": "2011-06-07T04:45:30",
+        "subdomain": "upload.video.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "urchin.corp.google.com"
+      },
+      {
+        "cert_count": 126,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-10-31T23:59:59",
+        "not_before": "2013-08-14T21:43:23",
+        "subdomain": "url.google.com"
+      },
+      {
+        "cert_count": 66,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-09-05T06:16:31",
+        "not_before": "2011-09-05T06:06:31",
+        "subdomain": "vp.video.l.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "webdrive-test-canary.corp.google.com"
+      },
+      {
+        "cert_count": 5,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-11-05T00:00:00",
+        "not_before": "2013-11-05T13:13:12",
+        "subdomain": "webdrive-test-prod.corp.google.com"
+      },
+      {
+        "cert_count": 60,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2012-06-07T04:55:41",
+        "not_before": "2011-06-07T04:45:41",
+        "subdomain": "wifi.google.com"
+      },
+      {
+        "cert_count": 20,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority G2",
+        "not_after": "2014-07-08T00:00:00",
+        "not_before": "2014-04-09T11:49:31",
+        "subdomain": "www.flexpack.google.com"
+      },
+      {
+        "cert_count": 38,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2013-06-07T19:43:27",
+        "not_before": "2012-11-21T10:09:59",
+        "subdomain": "www.freezone.google.com"
+      },
+      {
+        "cert_count": 48,
+        "issuer": "C=US, O=Google Inc, CN=Google Internet Authority",
+        "not_after": "2010-11-12T20:46:10",
+        "not_before": "2009-11-12T20:36:10",
+        "subdomain": "www.google.com"
+      }
+    ],
+    "total_certs": 0,
+    "unique_subdomains": 224
+  },
+  "dane_analysis": {
+    "dane_deployable": false,
+    "has_dane": false,
+    "issues": null,
+    "message": "DANE not available \u2014 Google Workspace does not support inbound DANE/TLSA on its MX infrastructure",
+    "mx_hosts_checked": 1,
+    "mx_hosts_with_dane": 0,
+    "mx_provider": {
+      "alternative": "MTA-STS",
+      "dane_inbound": false,
+      "dane_outbound": true,
+      "provider_name": "Google Workspace",
+      "reason": "Google Workspace supports DANE for outbound mail verification but does not publish TLSA records for its MX hosts."
+    },
+    "requires_dnssec": true,
+    "status": "info",
+    "tlsa_records": null
+  },
+  "dkim_analysis": {
+    "found_providers": null,
+    "key_issues": null,
+    "key_strengths": null,
+    "message": "DKIM not discoverable via common selectors (large providers use rotating selectors)",
+    "primary_dkim_note": "",
+    "primary_has_dkim": false,
+    "primary_provider": "Google Workspace",
+    "security_gateway": null,
+    "selectors": {},
+    "status": "info",
+    "third_party_only": false
+  },
+  "dmarc_analysis": {
+    "adkim": "relaxed",
+    "aspf": "relaxed",
+    "dmarc_like": null,
+    "dmarcbis_tags": {},
+    "issues": [
+      "No np= tag (DMARCbis) \u2014 non-existent subdomains inherit p= policy but adding np=reject provides explicit protection against subdomain spoofing"
+    ],
+    "message": "DMARC policy reject (100%) - excellent protection",
+    "np_policy": null,
+    "pct": 100,
+    "policy": "reject",
+    "psd_flag": null,
+    "records": [
+      "v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+    ],
+    "rua": "mailto:mailauth-reports@google.com",
+    "ruf": null,
+    "status": "success",
+    "subdomain_policy": null,
+    "t_testing": null,
+    "valid_records": [
+      "v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+    ]
+  },
+  "dns_infrastructure": {
+    "alt_security_items": [
+      "CAA records configured"
+    ],
+    "assessment": "Enterprise-grade DNS infrastructure",
+    "is_government": false,
+    "provider_features": [
+      "DDoS protection",
+      "Anycast",
+      "Auto-scaling"
+    ],
+    "provider_name": "Google Cloud DNS",
+    "provider_tier": "enterprise"
+  },
+  "dnssec_analysis": {
+    "ad_flag": false,
+    "ad_resolver": null,
+    "algorithm": null,
+    "algorithm_name": null,
+    "chain_of_trust": "none",
+    "dnskey_records": [],
+    "ds_records": [],
+    "has_dnskey": false,
+    "has_ds": false,
+    "message": "DNSSEC not configured - DNS responses are unsigned",
+    "status": "warning"
+  },
+  "domain_exists": true,
+  "domain_status": "active",
+  "domain_status_message": null,
+  "email_security_mgmt": {
+    "actively_managed": false,
+    "provider_count": 0,
+    "providers": [],
+    "spf_flattening": null
+  },
+  "has_null_mx": false,
+  "hosting_summary": {
+    "dns_hosting": "Google Cloud DNS",
+    "domain": "google.com",
+    "email_hosting": "Google Workspace",
+    "hosting": "Unknown"
+  },
+  "is_no_mail_domain": false,
+  "mail_posture": {
+    "badge": "success",
+    "dns_tier": "enterprise",
+    "verdict": "Protected"
+  },
+  "mta_sts_analysis": {
+    "dns_id": "20210803T010101",
+    "hosting_cname": "www3.l.google.com",
+    "message": "MTA-STS enforced - TLS required for 3 mail server(s)",
+    "mode": "enforce",
+    "policy": "version: STSv1\r\nmode: enforce\r\nmx: smtp.google.com\r\nmx: aspmx.l.google.com\r\nmx: *.aspmx.l.google.com\r\nmax_age: 86400\r\n",
+    "policy_error": null,
+    "policy_fetched": true,
+    "policy_issues": null,
+    "policy_max_age": 86400,
+    "policy_mode": "enforce",
+    "policy_mx": [
+      "smtp.google.com",
+      "aspmx.l.google.com",
+      "*.aspmx.l.google.com"
+    ],
+    "record": "v=STSv1; id=20210803T010101;",
+    "status": "success"
+  },
+  "ns_delegation_analysis": {
+    "child_ns": [
+      "ns1.google.com",
+      "ns2.google.com",
+      "ns3.google.com",
+      "ns4.google.com"
+    ],
+    "delegation_ok": true,
+    "match": null,
+    "message": "4 nameserver(s) configured",
+    "note": "Parent zone delegation could not be verified",
+    "parent_ns": [],
+    "status": "success"
+  },
+  "posture": {
+    "absent": [
+      "DNSSEC"
+    ],
+    "color": "success",
+    "configured": [
+      "SPF",
+      "DMARC (reject)",
+      "DKIM (provider-verified)",
+      "MTA-STS",
+      "TLS-RPT",
+      "CAA"
+    ],
+    "critical_issues": null,
+    "deliberate_monitoring": false,
+    "deliberate_monitoring_note": "",
+    "grade": "STRONG",
+    "icon": "shield-alt",
+    "issues": null,
+    "label": "Email authentication with full DMARC enforcement. DNSSEC not configured.",
+    "message": "Email authentication with full DMARC enforcement. DNSSEC not configured.",
+    "monitoring": null,
+    "recommendations": null,
+    "score": 85,
+    "state": "STRONG",
+    "verdicts": {
+      "brand": "Certificate issuance restricted via CAA. BIMI not configured for brand logo protection.",
+      "brand_answer": "Partially",
+      "brand_secure": false,
+      "dns": "DNS responses are unsigned and could be spoofed. DNSSEC provides cryptographic verification.",
+      "dns_secure": false,
+      "domain_answer": "Yes",
+      "email": "DMARC policy is reject \u2014 spoofed messages will be blocked by receiving servers. DKIM keys verified (provider-verified for Google Workspace).",
+      "email_answer": "No",
+      "email_secure": true
+    }
+  },
+  "propagation_status": {
+    "A": {
+      "mismatch": true,
+      "status": "propagating",
+      "synced": false
+    },
+    "AAAA": {
+      "mismatch": true,
+      "status": "propagating",
+      "synced": false
+    },
+    "CAA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "CNAME": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "DMARC": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "MTA-STS": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "MX": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "NS": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SOA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SRV": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "TLS-RPT": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "TXT": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    }
+  },
+  "registrar_info": {
+    "cache_hit": true,
+    "registrar": "MarkMonitor Inc.",
+    "source": "RDAP",
+    "status": "success"
+  },
+  "remediation": {
+    "all_fixes": [
+      {
+        "dns_record": "",
+        "fix": "DNSSEC (DNS Security Extensions) cryptographically signs DNS responses, preventing attackers from forging DNS answers. Contact your DNS hosting provider to enable DNSSEC signing.",
+        "rfc": "RFC 4033 \u00a72",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc4033#section-2",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Enable DNSSEC"
+      },
+      {
+        "dns_record": "default._bimi.yourdomain.com TXT \"v=BIMI1; l=https://yourdomain.com/logo.svg\"",
+        "fix": "Publish a BIMI DNS record pointing to your brand logo (SVG Tiny PS format). For full support in Gmail, you will also need a Verified Mark Certificate (VMC).",
+        "rfc": "BIMI Spec",
+        "rfc_url": "https://bimigroup.org/implementation-guide/",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure BIMI brand logo"
+      }
+    ],
+    "fix_count": 2,
+    "posture_achievable": "SECURE",
+    "top_fixes": [
+      {
+        "dns_record": "",
+        "fix": "DNSSEC (DNS Security Extensions) cryptographically signs DNS responses, preventing attackers from forging DNS answers. Contact your DNS hosting provider to enable DNSSEC signing.",
+        "rfc": "RFC 4033 \u00a72",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc4033#section-2",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Enable DNSSEC"
+      },
+      {
+        "dns_record": "default._bimi.yourdomain.com TXT \"v=BIMI1; l=https://yourdomain.com/logo.svg\"",
+        "fix": "Publish a BIMI DNS record pointing to your brand logo (SVG Tiny PS format). For full support in Gmail, you will also need a Verified Mark Certificate (VMC).",
+        "rfc": "BIMI Spec",
+        "rfc_url": "https://bimigroup.org/implementation-guide/",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure BIMI brand logo"
+      }
+    ]
+  },
+  "resolver_consensus": {
+    "checks_performed": 4,
+    "consensus_reached": true,
+    "discrepancies": null,
+    "per_record_consensus": {
+      "A": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "MX": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "NS": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "TXT": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      }
+    },
+    "resolvers_queried": 4
+  },
+  "resolver_ttl": {
+    "A": 204,
+    "AAAA": 204,
+    "CAA": 10245,
+    "MX": 96,
+    "NS": 15356,
+    "SOA": 28,
+    "TXT": 91
+  },
+  "section_status": {
+    "auth": {
+      "status": "ok"
+    },
+    "basic": {
+      "status": "ok"
+    },
+    "bimi": {
+      "status": "ok"
+    },
+    "caa": {
+      "status": "ok"
+    },
+    "ct_subdomains": {
+      "status": "ok"
+    },
+    "dane": {
+      "status": "ok"
+    },
+    "dkim": {
+      "status": "ok"
+    },
+    "dmarc": {
+      "status": "ok"
+    },
+    "dnssec": {
+      "status": "ok"
+    },
+    "mta_sts": {
+      "status": "ok"
+    },
+    "ns_delegation": {
+      "status": "ok"
+    },
+    "registrar": {
+      "status": "ok"
+    },
+    "resolver_consensus": {
+      "status": "ok"
+    },
+    "spf": {
+      "status": "ok"
+    },
+    "tlsrpt": {
+      "status": "ok"
+    }
+  },
+  "smtp_transport": null,
+  "spf_analysis": {
+    "all_mechanism": "~all",
+    "includes": [
+      "_spf.google.com"
+    ],
+    "issues": null,
+    "lookup_count": 1,
+    "lookup_mechanisms": [
+      "include:_spf.google.com"
+    ],
+    "message": "SPF valid with industry-standard soft fail (~all), 1/10 lookups",
+    "no_mail_intent": false,
+    "permissiveness": "SOFT",
+    "records": [
+      "MS=E4A68B9AB2BB9670BCE15412F62916164C0B20BB",
+      "google-site-verification=4ibFUgB-wXLQ_S7vsXVomSTVamuOXBiVAzpR5IZ87D0",
+      "docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e",
+      "docusign=1b0a6754-49b1-4db5-8540-d2c12664b289",
+      "apple-domain-verification=30afIBcvSuDV2PLX",
+      "onetrust-domain-verification=6d685f1d41a94696ad7ef771f68993e0",
+      "google-site-verification=wD8N7i1JTNTkezJ49swvWW48f8_9xveREV4oB-0Hf5o",
+      "facebook-domain-verification=22rm551cu4k0ab0bxsw536tlds4h95",
+      "cisco-ci-domain-verification=47c38bc8c4b74b7233e9053220c1bbe76bcc1cd33c7acf7acd36cd6a5332004b",
+      "google-site-verification=TV9-DBe4R80X4v0M4U_bd_J9cpOJM0nikft0jAgjmsQ",
+      "v=spf1 include:_spf.google.com ~all",
+      "globalsign-smime-dv=CDYX+XFHUw2wml6/Gb8+59BsH31KzUr6c1l2BPvqKX8="
+    ],
+    "spf_like": null,
+    "status": "success",
+    "valid_records": [
+      "v=spf1 include:_spf.google.com ~all"
+    ]
+  },
+  "tlsrpt_analysis": {
+    "message": "TLS-RPT configured - receiving TLS delivery reports",
+    "record": "v=TLSRPTv1;rua=mailto:sts-reports@google.com",
+    "rua": "mailto:sts-reports@google.com",
+    "status": "success"
+  },
+  "_captured_at": "2026-02-10T07:00:00Z",
+  "_captured_version": "go-server",
+  "_domain": "google.com",
+  "_schema_version": 2,
+  "_tool_version": "go-server"
+}

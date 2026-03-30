@@ -1,0 +1,274 @@
+{
+  "domain": "it-help.tech",
+  "source": "dns-intelligence-it-help.tech.json",
+  "evaluated_at": "2026-03-20T01:49:56.783491+00:00",
+  "schema_version": 8,
+  "total_controls": 16,
+  "passed_count": 11,
+  "failed_count": 4,
+  "na_count": 1,
+  "high_failures": [],
+  "medium_failures": [
+    "DNSSEC_KEY_ROLLOVER",
+    "DELEGATION_CONSISTENT"
+  ],
+  "low_failures": [
+    "DANE_DEPLOYED",
+    "HTTPS_SVCB_MODERN"
+  ],
+  "passed": [
+    "DNSSEC_AUTHENTICATED",
+    "DNSSEC_CHAIN_TRUSTED",
+    "SPF_EFFECTIVE_POLICY",
+    "DMARC_ENFORCEMENT",
+    "DKIM_PRESENT",
+    "MAIL_POLICY_SIGNALING",
+    "CAA_RESTRICTION_PRESENT",
+    "BIMI_CONFIGURED",
+    "SECURITY_TXT_PRESENT",
+    "DANGLING_DNS_CLEAN",
+    "SECRET_EXPOSURE_CLEAN"
+  ],
+  "not_applicable": [
+    "NO_MAIL_HARDENED"
+  ],
+  "results": [
+    {
+      "id": "DNSSEC_AUTHENTICATED",
+      "title": "DNSSEC Authentication",
+      "status": "passed",
+      "severity": "high",
+      "standards": [
+        "ISO_27002_2022:8.24",
+        "INCITS_585_2025:PW.6"
+      ],
+      "rfcs": [
+        "RFC4033",
+        "RFC4034",
+        "RFC4035"
+      ],
+      "rationale": "DNSSEC provides cryptographic authentication of DNS data, preventing cache poisoning and man-in-the-middle attacks. ISO/IEC 27002:2022 \u00a78.24 requires cryptographic controls to protect data integrity and authenticity. INCITS 585-2025 PW.6 mandates verification of software integrity, which extends to the DNS infrastructure delivering that software.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DNSSEC_CHAIN_TRUSTED",
+      "title": "DNSSEC Chain of Trust Validated",
+      "status": "passed",
+      "severity": "high",
+      "standards": [
+        "ISO_27002_2022:8.24"
+      ],
+      "rfcs": [
+        "RFC4033",
+        "RFC4035"
+      ],
+      "rationale": "A valid DNSSEC chain of trust \u2014 whether complete (apex zone with own DS/DNSKEY) or inherited (subdomain validated via parent zone) \u2014 ensures cryptographic authentication. RFC 4035 \u00a75 specifies the authentication chain validation process. Both 'complete' and 'inherited' chain states are valid when the AD flag is set. Subdomains on managed platforms (Route 53, Cloudflare, etc.) typically inherit trust from the parent zone \u2014 this is correct behavior, not a deficiency.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DNSSEC_KEY_ROLLOVER",
+      "title": "DNSSEC Key Rollover Readiness",
+      "status": "failed",
+      "severity": "medium",
+      "standards": [
+        "ISO_27002_2022:8.24",
+        "INCITS_585_2025:PS.3"
+      ],
+      "rfcs": [
+        "RFC8078"
+      ],
+      "rationale": "CDS/CDNSKEY automation (RFC 8078) enables safe, automated DS record updates at the parent zone. Without rollover readiness, key compromise or algorithm migration requires manual registrar intervention. INCITS 585-2025 PS.3 requires archived and protected releases, which extends to cryptographic key lifecycle management.",
+      "fail_explanation": "No CDS/CDNSKEY automation \u2014 DNSSEC key rollover requires manual registrar coordination. Per RFC 8078, CDS and CDNSKEY records enable automated, authenticated DS updates at the parent."
+    },
+    {
+      "id": "NO_MAIL_HARDENED",
+      "title": "No-Mail Domain Hardening",
+      "status": "not_applicable",
+      "severity": "medium",
+      "standards": [
+        "ISO_27002_2022:8.23",
+        "NIST_800_177:\u00a74.3"
+      ],
+      "rfcs": [
+        "RFC7208",
+        "RFC7489",
+        "RFC5321"
+      ],
+      "rationale": "Domains that do not send email must explicitly declare this posture. The critical requirements are null MX (RFC 7505), DMARC p=reject (RFC 7489 \u00a76.3), and a restrictive SPF policy. For no-mail domains, SPF -all is ideal (RFC 7208 \u00a710.1.2), but ~all with DMARC p=reject achieves equivalent enforcement. NIST SP 800-177 Rev. 1 \u00a74.3 recommends null MX for non-mail domains. ISO/IEC 27002:2022 \u00a78.23 requires controlled access to external networks.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "SPF_EFFECTIVE_POLICY",
+      "title": "SPF Effective Authorization Policy",
+      "status": "passed",
+      "severity": "medium",
+      "standards": [
+        "ISO_27002_2022:8.23",
+        "NIST_800_177:\u00a74.3.1"
+      ],
+      "rfcs": [
+        "RFC7208",
+        "RFC7489"
+      ],
+      "rationale": "RFC 7208 \u00a710.1 describes softfail (~all) as transitional, and NIST SP 800-177 Rev. 1 \u00a74.3.1 recommends hard fail (-all). However, RFC 7208 \u00a72.6.3 explicitly defines softfail as a valid policy, not a deficiency. In operational practice, softfail (~all) is the industry standard because it enables DMARC alignment (RFC 7489) to function as the primary enforcement mechanism. A domain with SPF ~all + DMARC p=reject achieves stronger effective protection than SPF -all alone, because DMARC reject instructs receivers to discard unauthenticated messages regardless of SPF result. Hard fail (-all) without DMARC can break legitimate mail flows (forwarding, mailing lists) without providing the enforcement DMARC delivers. The effective security posture depends on the SPF + DMARC combination, not SPF in isolation.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DMARC_ENFORCEMENT",
+      "title": "DMARC Policy Enforcement",
+      "status": "passed",
+      "severity": "high",
+      "standards": [
+        "ISO_27002_2022:8.23",
+        "NIST_800_177:\u00a74.6.1"
+      ],
+      "rfcs": [
+        "RFC7489"
+      ],
+      "rationale": "RFC 7489 \u00a76.3 defines p=reject as the strongest DMARC policy. NIST SP 800-177 Rev. 1 \u00a74.6.1 recommends reject for all domains. Per RFC 7489 \u00a76.7, quarantine and none policies leave the domain vulnerable to phishing impersonation.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DKIM_PRESENT",
+      "title": "DKIM Signature Availability",
+      "status": "passed",
+      "severity": "medium",
+      "standards": [
+        "ISO_27002_2022:8.24",
+        "NIST_800_177:\u00a74.5"
+      ],
+      "rfcs": [
+        "RFC6376",
+        "RFC8301"
+      ],
+      "rationale": "RFC 6376 \u00a71 states DKIM provides \"a method for associating a domain name with an email message, thereby permitting a person, role, or organization to claim some responsibility.\" NIST SP 800-177 Rev. 1 \u00a74.5 recommends DKIM for all mail-sending domains. RFC 8301 updates required algorithms to RSA-2048 minimum.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "MAIL_POLICY_SIGNALING",
+      "title": "Mail Transport Policy Signaling",
+      "status": "passed",
+      "severity": "low",
+      "standards": [
+        "ISO_27002_2022:8.20",
+        "NIST_800_177:\u00a75.2"
+      ],
+      "rfcs": [
+        "RFC8461",
+        "RFC8460"
+      ],
+      "rationale": "RFC 8461 defines MTA-STS for declaring SMTP TLS requirements. RFC 8460 defines TLS-RPT for monitoring TLS delivery failures. Together they signal transport security policy and enable failure detection. ISO/IEC 27002:2022 \u00a78.20 requires network monitoring and control.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "CAA_RESTRICTION_PRESENT",
+      "title": "CAA Certificate Issuance Restriction",
+      "status": "passed",
+      "severity": "medium",
+      "standards": [
+        "ISO_27002_2022:8.24"
+      ],
+      "rfcs": [
+        "RFC8659",
+        "RFC9495"
+      ],
+      "rationale": "RFC 8659 \u00a71 states CAA \"allows a DNS domain name holder to specify one or more Certification Authorities (CAs) authorized to issue certificates for that domain.\" Per RFC 8659 \u00a74.2, CAs must check CAA before issuance. ISO/IEC 27002:2022 \u00a78.24 requires cryptographic controls for authenticity.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DANE_DEPLOYED",
+      "title": "DANE / TLSA Deployment",
+      "status": "failed",
+      "severity": "low",
+      "standards": [
+        "ISO_27002_2022:8.24",
+        "ISO_27002_2022:8.20"
+      ],
+      "rfcs": [
+        "RFC6698",
+        "RFC7672"
+      ],
+      "rationale": "RFC 6698 \u00a71 defines DANE as binding TLS certificates to DNS names via DNSSEC. RFC 7672 extends DANE to SMTP, providing authenticated encryption without reliance on the CA system. Requires DNSSEC (RFC 6698 \u00a71).",
+      "fail_explanation": "DANE/TLSA not deployed. Per RFC 6698, DANE binds TLS server certificates to DNS names using DNSSEC, providing authentication independent of the Certificate Authority system."
+    },
+    {
+      "id": "BIMI_CONFIGURED",
+      "title": "BIMI Brand Indicator",
+      "status": "passed",
+      "severity": "low",
+      "standards": [],
+      "rfcs": [],
+      "rationale": "BIMI (Brand Indicators for Message Identification) displays verified brand logos in email clients. While not yet an RFC, it builds on DMARC enforcement and provides a visual trust signal. Requires p=reject DMARC.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "SECURITY_TXT_PRESENT",
+      "title": "security.txt Vulnerability Disclosure",
+      "status": "passed",
+      "severity": "low",
+      "standards": [
+        "ISO_27002_2022:5.5",
+        "INCITS_585_2025:RV.1"
+      ],
+      "rfcs": [],
+      "rationale": "RFC 9116 defines security.txt for machine-readable vulnerability disclosure policies. ISO/IEC 27002:2022 \u00a75.5 requires contact with authorities for security incident coordination. INCITS 585-2025 RV.1 requires vulnerability response processes.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DANGLING_DNS_CLEAN",
+      "title": "No Dangling DNS Records",
+      "status": "passed",
+      "severity": "high",
+      "standards": [
+        "ISO_27002_2022:8.20",
+        "INCITS_585_2025:PW.4"
+      ],
+      "rfcs": [
+        "RFC1035"
+      ],
+      "rationale": "Dangling DNS records (CNAME, MX, NS pointing to non-existent targets) enable subdomain takeover attacks. ISO/IEC 27002:2022 \u00a78.20 requires network security monitoring. INCITS 585-2025 PW.4 mandates review and verification of software and infrastructure.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "DELEGATION_CONSISTENT",
+      "title": "DNS Delegation Consistency",
+      "status": "failed",
+      "severity": "medium",
+      "standards": [
+        "ISO_27002_2022:8.20"
+      ],
+      "rfcs": [
+        "RFC1035"
+      ],
+      "rationale": "Consistent delegation between parent and child zones ensures DNS resolution reliability. RFC 1035 \u00a72.1 specifies the hierarchical delegation model. Inconsistent NS records, missing glue, or SOA serial mismatches indicate misconfiguration that can cause resolution failures.",
+      "fail_explanation": "DNS delegation inconsistency detected. Parent and child zone NS records, glue records, or SOA serials do not agree. This can cause intermittent resolution failures and makes the zone vulnerable to hijacking."
+    },
+    {
+      "id": "SECRET_EXPOSURE_CLEAN",
+      "title": "No Exposed Secrets",
+      "status": "passed",
+      "severity": "high",
+      "standards": [
+        "ISO_27002_2022:8.4",
+        "INCITS_585_2025:PW.6"
+      ],
+      "rfcs": [],
+      "rationale": "ISO/IEC 27002:2022 \u00a78.4 requires access control to source code and configuration. INCITS 585-2025 PW.6 requires verification of software integrity, including absence of exposed credentials.",
+      "fail_explanation": ""
+    },
+    {
+      "id": "HTTPS_SVCB_MODERN",
+      "title": "HTTPS/SVCB Record Deployment",
+      "status": "failed",
+      "severity": "low",
+      "standards": [
+        "ISO_27002_2022:8.20"
+      ],
+      "rfcs": [
+        "RFC9460"
+      ],
+      "rationale": "RFC 9460 defines SVCB and HTTPS resource records for service binding, enabling features like HTTP/3, ECH, and connection coalescing directly in DNS. These records signal modern transport capabilities.",
+      "fail_explanation": "No HTTPS or SVCB records found. Per RFC 9460, these records enable clients to discover HTTP/3, ECH, and alternative endpoints via DNS, improving connection performance and privacy."
+    }
+  ]
+}

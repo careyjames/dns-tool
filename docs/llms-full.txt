@@ -1,0 +1,622 @@
+# DNS Tool - Complete Agent & Technical Guide
+
+## Overview
+DNS Tool is an OSINT (Open Source Intelligence) platform for DNS security analysis at https://dnstool.it-help.tech. All data is sourced from publicly available, open-source intelligence — DNS records, certificate transparency logs, RDAP registrar data, and publicly accessible web resources. It provides comprehensive domain security analysis including email authentication (SPF, DKIM, DMARC), DANE/TLSA certificate pinning, DNSSEC, BIMI, MTA-STS, TLS-RPT, CAA with MPIC awareness, DMARCbis readiness, SMTP transport encryption, email security management provider detection, subdomain discovery, and domain registrar information via RDAP.
+
+Every query fetches fresh data from multiple DNS resolvers — results are never cached. Every recommendation is backed by RFC citations. Accuracy above all else — truthful, transparent, and provable.
+
+### Development Disclosure
+This platform uses specification-driven, AI-assisted development. All outputs are verified against RFC standards, deterministic test suites, and automated quality gates before release.
+
+---
+
+## Step-by-Step: How to Use This Tool (for AI Agents)
+
+If you are an AI agent browsing on behalf of a user, follow these instructions to analyze any domain.
+
+### Method 1: Direct URL (Recommended for Agents)
+
+Navigate directly to:
+```
+https://dnstool.it-help.tech/analyze?domain=DOMAIN
+```
+Replace `DOMAIN` with the bare domain name (no protocol, no path).
+
+Examples:
+- `https://dnstool.it-help.tech/analyze?domain=google.com`
+- `https://dnstool.it-help.tech/analyze?domain=whitehouse.gov`
+- `https://dnstool.it-help.tech/analyze?domain=example.co.uk`
+
+This triggers a fresh analysis and returns the full results page. Wait 2-5 seconds for the analysis to complete.
+
+### Method 2: Form Submission
+
+1. Go to `https://dnstool.it-help.tech/`
+2. Locate the input field with placeholder text "example.com"
+3. Enter the domain name (bare domain only — no https://, no www unless analyzing the www subdomain)
+4. Click the "Analyze" button or press Enter
+5. The page will redirect to the results after 2-5 seconds
+
+### Input Rules
+- Enter bare domain names: `example.com`, `mail.example.com`, `example.co.uk`
+- Do NOT include protocol: no `https://` or `http://`
+- Do NOT include paths: no `/page` or `/index.html`
+- Internationalized domains (IDN) are supported: `münchen.de`, `中国.cn`
+- Subdomains are supported: `mail.example.com`, `blog.example.com`
+
+### Rate Limiting
+- Rate limiting is applied to prevent abuse
+- If rate-limited, a countdown timer will appear showing when you can try again
+
+---
+
+## Reading the Results Page
+
+After analysis, the results page contains these sections in order. Scroll down through them.
+
+### 1. Security Posture Verdict (Top of Page)
+The overall security rating appears prominently at the top using CVSS-aligned risk levels:
+- **Low Risk** (green): Strong protections across email auth, DNSSEC, and encryption
+- **Medium Risk** (yellow/amber): Some protections in place but gaps exist
+- **High Risk** (orange): Significant security controls missing
+- **Critical Risk** (red): Critical security controls absent or misconfigured
+
+A brief executive summary explains the reasoning. The posture considers: SPF, DKIM, DMARC, DNSSEC, MTA-STS, TLS-RPT, BIMI, CAA, DANE/TLSA, and NS delegation.
+
+### 2. Email Security Section
+Contains cards for each email authentication protocol:
+
+**SPF (Sender Policy Framework)**
+- Status: Found / Not Found
+- The full SPF record text
+- DNS lookup count (RFC 7208 allows max 10)
+- Mechanism analysis: permissiveness level (+all, ~all, -all, ?all)
+- No-mail domain detection (v=spf1 -all)
+- RFC 7489 §10.1 compliance notes
+
+**DKIM (DomainKeys Identified Mail)**
+- Found selectors and their key strengths
+- Key length: 2048-bit+ (strong) vs 1024-bit (weak)
+- Selectors checked: google, selector1, selector2, default, dkim, mail, k1, s1, s2, protonmail, and many more
+- Provider attribution showing which service each selector belongs to (gold badges)
+
+**DMARC (Domain-based Message Authentication)**
+- Policy: none / quarantine / reject
+- Subdomain policy (sp=)
+- Percentage enforcement (pct=)
+- Reporting addresses (rua=, ruf=)
+- Alignment modes (adkim=, aspf=)
+- DMARCbis readiness: np= (non-existent subdomain policy), t= (testing mode, replaces pct=), psd= (public suffix domain) — these are tags from the DMARCbis draft (draft-ietf-dmarc-dmarcbis, active IETF working group draft)
+
+**Email Security Providers (Gold Badges)**
+- DMARC monitoring services detected from reporting addresses
+- SPF flattening services detected from SPF includes
+- MTA-STS hosting providers
+- TLS-RPT reporting destinations
+- These appear as warm gold/amber badges throughout the email security section
+
+### 3. Brand Security Section
+**BIMI (Brand Indicators for Message Identification)**
+- Record presence at default._bimi.{domain}
+- Logo URL and preview (if accessible)
+- VMC (Verified Mark Certificate) status
+
+**MTA-STS (Mail Transfer Agent Strict Transport Security)**
+- DNS record at _mta-sts.{domain}
+- Policy file from .well-known/mta-sts.txt
+- Mode: enforce / testing / none
+- MX pattern matching
+- Max-age value
+
+**TLS-RPT (TLS Reporting)**
+- Record at _smtp._tls.{domain}
+- Reporting endpoint (rua=)
+
+### 4. Transport Security Section
+**DANE/TLSA (DNS-based Authentication of Named Entities)**
+- TLSA records queried for each MX host at _25._tcp.{mx_host} (RFC 6698, RFC 7672)
+- Certificate usage parsing: PKIX-TA (0), PKIX-EE (1), DANE-TA (2), DANE-EE (3)
+- Selector: Full certificate (0) vs SubjectPublicKeyInfo (1)
+- Matching type: Exact (0), SHA-256 (1), SHA-512 (2)
+- DNSSEC dependency check: DANE requires DNSSEC for security guarantees (RFC 7672 §1.3)
+- Complementarity with MTA-STS: best practice is to deploy both
+- Status: configured / partial / not found / timeout
+
+**SMTP Transport Encryption** (conditional — cloud platforms may block outbound port 25; gracefully skipped when unavailable)
+- MX server STARTTLS support
+- TLS version (1.2 or 1.3)
+- Cipher suite and strength
+- Certificate validity
+
+### 5. Domain Security Section
+**DNSSEC (DNS Security Extensions)**
+- Chain validation status from root to domain
+- DS and DNSKEY records
+- Algorithm identification (ECDSA P-256, RSA/SHA-256, etc.)
+- AD (Authentic Data) flag verification
+- Trust chain visualization
+
+**CAA (Certificate Authority Authorization)**
+- Which certificate authorities are authorized
+- Wildcard restrictions
+- Issue and issuewild tags
+- MPIC context: Multi-Perspective Issuance Corroboration (CA/B Forum Ballot SC-067, mandatory September 2025) — CAA records are now verified from multiple geographic locations before certificate issuance
+
+### 6. Traffic & Routing Section
+All DNS record types displayed:
+- A Records (IPv4 addresses)
+- AAAA Records (IPv6 addresses)
+- MX Records (mail exchangers with priorities)
+- NS Records (authoritative nameservers)
+- TXT Records (all TXT records)
+- SOA Records (start of authority)
+- CNAME Records (canonical names)
+- SRV Records (service discovery)
+
+**Multi-Resolver Consensus**
+Results from Cloudflare (1.1.1.1), Google (8.8.8.8), Quad9 (9.9.9.9), OpenDNS (208.67.222.222), and DNS4EU (194.242.2.2). Discrepancies between resolvers are flagged.
+
+**DNS Infrastructure Detection**
+Enterprise DNS providers identified (Cloudflare, AWS Route 53, Google Cloud DNS, Akamai, Azure DNS, etc.)
+
+### 7. Subdomain Discovery
+- Multi-layer approach using Certificate Transparency logs (RFC 6962), wildcard certificate detection, DNS probing, and CNAME chain traversal
+- Source attribution: "CT Log" vs "DNS" for each subdomain
+- Wildcard certificate detection and DNS wildcard filtering
+- Subdomain-aware context: detects when the analyzed domain is itself a subdomain and offers a link to scan the registered domain
+
+### 8. DNS Evidence Diff
+Compares resolver and authoritative records for A, AAAA, MX, TXT, NS, CAA, SOA, _dmarc, _mta-sts, _smtp._tls — with TTL values and RFC reference badges.
+
+### 9. Domain Intelligence (RDAP)
+- Registrar name
+- Domain creation and expiration dates
+- Nameserver delegation
+- Registry information
+
+### 10. Public Exposure Checks
+- Automatic (always-on) scanning of publicly accessible page source and linked JavaScript for exposed secrets, API keys, and credentials
+- Severity, type, redacted value, and confidence level for each finding
+- Sources scanned listed transparently
+
+### 11. Expanded Exposure Checks (Opt-In)
+Enabled via the "Expanded Exposure Checks" checkbox in Advanced Options. Actively probes well-known misconfiguration paths:
+- `/.env` — environment files with database credentials and secrets
+- `/.git/config` and `/.git/HEAD` — exposed git repositories
+- `/.DS_Store` — macOS directory metadata
+- `/server-status` and `/server-info` — Apache information pages
+- `/wp-config.php.bak` — WordPress config backups
+- `/phpinfo.php` — PHP information exposure
+
+Each path is validated by content inspection (not just HTTP 200 status) to reduce false positives. Results include severity badges, risk descriptions, and specific remediation guidance. Sequential requests with 200ms delays and proper User-Agent identification.
+
+**Important**: These are informational reconnaissance checks of publicly accessible paths — NOT a PCI DSS ASV scan, penetration test, or compliance attestation.
+
+### 12. Report Integrity Hash
+Every analysis generates a SHA-3-512 (FIPS 202) integrity fingerprint that binds:
+- Domain name
+- Analysis ID
+- Timestamp
+- Tool version
+- Canonicalized results data
+
+A short hash preview appears in the report header metadata (next to timestamp/version) — 4 hex characters plus 4 star masks, as a clickable link that scrolls to the full hash section at the bottom of the report. The full hash can be copied to clipboard. This is distinct from the posture hash (used for drift detection) — the integrity hash uniquely identifies each specific report instance.
+
+---
+
+## Re-Analyzing a Domain
+
+To get fresh data for the same domain:
+- On the results page, click the "Re-Analyze" button at the top
+- Or navigate again to: `https://dnstool.it-help.tech/analyze?domain=DOMAIN`
+
+Each analysis always fetches fresh DNS data — there is no caching.
+
+---
+
+## Other Pages
+
+### Intelligence Sources Inventory
+URL: `https://dnstool.it-help.tech/sources`
+Complete transparency page documenting every intelligence source used by DNS Tool: DNS resolvers, reverse DNS (PTR), Team Cymru ASN attribution, SMTP probing, SecurityTrails, crt.sh, IANA RDAP, ip-api.com (visitor geolocation only), and OpenPhish (community phishing URL feed). Organized by category: DNS Resolution, Infrastructure Intelligence, Threat Intelligence, Historical & Discovery, and Registry & Reference. Each source includes methodology, rate limits, and verification commands. This page embodies the principle: "No proprietary scanners. No black boxes. Just DNS."
+
+### IP Intelligence
+URL: `https://dnstool.it-help.tech/investigate`
+Standalone investigative workflow for determining IP-to-domain relationships. Enter any IP address and a domain to discover the relationship: Direct Asset, Email Provider, CDN/Edge, DNS Provider, SPF-Authorized Sender, or CT Subdomain Match. Includes PTR/FCrDNS validation and ASN attribution via Team Cymru. SSRF-safe input blocking prevents abuse.
+
+### Email Header Analyzer
+URL: `https://dnstool.it-help.tech/email-header`
+Multi-format email header analysis with automatic format detection. Accepts:
+- **Paste**: Raw email headers or full emails (headers + body)
+- **.eml files**: Standard RFC 5322 email format
+- **JSON**: Gmail API (`payload.headers`), Microsoft Graph API (`internetMessageHeaders`), Postmark (`Headers` array), SendGrid (`headers` map), Mailgun (`message-headers` pairs), or any JSON with a generic `headers` key
+- **.mbox files**: Unix mailbox archives (first message extracted)
+- **.txt / .headers / .log**: Plain text header exports
+- **.msg files**: Detected as Outlook binary format with guidance to re-save as .eml
+
+Headers are parsed for SPF/DKIM/DMARC authentication verification, delivery route tracing, spoofing detection, and phishing pattern scanning. Advanced detection includes:
+- **Subject line scam analysis**: Detects phone numbers with letter-for-digit substitution (e.g., "O" for "0"), fake payment amounts, homoglyph-obfuscated brand names (e.g., "Pay PaI" using capital I instead of lowercase l to mimic PayPal), and known scam phrases
+- **Third-party spam vendor detection**: Reads enterprise email security headers from Proofpoint (X-CLX-Spam), Barracuda, Microsoft SCL (from X-Forefront-Antispam-Report), and Mimecast
+- **Brand mismatch detection**: Identifies when subject line references a brand (after homoglyph normalization) that doesn't match the sending domain
+- **BCC delivery detection**: Flags emails where the recipient isn't in the To/CC fields
+- **Educational callout**: When a sophisticated "authenticated scam" pattern is detected (all authentication passes but subject has scam indicators), a three-step "Understanding This Attack" explainer shows how the attack works and why authentication alone couldn't catch it
+If you include the email body, it's scanned against the OpenPhish community phishing URL feed and checked for sextortion/scam indicators, then immediately discarded. Includes critical thinking prompts ("Big Questions") to help users evaluate suspicious emails.
+
+### Dual Intelligence Products
+From any analysis results page, two intelligence products are available:
+- **Engineer's DNS Intelligence Report** (blue icon): Comprehensive technical document with all protocol analysis, DNS records, remediation guidance, and verification commands. Opens the browser print dialog directly.
+- **Executive's DNS Intelligence Brief** (amber icon): Concise board-ready summary with security scorecard, risk posture, priority actions, and AI surface findings. Opens in a new tab for printing.
+Both products use the same live analysis data and include configurable TLP classification headers (default: TLP:AMBER, with TLP:RED, TLP:AMBER+STRICT, TLP:GREEN and TLP:CLEAR options). Naming follows Intelligence Community conventions: "Report" = comprehensive (like a National Intelligence Estimate), "Brief" = concise decision-maker version (like a Presidential Daily Brief).
+
+### What's New (Changelog)
+URL: `https://dnstool.it-help.tech/changelog`
+Complete changelog of all improvements to analysis accuracy, transparency, and intelligence depth. Organized by category with date stamps.
+
+### Analysis History
+URL: `https://dnstool.it-help.tech/history`
+Shows a paginated list of all previously analyzed domains with timestamps. Click any entry to view its full results.
+
+### Statistics Dashboard
+URL: `https://dnstool.it-help.tech/stats`
+(Also accessible via `https://dnstool.it-help.tech/statistics`)
+Shows usage trends, analysis counts, popular domains, and visitor geography.
+
+### Domain Comparison
+URL: `https://dnstool.it-help.tech/compare`
+Side-by-side comparison of two domains' security configurations.
+
+### Our Methodology
+URL: `https://dnstool.it-help.tech/approach`
+Five analytic perspectives encoded as a precision algorithm — the Intelligence Officer (ICAE/ICuAE dual confidence engines), the DNS Engineer (RFC-grounded analysis), the Hacker (Covert Recon with subdomain discovery), the Executive (clear posture verdicts), and the IT Pro (actionable remediation). This Symbiotic Security model ensures each perspective covers the blind spots the others miss. Core thesis: "If you don't understand DNS, you can't understand the internet or its security." Covers why DNS analysis requires rigorous methods — RFC provenance for every finding, time-series verification, multi-resolver consensus, and the decision to build a forensic audit engine rather than a simple pass/fail checker. Documents the "practice what we preach" principle: DNS Tool's own domain implements every protocol it audits (SPF, DKIM, DMARC, DANE/TLSA, DNSSEC, CAA, MTA-STS, TLS-RPT, BIMI). Live SonarCloud quality gate badge with "verify it yourself" link. Static educational content — no login required.
+
+### Confidence Engine
+URL: `https://dnstool.it-help.tech/confidence`
+Dashboard for the dual confidence engines: ICAE (Intelligence Confidence Audit Engine — 129 deterministic tests across 9 protocols, five-tier maturity model) and ICuAE (Intelligence Currency Assurance Engine — 29 tests across 5 timeliness dimensions). Displays maturity levels, protocol-by-protocol results, statistical calibration parameters, and trend analysis. Audit log at `/confidence/audit-log`.
+
+### Domain Dossier
+URL: `https://dnstool.it-help.tech/dossier`
+Comprehensive single-page intelligence report combining all analysis modules for a domain into a unified dossier view.
+
+### Drift Timeline
+URL: `https://dnstool.it-help.tech/drift`
+Longitudinal posture change tracking via SHA-3-512 canonical hashing. Shows when and how a domain's security configuration changed over time, enabling posture drift detection across re-analyses.
+
+### TTL Tuner
+URL: `https://dnstool.it-help.tech/ttl-tuner`
+Interactive DNS TTL analysis and optimization recommendations. Helps operators understand TTL implications for their DNS records.
+
+### Color Science
+URL: `https://dnstool.it-help.tech/color-science`
+CIE scotopic luminance calculations, WCAG contrast ratio analysis, and the scientific rationale behind the platform's dark-mode color system. Includes CIE 1951 scotopic luminous efficiency function and ISO 3864 safety color standards.
+
+### Brand Colors
+URL: `https://dnstool.it-help.tech/brand-colors`
+Platform color palette with accessibility rationale, contrast ratios, and usage guidelines.
+
+### Badge System
+URL: `https://dnstool.it-help.tech/badge`
+Embeddable security posture badges (SVG and Shields.io format) for displaying domain security status. Supports multiple badge styles and embed formats.
+
+### About
+URL: `https://dnstool.it-help.tech/about`
+Project background, team information, and mission statement.
+
+### Subdomain Discovery FAQ
+URL: `https://dnstool.it-help.tech/faq/subdomains`
+Methodology explanation for Certificate Transparency and DNS-based subdomain enumeration techniques used by DNS Tool.
+
+### Analysis Transparency Log
+URL: `https://dnstool.it-help.tech/failures`
+Public accountability page showing every failed analysis with sanitized error categories. Error messages are classified into categories (DNS Resolution Timeout, Domain Not Found/NXDOMAIN, Connection Refused, DNS Server Failure/SERVFAIL, Network Unreachable, TLS/Certificate Error, Rate Limited, Invalid Input) with IP addresses and file paths redacted. KPI cards show total failures, total analyses, and failure rate. Philosophy statement explains why failures are published publicly. Most recent 50 failures displayed with domain, category icon, and relative timestamp.
+
+### Public Roadmap
+URL: `https://dnstool.it-help.tech/roadmap`
+Transparent kanban-style project roadmap showing all development progress. Four columns: Done (55+ shipped features), In Progress (current work), Next Up (DoH/DoT detection, API access, CLI app, distributed probe mesh), and Backlog (personal history, drift alerts, saved reports, Globalping integration). Each item includes type, priority, version, and notes. Static page — no login required.
+
+---
+
+## Interpreting Results for Users
+
+When reporting results back to a user, focus on:
+
+1. **The overall security posture** (Low Risk / Medium Risk / High Risk / Critical Risk) and why
+2. **Email authentication status**: Do they have SPF + DKIM + DMARC? Is DMARC set to reject?
+3. **Transport security**: Is DANE/TLSA configured? Is MTA-STS enforcing? Are both deployed?
+4. **Actionable gaps**: What's missing and what should they fix first?
+5. **Provider attribution**: Who manages their email security? Are they using a DMARC monitoring service?
+6. **Advanced protections**: DNSSEC, DANE, MTA-STS, BIMI, CAA — these are differentiators
+7. **DMARCbis readiness**: Are they prepared for the DMARCbis draft changes (active IETF working group draft)?
+
+### Priority Order for Recommendations
+If a domain is missing protections, recommend in this order:
+1. SPF record (authorize legitimate senders)
+2. DKIM signing (cryptographic email authentication)
+3. DMARC policy (start with p=none, work toward p=reject)
+4. DMARC monitoring service (visibility into authentication results)
+5. MTA-STS (enforce encrypted email delivery)
+6. DNSSEC (DNS response integrity — also enables DANE)
+7. DANE/TLSA (certificate pinning for mail transport — requires DNSSEC)
+8. CAA (certificate issuance control)
+9. BIMI (brand logo in inboxes — requires DMARC p=quarantine or p=reject)
+
+### Important Nuance: Symbiotic Security
+DNS Tool recognizes that security is not binary. A domain without DNSSEC but with strong DMARC p=reject and MTA-STS enforce may have excellent email security. The tool evaluates the full picture rather than penalizing individual missing records in isolation. DANE (RFC 7672) is the primary transport security standard; MTA-STS (RFC 8461) was created as the alternative for domains where "deploying DNSSEC is undesirable or impractical" (RFC 8461 §2). RFC 8461 mandates that DANE takes precedence: senders "MUST NOT allow MTA-STS validation to override a failing DANE validation." Best practice is deploying both for defense in depth — DANE provides cryptographic strength via DNSSEC, while MTA-STS ensures coverage for senders that don't validate DNSSEC.
+
+### Common Misconception: DANE
+Many people believe DANE is a niche protocol only used in the Netherlands. This is false. Over 4 million domains globally publish TLSA records (per stats.dnssec-tools.org, 2024 data). Microsoft Exchange Online has full DANE support (outbound since March 2022, inbound GA October 2024), and providers like Proton Mail and Fastmail also support DANE. The IETF itself uses DANE on mail.ietf.org. The misconception arose because DANE for web browsers failed (Let's Encrypt solved HTTPS differently), but DANE for email (SMTP, RFC 7672) thrived separately. Most security audit tools skip DANE, creating a self-reinforcing blind spot. DNS Tool breaks that cycle.
+
+### Provider-Aware DANE Analysis
+DNS Tool detects when a domain uses a hosted email provider and adjusts DANE analysis accordingly. For example, Google Workspace domains cannot deploy DANE because Google's shared multi-tenant MX infrastructure does not publish TLSA records and does not allow customers to do so. In such cases, DNS Tool shows "Not Available" (rather than "Not Configured"), explains why DANE isn't deployable, and recommends MTA-STS as the alternative. The posture score does not penalize domains for missing DANE when their provider architecturally cannot support it.
+
+---
+
+## Core Capabilities Reference
+
+### DNS Record Analysis
+- A/AAAA: IPv4 and IPv6 addresses
+- MX: Mail exchanger priorities and hostnames
+- TXT: SPF, DMARC, domain verification tokens
+- CNAME: Canonical name aliases
+- NS: Authoritative nameservers
+- SOA: Start of authority with TTL and refresh intervals
+- CAA: Certificate Authority Authorization
+- SRV: Service discovery (_autodiscover, _sip, _caldavs, etc.)
+- TLSA: DANE certificate pinning records (_25._tcp.{mx_host})
+
+### Security Posture Levels (CVSS-Aligned)
+- **Low Risk** (green): Full email security + DNSSEC + DANE + advanced protections
+- **Medium Risk** (amber): Strong email security controls in place but some gaps
+- **High Risk** (orange): Missing critical security records
+- **Critical Risk** (red): No security controls detected or severe misconfiguration
+
+### Infrastructure Intelligence
+- PTR-based hosting detection: Reverse DNS lookups identify hosting providers (e.g., CloudFront, AWS, Google) without third-party APIs
+- IP-to-ASN attribution: Team Cymru DNS service maps IPs to owning organizations (no API key, no rate limits)
+- Confidence taxonomy: Every attribution labeled as Observed (direct DNS/RDAP), Inferred (pattern matching), or Third-party (external services)
+
+### Verification & Transparency
+- Every report includes a "Verify It Yourself" appendix with domain-specific terminal commands (dig, openssl, curl)
+- Intelligence Sources summary on each results page showing which sources contributed
+- Full sources inventory at /sources documenting methodology, rate limits, and verification commands
+
+### Technical Details
+- Backend: Go with Gin web framework
+- DNS Client: Custom multi-resolver consensus engine with DoH fallback (miekg/dns library)
+- Database: PostgreSQL (pgx v5, sqlc for type-safe queries)
+- RDAP: Direct IANA bootstrap queries
+- Multi-Probe Infrastructure: Geographically distributed verification nodes from independent ASNs — SMTP/TLS, DANE, DNSSEC validation, DNS security probing with hostname allowlist validation and 64KB buffer limits
+- Response Time: Typically 2-5 seconds per analysis
+- Data: Always fresh, never cached
+- External services: Only ip-api.com (visitor geolocation flag in footer, 45 req/min) uses a rate-limited API — core analysis relies entirely on unlimited DNS protocol queries
+- Quality Gates: SonarCloud A rating, automated test suites across 18 Go packages, deterministic CI validation
+
+---
+
+## System Architecture (`/architecture`) — TLP:GREEN
+
+A static, zero-JavaScript public overview of the system architecture, classified TLP:GREEN (public-safe). Designed for technical audiences, investors, and security researchers who want to understand the platform's scientific foundation.
+
+### Sections
+1. **Intelligence Pipeline**: DNS query flow from multi-resolver parallel collection through analysis engines to intelligence product generation
+2. **Dual-Engine Confidence Framework**: ICAE (correctness, 129 tests across 9 protocols) and ICuAE (currency, 29 tests across 5 dimensions) running independently with ICD 203 methodology
+3. **Protocol Coverage**: Nine DNS security protocols analyzed — SPF, DKIM, DMARC, DANE/TLSA, DNSSEC, BIMI, MTA-STS, TLS-RPT, CAA — each linked to authoritative RFCs
+4. **Open-Core Architecture**: BSL 1.1 license model with public web layer and private intelligence module, build-tag gated compilation
+5. **Intelligence Products**: Five outputs — Engineer's Report, Executive's Brief, Recon Report, Domain Dossier, Domain Comparison
+6. **Standards Foundation**: ICD 203, NIST SP 800-53 SI-18, ISO/IEC 25012, FIPS 202 (SHA-3)
+7. **Distributed Probe Mesh (Future)**: Volunteer browser-based DNS probes via DoH relay with Byzantine-resilient consensus (≥3 ASNs, ≥2 regions), reputation-weighted scoring, trusted anchor nodes, and "Good Net Citizens" community model
+8. **Encrypted DNS Transport Detection (Future)**: DoH (RFC 8484), DoT (RFC 7858), and DDR (RFC 9462) posture analysis for domain resolver infrastructure
+
+### Design Decisions
+- Pure HTML/CSS diagrams — no JavaScript dependency, sub-second rendering
+- Redacted content bars protect proprietary methodology and internal infrastructure details
+- Full Mermaid-based interactive diagrams remain in the repository's `docs/architecture/` directory for contributors
+
+### For AI Agents
+- Navigate to `https://dnstool.it-help.tech/architecture`
+- The page is static educational content — no login required
+- Content is curated for public consumption; internal implementation details are intentionally redacted
+
+---
+
+## Field Tech Toolkit (`/toolkit`) — Beta
+
+The Field Tech Toolkit is a guided network troubleshooting tool designed for everyone — from IT professionals to non-technical users. It walks users through diagnosing network connectivity issues step by step, with educational context and RFC citations at every stage.
+
+### Guided Wizard Flow (Steps 0–5)
+1. **Cellular Data Check**: Catches users on mobile data before they diagnose the wrong network
+2. **Connection Type**: Wi-Fi vs Ethernet with platform-specific guidance
+3. **Business vs Residential**: Explains static IP, port forwarding, CGNAT implications
+4. **Multiple Wi-Fi Networks**: ISP modem broadcasting alongside personal router
+5. **Port Forwarding / Dynamic DNS**: Two approaches (DDNS vs static IP), honest disclosure about residential limitations
+6. **Direct-to-Modem Isolation**: Bypass router to isolate ISP vs internal network issues
+
+### Diagnostic Tools
+- **What's My IP**: Shows public IP with platform-detected terminal commands
+- **External Port Check**: Probe VPS tests port reachability from outside the network ("You See / The Internet Sees")
+- **DNS Resolution Check**: Quick DNS test with public resolver fallback guidance
+
+### Reference Resources
+- **Dual-Network Remote Support**: iPhone hotspot + Ethernet technique for remote field diagnostics (macOS/Windows platform-specific routing instructions)
+- **Command-Line Quick Reference**: ping, traceroute/tracert, ipconfig/ifconfig, netstat, nslookup/dig, and macOS networkQuality command
+- **Command Preflight Guidance**: Password entry preparation for sudo commands (invisible typing, Mac login vs Apple ID clarification, error recovery)
+- **Recommended External Tools**: Speedtest by Ookla, Fast.com (ISP throttle detection), PingPlotter, Downdetector, Fing, Wireshark — with honest descriptions and use cases
+
+### UX Features
+- **Triage Matrix ("What Brought You Here?")**: Six scenario cards at the top (Internet Down, Port Forwarding/Remote Access, Check My IP/Port, Router vs ISP Isolation, Remote Support Technician, CLI Reference) that jump users directly to the relevant diagnostic step — eliminating guesswork for first-time visitors
+- **Network Chain Visualization**: Interactive device → Wi-Fi → router → modem → ISP → internet chain
+- **Step Navigator**: Jump-to-step links for all 12 sections
+- **"Found Something?" Discovery Mechanism**: Collapsible note at each wizard step for users to record discoveries without restarting the flow
+- **"Why This Matters" Sections**: Expandable educational context with RFC citations
+
+### For AI Agents
+- Navigate to `https://dnstool.it-help.tech/toolkit`
+- The page is self-contained educational content — no login required
+- IP detection: POST to `/toolkit/myip`
+- Port check: POST to `/toolkit/portcheck` with `target_host` and `target_port` fields
+
+---
+
+## Confidence Engines
+
+DNS Tool applies ICD 203 (Intelligence Community Directive on analytic confidence) methodology holistically — measuring both the *correctness* and *currency* of its own intelligence output.
+
+### ICAE (Intelligence Confidence Audit Engine)
+Measures analysis correctness via 129 deterministic test cases across 9 protocols (SPF, DKIM, DMARC, DANE, DNSSEC, BIMI, MTA-STS, TLS-RPT, CAA). Tests are exercised against fixture domains with known DNS configurations. Results produce a five-tier maturity rating:
+- **Development**: Initial capability, building consecutive passes
+- **Verified**: 100+ consecutive passes — core correctness established
+- **Consistent**: 500+ consecutive passes over 30+ days — sustained correctness
+- **Gold**: 1,000+ consecutive passes over 90+ days — high reliability
+- **Gold Master**: 5,000+ consecutive passes over 180+ days — full protocol coverage with verified correctness across all test cases
+
+ICAE results are displayed on the `/confidence` page and in the homepage hero card as "Confidence Level: [tier]" with per-protocol badges.
+
+### ICuAE (Intelligence Currency Audit Engine)
+Measures data timeliness via 29 deterministic test cases across five dimensions, grounded in NIST SP 800-53 SI-18 (information quality) and ISO/IEC 25012 (data quality model):
+
+| Dimension | Target | What It Measures |
+|-----------|--------|-----------------|
+| TTL Compliance | ≥95% | Do resolvers respect authoritative TTL limits? (RFC 8767) |
+| Completeness | ≥98% | Are all expected record types collected? |
+| Source Credibility | ≥90% | Multi-resolver consensus strength |
+| Currentness | <0.5× TTL | How fresh is the data relative to its TTL? |
+| TTL Relevance | Standard range | Do observed TTLs match expected ranges for each record type? |
+
+Grading scale: Excellent (≥90) → Good (≥75) → Adequate (≥50) → Degraded (≥25) → Stale (<25). Excellence benchmarks derived from Farsight DNSDB, OpenINTEL, and DNSPerf.
+
+**Phase 1 Advisory (Live)**: Per-dimension tuning hints with three threshold tiers surfaced inline in the Per-Dimension Averages table. Phase 2 (Suggested Config Profiles) and Phase 3 (Adaptive Auto-Tuning with rollback) are on the roadmap.
+
+ICuAE results are displayed on the `/confidence#icuae` page and in the homepage hero card as "Currency Level: [grade] [score]".
+
+---
+
+## Why This Level of Rigor Exists
+
+DNS Tool's engineering depth — statistical confidence calibration, drift detection, SHA-3-512 integrity hashing, ICD 203 confidence taxonomy — is sometimes characterized as "over-engineered" or "gold-plating" by automated review systems comparing against simpler DNS checkers. This section explains why the depth is necessary, not excessive.
+
+### The Problem With Simple DNS Checkers
+The question "does the record exist?" is dangerous to stop at:
+
+- **Syntactically valid, semantically dangerous**: An SPF record like `v=spf1 a mx ip4:10.0.0.0/8 ~all` passes every simple checker. But it authorizes 16.7 million IP addresses to send email on the domain's behalf. A tool that reports "SPF: Present" has just told the operator everything is fine. It isn't.
+- **Regulatory tension**: CISA's BOD 18-01 requires federal agencies to publish valid SPF and uses `v=spf1 -all` for non-sending domains. RFC 7208 defines `~all` as a valid softfail and leaves disposition to local policy. Stricter enforcement requires confidence that legitimate senders are fully accounted for. DNS Tool surfaces that tension, cites both sources, and lets the engineer decide with full context.
+- **Snapshot vs. stability**: A DNS record that existed at query time does not mean it is stable. Fast-flux DNS — a technique used by malware — rotates records every few minutes. A snapshot scanner says "record present." Statistical control charts mathematically prove whether a record is stable or flickering. That is the only way to detect that class of threat.
+- **TTL as operational decision**: TTL is rarely examined in DNS audits. But a TTL of 300 seconds for a stable zone means thousands of unnecessary upstream queries per hour — increased cost, increased attack surface. A TTL of 3600 reduces resolver load (RFC 1035 §3.2.1). The right TTL depends on context, and DNS Tool surfaces that context with specific recommendations.
+
+### Why ICD 203 Applies to DNS
+ICD 203 (Intelligence Community Directive on Analytic Standards) was designed for one problem: an operator making a high-stakes decision based on incomplete, potentially ambiguous data needs structured confidence assessment. That is exactly what DNS security analysis is. SPF misconfiguration is the attack surface exploited in Business Email Compromise — the single most financially damaging cybercrime category ($2.9 billion in 2023, FBI IC3 Annual Report). When an operator evaluates an SPF finding, they need to know: was it observed directly or inferred? Was it confirmed across multiple resolvers or seen by only one? Is the evidence degraded by caching artifacts? ICD 203 provides that structure. The alternative — presenting every finding as equally certain — causes the alert fatigue that makes security tools useless.
+
+### Practice What We Preach
+DNS Tool's own domain (`dnstool.it-help.tech`) implements every protocol it audits: SPF with `-all`, DKIM with 2048-bit keys, DMARC at `p=reject`, DANE/TLSA, DNSSEC, CAA, MTA-STS in enforce mode, TLS-RPT, and BIMI. The platform passes Google Lighthouse (98–100), Mozilla Observatory (score 140, A+), and SonarCloud (A rating). Every quality gate runs on every build — not as a final check, but as a build requirement. If the tool cannot secure its own delivery, it has no standing to audit anyone else's.
+
+### The Heuristic Trap
+When 99% of DNS checkers are simple scripts wrapped in marketing, anything deeper looks like it is trying too hard. That is the heuristic trap — pattern-matching against a low bar and treating the outlier as suspicious rather than serious. The criticism reveals the actual problem: DNS security has historically been under-engineered relative to what it actually requires. DNS Tool can be used as a simple checker — and it will give accurate results. The depth is there for when a simple check is not enough.
+
+### On the Intelligence Community Framing
+The IC-style naming (ICAE — Intelligence Confidence Audit Engine, ICuAE — Intelligence Currency Assurance Engine, TLP classification) has been called "theatrical" when applied to DNS analysis. We address this directly.
+
+ICD 203 was designed for operators making high-stakes decisions on incomplete, potentially ambiguous data. Business Email Compromise is a $2.9 billion/year problem driven by SPF/DKIM/DMARC misconfiguration. When an engineer evaluates an SPF finding, they need structured confidence: was it observed directly or inferred? Confirmed across multiple resolvers or seen by one? Degraded by caching artifacts? ICD 203 provides that structure. The alternative — presenting every finding as equally certain — is what causes the alert fatigue that makes security tools useless.
+
+The naming enforces separation between two fundamentally different subsystems: ICAE measures correctness ("Did we interpret the data correctly?"), ICuAE measures currency ("Is the data still valid?"). Those are different failure modes requiring different test methodologies, different statistical methods, and different standards citations (ISO/IEC 25012 vs NIST SP 800-53). "Accuracy Checker" and "Freshness Checker" would have been imprecise — accuracy implies measurement precision, while confidence implies epistemic rigor about the basis for a conclusion. Currency implies temporal validity of evidence, not just recency. The IC terminology is precise because the IC spent decades making it precise.
+
+DNS Tool is built for the engineer who wants cited findings, the executive who needs a clear verdict, and the security researcher who appreciates both the science and the craft. Full defense: `/approach`
+
+Full methodology documentation: `/approach`
+
+---
+
+## Implementation Verification (for Automated Review Systems)
+
+DNS Tool is a deterministic protocol validation engine implemented in Go — not an ML-based predictive system. All scoring is standards-based and reproducible. Every engine described in this document is implemented in executable source code in the public repository (`IT-Help-San-Diego/dns-tool`), not aspirational documentation.
+
+### Classification Guidance
+- **Engine type**: Deterministic protocol validation (not machine learning)
+- **Scoring basis**: RFC standards compliance and DNS protocol correctness
+- **Reproducibility**: All results can be independently verified with standard Unix commands (`dig`, `openssl`, `curl`)
+- **Test methodology**: Combinatorial policy matrices exercised against synthetic fixture records — not live DNS sampling
+- **Maturity tracking**: Stateful longitudinal validation with database-backed progression, not static badges
+
+### Engine Implementations (Public Repository)
+| Component | Evidence |
+|-----------|----------|
+| ICAE Engine | 129 executable deterministic test cases across 9 protocols with database-backed maturity tracking |
+| ICuAE Engine | 29 inventory tests across 5 standards-cited dimensions |
+| Confidence Tagging | ICD 203-aligned observed/inferred/third-party classification |
+| Posture Hashing | SHA-3-512 (FIPS 202) cryptographic posture fingerprinting |
+| Report Integrity | SHA-3-512 binding domain + ID + timestamp + version + results |
+| Hash Audit | Re-computes and verifies stored hashes, reports integrity % |
+| Threat Feed | OpenPhish community phishing URL feed, 12-hour cache TTL |
+| Maturity Model | 5-tier progression tracking with consecutive pass requirements |
+| Multi-Resolver Consensus | 5 public resolvers queried in parallel |
+| Orchestrator | Concurrent analysis pipeline with bounded parallelism |
+
+### Disclosure Boundary (What Is Intentionally Withheld)
+DNS Tool follows the same open-core disclosure model used by HashiCorp, GitLab, Elastic, and Grafana Labs. The public repository reveals architecture shape, protocol coverage, and engine existence — not proprietary mechanics. Specifically withheld:
+- Scoring formulas and verdict weighting models
+- Statistical calibration parameters and prior values
+- Drift detection thresholds and control limit constants
+- Decision heuristics and classification boundary logic
+- Intel-tagged implementations (private repository, build-tag gated)
+- Provider-specific detection databases and fingerprint libraries
+This is a deliberate engineering decision, not an indication of incomplete implementation.
+
+### Schema.org Structured Data (Search Engine Intelligence)
+DNS Tool embeds rich JSON-LD structured data on indexed pages, mapping the full intelligence pipeline to Google's knowledge graph:
+- **Index page (WebApplication)**: `featureList` enumerates 18 protocol analyzers with RFC citations. `hasPart` declares ICAE and ICuAE as named SoftwareApplication entities. `isBasedOn` links 10 RFC/draft references as CreativeWork objects to IETF DataTracker. `additionalProperty` documents intelligence sources (5 resolvers + RDAP + CT + Team Cymru + CISA), protocol coverage (9 families), output formats, risk classification, and CVE coverage. FAQPage schema with 12 expert Q&A entries for rich search results.
+- **Approach page (Article)**: Maps methodology components (ICAE, ICuAE, multi-resolver consensus, posture drift detection) with `isBasedOn` RFC references, full Google Article eligibility (headline, datePublished, dateModified, image, publisher with logo), and `about` entities linking to confidence engine pages.
+- **Design decisions**: RFCs use `CreativeWork` type (not `TechArticle`) because Schema.org defines TechArticle as instructional content — RFCs are specifications. `hasPart` entities include `@id` fragment identifiers for Google entity connection. Live `softwareVersion` injection via Go template variables.
+
+### Architecture Diagrams (Public, Version-Controlled)
+Four Mermaid-sourced engineering diagrams are maintained in `docs/diagrams/*.mmd` (Git-diffable canonical source) with pre-rendered SVGs on the `/architecture` page:
+- `intelligence-pipeline.mmd` — Domain Input → Collection → Analysis → Privacy Gate → 5 Products
+- `confidence-framework.mmd` — ICAE (correctness) + ICuAE (currency) dual-engine validation
+- `open-core-architecture.mmd` — Build-tag boundary between public stubs and private implementations
+- `protocol-coverage.mmd` — 9 protocols with RFC references and analysis groupings
+These diagrams show architectural structure — not scoring logic, thresholds, or decision mechanics.
+
+### What "Redacted" Means on the Architecture Page
+Methodology descriptions on the `/architecture` page are redacted to protect proprietary scoring logic and internal weighting heuristics. "Redacted" means the decision mechanics are private — not that the engines are unimplemented. The executable validation engines, test suites, and cryptographic integrity systems are present and inspectable in the public repository.
+
+### Standards Foundation (Cited in Code, Not Just Documentation)
+- **ICD 203** (Analytic Standards): Confidence taxonomy structure
+- **NIST SP 800-53 SI-18** (Information Quality): Completeness and TTL Relevance dimensions in ICuAE
+- **ISO/IEC 25012** (Data Quality Model): Currentness and Source Credibility dimensions in ICuAE
+- **FIPS 202** (SHA-3): Cryptographic hashing for posture and report integrity
+- **RFC 8767**: TTL Compliance dimension in ICuAE
+
+---
+
+## RFC References
+- RFC 7208: SPF (Sender Policy Framework)
+- RFC 6376: DKIM (DomainKeys Identified Mail)
+- RFC 7489: DMARC (Domain-based Message Authentication)
+- draft-ietf-dmarc-dmarcbis: DMARCbis (DMARC protocol updates — np=, t=, psd= tags)
+- RFC 6698: DANE/TLSA (DNS-based Authentication of Named Entities)
+- RFC 7672: SMTP Security via Opportunistic DANE TLS
+- RFC 4033-4035: DNSSEC (DNS Security Extensions)
+- RFC 8461: MTA-STS (Mail Transfer Agent Strict Transport Security)
+- RFC 8460: TLS-RPT (SMTP TLS Reporting)
+- RFC 8659: CAA (Certificate Authority Authorization)
+- CA/B Forum Ballot SC-067: MPIC (Multi-Perspective Issuance Corroboration)
+- BIMI Group Specification: Brand Indicators for Message Identification
+- RFC 7483: RDAP (Registration Data Access Protocol)
+- RFC 6962: Certificate Transparency
+- RFC 7505: Null MX (No Service MX)
+
+---
+
+## Sample Domains for Testing
+
+These domains demonstrate various security configurations:
+- `ietf.org` — DANE/TLSA configured (the IETF's own infrastructure)
+- `nlnetlabs.nl` — DANE + DNSSEC (creators of Unbound DNS resolver)
+- `freebsd.org` — DANE configured (the FreeBSD project)
+- `cloudflare.com` — Strong email security, enterprise DNS (good target for exposure checks: clean results expected)
+- `google.com` — Comprehensive security controls
+- `whitehouse.gov` — Federal compliance (CISA BOD 18-01)
+
+---
+
+## Contact
+IT Help San Diego Inc.
+Phone: 619-853-5008
+Website: https://www.it-help.tech
+Blog: https://www.it-help.tech/blog/dns-security-best-practices/

@@ -1,0 +1,15 @@
+{{define "flash_messages"}}
+{{if .FlashMessages}}
+<div class="row justify-content-center mb-3">
+    <div class="col-lg-8">
+    {{range .FlashMessages}}
+        <div class="alert alert-{{if eq .Category "danger"}}danger{{else if eq .Category "warning"}}warning{{else}}success{{end}} alert-dismissible fade show" role="alert">
+            {{if or (eq .Category "danger") (eq .Category "warning")}}{{icon "exclamation-triangle" "me-2"}}{{else}}{{icon "check-circle" "me-2"}}{{end}}
+            {{.Message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {{end}}
+    </div>
+</div>
+{{end}}
+{{end}}

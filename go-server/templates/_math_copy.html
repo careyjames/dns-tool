@@ -1,0 +1,45 @@
+{{define "math_copy_script"}}
+<script nonce="{{.CspNonce}}">
+(function() {
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.className = 'u-offscreen-copy';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+    }
+    function showCopied(btn) {
+        btn.innerHTML = '{{icon "check"}}';
+        btn.classList.add('math-copy-btn--copied');
+        setTimeout(function() {
+            btn.innerHTML = '{{icon "copy"}}';
+            btn.classList.remove('math-copy-btn--copied');
+        }, 1500);
+    }
+    const blocks = document.querySelectorAll('.math-display[data-latex]');
+    blocks.forEach(function(block) {
+        if (block.querySelector('.math-copy-btn')) return;
+        const btn = document.createElement('button');
+        btn.className = 'math-copy-btn';
+        btn.title = 'Copy LaTeX';
+        btn.ariaLabel = 'Copy LaTeX formula';
+        btn.innerHTML = '{{icon "copy"}}';
+        block.appendChild(btn);
+        btn.addEventListener('click', function() {
+            const latex = block.dataset.latex;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(latex).then(function() { showCopied(btn); }).catch(function() {
+                    fallbackCopy(latex);
+                    showCopied(btn);
+                });
+            } else {
+                fallbackCopy(latex);
+                showCopied(btn);
+            }
+        });
+    });
+})();
+</script>
+{{end}}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Compare - {{.Domain}} - DNS Tool</title>
+    <meta name="description" content="Side-by-side comparison of DNS security analyses for {{.Domain}}. Track configuration changes, posture improvements, and protocol adoption over time.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/compare?domain={{.Domain}}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Compare Analyses — {{.Domain}} - DNS Tool">
+    <meta property="og:description" content="Side-by-side comparison of DNS security analyses for {{.Domain}}. Track configuration changes, posture improvements, and protocol adoption over time.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Compare Analyses">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/compare?domain={{.Domain}}">
+    <meta name="twitter:title" content="Compare Analyses — {{.Domain}} - DNS Tool">
+    <meta name="twitter:description" content="Side-by-side comparison of DNS security analyses for {{.Domain}}. Track configuration changes, posture improvements, and protocol adoption over time.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta name="robots" content="noindex, nofollow">
+    {{template "critical_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .diff-added{color:#5ddcae;background-color:#142224;border-left:3px solid #5ddcae;padding-left:.5rem}
+        .diff-removed{color:#ffa0a0;background-color:#201d23;border-left:3px solid #ffa0a0;padding-left:.5rem}
+        .diff-unchanged{color:#9ca3af}
+        .status-arrow{font-size:1.2rem;margin:0 .5rem}
+        .compare-header{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+    </style>
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "code-compare" "me-2"}}Comparison: {{.Domain}}
+                </h1>
+                <p class="text-muted mb-0">Changes between two analyses</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/compare?domain={{.Domain}}" class="btn btn-outline-secondary">
+                    {{icon "exchange-alt" "me-1"}}Pick Different
+                </a>
+                <a href="/history?domain={{.Domain}}" class="btn btn-outline-primary">
+                    {{icon "history" "me-1"}}History
+                </a>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 mb-2 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-body py-2">
+                        <div class="compare-header text-muted mb-1">Older Scan (A)</div>
+                        <div class="fw-medium">{{.AnalysisA.CreatedAt}}</div>
+                        {{if .AnalysisA.HasToolVersion}}
+                            <small class="text-muted">v{{.AnalysisA.ToolVersion}}</small>
+                        {{end}}
+                        {{if .AnalysisA.HasDuration}}
+                            <small class="text-muted ms-2">{{.AnalysisA.AnalysisDuration}}s</small>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body py-2">
+                        <div class="compare-header text-muted mb-1">Newer Scan (B)</div>
+                        <div class="fw-medium">{{.AnalysisB.CreatedAt}}</div>
+                        {{if .AnalysisB.HasToolVersion}}
+                            <small class="text-muted">v{{.AnalysisB.ToolVersion}}</small>
+                        {{end}}
+                        {{if .AnalysisB.HasDuration}}
+                            <small class="text-muted ms-2">{{.AnalysisB.AnalysisDuration}}s</small>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{if eq .ChangesFound 0}}
+            <div class="card mb-4">
+                <div class="card-body text-center py-4">
+                    {{icon "equals" "icon-2x text-success mb-3"}}
+                    <h4 class="text-success">No Changes Detected</h4>
+                    <p class="text-muted mb-0">Both analyses produced identical security assessments for all sections.</p>
+                </div>
+            </div>
+        {{else}}
+            <div class="mb-3">
+                <span class="badge bg-info">{{.ChangesFound}} section{{if ne .ChangesFound 1}}s{{end}} changed</span>
+            </div>
+        {{end}}
+
+        {{range $diff := .Diffs}}
+        <div class="card mb-3 {{if $diff.Changed}}border-warning{{end}}">
+            <div class="card-body py-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        {{if $diff.Changed}}{{icon $diff.Icon "me-2 text-warning"}}{{else}}{{icon $diff.Icon "me-2 text-muted"}}{{end}}
+                        <strong>{{$diff.Label}}</strong>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        {{if $diff.Changed}}
+                            <span class="badge {{statusBadgeClass $diff.StatusA}}">{{$diff.StatusA}}</span>
+                            {{icon "arrow-right" "status-arrow text-warning"}}
+                            <span class="badge {{statusBadgeClass $diff.StatusB}}">{{$diff.StatusB}}</span>
+                        {{else}}
+                            <span class="badge {{statusBadgeClass $diff.StatusA}}">{{$diff.StatusA}}</span>
+                            {{icon "check" "ms-2 text-success"}}
+                        {{end}}
+                    </div>
+                </div>
+
+                {{if $diff.DetailChanges}}
+                <div class="mt-2 small">
+                    {{range $ch := $diff.DetailChanges}}
+                    <div class="mb-1">
+                        <span class="text-muted">{{$ch.Field}}:</span>
+                        {{if notNil $ch.Old}}
+                            <div class="diff-removed mt-1 small">
+                                {{icon "minus" "me-1"}}
+                                {{if $ch.IsMap}}
+                                    <code>{{truncate 200 $ch.OldStr}}</code>
+                                {{else}}
+                                    {{if $ch.OldStr}}{{truncate 200 $ch.OldStr}}{{else}}(empty){{end}}
+                                {{end}}
+                            </div>
+                        {{end}}
+                        {{if notNil $ch.New}}
+                            <div class="diff-added mt-1 small">
+                                {{icon "plus" "me-1"}}
+                                {{if $ch.IsMap}}
+                                    <code>{{truncate 200 $ch.NewStr}}</code>
+                                {{else}}
+                                    {{if $ch.NewStr}}{{truncate 200 $ch.NewStr}}{{else}}(empty){{end}}
+                                {{end}}
+                            </div>
+                        {{end}}
+                    </div>
+                    {{end}}
+                </div>
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+
+        {{template "footer" .}}
+    </main>
+
+    {{template "scripts" .}}
+</body>
+</html>

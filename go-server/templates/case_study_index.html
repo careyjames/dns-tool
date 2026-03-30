@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Domain Confessions — Case Studies — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Domain Confessions: DNS security case studies from real public records. What DNS records reveal about operational priorities.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/case-study/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Domain Confessions — Case Studies — DNS Tool">
+    <meta property="og:description" content="Case studies in DNS security from real public records. What DNS records reveal about operational priorities.">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/owl-of-athena.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Domain Confessions — Case Studies — DNS Tool">
+    <meta name="twitter:description" content="Case studies in DNS security from real public records.">
+    <link rel="canonical" href="https://dnstool.it-help.tech/case-study/">
+    <meta property="article:published_time" content="2026-02-14">
+    <meta property="article:modified_time" content="2026-03-20">
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Domain Confessions — Case Studies — DNS Tool",
+        "description": "Case studies in DNS security drawn from real public records. Every observation is independently verifiable.",
+        "url": "https://dnstool.it-help.tech/case-study/",
+        "datePublished": "2026-02-14",
+        "dateModified": "2026-03-20",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "DNS Tool",
+            "url": "https://dnstool.it-help.tech"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech"
+        },
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": 2,
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                        "@type": "VideoObject",
+                        "name": "Domain Confessions #1: Forgotten Domain",
+                        "description": "A domain registered for ten years with no published mail policy is not dormant — it is exposed.",
+                        "url": "https://dnstool.it-help.tech/video/forgotten-domain"
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                        "@type": "Article",
+                        "name": "Domain Confessions #2: The Intelligence Agency That Chose to Watch",
+                        "description": "Two intelligence agencies are the only federal agencies in our survey that have not upgraded to DMARC reject — eight years after the binding directive.",
+                        "url": "https://dnstool.it-help.tech/case-study/intelligence-dmarc"
+                    }
+                }
+            ]
+        }
+    }
+    </script>
+    <style nonce="{{.CspNonce}}">
+        .cs-index-wrap {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        .cs-card {
+            display: block;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(13,17,23,0.6);
+            border: 1px solid rgba(200,149,106,0.12);
+            border-radius: 8px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .cs-card:hover {
+            border-color: rgba(200,149,106,0.35);
+            background: rgba(13,17,23,0.8);
+        }
+        .cs-card-number {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #d4a853;
+        }
+        .cs-card-title {
+            display: block;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #e6edf3;
+            margin-top: 0.35rem;
+        }
+        .cs-card-desc {
+            display: block;
+            font-size: 0.88rem;
+            color: #8b949e;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        .cs-card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: #484f58;
+        }
+        .cs-card-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+        .badge-video {
+            background: rgba(255,68,68,0.1);
+            color: #f85149;
+            border: 1px solid rgba(255,68,68,0.2);
+        }
+        .badge-article {
+            background: rgba(200,149,106,0.1);
+            color: #c8956a;
+            border: 1px solid rgba(200,149,106,0.2);
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container mt-4 mb-5">
+        <div class="cs-index-wrap">
+            <p class="mb-1" style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#d4a853">DNS Tool Research</p>
+            <h1 style="font-size:1.5rem;font-weight:700">{{icon "book-open" "me-2 text-warning"}}Domain Confessions</h1>
+            <p style="font-size:0.92rem;color:#8b949e;line-height:1.6;max-width:640px">Case studies in DNS security drawn from real public records. Every observation is independently verifiable. Every claim is backed by data you can pull yourself with standard tools.</p>
+
+            <a href="/video/forgotten-domain" class="cs-card">
+                <span class="cs-card-number">Domain Confessions #1</span>
+                <span class="cs-card-title">{{icon "shield-alt" "me-2 text-warning"}}Forgotten Domain</span>
+                <span class="cs-card-desc">A domain registered for ten years with no published mail policy is not dormant — it is exposed. Reputation systems do not distinguish between negligence and compromise. They only see the absence of published policy.</span>
+                <span class="cs-card-meta">
+                    <span class="cs-card-badge badge-video">{{icon "play-circle" "me-1"}}Video</span>
+                    <span>February 2026</span>
+                    <span>SPF &middot; DMARC &middot; Null MX</span>
+                </span>
+            </a>
+
+            <a href="/case-study/intelligence-dmarc" class="cs-card">
+                <span class="cs-card-number">Domain Confessions #2</span>
+                <span class="cs-card-title">{{icon "eye" "me-2 text-warning"}}The Intelligence Agency That Chose to Watch</span>
+                <span class="cs-card-desc">Two intelligence agencies are the only federal agencies in our survey that have not upgraded to DMARC reject — eight years after the binding directive. Their DNS records suggest this may be deliberate.</span>
+                <span class="cs-card-meta">
+                    <span class="cs-card-badge badge-article">{{icon "file-alt" "me-1"}}Case Study</span>
+                    <span>March 2026</span>
+                    <span>DMARC &middot; BOD 18-01 &middot; Forensic Reporting &middot; 13 Federal Agencies</span>
+                </span>
+            </a>
+        </div>
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

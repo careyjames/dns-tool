@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+{{htmlComment "    Cause I'm a hacker, baby, I'm gonna pwn you good,\n    Diff your zone to the spec like you knew I would.\n    Cite those RFCs, baby, so my argument stood,\n    Standards over swagger — that's understood.\n\n    — DNS Tool / If it's not in RFC 1034, it ain't understood.\n\n    Legal: DNS Tool performs passive, non-intrusive analysis of publicly\n    available DNS records and web resources. No systems are penetrated,\n    exploited, or accessed without authorization. All data is obtained\n    from public sources (DNS, CT logs, HTTP headers, robots.txt).\n    'Hacker' per RFC 1392 (IETF Internet Users' Glossary, 1993):\n    'A person who delights in having an intimate understanding of the\n    internal workings of a system, computers and computer networks\n    in particular.' That's us. That's always been us."}}
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>DNS Tool — Domain Security Intelligence | OSINT Reports</title>
+    <meta name="description" content="OSINT domain security audit — no login required. Analyzes SPF, DKIM, DMARC, DANE, DNSSEC, BIMI, MTA-STS, CAA. Engineer &amp; Executive reports.">
+    <meta name="keywords" content="domain security audit, SPF DKIM DMARC analyzer, DNS intelligence report, email authentication checker, OSINT domain security, DNS security posture, DANE TLSA checker, AI crawler governance audit, DNSSEC validation, BIMI checker, MTA-STS checker, CAA record check, email header analyzer, IP intelligence, cybersecurity posture report">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Facebook / Open Graph -->
+    <meta property="og:url" content="{{.BaseURL}}/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="DNS Tool — Domain Security Intelligence | OSINT Reports">
+    <meta property="og:description" content="OSINT domain security audit — no login required. Analyzes SPF, DKIM, DMARC, DANE, DNSSEC, BIMI, MTA-STS, CAA. Engineer and Executive intelligence reports.">
+    <meta property="og:image" content="{{.BaseURL}}/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Domain Security Intelligence">
+    <meta property="og:site_name" content="DNS Tool">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="{{replace "https://" "" (replace "http://" "" .BaseURL)}}">
+    <meta property="twitter:url" content="{{.BaseURL}}/">
+    <meta name="twitter:title" content="DNS Tool — Domain Security Intelligence | OSINT Reports">
+    <meta name="twitter:description" content="OSINT domain security audit — no login required. Analyzes SPF, DKIM, DMARC, DANE, DNSSEC, BIMI, MTA-STS, CAA. Engineer and Executive intelligence reports.">
+    <meta name="twitter:image" content="{{.BaseURL}}/static/images/og-image.png">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "DNS Tool — Domain Security Intelligence | OSINT Reports",
+        "alternateName": ["DNS Security Intelligence", "Domain Security Audit", "DNS OSINT Tool", "SPF Checker", "DMARC Lookup", "DKIM Validator", "DNSSEC Checker", "DANE Checker", "TLSA Lookup", "Email Security Audit Tool", "Email Security Management Detector", "MTA-STS Checker", "TLS-RPT Checker", "CAA Checker", "BIMI Checker", "IP Intelligence Tool", "Email Header Analyzer", "Subdomain Discovery Tool", "Field Tech Toolkit", "Network Troubleshooting Tool", "Intelligence Confidence Audit Engine", "Intelligence Currency Assurance Engine", "ICAE", "ICuAE", "Domain Dossier", "DMARCbis Checker", "Analysis Transparency Log"],
+        "description": "OSINT-based domain security audit producing Engineer's DNS Intelligence Reports and Executive's DNS Intelligence Briefs. All analysis uses open-source intelligence — publicly available DNS records, certificate transparency logs, RDAP registry data, and web resources. Analyzes SPF, DKIM, DMARC, DANE/TLSA, DNSSEC, BIMI, MTA-STS, TLS-RPT, and CAA from multiple intelligence sources (Cloudflare, Google, Quad9, OpenDNS, DNS4EU). Email Header Analyzer for spoofing detection with OpenPhish integration. IP Intelligence with ASN attribution and geolocation. AI Surface Scanner for llms.txt and crawler governance. Configurable TLP classification (AMBER/GREEN/CLEAR). Multi-layer subdomain discovery via Certificate Transparency and DNS intelligence. Posture drift detection via canonical hashing. All analysis uses open-standard protocols.",
+        "url": "https://dnstool.it-help.tech",
+        "image": "https://dnstool.it-help.tech/static/images/og-image.png",
+        "screenshot": "https://dnstool.it-help.tech/static/images/og-image.png",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web",
+        "softwareVersion": "{{.AppVersion}}",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "IT Professionals, Security Researchers, Red Teams, Business Executives, DNS Administrators"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "SPF Analysis — RFC 7208 (Standards Track) — Sender Policy Framework validation with lookup counting, mechanism parsing, and +all/~all/-all policy evaluation",
+            "DKIM Analysis — RFC 6376 (Internet Standard) — DomainKeys Identified Mail key discovery, selector probing, key strength assessment (RSA 1024/2048/4096, Ed25519), l= tag vulnerability detection",
+            "DMARC Analysis — RFC 7489 (Informational) — Domain-based Message Authentication policy enforcement, aggregate reporting, subdomain inheritance per §6.6.3, DMARCbis readiness (np=, t=, psd= tag detection)",
+            "DANE/TLSA Analysis — RFC 6698 + RFC 7672 (Standards Track) — DNS-based Authentication of Named Entities for SMTP, TLSA record validation per certificate usage/selector/matching type, DNSSEC dependency verification",
+            "DNSSEC Analysis — RFC 4035 (Standards Track) — DNS Security Extensions chain validation, algorithm strength assessment (RSA/ECDSA/Ed25519), DS/DNSKEY record verification",
+            "MTA-STS Analysis — RFC 8461 (Standards Track) — Mail Transfer Agent Strict Transport Security policy retrieval and validation, mode enforcement (enforce/testing/none)",
+            "TLS-RPT Analysis — RFC 8460 (Standards Track) — SMTP TLS Reporting endpoint validation, DANE and MTA-STS failure reporting coverage",
+            "BIMI Analysis — draft-brand-indicators-for-message-identification (Internet-Draft) — Brand Indicators for Message Identification, VMC certificate detection, DMARC p=quarantine+ prerequisite verification",
+            "CAA Analysis — RFC 8659 (Standards Track) — Certificate Authority Authorization with MPIC (Multi-Perspective Issuance Corroboration) context, issue/issuewild/iodef tag parsing",
+            "Multi-Resolver Consensus — Parallel queries to Cloudflare (1.1.1.1), Google (8.8.8.8), Quad9 (9.9.9.9), OpenDNS (208.67.222.222), DNS4EU with majority-agreement verification",
+            "ICIE Intelligence Engine — Integrated Confidence in Ingested Evidence — central analysis engine processing all intelligence sources into scored findings",
+            "ICAE Confidence Audit — Intelligence Confidence Audit Engine — accuracy validation against golden fixtures and known-good reference data",
+            "ICuAE Currency Audit — Intelligence Currency Assurance Engine — temporal freshness verification ensuring analysis reflects current DNS state",
+            "Posture Drift Detection — Canonical hashing of DNS security configuration for change detection across time-series scans",
+            "Email Header Analyzer — RFC 5322 header parsing with authentication chain reconstruction, OpenPhish URL intelligence, spoofing indicator detection",
+            "IP Intelligence — ASN attribution via Team Cymru, PTR-based hosting detection, geolocation, abuse contact lookup",
+            "Subdomain Discovery — Multi-layer enumeration via Certificate Transparency logs and DNS intelligence with horizontal correlation",
+            "Email Security Management Detection — Automated identification of DMARC monitoring, SPF flattening, and TLS-RPT reporting service providers"
+        ],
+        "hasPart": [
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://dnstool.it-help.tech/#icie",
+                "name": "ICIE — Integrated Confidence in Ingested Evidence",
+                "description": "Central analysis engine that processes intelligence from 5 DNS resolvers, RDAP/WHOIS registries, IETF metadata, CISA threat feeds, and active probe fleet (SMTP, DANE, TLS) into RFC-cited security findings with confidence indicators.",
+                "applicationCategory": "SecurityApplication",
+                "operatingSystem": "Web",
+                "url": "https://dnstool.it-help.tech/approach",
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://dnstool.it-help.tech/#icae",
+                "name": "ICAE — Intelligence Confidence Audit Engine",
+                "description": "Accuracy validation subsystem that audits ICIE analysis output against golden fixture reference data and known-good baselines to ensure finding correctness.",
+                "applicationCategory": "SecurityApplication",
+                "operatingSystem": "Web",
+                "url": "https://dnstool.it-help.tech/confidence",
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://dnstool.it-help.tech/#icuae",
+                "name": "ICuAE — Intelligence Currency Assurance Engine",
+                "description": "Temporal freshness verification subsystem that validates analysis currency, ensuring findings reflect the current DNS state rather than stale cached data.",
+                "applicationCategory": "SecurityApplication",
+                "operatingSystem": "Web",
+                "url": "https://dnstool.it-help.tech/confidence",
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+            }
+        ],
+        "isBasedOn": [
+            {"@type": "CreativeWork", "name": "RFC 7208 — Sender Policy Framework (SPF)", "url": "https://datatracker.ietf.org/doc/html/rfc7208"},
+            {"@type": "CreativeWork", "name": "RFC 6376 — DomainKeys Identified Mail (DKIM)", "url": "https://datatracker.ietf.org/doc/html/rfc6376"},
+            {"@type": "CreativeWork", "name": "RFC 7489 — DMARC", "url": "https://datatracker.ietf.org/doc/html/rfc7489"},
+            {"@type": "CreativeWork", "name": "RFC 6698 — DANE/TLSA", "url": "https://datatracker.ietf.org/doc/html/rfc6698"},
+            {"@type": "CreativeWork", "name": "RFC 7672 — DANE for SMTP", "url": "https://datatracker.ietf.org/doc/html/rfc7672"},
+            {"@type": "CreativeWork", "name": "RFC 4035 — DNSSEC Protocol", "url": "https://datatracker.ietf.org/doc/html/rfc4035"},
+            {"@type": "CreativeWork", "name": "RFC 8461 — MTA-STS", "url": "https://datatracker.ietf.org/doc/html/rfc8461"},
+            {"@type": "CreativeWork", "name": "RFC 8460 — TLS-RPT", "url": "https://datatracker.ietf.org/doc/html/rfc8460"},
+            {"@type": "CreativeWork", "name": "RFC 8659 — CAA", "url": "https://datatracker.ietf.org/doc/html/rfc8659"},
+            {"@type": "CreativeWork", "name": "draft-ietf-dmarc-dmarcbis — DMARCbis", "url": "https://datatracker.ietf.org/doc/draft-ietf-dmarc-dmarcbis/"},
+            {"@type": "CreativeWork", "name": "draft-brand-indicators-for-message-identification — BIMI", "url": "https://datatracker.ietf.org/doc/draft-brand-indicators-for-message-identification/"}
+        ],
+        "author": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech",
+            "image": "https://dnstool.it-help.tech/static/images/og-image.png",
+            "logo": "https://dnstool.it-help.tech/static/images/owl-of-athena-160.png",
+            "telephone": "+1-619-853-5008",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "888 Prospect St, Suite 200",
+                "addressLocality": "La Jolla",
+                "addressRegion": "CA",
+                "postalCode": "92037",
+                "addressCountry": "US"
+            },
+            "founder": {
+                "@type": "Person",
+                "name": "Carey James Balboa",
+                "sameAs": "https://orcid.org/0009-0000-5237-9065"
+            }
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://dnstool.it-help.tech/analyze?domain={domain}"
+            },
+            "query-input": {
+                "@type": "PropertyValueSpecification",
+                "valueRequired": true,
+                "valueName": "domain"
+            }
+        },
+        "additionalProperty": [
+            {
+                "@type": "PropertyValue",
+                "name": "Intelligence Sources",
+                "value": "Cloudflare DNS (1.1.1.1), Google DNS (8.8.8.8), Quad9 (9.9.9.9), OpenDNS (208.67.222.222), DNS4EU, RDAP/WHOIS, Certificate Transparency, Team Cymru ASN, CISA KEV"
+            },
+            {
+                "@type": "PropertyValue",
+                "name": "Protocol Coverage",
+                "value": "9 protocol families: SPF, DKIM, DMARC, DANE/TLSA, DNSSEC, MTA-STS, TLS-RPT, BIMI, CAA"
+            },
+            {
+                "@type": "PropertyValue",
+                "name": "Output Formats",
+                "value": "Engineer's DNS Intelligence Report, Executive's DNS Intelligence Brief, Covert Recon Report, Domain Comparison, JSON API, SVG Posture Badges, Schema.org Structured Data"
+            },
+            {
+                "@type": "PropertyValue",
+                "name": "Risk Classification",
+                "value": "CVSS-aligned 5-level scoring: Critical, High, Medium, Low, Informational"
+            },
+            {
+                "@type": "PropertyValue",
+                "name": "Security Vulnerability Coverage",
+                "value": "CVE-2024-7208 (multi-tenant SPF spoofing), CVE-2024-7209 (shared SPF exploitation), CVE-2024-49040 (Exchange sender spoofing), DKIM l= tag body length vulnerability, DKIM replay attacks, weak DKIM key cracking"
+            }
+        ]
+    }
+    </script>
+    
+    <!-- FAQ Schema for rich search results -->
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is a domain security audit?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A domain security audit examines your domain's DNS configuration, email authentication records (SPF, DKIM, DMARC), transport security (DANE/TLSA, MTA-STS, TLS-RPT), encryption settings (DNSSEC), certificate controls (CAA), and email security management providers. It examines your domain's observable DNS controls for email spoofing, DNS hijacking, man-in-the-middle attacks, and brand impersonation — and whether configuration detected signals consistent with active management or is left unmonitored."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I check if my email can be spoofed?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Enter your domain name into DNS Tool and click Analyze. It checks your SPF record (which servers can send email as you), DMARC policy (what happens to unauthorized emails), and DKIM keys (cryptographic email signatures). A DMARC policy of p=reject instructs receiving servers to reject unauthorized messages (RFC 7489, Section 6.3)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What do SPF, DKIM, and DMARC mean?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SPF (Sender Policy Framework) lists which mail servers are authorized to send email for your domain. DKIM (DomainKeys Identified Mail) adds a cryptographic signature to emails designed to detect tampering. DMARC (Domain-based Message Authentication) tells receiving mail servers what to do when SPF or DKIM checks fail."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is DNSSEC and why does it matter?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DNSSEC (DNS Security Extensions) adds cryptographic signatures to DNS responses, designed to detect tampering in transit. Without DNSSEC, attackers could redirect your domain's traffic to malicious servers through DNS hijacking or cache poisoning."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to create an account?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No account is required to run any analysis. Paste a domain, click Analyze, and get your intelligence report immediately. Optional Google sign-in unlocks personal features like scan history, watchlists, and domain dossiers. We don't collect tracking cookies and marketing messages are opt-in only. Every analysis queries DNS records in real-time from multiple resolvers (Cloudflare, Google, Quad9, OpenDNS, DNS4EU) to provide the most current data available to public resolvers."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What does DNS Tool analyze?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DNS Tool provides a comprehensive DNS security intelligence report that goes beyond record retrieval. It analyzes multi-resolver consensus verification, email authentication scoring, DKIM key strength, DANE/TLSA certificate pinning for mail transport, DMARCbis readiness checks, enterprise DNS provider detection, email security management provider identification (DMARC monitoring, SPF flattening, TLS-RPT reporting), SMTP transport encryption, BIMI brand verification, CAA analysis with MPIC context, Certificate Transparency subdomain discovery, IP investigation, PTR-based hosting detection, Team Cymru ASN attribution, JSON export, and a CVSS-aligned risk level (Critical / High / Medium / Low / Informational) with per-section remediation designed for both technical and executive audiences. Select sections include confidence indicators (Observed, Inferred) showing the evidence basis for each conclusion. Our full intelligence sources are documented at /sources."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use this to audit a competitor's or vendor's domain?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. DNS records are public information. This is commonly used for vendor security assessments, supply chain risk evaluation, due diligence before partnerships, and competitive analysis."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are DANE, BIMI, MTA-STS, and CAA records?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DANE (DNS-based Authentication of Named Entities) pins TLS certificates to DNS via TLSA records, providing controls against man-in-the-middle attacks when DNSSEC is deployed — over 4 million domains publish TLSA records globally (per stats.dnssec-tools.org), including Microsoft Exchange Online. BIMI (Brand Indicators for Message Identification) enables brand logo display next to emails in supporting inboxes. MTA-STS (Mail Transfer Agent Strict Transport Security) instructs sending servers to require encrypted email delivery. TLS-RPT (TLS Reporting) sends delivery failure reports when encrypted email connections fail. CAA (Certificate Authority Authorization) specifies which certificate authorities are permitted to issue certificates for your domain. CAs now verify CAA from multiple geographic locations via MPIC (Multi-Perspective Issuance Corroboration, mandatory since September 2025). DNS Tool checks all of these in a single scan and provides context on MPIC implications for your CAA configuration."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "I thought SPF -all (hard fail) was the strongest protection. Isn't ~all weaker?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "This is one of the most common misconceptions in email security. SPF -all (hard fail) sounds stronger, but RFC 7489 warns that it can cause receiving servers to reject messages before DKIM is checked and before DMARC can evaluate the result. A message that would pass DMARC via DKIM alignment gets rejected prematurely. Google and most major providers recommend ~all (soft fail) for active sending domains, with DMARC p=reject as the enforcement layer. The combination of ~all + DMARC reject is the strongest compatible security stance — every authentication method is fully evaluated before a disposition decision is made. Federal .gov context: CISA BOD 18-01 (2017) requires valid SPF records and DMARC p=reject for federal civilian agencies. The directive doesn't explicitly specify -all vs ~all, but federal agencies widely adopted -all as a defense-in-depth practice. In 2017, most federal domains had no DMARC at all, so -all was a pragmatic safety net — you couldn't rely on DMARC being there. Now that DMARC p=reject is in place, the -all is somewhat redundant and creates the RFC 7489 premature-rejection risk, but federal infrastructure is controlled enough that the risk is lower. The directive hasn't been updated to reflect the industry consensus around ~all + DMARC reject. Microsoft also historically defaults to -all."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "If your DMARC says p=none, your work's not done. What does this mean?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DMARC p=none is only a monitoring policy — it instructs receiving servers to deliver everything, even messages that fail authentication, and just send reports. It does not instruct receivers to block spoofed emails. Similarly, p=quarantine instructs receivers to treat suspicious messages as spam, where recipients might still open them. DMARC p=reject instructs receiving servers to refuse messages that fail authentication (RFC 7489, Section 6.3) — they should never reach the inbox or spam folder. The recommended modern configuration is SPF ~all (soft fail) combined with DMARC p=reject and verified DKIM signing. This configuration ensures every authentication method is fully evaluated before a disposition decision is made."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "I thought DANE was a niche Dutch thing that nobody uses. Why does DNS Tool check it?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "This is one of the most widespread misconceptions in email security. The Netherlands adopted DANE early and aggressively — SIDN (the .nl registry) promoted it and the Dutch government mandated it, creating the false impression DANE was only a Dutch phenomenon. Making things worse, DANE for web browsers genuinely failed (Let's Encrypt solved HTTPS differently), so people conflated 'DANE for websites is dead' with 'DANE is dead' — missing that DANE for email (SMTP, RFC 7672) was thriving separately. What actually happened: over 4 million domains now publish TLSA records globally (per stats.dnssec-tools.org). Microsoft Exchange Online announced GA of inbound SMTP DANE with DNSSEC in October 2024, available to all tenants at no extra cost. Outbound DANE has been live since March 2022. The IETF itself uses DANE on mail.ietf.org. Adoption extends beyond the Netherlands: Sweden, Norway, Czech Republic, and EU public agencies all deploy it. DANE is frequently omitted from DNS audits because it requires DNSSEC validation (RFC 7672 §1.3) and was historically complex to check, creating a self-reinforcing blind spot. DNS Tool checks DANE/TLSA for every MX host alongside MTA-STS. Best practice: deploy both DANE (cryptographic strength) and MTA-STS (broader compatibility)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I know the results are accurate? Can I verify them?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DNS Tool uses exclusively open-standard protocols that anyone can verify independently. We publish our complete intelligence sources inventory at /sources, documenting every data source, methodology, rate limit, and verification approach. Our analysis uses 5 independent DNS resolvers with majority-agreement consensus, reverse DNS (PTR) for hosting detection, Team Cymru for ASN attribution, and standard SMTP probing — all using protocols verifiable with standard tools (dig, openssl, curl) available on macOS, Linux, and Windows (via WSL)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "DANE vs MTA-STS — what is the relationship between these email transport security standards?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "DANE (RFC 7672) is the primary standard for securing email transport. It publishes TLS certificate information in DNSSEC-signed DNS records (TLSA), creating a cryptographic chain of trust from the DNS root to the mail server certificate — removing reliance on certificate authorities. MTA-STS (RFC 8461) was created as an alternative for domains where 'deploying DNSSEC is undesirable or impractical' (RFC 8461 §2). It publishes a TLS policy via HTTPS using the web PKI trust model. RFC 8461 establishes a clear hierarchy: senders 'MUST NOT allow MTA-STS validation to override a failing DANE validation.' Both mechanisms coexist because DANE is backward-compatible — sending servers skip the DANE check if the receiving domain isn't DNSSEC-signed (RFC 7672 §1.3). Microsoft Exchange Online enforces inbound DANE with DNSSEC (GA October 2024), and Proton Mail and Fastmail also support DANE. Google Workspace does not support DANE — its shared MX infrastructure does not publish TLSA records — so it relies on MTA-STS instead. Best practice is deploying both for defense in depth: DANE provides the strongest cryptographic controls via DNSSEC, while MTA-STS provides coverage for senders that don't validate DNSSEC."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <link rel="canonical" href="{{.BaseURL}}/">
+    <link rel="preload" as="image" type="image/webp" href="{{staticVersionURL "images/owl-of-athena-160.webp" .AppVersion}}">
+    <link rel="preload" as="image" type="image/webp" href="{{staticVersionURL "icons/icon-48x48.webp" .AppVersion}}">
+    {{template "critical_css" .}}
+    <style nonce="{{.CspNonce}}">
+        #main-content{min-height:50vh}
+        .display-4{font-size:2.5rem;font-weight:300;line-height:1.2}
+        .hero-section{padding:3rem 0 2rem;text-align:center}
+        .hero-title{font-size:2.5rem;font-weight:700;color:#e6edf3}
+        .hero-tagline{font-size:1.5rem;color:#8b949e}
+        .hero-subtitle{font-size:1.1rem;color:#8b949e}
+        .hero-badge{display:inline-block;padding:.5rem 1rem;border-radius:2rem;background:rgba(200,149,106,.15);color:#c8956a;font-size:.85rem;font-weight:600}
+    </style>
+    {{template "head_lcp_preload" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="text-center hero-content">
+                <div class="hero-badge mb-3">
+                    {{icon "shield-alt" "me-1"}} DNS Security Intelligence
+                </div>
+                <h1 class="hero-title mb-3">
+                    <span class="hero-ascii-covert d-none" aria-hidden="true"><pre class="hero-ascii-pre">       ██████  ███    ██ ███████
+       ██   ██ ████   ██ ██
+       ██   ██ ██ ██  ██ ███████
+       ██   ██ ██  ██ ██      ██
+       ██████  ██   ████ ███████
+
+██████  ███████  ██████  ██████  ███    ██
+██   ██ ██      ██      ██    ██ ████   ██
+██████  █████   ██      ██    ██ ██ ██  ██
+██   ██ ██      ██      ██    ██ ██  ██ ██
+██   ██ ███████  ██████  ██████  ██   ████</pre></span><span class="hero-text-standard">Domain Security Audit</span>
+                </h1>
+                <p class="hero-tagline mx-auto mb-2 u-hero-tagline covert-hide">
+                    We answer the <span class="text-accent-gold">BIG</span> questions.
+                </p>
+                <p class="hero-subtitle mx-auto mb-2 covert-hide">
+                    Producing <span class="text-accent-gold">Engineer's DNS Intelligence Reports</span> and <span class="text-accent-gold">Executive's DNS Intelligence Briefs</span> with <span class="text-accent-gold">posture&nbsp;scoring</span>
+                </p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-xl-6">
+                    <div class="u-covert-exit-home mt-3">
+                        <div class="alert border-0 mb-0 u-covert-banner" role="alert">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div class="d-flex align-items-start">
+                                    {{icon "biohazard" "me-2 mt-1 u-covert-active-label"}}
+                                    <div>
+                                        <strong class="u-covert-active-label">COVERT MODE ACTIVE</strong> <span class="u-covert-recon-beta-tag">Beta</span>
+                                        <span class="text-muted ms-1">&mdash; Same intelligence, adversarial lens. Every finding reframed for offensive awareness.</span>
+                                        <div class="small text-muted mt-1">{{icon "moon" "me-1"}}Optimized for low-light tactical environments
+                                            <span class="covert-env-selector">
+                                                <span class="covert-env-label">Environment:</span>
+                                                <button type="button" class="covert-env-btn" data-env="submarine" title="Submarine — Ultra-low emission, silent running. MIL-STD-3009 Class B minimum luminance.">{{icon "eye-slash" "me-1"}}Submarine</button>
+                                                <button type="button" class="covert-env-btn active" data-env="tactical" title="Tactical Field — Standard night ops, NVG-off. Rhodopsin-preserving red per MIL-STD-3009.">{{icon "crosshairs" "me-1"}}Tactical</button>
+                                                <button type="button" class="covert-env-btn" data-env="basement" title="Operator's Den — Enhanced readability with tactical red tinting. For extended analysis sessions.">{{icon "terminal" "me-1"}}Operator</button>
+                                            </span>
+                                        </div>
+                                        <div class="mt-1 u-covert-disclosure">{{icon "info-circle" "me-1"}}Red spectrum preserves <a href="https://apps.dtic.mil/sti/citations/tr/AD0639176" target="_blank" rel="noopener">scotopic adaptation</a> per <a href="https://apps.dtic.mil/sti/tr/pdf/ADA148883.pdf" target="_blank" rel="noopener">MIL-STD-3009</a> and <a href="/static/references/MIL-STD-1472G.pdf" target="_blank" rel="noopener">MIL-STD-1472G</a> tactical lighting discipline. All findings are identical to the standard report. For full immersion, use Focus Mode or <a href="https://support.google.com/chrome/answer/9658361" target="_blank" rel="noopener">install as app</a>.</div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center flex-nowrap">
+                                    <button class="btn btn-sm text-nowrap u-covert-focus-btn covert-fullscreen-btn" type="button" title="Focus Mode — hide browser chrome for full scotopic immersion">
+                                        {{icon "expand" "me-1"}}Focus
+                                    </button>
+                                    <button class="btn btn-sm text-nowrap u-covert-exit-btn" type="button" id="covertExitHome">
+                                        {{icon "arrow-right" "me-1"}}Exit Covert Mode
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{template "flash_messages" .}}
+
+            {{if .WelcomeName}}
+            <div class="row justify-content-center mb-3">
+                <div class="col-lg-8">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="d-flex align-items-start">
+                            <picture><source srcset="{{staticVersionURL "images/owl-of-athena-160.webp" .AppVersion}}" type="image/webp"><img src="{{staticVersionURL "images/owl-of-athena-160.png" .AppVersion}}" alt="" width="40" height="40" loading="lazy" decoding="async" class="me-3 mt-1 u-rounded-circle flex-shrink-0"></picture>
+                            <div>
+                                <strong>Welcome, {{.WelcomeName}}.</strong> No marketing email, no mailing lists, no spam. Your email is for sign-in and critical security notices only.
+                                <a href="/security-policy#privacy-pledge" class="alert-link">Read the Privacy Pledge</a>.
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+
+            <!-- Main form -->
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-xl-6">
+                    <div class="search-card">
+                        <search><form method="POST" action="/analyze" id="domainForm">
+                            <input type="hidden" name="csrf_token" value="{{.CsrfToken}}">
+                            <input type="hidden" name="covert" id="covertField" value="">
+                            <label for="domain" class="form-label search-label">
+                                {{icon "search" "me-2"}}Domain Name
+                            </label>
+                            <div class="input-group input-group-lg search-input-group">
+                                <input type="text" 
+                                       class="form-control search-input" 
+                                       id="domain" 
+                                       name="domain" 
+                                       placeholder="example.com or com" 
+                                       autocomplete="off"
+                                       autocapitalize="none"
+                                       spellcheck="false"
+                                       value="{{if .PrefillDomain}}{{.PrefillDomain}}{{else}}{{.WaitDomain}}{{end}}">
+                                <button class="btn btn-analyze search-btn" type="submit" id="analyzeBtn"
+                                    {{if .WaitSeconds}}
+                                    data-wait-seconds="{{.WaitSeconds}}"
+                                    data-wait-domain="{{.WaitDomain}}"
+                                    data-wait-reason="{{.WaitReason}}"
+                                    {{end}}>
+                                    {{icon "search" "me-2"}}Analyze
+                                </button>
+                            </div>
+                            <div class="form-text search-hint mt-2">
+                                
+                                Enter a domain (e.g., <strong>example.com</strong>) or a top-level zone (e.g., <strong>tech</strong>, <strong>co.uk</strong>) &mdash; no https://. TLDs produce a <strong>Registry Zone Health Report</strong>.
+                            </div>
+                            <div class="form-text text-muted mt-1 u-privacy-hint">
+                                {{icon "shield-alt" "me-1"}}DNS lookups may be logged by upstream resolvers and authoritative nameservers.
+                                <button type="button" id="privacyToggle" class="u-privacy-toggle btn btn-link p-0 border-0 text-decoration-none text-reset" tabindex="0">{{icon "chevron-down" "ms-1 small"}} Shopping for a domain?</button>
+                                <div id="privacyDetail" class="form-text text-muted mt-1 d-none">When you look up a domain, that query can be seen by third parties. If you&rsquo;re considering buying a domain and don&rsquo;t want anyone to know you&rsquo;re interested, don&rsquo;t search for it here or on any public tool &mdash; someone could register it before you do. Before you buy, check whether the domain already carries a bad reputation using <a href="https://www.talosintelligence.com/reputation_center" target="_blank" rel="noopener noreferrer" class="text-info">Cisco Talos Reputation Center</a> &mdash; but do it from a private browser, not here.</div>
+                            </div>
+                            <div class="mt-2">
+                                <button type="button" class="btn btn-link small text-decoration-none p-0 border-0 u-a11y-muted" data-bs-toggle="collapse" data-bs-target="#advancedOptions" aria-expanded="{{if .DKIMExpand}}true{{else}}false{{end}}" aria-controls="advancedOptions">
+                                    {{icon "sliders-h" "me-1 u-color-blue-soft"}}Advanced Options <span class="u-a11y-muted small">(optional)</span> {{icon "chevron-down" "ms-1 small"}}
+                                </button>
+                                <div class="collapse{{if .DKIMExpand}} show{{end}} mt-2" id="advancedOptions">
+                                    <div class="row g-3">
+                                        <div class="col-md-7">
+                                            <label for="dkim_selector1" class="form-label text-muted small mb-1">{{icon "key" "me-1 u-color-gold"}}DKIM Selectors</label>
+                                            <div class="row g-2">
+                                                <div class="col-6">
+                                                    <input type="text"
+                                                           class="form-control form-control-sm bg-dark text-light border-secondary"
+                                                           name="dkim_selector1"
+                                                           id="dkim_selector1"
+                                                           placeholder="e.g. selector1"
+                                                           autocomplete="off"
+                                                           autocapitalize="none"
+                                                           spellcheck="false">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="dkim_selector2" class="visually-hidden">DKIM Selector 2</label>
+                                                    <input type="text"
+                                                           class="form-control form-control-sm bg-dark text-light border-secondary"
+                                                           name="dkim_selector2"
+                                                           id="dkim_selector2"
+                                                           placeholder="e.g. 8452036334128736"
+                                                           autocomplete="off"
+                                                           autocapitalize="none"
+                                                           spellcheck="false">
+                                                </div>
+                                            </div>
+                                            <div class="form-text text-muted mt-1 u-fs-075em">
+                                                Primary mail selectors only, without <code>._domainkey</code>.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="securitytrails_api_key" class="form-label text-muted small mb-1">{{icon "history" "me-1 u-color-info-alt"}}SecurityTrails API Key</label>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-dark border-secondary text-muted" aria-hidden="true">{{icon "shield-alt"}}</span>
+                                                <input type="password"
+                                                       class="form-control form-control-sm bg-dark text-light border-secondary"
+                                                       name="securitytrails_api_key"
+                                                       id="securitytrails_api_key"
+                                                       placeholder="SecurityTrails API Key"
+                                                       autocomplete="off"
+                                                       autocapitalize="none"
+                                                       spellcheck="false">
+                                            </div>
+                                            <div class="form-text text-muted mt-1 u-fs-075em">
+                                                {{icon "lock" "me-1"}}Never stored. <a href="https://securitytrails.com/app/signup" target="_blank" rel="noopener" class="text-info">Get API key</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="exposure_checks" id="exposure_checks" value="1">
+                                                <label class="form-check-label small text-muted" for="exposure_checks">
+                                                    {{icon "search" "me-1 u-color-gold"}}<strong>Expanded Exposure Checks</strong>
+                                                    <span class="d-block mt-1 u-fs-075em u-color-gray-400">
+                                                        Deeper reconnaissance &mdash; actively checks well-known misconfiguration paths (<code>/.env</code>, <code>/.git/config</code>, <code>/server-status</code>, etc.) on the target domain. These are publicly accessible URLs any browser could visit. <strong class="text-warning">{{icon "clock" "me-1"}}Adds extra scan time.</strong>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-2">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" name="devnull" id="devnull" value="1">
+                                                <label class="form-check-label small text-muted" for="devnull">
+                                                    {{icon "terminal" "me-1 text-danger"}}<strong>/dev/null Scan</strong>
+                                                    <span class="d-block mt-1 u-fs-075em u-color-gray-400">
+                                                        Maximum intelligence, zero persistence. Automatically enables Expanded Exposure Checks for full reconnaissance. Nothing is written to our database &mdash; no history, no analytics, no statistics, no account association. Results exist only in this browser tab. Standard network activity (DNS queries, CT lookups) occurs normally.
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form></search>
+                    </div>
+                </div>
+            </div>
+
+            {{if .ICAEMetrics}}
+            <div class="icae-hero-card mt-4 mb-3">
+                <a href="/confidence" class="icae-hero-statement" data-bs-toggle="tooltip" data-bs-placement="top" title="View Intelligence Confidence Audit Engine details">
+                    {{icon "satellite-dish"}} Intelligence Confidence Level: <span class="icae-hero-maturity icae-level-{{if eq .ICAEMetrics.OverallMaturity "gold_master"}}gold-master{{else if eq .ICAEMetrics.OverallMaturity "development"}}dev{{else}}{{.ICAEMetrics.OverallMaturity}}{{end}}">{{.ICAEMetrics.OverallMaturityDisplay}}</span>
+                </a>
+                <div class="icae-hero-protocols">
+                    <div class="d-flex flex-wrap justify-content-center gap-1">
+                        {{range .ICAEMetrics.Protocols}}
+                        <a href="/confidence" class="icae-badge icae-badge-{{.EffectiveLevel}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{.DisplayName}} — Intelligence Confidence: {{.EffectiveDisplay}}{{if .HasRuns}} ({{.AnalysisRuns}} audit runs){{end}}">{{.DisplayName}} <span class="icae-dot"></span></a>
+                        {{end}}
+                    </div>
+                </div>
+                <div class="icae-hero-protocols mt-1 u-hero-protocols-divider">
+                    <div class="d-flex flex-wrap justify-content-center gap-2 align-items-center">
+                        <span class="text-muted small opacity-75">{{icon "clock" "me-1"}}Currency Level:</span>
+                        <a href="/confidence#icuae" class="icuae-badge icuae-badge-{{if .ICuAEMetrics}}{{.ICuAEMetrics.AvgGrade}}{{else}}adequate{{end}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Intelligence Currency Audit Engine — measures data timeliness per ICD 203, NIST SP 800-53 SI-7, ISO/IEC 25012">{{if .ICuAEMetrics}}{{.ICuAEMetrics.AvgGradeDisplay}} {{.ICuAEMetrics.AvgScoreDisplay}}{{else}}Currency Engine{{end}} <span class="icuae-dot"></span></a>
+                        <span class="text-muted small opacity-50">|</span>
+                        <a href="/confidence" class="text-muted text-decoration-none small" data-bs-toggle="tooltip" data-bs-placement="bottom" title="SHA-3-512 (NIST FIPS 202) integrity hashing on all exports">
+                            {{icon "fingerprint" "me-1"}}SHA-3-512 Provenance
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="text-center mt-3 mb-3">
+                <p class="hero-protocols mb-0">
+                    SPF &middot; DKIM &middot; DMARC &middot; DANE/TLSA &middot; DNSSEC &middot; BIMI &middot; MTA-STS &middot; TLS-RPT &middot; CAA
+                </p>
+            </div>
+            {{end}}
+
+            <!-- Trust indicators -->
+            <div class="text-center mt-4 hero-trust">
+                <span>{{icon "bolt" "me-1"}} Live DNS, Real-Time Results</span>
+                <span class="trust-divider"></span>
+                <span>{{icon "lock" "me-1"}} Analyze Without an Account</span>
+                <span class="trust-divider"></span>
+                <span>{{icon "globe" "me-1"}} Multi-Resolver Consensus</span>
+                <span class="trust-divider"></span>
+                <span>{{icon "gavel" "me-1"}} RFC-Aligned OSINT Intelligence Analysis</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="mt-4 mb-2">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-xl-6">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body py-3 px-4">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3">
+                                    {{icon "sliders-h" "icon-2x text-brand-cobalt icon-premium"}}
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-1 fw-semibold">Are your DNS TTLs costing you performance?</p>
+                                    <p class="text-muted small mb-0">Scan your domain&rsquo;s live TTL values, compare against Stability or Agility profiles, and get provider-specific recommendations with copy-paste fix instructions.</p>
+                                </div>
+                                <div class="ms-3">
+                                    <a href="/ttl-tuner" class="btn btn-outline-info btn-sm text-nowrap">
+                                        {{icon "sliders-h" "me-1"}}TTL Tuner <span class="badge bg-warning text-dark ms-1 u-fs-065em-vmid">BETA</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features overview -->
+        <section class="features-section">
+            <h2 class="section-heading text-center mb-2">Intelligence Collection Vectors</h2>
+            <p class="text-center text-muted mb-4">OSINT sources we query, cross-reference, and classify through our Intelligence Classification &amp; Interpretation Engine</p>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-card-icon feature-card-icon--primary">
+                            {{icon "server"}}
+                        </div>
+                        <h3 class="feature-card-title">DNS Records</h3>
+                        <p class="feature-card-text">A, AAAA, MX, TXT, and NS records from multiple resolvers with multi-resolver consensus verification</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-card-icon feature-card-icon--success">
+                            {{icon "shield-alt"}}
+                        </div>
+                        <h3 class="feature-card-title">Email Authentication</h3>
+                        <p class="feature-card-text">SPF, DMARC, and DKIM validation with key strength analysis, DANE/TLSA certificate pinning, MTA-STS enforcement, TLS-RPT reporting, and SMTP transport verification</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-card-icon feature-card-icon--info">
+                            {{icon "building"}}
+                        </div>
+                        <h3 class="feature-card-title">Domain Intelligence</h3>
+                        <p class="feature-card-text">Domain registration via RDAP, enterprise infrastructure detection, email security management provider identification, Certificate Transparency subdomain discovery, and DNS provider analysis</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-card-icon feature-card-icon--warning">
+                            {{icon "lock"}}
+                        </div>
+                        <h3 class="feature-card-title">Security Posture</h3>
+                        <p class="feature-card-text">DNSSEC validation, DANE/TLSA verification, BIMI, CAA with MPIC context, DMARCbis readiness, graduated security posture scoring, and per-section remediation with RFC-cited fixes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who It's For section -->
+        <section class="personas-section">
+            <h2 class="section-heading text-center mb-2">Built for Decision-Makers, Operators, and the Security Research Community</h2>
+            <p class="text-center text-muted mb-4">From board-level risk visibility to deep DNS recon &mdash; the right intelligence at every level</p>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="persona-card">
+                        <div class="persona-card-icon">{{icon "briefcase" "text-brand-gold icon-premium-gold"}}</div>
+                        <h3 class="persona-card-title text-brand-gold">Executives & Board Members</h3>
+                        <p class="persona-card-text">Clear CVSS-aligned risk levels (Critical / High / Medium / Low / Informational) that communicate cybersecurity posture at a glance. See whether email security is actively managed by professional providers or left unmonitored.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="persona-card">
+                        <div class="persona-card-icon">{{icon "laptop-code" "text-success"}}</div>
+                        <h3 class="persona-card-title text-success">IT Professionals</h3>
+                        <p class="persona-card-text">Validate SPF, DKIM, DMARC, and DANE/TLSA configurations. Check email authentication, verify DNSSEC, and troubleshoot DNS records across multiple resolvers.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="persona-card">
+                        <div class="persona-card-icon">{{icon "network-wired" "text-warning"}}</div>
+                        <h3 class="persona-card-title text-warning">DNS Specialists</h3>
+                        <p class="persona-card-text">Authoritative nameserver queries, multi-resolver consensus verification, DNSSEC chain validation, DANE/TLSA analysis, and enterprise DNS provider detection.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="persona-card">
+                        <div class="persona-card-icon">{{icon "briefcase" "text-brand-violet icon-premium-violet"}}</div>
+                        <h3 class="persona-card-title text-brand-violet">Risk & Compliance</h3>
+                        <p class="persona-card-text">Verify your domain can't be impersonated. Identify who manages your DMARC monitoring and SPF. Assess brand protection with BIMI. Audit-supporting evidence artifacts &mdash; SHA-3 integrity hashing, RFC-cited findings, and reproducible verification commands for cyber insurance and compliance workflows.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="persona-card">
+                        <div class="persona-card-icon">{{icon "terminal" "text-danger"}}</div>
+                        <h3 class="persona-card-title text-danger">Security Researchers & Red Teams</h3>
+                        <p class="persona-card-text">OSINT-grade DNS recon, multi-layer subdomain discovery, and attack surface enumeration with verifiable evidence. Built for reconnaissance, threat modeling, and security assessments. CLI edition on the roadmap.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5 mb-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="dri-card">
+                        <div class="dri-accent-bar"></div>
+                        <div class="dri-body">
+                            <div class="dri-header">
+                                <span class="dri-badge">{{icon "crosshairs" "me-1"}}Intelligence Brief</span>
+                                <h3 class="dri-title">Decision-Ready Intelligence</h3>
+                                <p class="dri-subtitle">Every section of your report opens with a plain-language strategic question &mdash; answered with a data-driven verdict before the technical detail begins.</p>
+                            </div>
+                            <div class="dri-question-block">
+                                <span class="dri-question-label">{{icon "shield-alt" "me-1"}}The Big Question</span>
+                                <span class="dri-question-text dt-question">Can this domain be impersonated by email?</span>
+                                <span class="dri-question-answer"><span class="badge bg-danger me-1">YES</span> DMARC is monitor-only (p=none)</span>
+                            </div>
+                            <div class="dri-examples">
+                                <div class="dri-example">{{icon "angle-right" "me-1 text-brand-steel"}}Are spoofed emails rejected or quarantined?</div>
+                                <div class="dri-example">{{icon "angle-right" "me-1 text-brand-steel"}}Can attackers downgrade SMTP to intercept mail?</div>
+                                <div class="dri-example">{{icon "angle-right" "me-1 text-brand-steel"}}Can this brand be convincingly faked?</div>
+                                <div class="dri-example">{{icon "angle-right" "me-1 text-brand-steel"}}Can DNS responses be tampered with in transit?</div>
+                            </div>
+                            <p class="dri-footer">Raw DNS data tells you <em>what</em> exists. Decision-ready intelligence tells you <em>what it means</em> and <em>why it matters</em>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5 mb-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body py-4 px-4">
+                            <div class="text-center mb-3">
+                                <h2 class="h5 mb-0">{{icon "compass" "me-2 icon-premium-gold"}}Our Mission</h2>
+                            </div>
+                            <p class="text-center text-muted mb-3">Produce actionable domain security intelligence from publicly observable data &mdash; transparently, independently verifiably, and without requiring authorization from or interaction with the target.</p>
+                            <div class="row g-3 text-center">
+                                <div class="col-md-4">
+                                    <div class="p-2">
+                                        {{icon "layer-group" "text-brand-cobalt mb-2 icon-lg icon-premium"}}
+                                        <p class="small text-muted mb-0"><strong class="text-light">Multi-Source Collection</strong><br>Redundant public sources, cross-referenced and corroborated. No single source is sufficient.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-2">
+                                        {{icon "check-double" "text-brand-cobalt mb-2 icon-lg icon-premium"}}
+                                        <p class="small text-muted mb-0"><strong class="text-light">Independently Verifiable</strong><br>Every conclusion reproducible with standard tools. <code>dig</code>, <code>openssl</code>, <code>curl</code> &mdash; verify it yourself.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-2">
+                                        {{icon "shield-halved" "text-brand-cobalt mb-2 icon-lg icon-premium"}}
+                                        <p class="small text-muted mb-0"><strong class="text-light">Passive OSINT Only</strong><br>We read public data and produce intelligence. No exploitation, no authorization required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <div class="row mt-4 mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                What is a domain security audit?
+                            </button>
+                        </h3>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                A domain security audit examines your domain's DNS configuration, email authentication records (SPF, DKIM, DMARC), transport security (DANE/TLSA certificate pinning, MTA-STS, TLS-RPT), encryption settings (DNSSEC), certificate controls (CAA), and email security management providers. It examines your domain's observable DNS controls for email spoofing, DNS hijacking, man-in-the-middle attacks, and brand impersonation — and whether configuration detected signals consistent with active management or is left unmonitored. DNS Tool performs all these checks in a single scan and delivers a security posture assessment based on controls observed.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq14">
+                                Is this a PCI compliance scanner?
+                            </button>
+                        </h3>
+                        <div id="faq14" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                <strong>No.</strong> DNS Tool is not a PCI DSS Approved Scanning Vendor (ASV) and our reports are not PCI compliance attestations. PCI DSS requires vulnerability scans performed by vendors formally certified by the <a href="https://listings.pcisecuritystandards.org/assessors_and_solutions/approved_scanning_vendors" target="_blank" rel="noopener" class="text-info">PCI Security Standards Council</a>. Certified ASVs include Qualys, Tenable, and Trustwave, among others.
+                                <br><br><strong>What we do:</strong> We perform OSINT-based DNS security analysis &mdash; examining your domain's email authentication (SPF, DKIM, DMARC), transport security (DANE, MTA-STS), and public exposure posture using only publicly available data. This is complementary to PCI scanning, not a substitute for it.
+                                <br><br><strong>If you need PCI compliance:</strong> Engage a certified ASV from the <a href="https://listings.pcisecuritystandards.org/assessors_and_solutions/approved_scanning_vendors" target="_blank" rel="noopener" class="text-info">PCI SSC ASV listing</a>. Use DNS Tool alongside your ASV to ensure your domain's DNS and email security posture is properly configured &mdash; something ASV scans typically do not cover in depth.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                How do I check if my email can be spoofed?
+                            </button>
+                        </h3>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                Enter your domain name above and click Analyze. DNS Tool checks your SPF record (which servers can send email as you), DMARC policy (what happens to unauthorized emails), and DKIM keys (cryptographic email signatures). If any of these are missing or misconfigured, the report will flag it and explain the risk in plain language. A DMARC policy of p=reject instructs receiving servers to reject unauthorized messages (RFC 7489, Section 6.3).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                What do SPF, DKIM, and DMARC mean?
+                            </button>
+                        </h3>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                <strong>SPF</strong> (Sender Policy Framework) lists which mail servers are authorized to send email for your domain. <strong>DKIM</strong> (DomainKeys Identified Mail) adds a cryptographic signature to emails designed to detect tampering. <strong>DMARC</strong> (Domain-based Message Authentication) tells receiving mail servers what to do when SPF or DKIM checks fail — it can monitor, quarantine, or reject suspicious emails. Together, these three protocols form the foundation of email authentication and spoofing prevention.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                What is DNSSEC and why does it matter?
+                            </button>
+                        </h3>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                DNSSEC (DNS Security Extensions) adds cryptographic signatures to DNS responses, designed to detect tampering in transit. Without DNSSEC, attackers could redirect your domain's traffic to malicious servers through DNS hijacking or cache poisoning. DNS Tool validates the full DNSSEC chain of trust and checks the AD (Authenticated Data) flag across multiple resolvers. Many enterprise organizations use alternative security measures like enterprise-grade DNS providers with built-in DDoS protection when DNSSEC is not deployed.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                Do I need to create an account?
+                            </button>
+                        </h3>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                No account is required to run any analysis. Paste a domain, click Analyze, and get your intelligence report immediately. Optional Google sign-in unlocks personal features like scan history, watchlists, and domain dossiers. We don&rsquo;t collect tracking cookies and marketing messages are opt-in only. Every analysis queries DNS records in real-time from multiple resolvers (Cloudflare, Google, Quad9, OpenDNS, DNS4EU) to provide the most current data available to public resolvers. Built by <a href="https://www.it-help.tech" target="_blank" rel="noopener" class="text-info">IT Help San Diego Inc.</a>&mdash;a San Diego-based IT consultancy providing remote DNS configuration and troubleshooting, email deliverability consulting, and network security for organizations worldwide. Our team offers on-demand support without retainers or contracts.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                What does DNS Tool analyze?
+                            </button>
+                        </h3>
+                        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                DNS Tool provides a comprehensive DNS security intelligence report that goes beyond record retrieval. The report analyzes multi-resolver consensus verification across Cloudflare, Google, Quad9, OpenDNS, and DNS4EU; email authentication scoring; DKIM key strength analysis; <strong>DANE/TLSA certificate pinning analysis</strong> for authenticated mail transport; <strong>DMARCbis readiness checks</strong> for evolving DMARC standard changes; enterprise DNS provider detection; email security management provider identification (DMARC monitoring, SPF flattening, TLS-RPT reporting); SMTP transport encryption checks; BIMI brand verification; <strong>CAA analysis with MPIC context</strong>; and a CVSS-aligned risk level (Critical / High / Medium / Low / Informational) with per-section remediation designed for both technical and executive audiences. Compare analyses over time, export results as JSON, and discover subdomains via Certificate Transparency logs. Every query fetches fresh data — we never show cached results.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                                Can I use this to audit a competitor's or vendor's domain?
+                            </button>
+                        </h3>
+                        <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                Absolutely. DNS records are public information, so analyzing any domain is perfectly legitimate. This is commonly used for vendor security assessments, supply chain risk evaluation, due diligence before partnerships, and competitive analysis. The security posture report gives you a quick view of how seriously an organization takes their email and DNS security.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+                                What are DANE, BIMI, MTA-STS, and CAA records?
+                            </button>
+                        </h3>
+                        <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                <strong>DANE</strong> (DNS-based Authentication of Named Entities) pins TLS certificates to DNS via TLSA records, providing controls against man-in-the-middle attacks and rogue CAs when DNSSEC is deployed — over 4 million domains publish TLSA records globally (per <a href="https://stats.dnssec-tools.org/" target="_blank" rel="noopener" class="text-info">stats.dnssec-tools.org</a>), including Microsoft Exchange Online. <strong>BIMI</strong> (Brand Indicators for Message Identification) enables brand logo display next to emails in supporting inboxes, providing a visual signal consistent with authenticated sending. <strong>MTA-STS</strong> (Mail Transfer Agent Strict Transport Security) instructs sending servers to require encrypted email delivery, providing controls against downgrade attacks. <strong>TLS-RPT</strong> (TLS Reporting) sends delivery failure reports when encrypted email connections fail, giving you visibility into transport security issues. <strong>CAA</strong> (Certificate Authority Authorization) specifies which certificate authorities are permitted to issue certificates for your domain. CAs now verify CAA from multiple geographic locations via MPIC (Multi-Perspective Issuance Corroboration, mandatory since September 2025 per CA/B Forum Ballot SC-067). DNS Tool analyzes your CAA records and provides context on MPIC implications. These are advanced security controls that complement SPF, DKIM, and DMARC. DNS Tool checks all of them in a single scan.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
+                                I thought SPF -all (hard fail) was the strongest protection. Isn't ~all weaker?
+                            </button>
+                        </h3>
+                        <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                This is one of the most common misconceptions in email security. SPF <strong>-all</strong> (hard fail) sounds stronger, but <a href="https://datatracker.ietf.org/doc/html/rfc7489" target="_blank" rel="noopener" class="text-info">RFC 7489</a> warns that it can cause receiving servers to reject messages <em>before</em> DKIM is checked and <em>before</em> DMARC can evaluate the result. A message that would pass DMARC via DKIM alignment gets rejected prematurely. Google and most major providers recommend <strong>~all</strong> (soft fail) for active sending domains, with <strong>DMARC p=reject</strong> as the enforcement layer. The combination of <strong>~all + DMARC reject</strong> is the strongest compatible security stance — every authentication method is fully evaluated before a disposition decision is made.
+                                <br><br><strong>Federal .gov context:</strong> <a href="https://www.cisa.gov/news-events/directives/bod-18-01-enhance-email-and-web-security" target="_blank" rel="noopener" class="text-info">CISA BOD 18-01</a> (2017) requires valid SPF records and DMARC p=reject for federal civilian agencies. The directive doesn't explicitly specify -all vs ~all, but federal agencies widely adopted -all as a defense-in-depth practice. In 2017, most federal domains had no DMARC at all, so -all was a pragmatic safety net — you couldn't rely on DMARC being there to catch what SPF missed. Now that DMARC p=reject is in place across federal domains, the -all is somewhat redundant and creates the RFC 7489 premature-rejection risk, but federal infrastructure is controlled enough that the risk is lower. The directive hasn't been updated to reflect the broader industry consensus around ~all + DMARC reject. Microsoft also historically defaults to -all.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq10">
+                                "If your DMARC says p=none, your work's not done." What does this mean?
+                            </button>
+                        </h3>
+                        <div id="faq10" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                This is a simple way to remember that <strong>DMARC p=none</strong> is only a monitoring policy — it instructs receiving servers to deliver everything, even messages that fail authentication, and just send reports. It does not instruct receivers to block spoofed emails. Similarly, <strong>p=quarantine</strong> instructs receivers to treat suspicious messages as spam, where recipients might still open them. <strong>DMARC p=reject</strong> instructs receiving servers to refuse messages that fail authentication (RFC 7489, Section 6.3) — they should never reach the inbox or spam folder. The recommended modern configuration is <strong>SPF ~all</strong> (soft fail) combined with <strong>DMARC p=reject</strong> and verified <strong>DKIM</strong> signing. This configuration ensures every authentication method is fully evaluated before a disposition decision is made.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq11">
+                                I thought DANE was a niche Dutch thing that nobody uses. Why does DNS Tool check it?
+                            </button>
+                        </h3>
+                        <div id="faq11" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                This is one of the most widespread misconceptions in email security, and it's easy to see why it took hold. The Netherlands adopted DANE early and aggressively &mdash; SIDN (the .nl registry) promoted it, and the Dutch government mandated it. That high visibility created the false impression DANE was <em>only</em> a Dutch phenomenon. Making things worse, <strong>DANE for web browsers genuinely did fail</strong> &mdash; browsers never adopted it because Let's Encrypt solved HTTPS certificate distribution differently. People conflated "DANE for websites is dead" with "DANE is dead," missing that <strong>DANE for email (SMTP) was thriving separately</strong> the entire time.
+                                <br><br><strong>What actually happened:</strong> DANE for SMTP (<a href="https://datatracker.ietf.org/doc/html/rfc7672" target="_blank" rel="noopener" class="text-info">RFC 7672</a>) quietly grew into a global standard. Over <strong>4 million domains</strong> now publish TLSA records (<a href="https://stats.dnssec-tools.org/" target="_blank" rel="noopener" class="text-info">stats.dnssec-tools.org</a> tracks daily). Adoption extends well beyond the Netherlands: Sweden (.se), Norway (.no), Czech Republic (.cz), and EU public agencies all have significant DANE deployment.
+                                <br><br><strong>The turning point:</strong> <a href="https://techcommunity.microsoft.com/blog/exchange/announcing-general-availability-of-inbound-smtp-dane-with-dnssec-for-exchange-on/4281292" target="_blank" rel="noopener" class="text-info">Microsoft Exchange Online announced General Availability</a> of inbound SMTP DANE with DNSSEC in October 2024 &mdash; available to <strong>all Exchange Online tenants at no extra cost</strong>. Outbound DANE has been live since March 2022. By Q4 2025, Microsoft plans to make outbound SMTP DANE mandatory per-tenant. The IETF itself uses DANE on <strong>mail.ietf.org</strong>. This isn't a niche experiment &mdash; it's the world's largest email platform betting on it.
+                                <br><br><strong>Why DANE is underrepresented in DNS audits:</strong> DANE requires DNSSEC (<a href="https://datatracker.ietf.org/doc/html/rfc7672#section-1.3" target="_blank" rel="noopener" class="text-info">RFC 7672 &sect;1.3</a>), and DNSSEC adoption was historically slow. Because DANE verification is complex and adoption was initially concentrated in a few regions, it was often omitted from DNS security assessments. This created a self-reinforcing blind spot: if DANE isn't checked, it isn't seen, and its growing adoption goes unrecognized. DNS Tool surfaces DANE as a first-class protocol.
+                                <br><br><strong>Try it yourself</strong> &mdash; analyze these domains to see DANE in action: <a href="/analyze?domain=ietf.org" class="text-info">ietf.org</a> (the IETF's own infrastructure), <a href="/analyze?domain=nlnetlabs.nl" class="text-info">nlnetlabs.nl</a> (creators of the Unbound DNS resolver), <a href="/analyze?domain=freebsd.org" class="text-info">freebsd.org</a> (the FreeBSD project). DANE works alongside <strong>MTA-STS</strong> &mdash; best practice is to deploy both: DANE provides cryptographic strength via DNSSEC, while MTA-STS provides broader compatibility for receivers that don't validate DNSSEC.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq12">
+                                DANE vs MTA-STS &mdash; what is the relationship between these email transport security standards?
+                            </button>
+                        </h3>
+                        <div id="faq12" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                The RFCs themselves establish a clear hierarchy. DANE is the primary standard; MTA-STS is the alternative for domains that cannot deploy DNSSEC.
+                                <br><br><strong>DNSSEC + DANE</strong> (<a href="https://datatracker.ietf.org/doc/html/rfc7672" target="_blank" rel="noopener" class="text-info">RFC 7672</a>) is the <strong>strongest mechanism</strong>. DANE publishes TLS certificate information in DNSSEC-signed TLSA records, creating a cryptographic chain of trust from the DNS root to the mail server certificate. This removes reliance on certificate authorities &mdash; no trust-on-first-use weakness, no vulnerability to CA compromise. The requirement: your domain must be signed with DNSSEC.
+                                <br><br><strong>MTA-STS</strong> (<a href="https://datatracker.ietf.org/doc/html/rfc8461" target="_blank" rel="noopener" class="text-info">RFC 8461</a>) was created for domains where <em>&ldquo;deploying DNSSEC is undesirable or impractical&rdquo;</em> (<a href="https://datatracker.ietf.org/doc/html/rfc8461#section-2" target="_blank" rel="noopener" class="text-info">&sect;2</a>). It publishes a TLS policy via HTTPS using the existing CA trust model. Simpler to deploy but inherits CA limitations and is vulnerable on first use (<a href="https://datatracker.ietf.org/doc/html/rfc8461#section-10" target="_blank" rel="noopener" class="text-info">&sect;10</a>). RFC 8461 mandates: senders <em>&ldquo;MUST NOT allow MTA-STS validation to override a failing DANE validation&rdquo;</em> &mdash; DANE always takes precedence.
+                                <br><br><strong>Why both coexist:</strong> DANE is <strong>backward-compatible by design</strong>. <a href="https://datatracker.ietf.org/doc/html/rfc7672#section-1.3" target="_blank" rel="noopener" class="text-info">RFC 7672 &sect;1.3</a> specifies that sending servers simply skip the DANE check if the receiving domain isn't DNSSEC-signed. This means enabling DANE never breaks anything &mdash; it only adds protection for senders that validate it. MTA-STS works independently alongside DANE without conflict.
+                                <br><br><strong>Where the camps stand today:</strong>
+                                <ul class="mb-2">
+                                    <li><strong>Microsoft</strong> is the strongest DANE advocate. Exchange Online enforces inbound DANE with DNSSEC (<a href="https://techcommunity.microsoft.com/blog/exchange/announcing-general-availability-of-inbound-smtp-dane-with-dnssec-for-exchange-on/4281292" target="_blank" rel="noopener" class="text-info">GA October 2024</a>), and plans to make outbound DANE mandatory per-tenant. Microsoft also supports MTA-STS, but DANE is their strategic direction.</li>
+                                    <li><strong>Proton Mail &amp; Fastmail</strong> fully support DANE with DNSSEC on their mail infrastructure, providing cryptographic transport controls for their users.</li>
+                                    <li><strong>Google</strong> validates DANE outbound (Gmail checks TLSA records when sending to DANE-enabled domains). However, <code>google.com</code> is <strong>not DNSSEC-signed</strong>, and <strong>Google Workspace customers cannot deploy DANE</strong> &mdash; Google's shared multi-tenant MX infrastructure (<code>aspmx.l.google.com</code>) does not publish TLSA records and does not allow customers to do so. Google relies on MTA-STS for inbound transport security.</li>
+                                    <li><strong>Apple</strong> uses MTA-STS for iCloud Mail. <code>apple.com</code> is not DNSSEC-signed and has no DANE/TLSA records.</li>
+                                    <li><strong>Government agencies</strong> (Netherlands, Germany, Czech Republic, Nordic countries) tend to mandate DANE+DNSSEC, often by policy. The <strong>IETF itself</strong> uses DANE on <code>mail.ietf.org</code>.</li>
+                                </ul>
+                                <strong>The key question:</strong> Microsoft's enforcement momentum is the most significant development. When the world's largest email platform not only supports but <em>enforces</em> DANE, it creates pressure on sending domains to enable DNSSEC so their DANE records are actually validated. If Microsoft makes outbound DANE mandatory &mdash; meaning Exchange Online <em>requires</em> DANE for delivery to domains that publish TLSA records &mdash; it could tip the balance toward universal DNSSEC+DANE adoption.
+                                <br><br><strong>Best practice:</strong> Deploy both for defense in depth. DANE provides the strongest cryptographic controls via DNSSEC, while MTA-STS provides coverage for senders that don't validate DNSSEC. The German BSI TR-03108 standard mandates both DANE and MTA-STS together with TLS-RPT. The protocols are complementary: <strong>DANE for cryptographic strength, MTA-STS for breadth of coverage</strong>.
+                                <br><br><strong>See it in practice:</strong> Analyze <a href="/analyze?domain=ietf.org" class="text-info">ietf.org</a> to see DANE + DNSSEC delivering the strongest transport security, then compare with <a href="/analyze?domain=google.com" class="text-info">google.com</a> which uses MTA-STS &mdash; the best available option given Google's infrastructure cannot support DNSSEC/DANE.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq13">
+                                What is OSINT and how does DNS Tool use it?
+                            </button>
+                        </h3>
+                        <div id="faq13" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                <strong>OSINT (Open Source Intelligence)</strong> is the collection and analysis of information from publicly available sources. Intelligence agencies, law enforcement, and security researchers have used OSINT methodology for decades &mdash; it is the foundation of modern threat intelligence.
+                                <br><br>DNS Tool is an OSINT platform. Every data source we query is publicly available: DNS records (via standard resolvers), certificate transparency logs, RDAP registrar data, and publicly accessible web resources. We do not bypass authentication, probe closed ports, or exploit vulnerabilities. We observe what is already visible to anyone with a browser or a <code>dig</code> command &mdash; and we organize those observations into <strong class="u-actionable-intel">actionable intelligence.</strong>
+                                <br><br>This is the same methodology used by <strong>Shodan</strong>, <strong>Mozilla Observatory</strong>, <strong>Censys</strong>, and <strong>VirusTotal</strong>. The difference is our focus: we specialize in DNS security posture and email authentication, producing intelligence products modeled on the formats used by national intelligence agencies.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq15">
+                                What data do you collect about my domain?
+                            </button>
+                        </h3>
+                        <div id="faq15" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                We query only <strong>publicly available data</strong> that anyone can access using standard tools:
+                                <ul class="mb-2 mt-2">
+                                    <li><strong>DNS records</strong> &mdash; the same records returned by <code>dig</code> or <code>nslookup</code> (A, MX, TXT, CNAME, TLSA, DNSKEY, etc.)</li>
+                                    <li><strong>Certificate transparency logs</strong> &mdash; public logs maintained by CAs, queried via <a href="https://crt.sh" target="_blank" rel="noopener" class="text-info">crt.sh</a></li>
+                                    <li><strong>RDAP registrar data</strong> &mdash; the public successor to WHOIS, served by IANA-accredited registries</li>
+                                    <li><strong>Publicly accessible web resources</strong> &mdash; MTA-STS policy files, security.txt, robots.txt, and <span class="u-covert-hide">(if opted in) </span>well-known misconfiguration paths that any browser can visit</li>
+                                </ul>
+                                We do not access anything behind authentication, scan closed ports, or perform any action that requires special authorization. Every query we make is reproducible using the verification commands in each report.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#faq16">
+                                Is this a penetration test?
+                            </button>
+                        </h3>
+                        <div id="faq16" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                <strong>No.</strong> Penetration testing involves active exploitation attempts against systems with the owner&rsquo;s permission. Testers try to bypass security controls, escalate privileges, and map real-world attack paths.
+                                <br><br>DNS Tool performs <strong>passive OSINT observation</strong>: we read public DNS records, check publicly accessible URLs, and analyze the data. No vulnerabilities are exploited, and we don&rsquo;t interact with any system that requires authorization.
+                                <br><br>Think of it this way: a penetration tester tries to break into your house. We observe whether your front door is locked &mdash; from the sidewalk.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{template "footer" .}}
+    </div>
+    </main>
+
+    <output id="loadingOverlay" class="loading-overlay" aria-live="polite" aria-busy="true">
+        <div class="loading-content">
+            <output class="mb-2 h4 covert-hide">Running Multi-Source Intelligence Audit</output>
+            <output class="mb-2 h4 covert-show">Initiating Recon Sweep</output>
+            <p class="text-muted mb-0" id="loadingDomain"></p>
+            <div class="loading-elapsed mt-2">
+                <span class="text-muted small" id="loadingTimer">0s</span>
+            </div>
+            <div class="loading-dots mt-2" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+            {{template "scan_topology" .}}
+            <div class="scan-checklist mt-3 d-none" id="scanChecklist" aria-hidden="true">
+            </div>
+            <p class="text-muted small mt-3 mb-0 u-maxw-440-fadein covert-hide" id="loadingNote">
+                Every result includes terminal commands you can run to independently verify the underlying data. No proprietary magic.
+            </p>
+            <p class="small mt-3 mb-0 u-maxw-440-fadein covert-show u-color-covert-loading" id="loadingNoteCovert">
+                Optimized for low-light tactical environments. Easy on the eyes for all-night recon.
+            </p>
+        </div>
+    </output>
+    <script nonce="{{.CspNonce}}">
+    (function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            function initTooltips() {
+                const ttList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                ttList.forEach(function(el) { el._bsTooltip = new bootstrap.Tooltip(el); });
+            }
+            if (typeof bootstrap === 'undefined') { globalThis.addEventListener('load', initTooltips); }
+            else { initTooltips(); }
+            if (new URLSearchParams(globalThis.location.search).has('dkim')) {
+                const sel1 = document.querySelector('input[name="dkim_selector1"]');
+                if (sel1) { sel1.focus(); }
+            }
+            const devnullCb = document.getElementById('devnull');
+            const exposureCb = document.getElementById('exposure_checks');
+            if (devnullCb && exposureCb) {
+                devnullCb.addEventListener('change', function() {
+                    if (devnullCb.checked) { exposureCb.checked = true; }
+                });
+            }
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            if (analyzeBtn && analyzeBtn.dataset.waitSeconds) {
+                let waitSeconds = Number.parseInt(analyzeBtn.dataset.waitSeconds, 10);
+                const originalHTML = analyzeBtn.innerHTML;
+                
+                if (waitSeconds > 0) {
+                    analyzeBtn.disabled = true;
+                    
+                    function updateCountdown() {
+                        if (waitSeconds > 0) {
+                            analyzeBtn.innerHTML = '{{icon "clock" "me-2"}}Ready in ' + waitSeconds + 's';
+                            waitSeconds--;
+                            setTimeout(updateCountdown, 1000);
+                        } else {
+                            analyzeBtn.disabled = false;
+                            analyzeBtn.innerHTML = originalHTML;
+                        }
+                    }
+                    updateCountdown();
+                }
+            }
+        });
+    })();
+    </script>
+
+    {{template "scripts" .}}
+</body>
+</html>

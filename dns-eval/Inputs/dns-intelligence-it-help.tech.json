@@ -1,0 +1,2044 @@
+{
+  "domain": "it-help.tech",
+  "full_results": {
+    "_analysis_provenance": {
+      "analysis_scope": "owned_dns",
+      "input_kind": "dns_domain"
+    },
+    "_icae_snapshot": {
+      "overall_maturity": "development",
+      "unified_confidence": {
+        "accuracy_factor": 52.2,
+        "currency_factor": 82.2,
+        "explanation": "The measurement system is still accumulating scan history. Accuracy and currency are adequate but the system has not yet reached full maturity.",
+        "level": "MODERATE",
+        "maturity_ceiling": 60,
+        "maturity_level": "development",
+        "protocol_count": 9,
+        "score": 60,
+        "weakest_detail": "System maturity is capping the confidence score \u2014 the scan data is strong but more scan history is needed to unlock higher tiers",
+        "weakest_link": "maturity"
+      }
+    },
+    "_schema_version": 2,
+    "_tool_version": "26.37.38",
+    "ai_surface": {
+      "evidence": [
+        {
+          "confidence": "Observed",
+          "detail": "llms.txt file found providing structured LLM context",
+          "severity": "info",
+          "source": "https://it-help.tech/llms.txt",
+          "type": "llms_txt_found"
+        },
+        {
+          "confidence": "Observed",
+          "detail": "llms-full.txt also found (extended LLM context)",
+          "severity": "info",
+          "source": "https://it-help.tech/llms-full.txt",
+          "type": "llms_full_txt_found"
+        },
+        {
+          "confidence": "Observed",
+          "detail": "robots.txt found but no AI-specific blocking directives",
+          "severity": "low",
+          "source": "https://it-help.tech/robots.txt",
+          "type": "robots_txt_no_ai_blocks"
+        }
+      ],
+      "hidden_prompts": {
+        "artifact_count": 0,
+        "artifacts": [],
+        "evidence": [],
+        "message": "No hidden prompt-like artifacts detected",
+        "status": "success"
+      },
+      "llms_txt": {
+        "content": "# IT Help San Diego Inc.\n\n> Expert Apple IT support in San Diego for homes and businesses. No monthly retainers!\n\n## Main\n\n- [<img alt=\"IT Help San Diego\" class=\"logo logo-dark\" decoding=async height=48 src=https://www.it-help.tech/bimi-logo.svg width=356> <img alt=\"IT Help San Diego\" class=\"logo logo-light\" decoding=async height=48 src=https://www.it-help.tech/bimi-logo.svg width=356>](https://www.it-help.tech)\n- [Pricing](https://www.it-help.tech/billing)\n- [Services](https://www.it-help.tech/services)\n- [DNS Tool](https://www.it-help.tech/dns-tool)\n- [Our Expertise](https://www.it-help.tech/about)\n- [Schedule](https://schedule.it-help.tech/)\n\n## Optional\n\n- [Blog](https://www.it-help.tech/blog)\n",
+        "evidence": [],
+        "fields": {
+          "- [<img alt=\"it help san diego\" class=\"logo logo-dark\" decoding=async height=48 src=https": "//www.it-help.tech/bimi-logo.svg width=356> <img alt=\"IT Help San Diego\" class=\"logo logo-light\" decoding=async height=48 src=https://www.it-help.tech/bimi-logo.svg width=356>](https://www.it-help.tech)",
+          "- [blog](https": "//www.it-help.tech/blog)",
+          "- [dns tool](https": "//www.it-help.tech/dns-tool)",
+          "- [our expertise](https": "//www.it-help.tech/about)",
+          "- [pricing](https": "//www.it-help.tech/billing)",
+          "- [schedule](https": "//schedule.it-help.tech/)",
+          "- [services](https": "//www.it-help.tech/services)"
+        },
+        "found": true,
+        "full_content": "# IT Help San Diego Inc.\n\n> Expert Apple IT support in San Diego for homes and businesses. No monthly retainers!\n\n## Main\n\n### <img alt=\"IT Help San Diego\" class=\"logo logo-dark\" decoding=async height=48 src=https://www.it-help.tech/bimi-logo.svg width=356> <img alt=\"IT Help San Diego\" class=\"logo logo-light\" decoding=async height=48 src=https://www.it-help.tech/bimi-logo.svg width=356>\n\nSource: [https://www.it-help.tech](https://www.it-help.tech)\n\n# Expert Mac IT Support\n\nSan Diego\u2019s Apple\u2011centric IT support for homes & SMBs. 25+ years fixing Mac, Wi\u2011Fi, DNS & Email issues. We fix macOS/iOS glitches, eliminate Wi\u2011Fi dead zones, boost security, and ensure Email delivery (SPF/DKIM/DMARC)\u2014on\u2011site, in\u2011home or meet at our office (by appointment) in La Jolla. Clear answers & discreet service. [(619) 853\u20115008](tel:16198535008)\n\n[Read Verified Reviews](https://8750b1ff89054a2b8a27550322e2ed7c.elf.site)\n\n## Custom Solutions That Work for You\n\nOur premium, concierge-level on-site service is designed for individuals, executives, business owners, and anyone who values precision, discretion, and results. With over 25 years of experience supporting high-profile clients in the entertainment, legal, restaurant, and medical fields, we bring the technical depth and professionalism to solve your problem correctly the first time. We listen closely and implement solutions that are proven to work effectively, tailored to your specific needs.\n\n## Core Expertise\n\nWe can tackle a vast array of IT challenges and are highly comfortable using the terminal and the command line.  \n Our key areas of deep expertise include:\n\n### [macOS System & Application Support](/services/#macos-system)\n\nWe provide expert troubleshooting for a wide range of system-level and application-specific issues to ensure your devices perform optimally.\n\n### [Network Infrastructure & WiFi Troubleshooting](/services/#network-wifi)\n\nSpend more time at the beach, not fighting your WiFi. Specializing in large luxury homes and offices with extensive networking and WiFi needs. We design and implement bespoke high-performance WiFi networks for large La Jolla estates, modern Del Mar residences, and smart homes throughout San Diego.\n\n### [Advanced Email, Domain, & DNS Solutions](/services/#email-domain-dns)\n\nStruggling with Email deliverability, domain security, or complex DNS configurations? We ensure these critical systems run flawlessly, helping you migrate to modern platforms like Google Workspace, so you can focus on your business. We diagnose and resolve deep-seated Email issues, rescuing your messages from spam folders and ensuring reliable delivery.\n\n### [Cybersecurity & Ethical Screen Sharing](/services/#cybersecurity)\n\nWe provide robust Mac defenses against viruses, Email phishing, browser blocks, and more, providing powerful tools to reduce risks and enhance your digital security. We can help secure your endpoints (macOS, Windows, Linux) and advise on best practices for mobile device security.\n\n* **Ethical Screen Sharing:** We adhere to the highest security and ethical standards. For all screen-sharing sessions, **you, the client, always initiate and approve access**. We never access your systems \u201cbehind your back.\"\n\n### [Specialized Data Extraction Services](/services/#data-discovery)\n\n* **Email & iPhone Text Message Extraction for Law Firms:** We specialize in extracting Email & iPhone text messages (iMessages) for legal professionals.\n\n## Why Choose IT Help San Diego?\n\n* **Unwavering Integrity:** We are committed to honesty and neutrality, continually striving to deliver best-in-class tech support practices.\n* **Expertise You Can Trust:** Our team stays updated with the latest trends and solutions to provide you with reliable support.\n* **Flexible & Responsive Support:** While appointments are standard, we are equipped to deploy on-site and assist quickly when availability permits, or assist via secure screen sharing and other remote tools.\n\n## Frequently Asked Questions\n\n### Can you help with PC, Linux, or mixed computer environments?\n\nAbsolutely! Our primary expertise lies with **macOS and iOS support**, and we excel at troubleshooting for these platforms, including **secure screen sharing directly with iPhones and iPads**. We also possess a deep understanding of Linux and Windows systems, enabling us to support a diverse range of technical environments effectively.\n\n### How is your service different from a Managed Service Provider (MSP)?\n\nWe take a different approach focused on transparency and on-demand support. Unlike many MSPs that lock clients into fixed monthly fees regardless of usage, **we believe you should only pay for IT help when needed.** There are no long-term contracts or arbitrary retainers with us \u2013 just fair, transparent billing for actual work performed. Think of it as having an elite IT team on call: we can essentially become part of your team on an as-needed basis. This flexible model saves you money and builds trust. Our goal is to resolve issues efficiently and effectively. We offer high-touch, on-demand IT support as an ethical alternative to the traditional MSP model.\n\n### Do you fix cracked iPhone screens?\n\n**No, we\u2019re not a hardware repair shop.** We specialize in operating systems, software, networking, and data security. For existing clients with a cracked screen, **we offer a concierge replacement:** we pick up a factory-fresh iPhone from Apple, meet you on-site, and migrate your data while you watch. Your phone never leaves your side, so your contacts and sensitive info stay shielded from prying eyes. Prefer a glass replacement? We\u2019ll refer you to a vetted local technician.\n\n---\n\nTired of paying for a month of IT service when nothing happened? Ready to make your tech problems disappear?\n\n[Book an On-Site Visit Now](https://schedule.it-help.tech/)\n\n### Pricing\n\nSource: [https://www.it-help.tech/billing](https://www.it-help.tech/billing)\n\n# Rates & Billing Policies\n\nWe follow clear policies for our IT support services. **No monthly retainers!**\n\n## IT Consulting & Support Rate\n\n* **Base Rate:** $275 per hour.\n* **Minimum Charge:** 1-hour minimum for on-site, 30-minute minimum for remote or phone support.\n* **Billing Increments:** We bill precisely in **1-minute increments**, based on call or session timers or time tracked for offline tasks.\n* **Travel:** $1.50 per mile for every on\u2011site visit. For sites under 15 miles, we bill one-way mileage; for sites above 15 miles, we bill round-trip mileage plus drive time.\n\nThis policy covers real operational costs and ensures continued reliability.\n\n## Payment Policy\n\n* **Method:** We require a valid credit card on file before services are rendered.\n* **Billing Cycle:** Billing occurs automatically **at the end of each session or day's work** to the authorized card on file.\n* **Terms:** We do not accept checks and do not offer net payment terms. **No card, no service, no exceptions.**\n\n## Scheduling & Cancellation Policy\n\n* **Booking:** Appointments are booked with a 30-minute minimum charge (deposit) for remote sessions, which reserves that time specifically for you.\n* **Billing:** You are only billed for the time used beyond the initial 30-minute minimum.\n* **Notice:** To reschedule or cancel without charge, please provide at least **24 hours\u2019 notice**.\n* **Late/No-Show:** Late cancellations (less than 24 hours) or no-shows will be billed for the 30-minute minimum, as that time was held exclusively for you.\n\n## Quick Phone/Text/Email Support\n\n* Existing clients are welcome to reach out anytime.\n* We do not charge for brief communications (under 10 minutes).\n* All calls, remote sessions, or other time spent rendering services lasting more than 10 minutes are billed at our standard rate, subject to the 30-minute minimum.\n\n## Privacy & Security\n\n* All client data (login credentials, network configurations, etc.) is encrypted and is NEVER shared or sold.\n* We have served high-profile, sensitive security and entertainment businesses for 25 years.\n* We have never had a data leak or spoken with paparazzi/journalists. Your trust is paramount.\n\n## Final Notes\n\nOur expertise covers Mac, Linux, Windows, enterprise networking, and high-end tech solutions. We provide discreet cyber-security and crisis response services, backed by nearly two decades of hands-on experience.\n\nYOUR TECH PROBLEMS ARE ABOUT TO DISAPPEAR. \ud83d\ude80\n\n### Services\n\nSource: [https://www.it-help.tech/services](https://www.it-help.tech/services)\n\n# On-site, In-home IT Services\n\nWe offer specialized IT support solutions focused on robust infrastructure, advanced security, and deep-dive troubleshooting.  \nOur expertise ensures your critical systems run smoothly, securely, and efficiently.\n\n## Advanced Email, Domain, & DNS Solutions\n\nWe ensure your digital communications and online presence are reliable and secure. We specialize in resolving complex Email deliverability issues, helping you get your Emails out of spam folders, and strengthening your domain against spoofing and phishing attacks.\n\n* **Email Migration & Setup**: Specializing in migrations to Google Workspace and troubleshooting complex Email problems.\n* **Mac & iOS Mail Support**: Expert setup & troubleshooting for Apple Mail on macOS and iOS.\n* **Website & Domain Recovery**: Regain access and control over your digital assets in the event of an issue.\n* **DNS Edits & Configuration**: Precision edits for MX, SPF, DKIM, DMARC, DNSSEC, and BIMI records.\n* **DMARC & Email Security Implementation:** We architect bulletproof, security-compliant DNS solutions with robust DMARC `p=reject` implementations, transforming complex Email security into unmatched reliability.\n\n## Cybersecurity & Data Protection\n\nProtect your digital assets with our expert cybersecurity services. We help you defend against viruses, malware, Email phishing, browser blocks, and more.\n\n* **Endpoint Security:** Setup and management of leading endpoint protection for macOS, Windows, and Linux.\n* **Mobile Device Security (iOS):** Advising on best practices and tools to secure your iPhones and iPads.\n* **Data Privacy & Discreet Advisory:** Handling sensitive technical challenges that require deep expertise, discretion, and trust, such as secure data handling and quiet remediation of compromised systems.\n* **Ethical Screen Sharing:** For all remote support, **you, the client, always initiate and approve screen access**. We prioritize your privacy and control.\n\n## macOS System & Application Support\n\nWe provide expert troubleshooting for a wide range of system-level and application-specific issues to ensure your devices perform optimally.\n\n* **Mac Performance & Troubleshooting:** Addressing macOS software issues, iCloud synchronization problems, Mac storage warnings (\u201cYour startup disk is almost full\u201d), and system performance concerns.\n* **Apple Time Machine Backups:** Setup, troubleshooting, and ensuring your backup strategy is sound.\n* **Cloud Storage Solutions (e.g., Dropbox):** Setup, troubleshooting, and advice on advanced organizational permissions for services like Dropbox Enterprise.\n* **Disaster Recovery Planning:** Helping you prepare for and recover from data loss scenarios.\n\n## Network Infrastructure & WiFi Troubleshooting\n\nLeveraging enterprise-grade infrastructure, including Cat6A, Cat8, and fiber backbones, we ensure flawless, secure, and ultra-fast connectivity that supports demanding applications, extensive smart home integrations, and the high-bandwidth needs of creative professionals and executive home offices. Say goodbye to dead zones and unreliable connections. We use science-based methods to solve problems and design networks. We show you options for gear that can achieve the speeds you want, and you buy directly from the source, not from us. We don\u2019t depend upon a 40% markup for survival, and we are not limited to lower-spec gear. This allows us to be free from the distribution channels that most IT/AV companies are locked into, enabling us to demonstrate, using the specs, why you may want specific products. We architect secure, robust networks that seamlessly integrate advanced technologies with precision and clarity, so you get fast WiFi (at the speed you\u2019re paying for) everywhere in your location.\n\n* **Wireless Wi\u2011Fi Mesh, Fix Dead Zones**\n* **Network setup & home/office network security**\n* **Network design & infrastructure planning**\n* **Network troubleshooting**\n* **Static\u2011IP configuration & troubleshooting**\n* **Port forwarding & double NAT**\n* **Network printer sharing**\n* **Switch, gateway & firewall programming and lost credential recovery**\n\n## Specialized Data Extraction Services\n\n* **Email & iPhone Text Message Extraction for Law Firms:** We specialize in extracting Email & iPhone text messages (iMessages) for legal professionals. Using proven tools, we can guide you or assist in creating comprehensive, court-admissible, timestamped PDF reports suitable for litigation and eDiscovery, ensuring every message is documented. We can complete this **on-site at your law firm on your computer, so the data never leaves your office.** After we set up the process, you'll be empowered to never hire help again for this task.\n\n## Our Recommendations\n\nWe believe in using best-in-class tools to achieve the best security and reliability. We often work with and recommend the following platforms and services:\n\n* **[Cloudflare:](https://www.cloudflare.com/)** For DNS, WAF, CDN.\n* **[Amazon Route 53:](https://aws.amazon.com/route53/)** For highly available and scalable DNS services.\n* **[Google Advanced Protection Program:](https://landing.google.com/advancedprotection/)** For Google's strongest account security.\n* **[RedSift OnDMARC:](https://redsift.com/pulse-platform/ondmarc)** For advanced DMARC deployment and management.\n* **[CrowdStrike:](https://www.crowdstrike.com/en-us/)** For AI-native endpoint detection and response (EDR).\n* **[SentinelOne:](https://www.sentinelone.com/)** For autonomous endpoint protection.\n* **[ThreatDown by Malwarebytes:](https://www.threatdown.com/)** For simplified EDR and MDR solutions.\n* **[Yubico Security Keys:](https://www.yubico.com/)** For hardware-based multi-factor authentication.\n* **[1Password:](https://1password.com/)** For secure password and credential management.\n\n---\n\nNeed expert Mac IT help to solve your tech challenges?\n\n[Book an on-site Appointment Now](https://schedule.it-help.tech/)\n\n### DNS Tool\n\nSource: [https://www.it-help.tech/dns-tool](https://www.it-help.tech/dns-tool)\n\n# DNS Tool - DNS & Email Security Auditor\n\nTired of juggling a dozen different web tools and `dig` commands just to check if a domain's DNS and email security records were _actually_ set up right? **So was I.** That's why I built **DNS Tool**.\n\n### Why I Built This: The `p=none` Problem\n\nAs I always say: **\u201cIf your DMARC says `p=none`, your work\u2019s not done\u2014get to `p=reject`!\u201d**\n\nBut getting to `p=reject` isn't just about DMARC. It means ensuring SPF is aligned, DKIM is signing correctly, DNSSEC is enabled, and MTA-STS is in place. Before DNS Tool, verifying all this meant a tedious dance across countless browser tabs and terminal windows, especially when waiting for DNS propagation. It was inefficient and far too easy to miss something critical.\n\n### One Tool to Check Them All\n\nDNS Tool is my personal command-line solution born from that frustration. It\u2019s a single, portable binary (thanks to PyInstaller!) that runs on Linux, macOS, and Windows \u2013 no Python install needed on the target system. It's my Swiss Army knife for DNS validation.\n\nIn one go, it hammers a domain and reports back, with clear \u2705 \u274c \u26a0\ufe0f symbols, on _all_ the important stuff:\n\n* **Core Records:** NS, A, AAAA, MX, TXT, SOA, CAA\n* **Email Security:** SPF (and its lookups!), DMARC (with `p=reject` nagging!), multiple DKIM selectors, MTA-STS, BIMI\n* **Infrastructure:** DNSSEC validation status\n* **Info:** PTR records and even an RDAP/WHOIS lookup.\n\nIt works interactively (with history!) or in batch mode. I use it daily to get a quick, comprehensive picture of a domain's DNS health, verify changes _instantly_ as they propagate, and ensure nothing falls through the cracks. It saves me time and gives me confidence that things are _really_ secure and configured correctly.\n\n### Get The Tool & Full Details\n\nWant to try it out, see the code, or dive into the full details on installation and every command-line flag? It's all open-source and waiting for you on GitHub:\n\n* **[Main GitHub Repository (Code & Full README)](https://github.com/careyjames/dns-tool/)**\n* **[Download Pre-compiled Binaries (Releases Page)](https://github.com/careyjames/dns-tool/releases)**\n\n### Our Expertise\n\nSource: [https://www.it-help.tech/about](https://www.it-help.tech/about)\n\n# Our Expertise\n\n![Carey Balboa with service animal Tango](https://www.it-help.tech/images/carey-256.avif)\n\nHi, I\u2019m Carey Balboa.  \n_(Carey: Like the Hawksbill Sea Turtle (Eretmochelys imbricata) Common Name: Carey)_  \n_(Balboa: Like Balboa Park in San Diego)_\n\nI\u2019ve been solving tech problems for 25 years. I love a challenge, solving technical problems, and helping people. I\u2019m committed to mission success, and scientific discovery is my passion. Since 1999, I\u2019ve assisted high-profile clients in the entertainment, medical, and legal sectors, as well as PhDs, with their technology challenges.\n\n## Business Ethics: Carey\u2019s Promise\n\nAs the Founder of IT Help San Diego Inc., I see my role as a problem solver, not a salesperson. My recommendations are based on transparent, verifiable data, not opinions or distributor deals. **We don\u2019t sell products, and we don\u2019t accept commissions, affiliate fees, or kickbacks.** If we recommend a solution, whether it's Route 53, SentinelOne, or 1Password, it's because we believe it's the best tool for the job. We'll show you the options, explain the _why_, and you'll purchase directly from the vendor. Our only revenue comes from our time and expertise dedicated to implementing these solutions effectively for you. My focus is always on your long-term reliability\u2014truly listening so I can help you understand exactly what you want\u2014and delivering real value.\n\nI\u2019ve always stayed true to my ethics: no price gouging, no hidden fees, and no cutting corners on quality. That\u2019s who I am, and that\u2019s exactly how I\u2019ll continue to operate.\n\n### Schedule\n\nSource: [https://schedule.it-help.tech/](https://schedule.it-help.tech/)\n\n*Content available at [https://schedule.it-help.tech/](https://schedule.it-help.tech/)*\n\n\n## Optional\n\n### Blog\n\nSource: [https://www.it-help.tech/blog](https://www.it-help.tech/blog)\n\n*Optional content available at [https://www.it-help.tech/blog](https://www.it-help.tech/blog)*\n\n",
+        "full_found": true,
+        "full_url": "https://it-help.tech/llms-full.txt",
+        "url": "https://it-help.tech/llms.txt"
+      },
+      "message": "AI governance signals observed",
+      "poisoning": {
+        "evidence": [],
+        "ioc_count": 0,
+        "iocs": [],
+        "message": "No AI recommendation poisoning indicators found",
+        "status": "success"
+      },
+      "robots_txt": {
+        "allowed_crawlers": null,
+        "allows_ai_crawlers": true,
+        "blocked_crawlers": null,
+        "blocks_ai_crawlers": false,
+        "content_usage": {
+          "ai_denied": false,
+          "found": false,
+          "parameters": {},
+          "raw": ""
+        },
+        "directives": null,
+        "evidence": [],
+        "found": true,
+        "url": "https://it-help.tech/robots.txt"
+      },
+      "status": "success",
+      "summary": {
+        "allows_ai": true,
+        "blocks_ai": false,
+        "has_content_usage": false,
+        "has_llms_txt": true,
+        "hidden_count": 0,
+        "message": "AI governance signals observed",
+        "poisoning_count": 0,
+        "status": "success",
+        "total_evidence": 3
+      }
+    },
+    "analysis_scope": "owned_dns",
+    "asn_info": {
+      "ipv4_asn": [
+        {
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "country": "US",
+          "ip": "13.226.251.104",
+          "prefix": "13.226.248.0/21"
+        },
+        {
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "country": "US",
+          "ip": "13.226.251.125",
+          "prefix": "13.226.248.0/21"
+        },
+        {
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "country": "US",
+          "ip": "13.226.251.106",
+          "prefix": "13.226.248.0/21"
+        },
+        {
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "country": "US",
+          "ip": "13.226.251.45",
+          "prefix": "13.226.248.0/21"
+        }
+      ],
+      "ipv6_asn": [
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:da00:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:600:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:2c00:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:1800:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:2200:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:9a00:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:a200:13:842a:58c0:93a1"
+        },
+        {
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "error": "no ASN data",
+          "ip": "2600:9000:2201:a400:13:842a:58c0:93a1"
+        }
+      ],
+      "issues": [],
+      "message": "Resolved 1 unique ASN(s) across 12 IP address(es)",
+      "status": "success",
+      "unique_asns": [
+        {
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "country": "US"
+        }
+      ]
+    },
+    "auth_query_status": {},
+    "auth_ttl": {
+      "A": 60,
+      "AAAA": 60,
+      "CAA": 3600,
+      "MX": 3600,
+      "NS": 86400,
+      "SOA": 3600,
+      "TXT": 3600
+    },
+    "authoritative_records": {
+      "A": [
+        "13.226.251.104",
+        "13.226.251.45",
+        "13.226.251.125",
+        "13.226.251.106"
+      ],
+      "AAAA": [
+        "2600:9000:2201:8400:13:842a:58c0:93a1",
+        "2600:9000:2201:6e00:13:842a:58c0:93a1",
+        "2600:9000:2201:2400:13:842a:58c0:93a1",
+        "2600:9000:2201:7200:13:842a:58c0:93a1",
+        "2600:9000:2201:a000:13:842a:58c0:93a1",
+        "2600:9000:2201:4e00:13:842a:58c0:93a1",
+        "2600:9000:2201:7000:13:842a:58c0:93a1",
+        "2600:9000:2201:3800:13:842a:58c0:93a1"
+      ],
+      "CAA": [
+        "0 iodef \"mailto:hello@it-help.tech\"",
+        "0 issue \"amazon.com\"",
+        "0 issue \"letsencrypt.org\"",
+        "0 issuewild \"letsencrypt.org\""
+      ],
+      "DMARC": [],
+      "MTA-STS": [],
+      "MX": [
+        "1 smtp.google.com."
+      ],
+      "NS": [
+        "ns-1117.awsdns-11.org.",
+        "ns-1603.awsdns-08.co.uk.",
+        "ns-4.awsdns-00.com.",
+        "ns-529.awsdns-02.net."
+      ],
+      "SOA": [
+        "ns-529.awsdns-02.net. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"
+      ],
+      "TLS-RPT": [],
+      "TXT": [
+        "75fb54a0-061c-11f0-a839-09712ee48904",
+        "apple-domain-verification=0Fr6C3CKU6a7VuF2KwsdLQpksMIPUrsSk8T6W-i5P3E",
+        "facebook-domain-verification=76rq4jzu9l70hfw98qkma7lgsougsg",
+        "google-site-verification=BnjqY2BGRiD4dDcPTYt235UM40y0QR3p_DX-OfVfXVg",
+        "google-site-verification=FaC0aC3UvT7d88w-4Vg0lNH2WdCV4FQOmbf0_p25Nkc",
+        "google-site-verification=qRV0IpeTmVGGCbCgy1bB4vsJpUXVSw1sXLSfPC01vgs",
+        "notion-domain-verification=HTiT6GW80sBEaeLgNO8qKnlCaDmTLBzjqie6yn96oGF",
+        "openai-domain-verification=dv-u60z0qkvBe135qAUQSKYKNDU",
+        "v=spf1 include:_u.it-help.tech._spf.smart.ondmarc.com ~all"
+      ]
+    },
+    "basic_records": {
+      "A": [
+        "13.226.251.104",
+        "13.226.251.125",
+        "13.226.251.106",
+        "13.226.251.45"
+      ],
+      "AAAA": [
+        "2600:9000:2201:da00:13:842a:58c0:93a1",
+        "2600:9000:2201:600:13:842a:58c0:93a1",
+        "2600:9000:2201:2c00:13:842a:58c0:93a1",
+        "2600:9000:2201:1800:13:842a:58c0:93a1",
+        "2600:9000:2201:2200:13:842a:58c0:93a1",
+        "2600:9000:2201:9a00:13:842a:58c0:93a1",
+        "2600:9000:2201:a200:13:842a:58c0:93a1",
+        "2600:9000:2201:a400:13:842a:58c0:93a1"
+      ],
+      "CAA": [
+        "0 issue \"amazon.com\"",
+        "0 issue \"letsencrypt.org\"",
+        "0 issuewild \"letsencrypt.org\"",
+        "0 iodef \"mailto:hello@it-help.tech\""
+      ],
+      "CNAME": null,
+      "DMARC": [
+        "v=DMARC1; p=reject; pct=100; sp=reject; rua=mailto:dc1e127b@inbox.ondmarc.com; adkim=r; aspf=r; fo=1; rf=afrf; ri=3600"
+      ],
+      "MTA-STS": [
+        "v=STSv1; id=1741123722267"
+      ],
+      "MX": [
+        "1 smtp.google.com."
+      ],
+      "NS": [
+        "ns-529.awsdns-02.net.",
+        "ns-4.awsdns-00.com.",
+        "ns-1603.awsdns-08.co.uk.",
+        "ns-1117.awsdns-11.org."
+      ],
+      "SOA": [
+        "ns-529.awsdns-02.net. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"
+      ],
+      "SRV": [],
+      "TLS-RPT": [
+        "v=TLSRPTv1; rua=mailto:dc1e127b@inbox.ondmarc.com;"
+      ],
+      "TXT": [
+        "apple-domain-verification=0Fr6C3CKU6a7VuF2KwsdLQpksMIPUrsSk8T6W-i5P3E",
+        "google-site-verification=FaC0aC3UvT7d88w-4Vg0lNH2WdCV4FQOmbf0_p25Nkc",
+        "google-site-verification=qRV0IpeTmVGGCbCgy1bB4vsJpUXVSw1sXLSfPC01vgs",
+        "notion-domain-verification=HTiT6GW80sBEaeLgNO8qKnlCaDmTLBzjqie6yn96oGF",
+        "75fb54a0-061c-11f0-a839-09712ee48904",
+        "v=spf1 include:_u.it-help.tech._spf.smart.ondmarc.com ~all",
+        "facebook-domain-verification=76rq4jzu9l70hfw98qkma7lgsougsg",
+        "openai-domain-verification=dv-u60z0qkvBe135qAUQSKYKNDU",
+        "google-site-verification=BnjqY2BGRiD4dDcPTYt235UM40y0QR3p_DX-OfVfXVg"
+      ]
+    },
+    "bimi_analysis": {
+      "logo_error": null,
+      "logo_format": "SVG",
+      "logo_url": "https://www.it-help.tech/bimi-logo.svg",
+      "logo_valid": true,
+      "message": "BIMI configured - logo validated (VMC recommended for Gmail)",
+      "record": "v=BIMI1;l=https://www.it-help.tech/bimi-logo.svg",
+      "status": "success",
+      "vmc_error": null,
+      "vmc_issuer": null,
+      "vmc_subject": null,
+      "vmc_url": null,
+      "vmc_valid": null
+    },
+    "caa_analysis": {
+      "has_iodef": true,
+      "has_wildcard": true,
+      "issuers": [
+        "Let's Encrypt",
+        "Amazon"
+      ],
+      "message": "CAA configured - only Let's Encrypt, Amazon can issue certificates (wildcard issuance: Let's Encrypt per RFC 8659 \u00a74.3)",
+      "mpic_note": "Since September 2025, all public CAs must verify domain control from multiple geographic locations (Multi-Perspective Issuance Corroboration, CA/B Forum Ballot SC-067). CAA records are now checked from multiple network perspectives before certificate issuance.",
+      "records": [
+        "0 issue \"letsencrypt.org\"",
+        "0 issuewild \"letsencrypt.org\"",
+        "0 iodef \"mailto:hello@it-help.tech\"",
+        "0 issue \"amazon.com\""
+      ],
+      "status": "success",
+      "wildcard_issuers": [
+        "Let's Encrypt"
+      ]
+    },
+    "calibrated_confidence": {
+      "BIMI": 0.5,
+      "CAA": 0.5,
+      "DANE": 0.7,
+      "DKIM": 0.5,
+      "DMARC": 0.5,
+      "DNSSEC": 0.5,
+      "MTA_STS": 0.5,
+      "SPF": 0.5,
+      "TLS_RPT": 0.5
+    },
+    "cds_cdnskey": {
+      "automation": "none",
+      "cdnskey_records": [],
+      "cds_records": [],
+      "has_cdnskey": false,
+      "has_cds": false,
+      "issues": [],
+      "message": "No CDS/CDNSKEY records found \u2014 no automated DNSSEC key rollover signaling",
+      "status": "info"
+    },
+    "ct_subdomains": {
+      "ca_summary": [
+        {
+          "active": true,
+          "cert_count": 1,
+          "first_seen": "2025-05-29",
+          "last_seen": "2025-05-29",
+          "name": "Amazon"
+        }
+      ],
+      "caveat": "Subdomains discovered via CT logs (RFC 6962), DNS probing of common service names, and CNAME chain traversal.",
+      "cname_count": 1,
+      "cname_discovered_count": 0,
+      "ct_available": true,
+      "ct_source": "live",
+      "current_count": "4",
+      "displayed_count": 4,
+      "expired_count": "0",
+      "providers_found": 0,
+      "source": "Certificate Transparency + DNS Intelligence",
+      "status": "success",
+      "subdomains": [
+        {
+          "cert_count": "\u2014",
+          "first_seen": "\u2014",
+          "is_current": true,
+          "issuers": [],
+          "name": "dnstool.it-help.tech",
+          "source": "dns"
+        },
+        {
+          "cert_count": "\u2014",
+          "first_seen": "\u2014",
+          "is_current": true,
+          "issuers": [],
+          "name": "schedule.it-help.tech",
+          "source": "dns"
+        },
+        {
+          "cert_count": "\u2014",
+          "first_seen": "\u2014",
+          "is_current": true,
+          "issuers": [],
+          "name": "server.it-help.tech",
+          "source": "dns"
+        },
+        {
+          "cert_count": "\u2014",
+          "cname_target": "d316lglduxncrn.cloudfront.net",
+          "first_seen": "\u2014",
+          "is_current": true,
+          "issuers": [],
+          "name": "www.it-help.tech",
+          "source": "dns"
+        }
+      ],
+      "total_certs": 2,
+      "unique_certs": 1,
+      "unique_subdomains": 4
+    },
+    "currency_report": {
+      "overall_grade": "good",
+      "overall_score": 82.19047619047618,
+      "dimensions": [
+        {
+          "dimension": "currentness",
+          "standard": "ISO/IEC 25012",
+          "grade": "excellent",
+          "score": 100,
+          "details": "All record data is within its TTL validity window",
+          "record_types_evaluated": 7
+        },
+        {
+          "dimension": "ttl_compliance",
+          "standard": "RFC 8767",
+          "grade": "excellent",
+          "score": 100,
+          "details": "All resolver TTLs are within authoritative limits (RFC 8767 compliant)",
+          "record_types_evaluated": 7
+        },
+        {
+          "dimension": "completeness",
+          "standard": "NIST SP 800-53 SI-7",
+          "grade": "degraded",
+          "score": 46.666666666666664,
+          "details": "8 of 15 expected record types are missing TTL data",
+          "record_types_evaluated": 7
+        },
+        {
+          "dimension": "source_credibility",
+          "standard": "ISO/IEC 25012 + SPJ",
+          "grade": "excellent",
+          "score": 100,
+          "details": "All resolvers return consistent data \u2014 high source credibility",
+          "record_types_evaluated": 4
+        },
+        {
+          "dimension": "ttl_relevance",
+          "standard": "NIST SP 800-53 SI-7",
+          "grade": "adequate",
+          "score": 64.28571428571429,
+          "details": "Some TTLs deviate from typical ranges \u2014 may indicate custom configuration",
+          "record_types_evaluated": 7,
+          "findings": [
+            {
+              "record_type": "NS",
+              "observed_ttl": 21600,
+              "typical_ttl": 86400,
+              "ratio": 0.25,
+              "severity": "medium",
+              "standard": "NIST SP 800-53 SI-7",
+              "recommendation": "NS TTL is below typical \u2014 observed 6 hours (21600s), typical value is 1 day (86400s). Short TTLs increase DNS query volume but enable faster propagation. If you are preparing for a migration or need rapid failover, this may be intentional (RFC 1035 \u00a73.2.1). For steady-state production, consider 86400 seconds per NIST SP 800-53 SI-7 relevance guidance. Use the TTL Tuner for profile-specific recommendations."
+            },
+            {
+              "record_type": "A",
+              "observed_ttl": 60,
+              "typical_ttl": 3600,
+              "ratio": 0.016666666666666666,
+              "severity": "high",
+              "standard": "NIST SP 800-53 SI-7",
+              "recommendation": "A TTL is below typical \u2014 observed 1 minute (60s), typical value is 1 hour (3600s). Short TTLs increase DNS query volume but enable faster propagation. If you are preparing for a migration or need rapid failover, this may be intentional (RFC 1035 \u00a73.2.1). For steady-state production, consider 3600 seconds per NIST SP 800-53 SI-7 relevance guidance. Use the TTL Tuner for profile-specific recommendations.",
+              "provider_note": "AWS Route 53 alias records have a fixed TTL of 60 seconds when pointing to AWS resources (ELB, CloudFront, S3). This is an AWS-specific extension, not part of DNS RFCs. To set a custom TTL, use a standard A/AAAA record or CNAME instead of an alias \u2014 but note this loses automatic IP tracking."
+            },
+            {
+              "record_type": "AAAA",
+              "observed_ttl": 60,
+              "typical_ttl": 3600,
+              "ratio": 0.016666666666666666,
+              "severity": "high",
+              "standard": "NIST SP 800-53 SI-7",
+              "recommendation": "AAAA TTL is below typical \u2014 observed 1 minute (60s), typical value is 1 hour (3600s). Short TTLs increase DNS query volume but enable faster propagation. If you are preparing for a migration or need rapid failover, this may be intentional (RFC 1035 \u00a73.2.1). For steady-state production, consider 3600 seconds per NIST SP 800-53 SI-7 relevance guidance. Use the TTL Tuner for profile-specific recommendations.",
+              "provider_note": "AWS Route 53 alias records have a fixed TTL of 60 seconds when pointing to AWS resources (ELB, CloudFront, S3). This is an AWS-specific extension, not part of DNS RFCs. To set a custom TTL, use a standard A/AAAA record or CNAME instead of an alias \u2014 but note this loses automatic IP tracking."
+            }
+          ]
+        }
+      ],
+      "resolver_count": 5,
+      "record_count": 7,
+      "guidance": "DNS data is mostly current with minor gaps \u2014 good intelligence currency",
+      "provider_name": "AWS Route 53",
+      "soa_compliance": {
+        "provider": "AWS Route 53",
+        "has_soa": true,
+        "serial": "1",
+        "refresh": 7200,
+        "retry": 900,
+        "expire": 1209600,
+        "min_ttl": 86400,
+        "primary_ns": "ns-529.awsdns-02.net",
+        "admin_email": "awsdns-hostmaster.amazon.com"
+      }
+    },
+    "dane_analysis": {
+      "dane_deployable": false,
+      "dnssec_authenticated": false,
+      "dnssec_chain_status": "unknown",
+      "dnssec_required_note": "DANE requires DNSSEC (RFC 6698 \u00a71). TLSA records are only validated when the zone is DNSSEC-signed.",
+      "has_dane": false,
+      "issues": null,
+      "message": "DANE not available \u2014 Google Workspace does not support inbound DANE/TLSA on its MX infrastructure",
+      "mx_hosts_checked": 1,
+      "mx_hosts_with_dane": 0,
+      "mx_provider": {
+        "alternative": "MTA-STS",
+        "dane_inbound": false,
+        "dane_outbound": true,
+        "provider_name": "Google Workspace",
+        "reason": "Google Workspace supports DANE for outbound mail verification but does not publish TLSA records for its MX hosts."
+      },
+      "provider_context": {
+        "alternative_protection": "MTA-STS",
+        "dane_inbound": false,
+        "dane_outbound": true,
+        "deployment_guidance": "Your MX provider does not support DANE inbound. Consider deploying MTA-STS as an alternative for transport security.",
+        "provider_name": "Google Workspace"
+      },
+      "requires_dnssec": true,
+      "status": "info",
+      "tlsa_records": null,
+      "transport_security": {
+        "description": "Outbound DANE verification supported; inbound requires alternative (e.g., MTA-STS)",
+        "smtp_inbound": false,
+        "smtp_outbound": true
+      }
+    },
+    "dangling_dns": {
+      "checked": true,
+      "dangling_count": 0,
+      "dangling_records": null,
+      "issues": [],
+      "message": "No dangling DNS records detected",
+      "status": "success"
+    },
+    "delegation_consistency": {
+      "ds_key_alignment": {
+        "aligned": true,
+        "issues": [],
+        "matched_pairs": [
+          {
+            "dnskey_algorithm": 13,
+            "dnskey_key_tag": 12492,
+            "ds_algorithm": 13,
+            "ds_key_tag": 12492
+          }
+        ],
+        "unmatched_ds": [],
+        "unmatched_keys": []
+      },
+      "glue_analysis": {
+        "complete": true,
+        "glue_missing": 0,
+        "glue_present": 0,
+        "in_bailiwick_count": 0,
+        "issues": [],
+        "nameservers": [
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-1117.awsdns-11.org"
+          },
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-1603.awsdns-08.co.uk"
+          },
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-4.awsdns-00.com"
+          },
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-529.awsdns-02.net"
+          }
+        ]
+      },
+      "issues": [
+        "Could not retrieve NS TTL from parent zone"
+      ],
+      "message": "Delegation consistency: 1 issue(s) found",
+      "soa_consistency": {
+        "consistent": true,
+        "issues": [],
+        "serials": {
+          "ns-1117.awsdns-11.org": 1,
+          "ns-1603.awsdns-08.co.uk": 1,
+          "ns-4.awsdns-00.com": 1,
+          "ns-529.awsdns-02.net": 1
+        },
+        "unique_count": 1
+      },
+      "status": "warning",
+      "ttl_comparison": {
+        "child_ttl": 86400,
+        "drift_secs": 0,
+        "issues": [
+          "Could not retrieve NS TTL from parent zone"
+        ],
+        "match": false
+      }
+    },
+    "dkim_analysis": {
+      "domainkey_delegation": {
+        "detected": true,
+        "nameservers": [
+          "ns-dkim.ondmarc.com"
+        ],
+        "provider": "Red Sift OnDMARC"
+      },
+      "found_providers": [
+        "Google Workspace"
+      ],
+      "key_issues": null,
+      "key_strengths": [
+        "2048-bit"
+      ],
+      "message": "Found DKIM for 1 selector(s) with strong keys (2048-bit)",
+      "mx_legacy_note": "",
+      "primary_dkim_note": "",
+      "primary_has_dkim": true,
+      "primary_provider": "Google Workspace",
+      "security_gateway": null,
+      "selectors": {
+        "google._domainkey": {
+          "key_info": [
+            {
+              "issues": [],
+              "key_bits": 2048,
+              "key_strength": "adequate",
+              "key_strength_label": "Adequate",
+              "key_strength_observation": "2048-bit RSA \u2014 recommended standard (RFC 8301, NIST guidance)",
+              "key_strength_rfc": "RFC 8301",
+              "key_type": "rsa",
+              "revoked": false,
+              "test_mode": false
+            }
+          ],
+          "provider": "Google Workspace",
+          "records": [
+            "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApb3onIiQsLq6/SLBfl88zt4CsCwp56n2M3GgAENKfVPV3s68+d6gQduuQAO2VL1VaAJU3XAh9gravPqZqev6Lt/qrGKYXUUcXRQ9zE3+YcJIMNGyP9xaId43TZ3szC6Q2DNxqfOFNdnZfRv6plKSGRlzfWK4QaPxr66GRGKRvfaDGtZS6E8PhACYXgjshexZB76T9iUM4MC3WteUl1NTr1nUsJeY6RdJhxGr9NKi00qHJO8MHmA73d6dYDaf+eBE4BX90ZgbghKvA+CYws9WXVAwK4IUB3zj8a6Qh398tvhIEwivkwD7x65rZsMl32iHIdkp+alfQV4tFlc2wIm+hQIDAQAB"
+          ],
+          "user_hint": false
+        }
+      },
+      "spf_ancillary_note": "",
+      "status": "success",
+      "third_party_only": false
+    },
+    "dmarc_analysis": {
+      "adkim": "relaxed",
+      "aspf": "relaxed",
+      "dmarc_like": null,
+      "dmarcbis_tags": {},
+      "issues": null,
+      "message": "DMARC policy reject (100%) - excellent protection",
+      "np_policy": null,
+      "pct": 100,
+      "policy": "reject",
+      "psd_flag": null,
+      "records": [
+        "v=DMARC1; p=reject; pct=100; sp=reject; rua=mailto:dc1e127b@inbox.ondmarc.com; adkim=r; aspf=r; fo=1; rf=afrf; ri=3600"
+      ],
+      "rua": "mailto:dc1e127b@inbox.ondmarc.com",
+      "ruf": null,
+      "ruf_note": {
+        "detail": "The absence of ruf= is not a gap. RFC 7489 \u00a77.3 warns that forensic reports can expose PII (full message headers or bodies). Google, Microsoft, and Yahoo do not honour ruf= requests regardless. The DMARCbis draft (draft-ietf-dmarc-dmarcbis) has formally removed ruf= from the specification, confirming its deprecation. Omitting ruf= is the recommended modern practice.",
+        "status": "absent",
+        "summary": "No forensic reporting (ruf) tag \u2014 this is correct."
+      },
+      "status": "success",
+      "subdomain_policy": "reject",
+      "t_testing": null,
+      "unknown_tags": null,
+      "valid_records": [
+        "v=DMARC1; p=reject; pct=100; sp=reject; rua=mailto:dc1e127b@inbox.ondmarc.com; adkim=r; aspf=r; fo=1; rf=afrf; ri=3600"
+      ]
+    },
+    "dmarc_report_auth": {
+      "checked": true,
+      "external_domains": [
+        {
+          "auth_domain": "it-help.tech._report._dmarc.inbox.ondmarc.com",
+          "auth_record": "v=DMARC1;",
+          "authorized": true,
+          "confidence": {
+            "label": "Observed",
+            "level": "observed",
+            "method": "Direct DNS record query"
+          },
+          "external_domain": "inbox.ondmarc.com",
+          "sources": [
+            "rua"
+          ]
+        }
+      ],
+      "issues": null,
+      "message": "All 1 external reporting domains properly authorized",
+      "status": "success"
+    },
+    "dns_infrastructure": {
+      "alt_security_items": [],
+      "assessment": "Standard DNS",
+      "is_government": false,
+      "provider_features": [],
+      "provider_tier": "standard"
+    },
+    "dnssec_analysis": {
+      "ad_flag": true,
+      "ad_resolver": "8.8.8.8",
+      "algorithm": 13,
+      "algorithm_name": "ECDSA P-256/SHA-256",
+      "algorithm_observation": {
+        "label": "Modern",
+        "observation": "ECDSA P-256/SHA-256 \u2014 MUST implement, recommended default (RFC 8624 \u00a73.1)",
+        "quantum_note": "All current DNSSEC algorithms use classical cryptography. Post-quantum DNSSEC standards are in active IETF development (draft-sheth-pqc-dnssec-strategy) but no PQC algorithms have been standardized for DNSSEC yet.",
+        "rfc": "RFC 8624 / RFC 9157",
+        "strength": "modern"
+      },
+      "chain_of_trust": "complete",
+      "dnskey_records": [
+        "257 3 13 SCcjExFhFyB7Hk3Z6Y0yzKYWe9mMBtuaCc9WUAgzSrJV/1xRuTiAYlgIQwEYZ94uxP+9gz3XZW6W9AlhjI+m4A==",
+        "256 3 13 5yzCpq1yH30a7gk66Rh3tCok3SPrNt9Y0s+BYG/s5ki0NVbalJkTHU6pPei518su+1OYWWE9DC+9e29wIHgtvw==",
+        "256 3 13 ZyUsgIZmSGp/VoJUsBT6pYCbWHsiFpSSZGAX792knSH0ENPz2wZIwzI9CuIZDULSckImAZfT0qKPMFRHn9bFtw=="
+      ],
+      "ds_records": [
+        "12492 13 2 3F0538D5BA61D8D90ECBFBBF7B5B40508D00A794649CE949EA77FC8862E5531A"
+      ],
+      "has_dnskey": true,
+      "has_ds": true,
+      "message": "DNSSEC fully configured and validated \u2014 AD (Authenticated Data) flag set by resolver 8.8.8.8 confirming cryptographic chain of trust from root to zone (RFC 4035 \u00a73.2.3)",
+      "status": "success"
+    },
+    "dnssec_ops": {
+      "denial_of_existence": {
+        "method": "none"
+      },
+      "issues": [
+        "Single KSK with no CDS/CDNSKEY automation \u2014 manual rollover required"
+      ],
+      "key_count": 3,
+      "keys": [
+        {
+          "algorithm": 13,
+          "algorithm_name": "ECDSA P-256/SHA-256",
+          "flags": 256,
+          "key_role": "ZSK",
+          "key_size": 256,
+          "key_tag": 27212,
+          "protocol": 3
+        },
+        {
+          "algorithm": 13,
+          "algorithm_name": "ECDSA P-256/SHA-256",
+          "flags": 256,
+          "key_role": "ZSK",
+          "key_size": 256,
+          "key_tag": 48287,
+          "protocol": 3
+        },
+        {
+          "algorithm": 13,
+          "algorithm_name": "ECDSA P-256/SHA-256",
+          "flags": 257,
+          "key_role": "KSK",
+          "key_size": 256,
+          "key_tag": 12492,
+          "protocol": 3
+        }
+      ],
+      "ksk_algorithms": [
+        "ECDSA P-256/SHA-256"
+      ],
+      "message": "DNSSEC operational notes: 1 item(s) to review",
+      "rollover_readiness": {
+        "automation": "none",
+        "has_cdnskey": false,
+        "has_cds": false,
+        "multiple_ksks": false,
+        "readiness": "not_ready"
+      },
+      "signature_count": 0,
+      "signatures": [],
+      "status": "warning",
+      "zsk_algorithms": [
+        "ECDSA P-256/SHA-256",
+        "ECDSA P-256/SHA-256"
+      ]
+    },
+    "domain": "it-help.tech",
+    "domain_exists": true,
+    "domain_status": "active",
+    "domain_status_message": null,
+    "edge_cdn": {
+      "cdn_indicators": [],
+      "cdn_provider": "",
+      "is_behind_cdn": false,
+      "issues": [],
+      "message": "Domain appears to use direct origin hosting",
+      "origin_visible": true,
+      "status": "success"
+    },
+    "email_security_mgmt": {
+      "actively_managed": false,
+      "confidence": {
+        "label": "Inferred",
+        "level": "inferred",
+        "method": "DMARC rua/ruf domain matching"
+      },
+      "provider_count": 0,
+      "providers": [],
+      "spf_flattening": null
+    },
+    "ewma_drift": {
+      "ChainCompleteness": {
+        "Value": 47.73333333333334,
+        "UCL": 57.68374908491942,
+        "LCL": 42.31625091508058,
+        "OutOfControl": false,
+        "Trend": "stable",
+        "Period": 2
+      },
+      "ResolverConsensus": {
+        "Value": 50.1904761904762,
+        "UCL": 57.68374908491942,
+        "LCL": 42.31625091508058,
+        "OutOfControl": false,
+        "Trend": "stable",
+        "Period": 2
+      },
+      "SourceCredibility": {
+        "Value": 68,
+        "UCL": 57.68374908491942,
+        "LCL": 42.31625091508058,
+        "OutOfControl": true,
+        "Trend": "stable",
+        "Period": 2
+      },
+      "TTLCompliance": {
+        "Value": 68,
+        "UCL": 57.68374908491942,
+        "LCL": 42.31625091508058,
+        "OutOfControl": true,
+        "Trend": "stable",
+        "Period": 2
+      },
+      "TemporalValidity": {
+        "Value": 68,
+        "UCL": 57.68374908491942,
+        "LCL": 42.31625091508058,
+        "OutOfControl": true,
+        "Trend": "stable",
+        "Period": 2
+      }
+    },
+    "freshness_matrix": {
+      "entries": [
+        {
+          "record_type": "A",
+          "observed_ttl_seconds": 60,
+          "typical_ttl_seconds": 300,
+          "rescan_after_seconds": 66,
+          "rescan_label": "1 minute",
+          "propagation_note": "A records typically propagate within 5 minutes. Some resolvers may cache up to the TTL value."
+        },
+        {
+          "record_type": "AAAA",
+          "observed_ttl_seconds": 60,
+          "typical_ttl_seconds": 300,
+          "rescan_after_seconds": 66,
+          "rescan_label": "1 minute",
+          "propagation_note": "AAAA records follow the same propagation pattern as A records."
+        },
+        {
+          "record_type": "MX",
+          "observed_ttl_seconds": 3600,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "MX record changes may take up to 1 hour to propagate. Mail delivery may be affected during transition."
+        },
+        {
+          "record_type": "TXT",
+          "observed_ttl_seconds": 3600,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "TXT records (including SPF) typically propagate within 1 hour. Verify with multiple resolvers."
+        },
+        {
+          "record_type": "NS",
+          "observed_ttl_seconds": 21600,
+          "typical_ttl_seconds": 86400,
+          "rescan_after_seconds": 23761,
+          "rescan_label": "6 hours",
+          "propagation_note": "Nameserver changes can take 24\u201348 hours for full global propagation due to parent zone TTLs."
+        },
+        {
+          "record_type": "CNAME",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 300,
+          "rescan_after_seconds": 330,
+          "rescan_label": "5 minutes",
+          "propagation_note": "CNAME changes propagate quickly but downstream records inherit the CNAME TTL."
+        },
+        {
+          "record_type": "CAA",
+          "observed_ttl_seconds": 3600,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "CAA record changes take effect within TTL. Certificate authorities check at issuance time."
+        },
+        {
+          "record_type": "SOA",
+          "observed_ttl_seconds": 3600,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "SOA changes propagate to secondaries based on the Refresh interval in the SOA record."
+        },
+        {
+          "record_type": "SPF",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "SPF record changes propagate within the TXT record TTL. Test with dig before relying on scan results."
+        },
+        {
+          "record_type": "DMARC",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "DMARC policy changes at _dmarc subdomain propagate within TTL. Reporting changes take 24\u201348h to reflect in aggregate reports."
+        },
+        {
+          "record_type": "DKIM",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "DKIM selector records propagate within TTL. New selectors are available immediately once published; key rotation requires overlap period."
+        },
+        {
+          "record_type": "MTA-STS",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 86400,
+          "rescan_after_seconds": 86400,
+          "rescan_label": "24 hours",
+          "propagation_note": "MTA-STS policy changes require updating both the DNS TXT record AND the policy file at /.well-known/mta-sts.txt. The max_age directive in the policy controls how long senders cache it."
+        },
+        {
+          "record_type": "TLS-RPT",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "TLS-RPT changes propagate within TTL. Report delivery changes take effect in the next reporting period (typically 24 hours)."
+        },
+        {
+          "record_type": "BIMI",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "BIMI record changes propagate within TTL. VMC certificate validation by mail providers may take additional time."
+        },
+        {
+          "record_type": "TLSA",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "TLSA/DANE records must be published BEFORE rotating TLS certificates. Premature certificate rotation breaks DANE validation."
+        },
+        {
+          "record_type": "DNSSEC",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 86400,
+          "rescan_after_seconds": 86400,
+          "rescan_label": "24 hours",
+          "propagation_note": "DNSSEC signing changes (DS record updates at registrar) can take 24\u201348 hours. Key rollovers require careful timing per RFC 7583."
+        },
+        {
+          "record_type": "DANE",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "DANE/TLSA record updates follow the TLSA TTL. Coordinate with TLS certificate lifecycle."
+        }
+      ],
+      "entry_count": 17,
+      "guidance": "Re-scan times are based on observed TTL values from authoritative and resolver responses. After making DNS changes, wait at least the recommended interval before re-scanning for updated results.",
+      "max_rescan": 86400,
+      "min_rescan": 30
+    },
+    "has_null_mx": false,
+    "hosting_summary": {
+      "dns_confidence": {
+        "label": "Observed",
+        "level": "observed",
+        "method": "NS record analysis"
+      },
+      "dns_from_parent": false,
+      "dns_hosting": "Amazon Route 53",
+      "domain": "it-help.tech",
+      "email_confidence": {
+        "label": "Inferred",
+        "level": "inferred",
+        "method": "MX record analysis"
+      },
+      "email_hosting": "Google Workspace",
+      "hosting": "Unknown",
+      "hosting_confidence": {}
+    },
+    "https_svcb": {
+      "has_https": false,
+      "has_svcb": false,
+      "https_records": [],
+      "issues": [],
+      "message": "No HTTPS or SVCB records found",
+      "status": "info",
+      "supports_ech": false,
+      "supports_http3": false,
+      "svcb_records": []
+    },
+    "is_no_mail_domain": false,
+    "is_tld": false,
+    "mail_posture": {
+      "badge": "Strongly Protected",
+      "classification": "protected",
+      "color": "success",
+      "icon": "shield-alt",
+      "is_no_mail": false,
+      "label": "Strongly Protected",
+      "missing_steps": null,
+      "present_count": 1,
+      "signals": {
+        "dmarc_reject": {
+          "description": "DMARC reject policy active",
+          "label": "DMARC reject",
+          "missing_risk": "Spoofed mail may be delivered",
+          "present": true,
+          "rfc": "RFC 7489",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7489"
+        },
+        "null_mx": {
+          "description": "Null MX record published",
+          "label": "Null MX",
+          "missing_risk": "Domain may receive unwanted mail",
+          "present": false,
+          "rfc": "RFC 7505",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7505"
+        },
+        "spf_deny": {
+          "description": "SPF hard fail configured",
+          "label": "SPF -all",
+          "missing_risk": "Unauthorized senders not explicitly rejected",
+          "present": false,
+          "rfc": "RFC 7208",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7208"
+        }
+      },
+      "summary": "SPF, DKIM, and DMARC reject policy observed \u2014 strong anti-spoofing controls detected.",
+      "total_signals": 3,
+      "verdict": "protected"
+    },
+    "mta_sts_analysis": {
+      "dns_id": "1741123722267",
+      "hosting_cname": "d2425bptlo68m5.cloudfront.net",
+      "message": "MTA-STS enforced - TLS required for 1 mail server(s)",
+      "mode": "enforce",
+      "policy": "version: STSv1\nmode: enforce\nmx: smtp.google.com\nmax_age: 1209600",
+      "policy_error": null,
+      "policy_fetched": true,
+      "policy_issues": null,
+      "policy_max_age": 1209600,
+      "policy_mode": "enforce",
+      "policy_mx": [
+        "smtp.google.com"
+      ],
+      "record": "v=STSv1; id=1741123722267",
+      "status": "success"
+    },
+    "nmap_dns": {
+      "cache_snoop": {
+        "message": "Cache snooping not possible (correct configuration)",
+        "nameserver": "ns-529.awsdns-02.net",
+        "vulnerable": false
+      },
+      "issues": [],
+      "message": "No DNS server misconfigurations found on ns-529.awsdns-02.net",
+      "nameservers": [
+        "ns-529.awsdns-02.net",
+        "ns-1603.awsdns-08.co.uk",
+        "ns-4.awsdns-00.com",
+        "ns-1117.awsdns-11.org"
+      ],
+      "nsid": {
+        "found": false,
+        "id": "",
+        "message": "No nameserver identity information disclosed",
+        "nameserver": "ns-529.awsdns-02.net",
+        "version": ""
+      },
+      "recursion": {
+        "message": "Recursion disabled (correct configuration)",
+        "nameserver": "ns-529.awsdns-02.net",
+        "open": false
+      },
+      "scan_duration_ms": 54,
+      "status": "good",
+      "zone_transfer": {
+        "message": "Zone transfer denied (correct configuration)",
+        "nameserver": "ns-529.awsdns-02.net",
+        "record_count": 0,
+        "vulnerable": false
+      }
+    },
+    "ns_delegation_analysis": {
+      "child_ns": [
+        "ns-1117.awsdns-11.org",
+        "ns-1603.awsdns-08.co.uk",
+        "ns-4.awsdns-00.com",
+        "ns-529.awsdns-02.net"
+      ],
+      "delegation_ok": true,
+      "dns_providers": [
+        "Amazon Route 53"
+      ],
+      "enterprise_detail": "All 4 nameservers hosted by Amazon Route 53. Managed DNS provides reliable resolution with provider-maintained infrastructure.",
+      "enterprise_label": "Managed DNS",
+      "enterprise_pattern": "managed",
+      "match": null,
+      "message": "4 nameserver(s) configured",
+      "nameservers": [
+        "ns-1117.awsdns-11.org",
+        "ns-1603.awsdns-08.co.uk",
+        "ns-4.awsdns-00.com",
+        "ns-529.awsdns-02.net"
+      ],
+      "note": "Parent zone delegation could not be verified",
+      "ns_count": 4,
+      "parent_ns": [],
+      "status": "success"
+    },
+    "ns_fleet": {
+      "diversity": {
+        "asn_list": [
+          "16509"
+        ],
+        "operator_list": [
+          "Amazon.com, Inc."
+        ],
+        "score": "fair",
+        "score_detail": "1 ASN(s), 4 /24 prefix(es) \u2014 consider adding diversity",
+        "unique_asns": 1,
+        "unique_operators": 1,
+        "unique_prefix24s": 4
+      },
+      "issues": [
+        "ns-4.awsdns-00.com: UDP unreachable on port 53",
+        "ns-1603.awsdns-08.co.uk: UDP unreachable on port 53",
+        "ns-529.awsdns-02.net: UDP unreachable on port 53",
+        "ns-1117.awsdns-11.org: UDP unreachable on port 53"
+      ],
+      "message": "Analyzed 4 nameserver(s) for it-help.tech",
+      "nameservers": [
+        {
+          "aa_flag": true,
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "hostname": "ns-4.awsdns-00.com",
+          "ipv4": [
+            "205.251.192.4"
+          ],
+          "ipv6": [
+            "2600:9000:5300:400::1"
+          ],
+          "is_lame": false,
+          "prefix": "205.251.192.0/24",
+          "soa_serial": 1,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        },
+        {
+          "aa_flag": true,
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "hostname": "ns-1603.awsdns-08.co.uk",
+          "ipv4": [
+            "205.251.198.67"
+          ],
+          "ipv6": [
+            "2600:9000:5306:4300::1"
+          ],
+          "is_lame": false,
+          "prefix": "205.251.192.0/18",
+          "soa_serial": 1,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        },
+        {
+          "aa_flag": true,
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "hostname": "ns-529.awsdns-02.net",
+          "ipv4": [
+            "205.251.194.17"
+          ],
+          "ipv6": [
+            "2600:9000:5302:1100::1"
+          ],
+          "is_lame": false,
+          "prefix": "205.251.192.0/18",
+          "soa_serial": 1,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        },
+        {
+          "aa_flag": true,
+          "as_name": "Amazon.com, Inc.",
+          "asn": "16509",
+          "hostname": "ns-1117.awsdns-11.org",
+          "ipv4": [
+            "205.251.196.93"
+          ],
+          "ipv6": [
+            "2600:9000:5304:5d00::1"
+          ],
+          "is_lame": false,
+          "prefix": "205.251.196.0/23",
+          "soa_serial": 1,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        }
+      ],
+      "serial_consensus": true,
+      "status": "warning"
+    },
+    "posture": {
+      "absent": [],
+      "color": "success",
+      "configured": [
+        "SPF",
+        "DMARC (reject)",
+        "DKIM",
+        "MTA-STS",
+        "TLS-RPT",
+        "BIMI",
+        "DNSSEC",
+        "CAA"
+      ],
+      "critical_issues": null,
+      "deliberate_monitoring": false,
+      "deliberate_monitoring_note": "",
+      "grade": "Low Risk",
+      "icon": "shield-alt",
+      "issues": [],
+      "label": "Low Risk",
+      "message": "8 protocols configured",
+      "monitoring": [],
+      "provider_limited": [
+        "DANE"
+      ],
+      "recommendations": [],
+      "score": 90,
+      "state": "Low Risk",
+      "verdicts": {
+        "ai_crawler_governance": {
+          "answer": "No",
+          "color": "warning",
+          "reason": "robots.txt present but does not block AI crawlers \u2014 content may be freely scraped"
+        },
+        "ai_hidden_prompts": {
+          "answer": "No",
+          "color": "success",
+          "reason": "No hidden prompt artifacts found in page source"
+        },
+        "ai_llms_txt": {
+          "answer": "Yes",
+          "color": "success",
+          "reason": "llms.txt and llms-full.txt published \u2014 AI models receive structured context about this domain"
+        },
+        "ai_poisoning": {
+          "answer": "No",
+          "color": "success",
+          "reason": "No indicators of AI recommendation manipulation found"
+        },
+        "brand_impersonation": {
+          "answer": "No",
+          "color": "success",
+          "icon": "shield-alt",
+          "label": "Protected",
+          "reason": "DMARC reject policy enforced (RFC 7489 \u00a76.3), BIMI brand verification active (BIMI Spec), and certificate issuance restricted by CAA (RFC 8659 \u00a74) \u2014 all three brand-faking vectors addressed"
+        },
+        "certificate_control": {
+          "answer": "Yes",
+          "color": "success",
+          "icon": "shield-alt",
+          "label": "Configured",
+          "reason": "CAA records restrict which certificate authorities may issue certificates"
+        },
+        "dns_tampering": {
+          "answer": "No",
+          "color": "success",
+          "icon": "shield-alt",
+          "label": "Protected",
+          "reason": "DNSSEC signed and validated, cryptographic chain of trust verified"
+        },
+        "email_answer": "No \u2014 SPF and DMARC reject policy enforced",
+        "email_answer_color": "success",
+        "email_answer_reason": "SPF and DMARC reject policy enforced",
+        "email_answer_short": "No",
+        "email_spoofing": {
+          "color": "success",
+          "icon": "shield-alt",
+          "label": "Protected"
+        },
+        "transport": {
+          "answer": "Yes",
+          "color": "success",
+          "label": "Protected",
+          "reason": "MTA-STS enforces TLS for all inbound mail delivery"
+        }
+      }
+    },
+    "propagation_status": {
+      "A": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "AAAA": {
+        "mismatch": true,
+        "status": "propagating",
+        "synced": false
+      },
+      "CAA": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "CNAME": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "DMARC": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "MTA-STS": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "MX": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "NS": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "SOA": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "SRV": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "TLS-RPT": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "TXT": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      }
+    },
+    "registrar_info": {
+      "confidence": {
+        "label": "Observed",
+        "level": "observed",
+        "method": "RDAP registry lookup"
+      },
+      "registrar": "Amazon Registrar, Inc.",
+      "source": "RDAP",
+      "status": "success"
+    },
+    "remediation": {
+      "all_fixes": [],
+      "fix_count": 0,
+      "per_section": {},
+      "posture_achievable": "Secure",
+      "rfc_metadata_enriched": true,
+      "top_fixes": []
+    },
+    "resolver_consensus": {
+      "checks_performed": 4,
+      "consensus_reached": true,
+      "discrepancies": null,
+      "per_record_consensus": {
+        "A": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        },
+        "MX": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        },
+        "NS": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        },
+        "TXT": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        }
+      },
+      "resolvers_queried": 5
+    },
+    "resolver_ttl": {
+      "A": 60,
+      "AAAA": 60,
+      "CAA": 3600,
+      "MX": 3600,
+      "NS": 21600,
+      "SOA": 3600,
+      "TXT": 3600
+    },
+    "rfc_metadata": {
+      "1035": {
+        "is_obsolete": false,
+        "number": "1035",
+        "status": "Internet Standard",
+        "title": "Domain names - implementation and specification"
+      },
+      "3207": {
+        "is_obsolete": false,
+        "number": "3207",
+        "status": "Proposed Standard",
+        "title": "SMTP Service Extension for Secure SMTP over Transport Layer Security"
+      },
+      "3596": {
+        "is_obsolete": false,
+        "number": "3596",
+        "status": "Internet Standard",
+        "title": "DNS Extensions to Support IP Version 6"
+      },
+      "4033": {
+        "is_obsolete": false,
+        "number": "4033",
+        "status": "Proposed Standard",
+        "title": "DNS Security Introduction and Requirements"
+      },
+      "4034": {
+        "is_obsolete": false,
+        "number": "4034",
+        "status": "Proposed Standard",
+        "title": "Resource Records for the DNS Security Extensions"
+      },
+      "4035": {
+        "is_obsolete": false,
+        "number": "4035",
+        "status": "Proposed Standard",
+        "title": "Protocol Modifications for the DNS Security Extensions"
+      },
+      "5321": {
+        "is_obsolete": false,
+        "number": "5321",
+        "status": "Draft Standard",
+        "title": "Simple Mail Transfer Protocol"
+      },
+      "6376": {
+        "is_obsolete": false,
+        "number": "6376",
+        "status": "Internet Standard",
+        "title": "DomainKeys Identified Mail (DKIM) Signatures"
+      },
+      "6698": {
+        "is_obsolete": false,
+        "number": "6698",
+        "status": "Proposed Standard",
+        "title": "The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA"
+      },
+      "6962": {
+        "is_obsolete": false,
+        "number": "6962",
+        "status": "Experimental",
+        "title": "Certificate Transparency"
+      },
+      "7208": {
+        "is_obsolete": false,
+        "number": "7208",
+        "status": "Proposed Standard",
+        "title": "Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1"
+      },
+      "7489": {
+        "is_obsolete": false,
+        "number": "7489",
+        "status": "Informational",
+        "title": "Domain-based Message Authentication, Reporting, and Conformance (DMARC)"
+      },
+      "7672": {
+        "is_obsolete": false,
+        "number": "7672",
+        "status": "Proposed Standard",
+        "title": "SMTP Security via Opportunistic DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS)"
+      },
+      "8078": {
+        "is_obsolete": false,
+        "number": "8078",
+        "status": "Proposed Standard",
+        "title": "Managing DS Records from the Parent via CDS/CDNSKEY"
+      },
+      "8301": {
+        "is_obsolete": false,
+        "number": "8301",
+        "status": "Proposed Standard",
+        "title": "Cryptographic Algorithm and Key Usage Update to DomainKeys Identified Mail (DKIM)"
+      },
+      "8460": {
+        "is_obsolete": false,
+        "number": "8460",
+        "status": "Proposed Standard",
+        "title": "SMTP TLS Reporting"
+      },
+      "8461": {
+        "is_obsolete": false,
+        "number": "8461",
+        "status": "Proposed Standard",
+        "title": "SMTP MTA Strict Transport Security (MTA-STS)"
+      },
+      "8659": {
+        "is_obsolete": false,
+        "number": "8659",
+        "status": "Proposed Standard",
+        "title": "DNS Certification Authority Authorization (CAA) Resource Record"
+      },
+      "9083": {
+        "is_obsolete": false,
+        "number": "9083",
+        "status": "Internet Standard",
+        "title": "JSON Responses for the Registration Data Access Protocol (RDAP)"
+      },
+      "9460": {
+        "is_obsolete": false,
+        "number": "9460",
+        "status": "Proposed Standard",
+        "title": "Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)"
+      },
+      "9495": {
+        "is_obsolete": false,
+        "number": "9495",
+        "status": "Proposed Standard",
+        "title": "Certification Authority Authorization (CAA) Processing for Email Addresses"
+      }
+    },
+    "saas_txt": {
+      "issues": [],
+      "message": "4 SaaS services detected via DNS TXT verification records",
+      "service_count": 4,
+      "services": [
+        {
+          "name": "Apple",
+          "record": "apple-domain-verification=0Fr6C3CKU6a7VuF2KwsdLQpksMIPUrsSk8T6W-i5P3E"
+        },
+        {
+          "name": "Google Workspace",
+          "record": "google-site-verification=FaC0aC3UvT7d88w-4Vg0lNH2WdCV4FQOmbf0_p25Nkc"
+        },
+        {
+          "name": "Notion",
+          "record": "notion-domain-verification=HTiT6GW80sBEaeLgNO8qKnlCaDmTLBzjqie6yn96oGF"
+        },
+        {
+          "name": "Facebook / Meta",
+          "record": "facebook-domain-verification=76rq4jzu9l70hfw98qkma7lgsougsg"
+        }
+      ],
+      "status": "success"
+    },
+    "secret_exposure": {
+      "finding_count": 0,
+      "findings": [],
+      "message": "No exposed secrets detected in public page source",
+      "scanned_urls": [
+        "https://it-help.tech/"
+      ],
+      "status": "clear"
+    },
+    "section_status": {
+      "ai_surface": {
+        "status": "ok"
+      },
+      "auth": {
+        "status": "ok"
+      },
+      "basic": {
+        "status": "ok"
+      },
+      "bimi": {
+        "status": "ok"
+      },
+      "caa": {
+        "status": "ok"
+      },
+      "cds_cdnskey": {
+        "status": "ok"
+      },
+      "ct_subdomains": {
+        "status": "ok"
+      },
+      "dane": {
+        "status": "ok"
+      },
+      "delegation_consistency": {
+        "status": "ok"
+      },
+      "dkim": {
+        "status": "ok"
+      },
+      "dmarc": {
+        "status": "ok"
+      },
+      "dnssec": {
+        "status": "ok"
+      },
+      "dnssec_ops": {
+        "status": "ok"
+      },
+      "https_svcb": {
+        "status": "ok"
+      },
+      "mta_sts": {
+        "status": "ok"
+      },
+      "nmap_dns": {
+        "status": "ok"
+      },
+      "ns_delegation": {
+        "status": "ok"
+      },
+      "ns_fleet": {
+        "status": "ok"
+      },
+      "registrar": {
+        "status": "ok"
+      },
+      "resolver_consensus": {
+        "status": "ok"
+      },
+      "secret_exposure": {
+        "status": "ok"
+      },
+      "security_txt": {
+        "status": "ok"
+      },
+      "smimea_openpgpkey": {
+        "status": "ok"
+      },
+      "spf": {
+        "status": "ok"
+      },
+      "tlsrpt": {
+        "status": "ok"
+      }
+    },
+    "security_txt": {
+      "ack": [
+        "https://www.it-help.tech/security-policy/#acknowledgments"
+      ],
+      "canonical": [
+        "https://www.it-help.tech/.well-known/security.txt"
+      ],
+      "contacts": [
+        "mailto:security@it-help.tech",
+        "https://www.it-help.tech/security-policy"
+      ],
+      "encryption": null,
+      "expired": false,
+      "expires": "2027-02-14",
+      "fetch_error": null,
+      "found": true,
+      "hiring": null,
+      "issues": null,
+      "languages": "en",
+      "message": "security.txt properly configured",
+      "policy": [
+        "https://www.it-help.tech/security-policy"
+      ],
+      "signed": false,
+      "status": "success",
+      "url": "https://it-help.tech/.well-known/security.txt"
+    },
+    "smimea_openpgpkey": {
+      "has_openpgpkey": false,
+      "has_smimea": false,
+      "issues": [],
+      "message": "No SMIMEA or OPENPGPKEY records found \u2014 email encryption keys not published via DNS",
+      "openpgpkey_records": [],
+      "smimea_records": [],
+      "status": "info"
+    },
+    "smtp_transport": {
+      "dns_inferred": true,
+      "inference_note": "",
+      "inference_signals": [
+        "MTA-STS policy in enforce mode requires encrypted transport (RFC 8461)",
+        "TLS-RPT configured \u2014 domain monitors TLS delivery failures (RFC 8460)",
+        "Google Workspace enforces TLS 1.2+ with valid certificates on all inbound/outbound mail"
+      ],
+      "issues": [],
+      "message": "All 1 server(s) verified: encrypted transport confirmed via direct SMTP probe and DNS policy",
+      "policy": {
+        "dane": {
+          "present": false
+        },
+        "mta_sts": {
+          "mode": "enforce",
+          "present": true,
+          "status": "success"
+        },
+        "provider": {
+          "identified": true,
+          "name": "Google Workspace"
+        },
+        "signals": [
+          "MTA-STS policy in enforce mode requires encrypted transport (RFC 8461)",
+          "TLS-RPT configured \u2014 domain monitors TLS delivery failures (RFC 8460)",
+          "Google Workspace enforces TLS 1.2+ with valid certificates on all inbound/outbound mail"
+        ],
+        "tlsrpt": {
+          "present": true,
+          "status": "success"
+        },
+        "verdict": "enforced"
+      },
+      "probe": {
+        "multi_probe": [
+          {
+            "elapsed": null,
+            "observations": [
+              {
+                "cert_days_remaining": 39,
+                "cert_expiry": "2026-04-27",
+                "cert_issuer": "Google Trust Services",
+                "cert_subject": "mx.google.com",
+                "cert_valid": true,
+                "cipher": "TLS_AES_128_GCM_SHA256",
+                "cipher_bits": 256,
+                "error": null,
+                "host": "smtp.google.com",
+                "reachable": true,
+                "starttls": true,
+                "tls_version": "TLSv1.3"
+              }
+            ],
+            "probe_host": null,
+            "probe_id": "probe-01",
+            "probe_label": "US-East (Boston)",
+            "probe_verdict": "all_tls",
+            "status": "observed",
+            "summary": {
+              "expiring_soon": 0,
+              "reachable": 1,
+              "starttls_supported": 1,
+              "tls_1_2": 0,
+              "tls_1_3": 1,
+              "total_servers": 1,
+              "valid_certs": 1
+            }
+          },
+          {
+            "elapsed": 6.122165206,
+            "observations": [
+              {
+                "cert_days_remaining": 39,
+                "cert_expiry": "2026-04-27",
+                "cert_issuer": "Google Trust Services",
+                "cert_subject": "mx.google.com",
+                "cert_valid": true,
+                "cipher": "TLS_AES_128_GCM_SHA256",
+                "cipher_bits": 256,
+                "error": null,
+                "host": "smtp.google.com",
+                "reachable": true,
+                "starttls": true,
+                "tls_version": "TLSv1.3"
+              }
+            ],
+            "probe_host": "probe-us-02",
+            "probe_id": "probe-02",
+            "probe_label": "France - EU",
+            "probe_verdict": "all_tls",
+            "status": "observed",
+            "summary": {
+              "expiring_soon": 0,
+              "reachable": 1,
+              "starttls_supported": 1,
+              "tls_1_2": 0,
+              "tls_1_3": 1,
+              "total_servers": 1,
+              "valid_certs": 1
+            }
+          }
+        ],
+        "observations": [
+          {
+            "cert_days_remaining": 39,
+            "cert_expiry": "2026-04-27",
+            "cert_issuer": "Google Trust Services",
+            "cert_subject": "mx.google.com",
+            "cert_valid": true,
+            "cipher": "TLS_AES_128_GCM_SHA256",
+            "cipher_bits": 256,
+            "error": null,
+            "host": "smtp.google.com",
+            "reachable": true,
+            "starttls": true,
+            "tls_version": "TLSv1.3"
+          }
+        ],
+        "probe_consensus": {
+          "agreement": "unanimous_tls",
+          "all_tls": 2,
+          "no_tls": 0,
+          "observed": 2,
+          "partial_tls": 0,
+          "total_probes": 2
+        },
+        "probe_count": 2,
+        "probe_method": "multi_remote",
+        "probe_verdict": "all_tls",
+        "reason": "",
+        "remote_attempted": true,
+        "remote_error": "authentication failed (401)",
+        "status": "observed",
+        "summary": {
+          "expiring_soon": 0,
+          "reachable": 1,
+          "starttls_supported": 1,
+          "tls_1_2": 0,
+          "tls_1_3": 1,
+          "total_servers": 1,
+          "valid_certs": 1
+        }
+      },
+      "servers": [
+        {
+          "cert_days_remaining": 39,
+          "cert_expiry": "2026-04-27",
+          "cert_issuer": "Google Trust Services",
+          "cert_subject": "mx.google.com",
+          "cert_valid": true,
+          "cipher": "TLS_AES_128_GCM_SHA256",
+          "cipher_bits": 256,
+          "error": null,
+          "host": "smtp.google.com",
+          "reachable": true,
+          "starttls": true,
+          "tls_version": "TLSv1.3"
+        }
+      ],
+      "status": "success",
+      "summary": {
+        "expiring_soon": 0,
+        "reachable": 1,
+        "starttls_supported": 1,
+        "tls_1_2": 0,
+        "tls_1_3": 1,
+        "total_servers": 1,
+        "valid_certs": 1
+      },
+      "telemetry": {
+        "observability": true,
+        "reporting_uris": [
+          "mailto:dc1e127b@inbox.ondmarc.com"
+        ],
+        "tlsrpt_configured": true
+      },
+      "version": 2
+    },
+    "spf_analysis": {
+      "all_mechanism": "~all",
+      "includes": [
+        "_u.it-help.tech._spf.smart.ondmarc.com"
+      ],
+      "issues": null,
+      "lookup_count": 1,
+      "lookup_mechanisms": [
+        "include:_u.it-help.tech._spf.smart.ondmarc.com"
+      ],
+      "message": "SPF valid with industry-standard soft fail (~all), 1/10 lookups",
+      "no_mail_intent": false,
+      "permissiveness": "SOFT",
+      "records": [
+        "openai-domain-verification=dv-u60z0qkvBe135qAUQSKYKNDU",
+        "notion-domain-verification=HTiT6GW80sBEaeLgNO8qKnlCaDmTLBzjqie6yn96oGF",
+        "google-site-verification=BnjqY2BGRiD4dDcPTYt235UM40y0QR3p_DX-OfVfXVg",
+        "apple-domain-verification=0Fr6C3CKU6a7VuF2KwsdLQpksMIPUrsSk8T6W-i5P3E",
+        "v=spf1 include:_u.it-help.tech._spf.smart.ondmarc.com ~all",
+        "google-site-verification=FaC0aC3UvT7d88w-4Vg0lNH2WdCV4FQOmbf0_p25Nkc",
+        "75fb54a0-061c-11f0-a839-09712ee48904",
+        "facebook-domain-verification=76rq4jzu9l70hfw98qkma7lgsougsg",
+        "google-site-verification=qRV0IpeTmVGGCbCgy1bB4vsJpUXVSw1sXLSfPC01vgs"
+      ],
+      "redirect_chain": [],
+      "resolved_spf": "",
+      "spf_like": null,
+      "status": "success",
+      "valid_records": [
+        "v=spf1 include:_u.it-help.tech._spf.smart.ondmarc.com ~all"
+      ]
+    },
+    "tlsrpt_analysis": {
+      "message": "TLS-RPT configured - receiving TLS delivery reports",
+      "record": "v=TLSRPTv1; rua=mailto:dc1e127b@inbox.ondmarc.com;",
+      "rua": "mailto:dc1e127b@inbox.ondmarc.com",
+      "status": "success"
+    },
+    "web3_analysis": {
+      "detected": false,
+      "dnssec_trust": {
+        "dnssec_present": true,
+        "dnssec_valid": true,
+        "status": "validated"
+      },
+      "dnssec_trust_note": "DNSSEC validated \u2014 DNS records are cryptographically signed, supporting trustless Web3 resolution",
+      "indicator_count": 0,
+      "indicators": [],
+      "status": "not_detected"
+    }
+  }
+}

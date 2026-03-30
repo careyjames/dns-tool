@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Analysis Transparency Log - DNS Tool</title>
+    <meta name="description" content="Public accountability log of failed DNS analyses. DNS Tool tracks every failure transparently — what went wrong, when, and what category of error occurred.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/failures">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Analysis Transparency Log - DNS Tool">
+    <meta property="og:description" content="Public accountability log of failed DNS analyses. Every failure tracked transparently.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Analysis Transparency Log">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/failures">
+    <meta name="twitter:title" content="Analysis Transparency Log - DNS Tool">
+    <meta name="twitter:description" content="Public accountability log of failed DNS analyses. Every failure tracked transparently.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/failures">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .failures-page { max-width: 1000px; }
+
+        .failures-hero {
+            background: linear-gradient(170deg, #1a0a0a 0%, #0d1117 35%, #2a0e0e 70%, #0d1117 100%);
+            border: 1px solid rgba(248,81,73,0.15);
+            border-radius: 16px;
+            padding: 2.5rem 2rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .failures-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 25% 30%, rgba(248,81,73,0.06) 0%, transparent 55%),
+                        radial-gradient(ellipse at 75% 70%, rgba(255,166,87,0.04) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .failures-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(248,81,73,0.1);
+            border: 1px solid rgba(248,81,73,0.3);
+            border-radius: 4px;
+            padding: 0.2rem 0.65rem;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: #f85149;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .failures-hero h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e6edf3;
+            margin-bottom: 0.35rem;
+        }
+        .failures-hero-sub {
+            color: #8b949e;
+            font-size: 0.88rem;
+            margin-bottom: 0;
+        }
+
+        .failures-kpi-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .failures-kpi {
+            flex: 1;
+            min-width: 140px;
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(125,142,168,0.1);
+            border-radius: 12px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .failures-kpi::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+        }
+        .failures-kpi.kpi-failed::before { background: linear-gradient(90deg, transparent, #f85149, transparent); }
+        .failures-kpi.kpi-total::before { background: linear-gradient(90deg, transparent, #c8956a, transparent); }
+        .failures-kpi.kpi-rate::before { background: linear-gradient(90deg, transparent, #3fb950, transparent); }
+        .failures-kpi-value {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e6edf3;
+            line-height: 1;
+        }
+        .failures-kpi-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #8b949e;
+            margin-top: 0.4rem;
+        }
+
+        .failures-section {
+            background: linear-gradient(145deg, #0c1018 0%, #0f1520 50%, #0c1018 100%);
+            border: 1px solid rgba(125,142,168,0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .failures-section-header {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, rgba(248,81,73,0.06) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(125,142,168,0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .failures-section-icon {
+            color: #f85149;
+            font-size: 0.85rem;
+        }
+        .failures-section-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin: 0;
+        }
+        .failures-section-body {
+            padding: 1rem 1.25rem;
+        }
+
+        .failure-entry {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+        }
+        .failure-entry:last-child { border-bottom: none; }
+        .failure-entry:hover { background: rgba(248,81,73,0.03); border-radius: 8px; margin: 0 -0.5rem; padding-left: 1.25rem; padding-right: 1.25rem; }
+
+        .failure-icon {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 8px;
+            background: rgba(248,81,73,0.1);
+            border: 1px solid rgba(248,81,73,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #f85149;
+        }
+        .failure-domain {
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.82rem;
+            color: #e6edf3;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 0 0 auto;
+            max-width: 200px;
+        }
+        .failure-category {
+            flex: 1;
+            font-size: 0.78rem;
+            color: #8b949e;
+            min-width: 0;
+        }
+        .failure-time {
+            flex-shrink: 0;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.72rem;
+            color: #484f58;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .failures-philosophy {
+            position: relative;
+            z-index: 1;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, rgba(63,185,80,0.06) 0%, rgba(200,149,106,0.04) 100%);
+            border: 1px solid rgba(63,185,80,0.15);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .failures-philosophy-icon {
+            flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 10px;
+            background: rgba(63,185,80,0.1);
+            border: 1px solid rgba(63,185,80,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            color: #3fb950;
+        }
+        .failures-philosophy-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin-bottom: 0.25rem;
+        }
+        .failures-philosophy-text {
+            font-size: 0.75rem;
+            color: #8b949e;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .failures-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #3fb950;
+        }
+        .failures-empty i {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        .failures-empty .icon-info-circle {
+            color: #c8956a;
+        }
+        .failures-empty p {
+            font-size: 0.85rem;
+            margin: 0;
+            color: #8b949e;
+        }
+        .failures-empty .success-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3fb950;
+            margin-bottom: 0.3rem;
+        }
+        .failures-empty .info-label {
+            color: #c8956a;
+        }
+
+        @media (max-width: 768px) {
+            .failure-entry { flex-wrap: wrap; gap: 0.5rem; }
+            .failure-domain { max-width: 100%; flex: 1 1 100%; }
+            .failure-time { flex: 1 1 auto; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="failures-page mx-auto">
+
+            <div class="failures-hero">
+                <div class="u-z1">
+                    <div class="failures-hero-badge">
+                        {{icon "shield-alt"}}
+                        Accountability
+                    </div>
+                    <h1>{{icon "clipboard-list" "me-2 u-text-red-bright"}}Analysis Transparency Log</h1>
+                    <p class="failures-hero-sub">Every failed analysis is tracked publicly. No hidden failures, no silent drops &mdash; full operational accountability.</p>
+                </div>
+
+                <div class="failures-philosophy">
+                    <div class="failures-philosophy-icon">
+                        {{icon "balance-scale"}}
+                    </div>
+                    <div>
+                        <div class="failures-philosophy-title">Why We Publish This</div>
+                        <p class="failures-philosophy-text">If our scan history is public, our failures should be too. Error categories are sanitized to protect infrastructure details, but the domains, timestamps, and failure types are exactly what happened. Zero failures would worry us more than a few honest ones &mdash; DNS is messy, and pretending otherwise would be dishonest.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="failures-kpi-row">
+                <div class="failures-kpi kpi-failed">
+                    <div class="failures-kpi-value">{{.TotalFailed}}</div>
+                    <div class="failures-kpi-label">Failed Analyses</div>
+                </div>
+                <div class="failures-kpi kpi-total">
+                    <div class="failures-kpi-value">{{.TotalAnalyses}}</div>
+                    <div class="failures-kpi-label">Total Analyses</div>
+                </div>
+                <div class="failures-kpi kpi-rate">
+                    <div class="failures-kpi-value">{{formatFloat 2 .FailureRate}}%</div>
+                    <div class="failures-kpi-label">Failure Rate</div>
+                </div>
+            </div>
+
+            <div class="failures-section">
+                <div class="failures-section-header">
+                    {{icon "exclamation-triangle" "failures-section-icon"}}
+                    <h2 class="failures-section-title">Failure Log (Most Recent 50)</h2>
+                </div>
+                <div class="failures-section-body">
+                    {{if .Failures}}
+                    {{range .Failures}}
+                    <div class="failure-entry">
+                        <div class="failure-icon">{{icon .Icon}}</div>
+                        <div class="failure-domain" title="{{.Domain}}">{{.Domain}}</div>
+                        <div class="failure-category">{{.Category}}</div>
+                        <div class="failure-time" title="{{.Timestamp}}">{{.TimeAgo}}</div>
+                    </div>
+                    {{end}}
+                    {{else}}
+                        {{if gt .TotalFailed 0}}
+                    <div class="failures-empty">
+                        {{icon "info-circle"}}
+                        <p class="success-label">{{.TotalFailed}} Failures Counted</p>
+                        <p>Our telemetry recorded {{.TotalFailed}} failed analyses, but detailed error logs were not preserved for these events. This typically occurs when a failure happens before the analysis record is persisted &mdash; for example, DNS resolution timeouts during initial domain validation. The count is accurate; only the per-record details are unavailable.</p>
+                    </div>
+                        {{else}}
+                    <div class="failures-empty">
+                        {{icon "check-circle"}}
+                        <p class="success-label">Zero Failures</p>
+                        <p>No failed analyses recorded. This is either impressive or suspicious &mdash; we prefer honest.</p>
+                    </div>
+                        {{end}}
+                    {{end}}
+                </div>
+            </div>
+
+            {{template "footer" .}}
+        </div>
+    </main>
+
+    {{template "scripts" .}}
+</body>
+</html>

@@ -1,0 +1,97 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "DNS Tool",
+  "description": "Open-core OSINT platform for RFC-compliant domain security analysis. Evaluates SPF, DKIM, DMARC, DANE/TLSA, DNSSEC, BIMI, MTA-STS, TLS-RPT, and CAA configurations using confidence-scored interpretation to produce structured security intelligence outputs.",
+  "identifier": "https://doi.org/10.5281/zenodo.18854899",
+  "version": "26.38.35",
+  "softwareVersion": "26.38.35",
+  "dateCreated": "2024-01-01",
+  "dateModified": "2026-03-25",
+  "datePublished": "2026-03-25",
+  "license": "https://spdx.org/licenses/BUSL-1.1.html",
+  "applicationCategory": "Security",
+  "codeRepository": "https://github.com/IT-Help-San-Diego/dns-tool",
+  "url": "https://dnstool.it-help.tech",
+  "downloadUrl": "https://github.com/IT-Help-San-Diego/dns-tool/releases",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Carey James",
+      "familyName": "Balboa",
+      "@id": "https://orcid.org/0009-0000-5237-9065",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "IT Help San Diego Inc.",
+        "url": "https://it-help.tech"
+      }
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Carey James",
+      "familyName": "Balboa",
+      "@id": "https://orcid.org/0009-0000-5237-9065"
+    }
+  ],
+  "copyrightHolder": [
+    {
+      "@type": "Organization",
+      "name": "IT Help San Diego Inc.",
+      "url": "https://it-help.tech"
+    }
+  ],
+  "funder": [],
+  "keywords": [
+    "DNS",
+    "OSINT",
+    "domain security",
+    "SPF",
+    "DKIM",
+    "DMARC",
+    "DNSSEC",
+    "DANE",
+    "MTA-STS",
+    "BIMI",
+    "CAA",
+    "TLS-RPT",
+    "email authentication",
+    "security audit",
+    "confidence scoring",
+    "cybersecurity research"
+  ],
+  "programmingLanguage": [
+    "Go",
+    "HTML",
+    "CSS",
+    "JavaScript"
+  ],
+  "operatingSystem": "Linux",
+  "runtimePlatform": "Go 1.25",
+  "developmentStatus": "active",
+  "continuousIntegration": "https://github.com/IT-Help-San-Diego/dns-tool/actions",
+  "issueTracker": "https://github.com/IT-Help-San-Diego/dns-tool/issues",
+  "readme": "https://github.com/IT-Help-San-Diego/dns-tool/blob/main/README.md",
+  "softwareRequirements": [
+    "Go >= 1.25"
+  ],
+  "buildInstructions": "https://github.com/IT-Help-San-Diego/dns-tool/blob/main/BUILD.md",
+  "referencePublication": [
+    {
+      "@type": "Report",
+      "name": "DNS Tool Methodology",
+      "url": "https://dnstool.it-help.tech/docs/dns-tool-methodology.pdf"
+    },
+    {
+      "@type": "Report",
+      "name": "DNS Tool Philosophical Foundations",
+      "url": "https://dnstool.it-help.tech/docs/philosophical-foundations.pdf"
+    }
+  ],
+  "relatedLink": [
+    "https://dnstool.it-help.tech/methodology",
+    "https://dnstool.it-help.tech/confidence",
+    "https://dnstool.it-help.tech/publications"
+  ]
+}

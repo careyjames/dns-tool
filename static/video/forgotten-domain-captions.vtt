@@ -1,0 +1,25 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.000
+Forgotten Domain — A Case Study in DNS Security
+
+2
+00:00:05.000 --> 00:00:12.000
+A domain registered for ten years with no published mail policy is not dormant — it is exposed.
+
+3
+00:00:12.000 --> 00:00:20.000
+Without SPF, DMARC, and a Null MX record, any domain becomes a free spoofing vector.
+
+4
+00:00:20.000 --> 00:00:28.000
+Reputation systems do not distinguish between negligence and compromise. They only see the absence of published policy.
+
+5
+00:00:28.000 --> 00:00:36.000
+Three DNS records separate protection from impersonation: SPF -all, DMARC reject, and Null MX.
+
+6
+00:00:36.000 --> 00:00:42.000
+If a domain sends no mail, publish these records. Silence is not protection.

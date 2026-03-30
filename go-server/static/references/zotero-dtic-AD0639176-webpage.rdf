@@ -1,0 +1,35 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:bib="http://purl.org/net/biblio#">
+    <bib:Document rdf:about="https://apps.dtic.mil/sti/citations/tr/AD0639176">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <link:link rdf:resource="#item_191"/>
+        <dc:title>MINIMAL RED LIGHT LEVELS ON BOARD SUBMARINES</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://apps.dtic.mil/sti/citations/tr/AD0639176</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:24:32</dcterms:dateSubmitted>
+    </bib:Document>
+    <z:Attachment rdf:about="#item_191">
+        <z:itemType>attachment</z:itemType>
+        <z:path rdf:resource="files/191/AD0639176.html"/>
+        <dc:title>MINIMAL RED LIGHT LEVELS ON BOARD SUBMARINES</dc:title>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://apps.dtic.mil/sti/citations/tr/AD0639176</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2026-03-20 18:24:37</dcterms:dateSubmitted>
+        <z:linkMode>1</z:linkMode>
+        <link:type>text/html</link:type>
+    </z:Attachment>
+</rdf:RDF>

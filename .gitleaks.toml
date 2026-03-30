@@ -1,0 +1,22 @@
+# SECINTENT-006: DNS record test fixtures contain verification tokens
+title = "Gitleaks configuration for DNS Tool"
+
+[allowlist]
+description = "DNS record data in test fixtures are not secrets — they are publicly available DNS TXT records and DNSSEC keys"
+paths = [
+    '''tests/golden_fixtures/.*\.json''',
+]
+regexTarget = "match"
+regexes = [
+    '''google-site-verification=''',
+    '''facebook-domain-verification=''',
+    '''apple-domain-verification=''',
+    '''cisco-ci-domain-verification=''',
+    '''onetrust-domain-verification=''',
+    '''globalsign-smime-dv=''',
+    '''docusign=''',
+    '''MS=[A-F0-9]+''',
+    '''v=spf1''',
+    '''v=DMARC1''',
+    '''v=DKIM1''',
+]

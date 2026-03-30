@@ -1,0 +1,56 @@
+name: Dependency Security Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'go.mod'
+      - 'go.sum'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'go.mod'
+      - 'go.sum'
+      - 'package.json'
+      - 'package-lock.json'
+  schedule:
+    - cron: '0 7 * * 1,4'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  go-vuln-check:
+    name: Go Vulnerability Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: Install govulncheck
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+
+      - name: Run govulncheck
+        run: govulncheck -tags intel ./go-server/...
+
+  npm-audit:
+    name: npm Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate

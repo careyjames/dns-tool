@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Protocol Topology — Analysis Pipeline Map — DNS Tool</title>
+    <meta name="description" content="Interactive topology map of DNS Tool protocol analysis pipeline. Visualize resolver paths, dependency graphs, and security protocol coverage.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="article:published_time" content="2025-06-01">
+    <meta property="article:modified_time" content="2026-03-20">
+    <meta property="og:url" content="https://dnstool.it-help.tech/topology">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Protocol Topology — Analysis Pipeline Map — DNS Tool">
+    <meta property="og:description" content="Interactive system architecture diagram showing DNS Tool protocol analysis topology.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Protocol Topology">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Protocol Topology — Analysis Pipeline Map — DNS Tool">
+    <meta name="twitter:description" content="Interactive system architecture diagram showing DNS Tool protocol analysis topology.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <style nonce="{{.CspNonce}}">
+        .topo-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 80px);
+            min-height: 750px;
+            overflow: hidden;
+            background: #070a0f;
+            border-radius: 8px;
+        }
+        .topo-canvas-wrap canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: default;
+        }
+        .topo-canvas-wrap canvas.topo-cursor-pointer {
+            cursor: pointer;
+        }
+        .u-privacy-banner { display: none !important; }
+        .topo-legend {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: none;
+            transform: none;
+            background: rgba(7, 10, 15, 0.92);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0 0 8px 8px;
+            padding: 5px 16px;
+            font-size: 0.68rem;
+            color: #8b9aad;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .topo-legend-section { display: flex; align-items: center; gap: 4px; }
+        .topo-legend-label {
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #5a6878;
+            margin-right: 4px;
+        }
+        .topo-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            margin-right: 6px;
+            line-height: 1;
+        }
+        .topo-legend-item:last-child { margin-right: 0; }
+        .topo-legend-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .topo-legend-rect {
+            width: 10px;
+            height: 6px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .topo-title-overlay {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            pointer-events: none;
+        }
+        .topo-title-h1 {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: block;
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+        .topo-beta-badge {
+            display: inline-block;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #ffc107;
+            background: rgba(255, 193, 7, 0.12);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 4px;
+            padding: 1px 7px;
+            margin-left: 6px;
+            vertical-align: middle;
+            line-height: 1.6;
+        }
+        .topo-disclosure {
+            background: rgba(255, 193, 7, 0.06);
+            border: 1px solid rgba(255, 193, 7, 0.18);
+            border-radius: 6px;
+            padding: 10px 16px;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #c0c8d4;
+            line-height: 1.5;
+        }
+        .topo-disclosure-label {
+            font-weight: 700;
+            color: #ffc107;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-right: 6px;
+        }
+        .topo-c-cf { background: #f6821f; }
+        .topo-c-g  { background: #4285f4; }
+        .topo-c-q9 { background: #0078d4; }
+        .topo-c-od { background: #ff6a00; }
+        .topo-c-eu { background: #003399; }
+        .topo-c-email { background: #4fc3f7; }
+        .topo-c-transport { background: #81c784; }
+        .topo-c-policy { background: #ffb74d; }
+        .topo-c-brand { background: #ce93d8; }
+        .topo-flow-signal { color: #5c6bc0; font-size: 0.8rem; }
+        .topo-flow-query { color: #e0e0e0; font-size: 0.7rem; }
+        .topo-flow-dep { color: #78909c; font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content">
+        <div class="container-fluid px-3 py-3">
+            <div class="topo-canvas-wrap" id="topoWrap">
+                <canvas id="topoCanvas"></canvas>
+                <div class="topo-title-overlay">
+                    <h1 class="topo-title-h1">Intelligence Topology <span class="topo-beta-badge">Beta</span></h1>
+                    DNS Security Pipeline &amp; Dependency Graph
+                </div>
+                <div class="topo-legend">
+                    <div class="topo-legend-section">
+                        <span class="topo-legend-label">Resolvers</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-cf"></span>CF</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-g"></span>Google</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-q9"></span>Quad9</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-od"></span>OpenDNS</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-eu"></span>DNS4EU</span>
+                    </div>
+                    <div class="topo-legend-section">
+                        <span class="topo-legend-label">Protocols</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-email"></span>Email</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-transport"></span>Transport</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-policy"></span>Policy</span>
+                        <span class="topo-legend-item"><span class="topo-legend-dot topo-c-brand"></span>Brand</span>
+                    </div>
+                    <div class="topo-legend-section">
+                        <span class="topo-legend-label">Flow</span>
+                        <span class="topo-legend-item"><span class="topo-flow-signal">&#8594;</span> Signal</span>
+                        <span class="topo-legend-item"><span class="topo-flow-query">&#9472;&#9654;</span> Query</span>
+                        <span class="topo-legend-item"><span class="topo-flow-dep">&#9476;&#9655;</span> Dep</span>
+                    </div>
+                </div>
+            </div>
+            <div class="topo-disclosure">
+                <span class="topo-disclosure-label">Beta</span> — Engineering validation in progress. Proven: deterministic constrained layout and metric pipeline (crossings, overlaps, stress, monotonicity). In-progress: external baseline (ELK), multi-dataset statistical significance, and publication-grade reproducibility.
+            </div>
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    (function() {
+        'use strict';
+
+        let SOLVER_LAYOUTS = {{.SolverLayouts}};
+        let SOLVER_ACTIVE = false;
+
+        let canvas = document.getElementById('topoCanvas');
+        let wrap = document.getElementById('topoWrap');
+        if (!canvas || !wrap) return;
+        let ctx = canvas.getContext('2d');
+        let dpr = window.devicePixelRatio || 1;
+        let W, H;
+        let SCL = 1;
+        let FONT_LABEL = 13;
+        let FONT_SUB = 10;
+        let FONT_TAG = 13;
+        let MIN_SPACING = 8;
+
+        let COLORS = {
+            email: '#4fc3f7',
+            transport: '#81c784',
+            policy: '#ffb74d',
+            brand: '#ce93d8',
+            source: '#5c6bc0',
+            intel: '#78909c',
+            engine: '#e0e0e0',
+            storage: '#ff8a65',
+            output: '#90caf9'
+        };
+
+        function hexToRgba(hex, a) {
+            let r = parseInt(hex.slice(1, 3), 16);
+            let g = parseInt(hex.slice(3, 5), 16);
+            let b = parseInt(hex.slice(5, 7), 16);
+            return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+        }
+
+        function roundRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        let DEG = Math.PI / 180;
+
+        let RESOLVER_POPS = [
+            { resolver: 'Cloudflare', tag: 'CF', ip: '1.1.1.1', ipAlt: '1.0.0.1', color: '#f6821f', lat: 37.77, lon: -122.42, city: 'San Francisco', country: 'US', asn: 13335, asOrg: 'Cloudflare Inc.', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'Primary US West PoP' },
+            { resolver: 'Cloudflare', tag: 'CF', ip: '1.1.1.1', ipAlt: '1.0.0.1', color: '#f6821f', lat: 51.51, lon: -0.13, city: 'London', country: 'GB', asn: 13335, asOrg: 'Cloudflare Inc.', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'EMEA hub' },
+            { resolver: 'Cloudflare', tag: 'CF', ip: '1.1.1.1', ipAlt: '1.0.0.1', color: '#f6821f', lat: 35.68, lon: 139.69, city: 'Tokyo', country: 'JP', asn: 13335, asOrg: 'Cloudflare Inc.', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'APAC hub' },
+            { resolver: 'Cloudflare', tag: 'CF', ip: '1.1.1.1', ipAlt: '1.0.0.1', color: '#f6821f', lat: 1.35, lon: 103.82, city: 'Singapore', country: 'SG', asn: 13335, asOrg: 'Cloudflare Inc.', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'SEA PoP' },
+            { resolver: 'Cloudflare', tag: 'CF', ip: '1.1.1.1', ipAlt: '1.0.0.1', color: '#f6821f', lat: -23.55, lon: -46.63, city: 'S\u00e3o Paulo', country: 'BR', asn: 13335, asOrg: 'Cloudflare Inc.', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'LATAM hub' },
+            { resolver: 'Google', tag: 'G', ip: '8.8.8.8', ipAlt: '8.8.4.4', color: '#4285f4', lat: 41.26, lon: -95.86, city: 'Council Bluffs', country: 'US', asn: 15169, asOrg: 'Google LLC', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'core-dc', note: 'US Central DC' },
+            { resolver: 'Google', tag: 'G', ip: '8.8.8.8', ipAlt: '8.8.4.4', color: '#4285f4', lat: 53.35, lon: -6.26, city: 'Dublin', country: 'IE', asn: 15169, asOrg: 'Google LLC', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'core-dc', note: 'EU DC' },
+            { resolver: 'Google', tag: 'G', ip: '8.8.8.8', ipAlt: '8.8.4.4', color: '#4285f4', lat: -33.87, lon: 151.21, city: 'Sydney', country: 'AU', asn: 15169, asOrg: 'Google LLC', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'core-dc', note: 'Oceania DC' },
+            { resolver: 'Google', tag: 'G', ip: '8.8.8.8', ipAlt: '8.8.4.4', color: '#4285f4', lat: 25.03, lon: 121.57, city: 'Taipei', country: 'TW', asn: 15169, asOrg: 'Google LLC', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'APAC cache' },
+            { resolver: 'Quad9', tag: 'Q9', ip: '9.9.9.9', ipAlt: '149.112.112.112', color: '#0078d4', lat: 47.38, lon: 8.54, city: 'Zurich', country: 'CH', asn: 19281, asOrg: 'QUAD9-AS-1', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'core-dc', note: 'Swiss HQ, threat-blocking' },
+            { resolver: 'Quad9', tag: 'Q9', ip: '9.9.9.9', ipAlt: '149.112.112.112', color: '#0078d4', lat: 50.11, lon: 8.68, city: 'Frankfurt', country: 'DE', asn: 19281, asOrg: 'QUAD9-AS-1', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'DE-CIX peered' },
+            { resolver: 'Quad9', tag: 'Q9', ip: '9.9.9.9', ipAlt: '149.112.112.112', color: '#0078d4', lat: 1.35, lon: 103.82, city: 'Singapore', country: 'SG', asn: 19281, asOrg: 'QUAD9-AS-1', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'SEA PoP' },
+            { resolver: 'OpenDNS', tag: 'OD', ip: '208.67.222.222', ipAlt: '208.67.220.220', color: '#ff6a00', lat: 37.34, lon: -121.89, city: 'San Jose', country: 'US', asn: 36692, asOrg: 'Cisco OpenDNS LLC', transport: 'anycast', protocol: 'DoH/UDP', pipelineRole: 'resolver', hopType: 'core-dc', note: 'Cisco Umbrella HQ' },
+            { resolver: 'OpenDNS', tag: 'OD', ip: '208.67.222.222', ipAlt: '208.67.220.220', color: '#ff6a00', lat: 51.51, lon: -0.13, city: 'London', country: 'GB', asn: 36692, asOrg: 'Cisco OpenDNS LLC', transport: 'anycast', protocol: 'DoH/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'EMEA PoP' },
+            { resolver: 'OpenDNS', tag: 'OD', ip: '208.67.222.222', ipAlt: '208.67.220.220', color: '#ff6a00', lat: 22.32, lon: 114.17, city: 'Hong Kong', country: 'HK', asn: 36692, asOrg: 'Cisco OpenDNS LLC', transport: 'anycast', protocol: 'DoH/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'APAC PoP' },
+            { resolver: 'DNS4EU', tag: 'EU', ip: 'dns4eu.eu', ipAlt: 'n/a', color: '#003399', lat: 50.85, lon: 4.35, city: 'Brussels', country: 'BE', asn: 0, asOrg: 'EU Digital Sovereignty', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'EU HQ, sovereign DNS' },
+            { resolver: 'DNS4EU', tag: 'EU', ip: 'dns4eu.eu', ipAlt: 'n/a', color: '#003399', lat: 48.86, lon: 2.35, city: 'Paris', country: 'FR', asn: 0, asOrg: 'EU Digital Sovereignty', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'France PoP' },
+            { resolver: 'DNS4EU', tag: 'EU', ip: 'dns4eu.eu', ipAlt: 'n/a', color: '#003399', lat: 52.52, lon: 13.41, city: 'Berlin', country: 'DE', asn: 0, asOrg: 'EU Digital Sovereignty', transport: 'anycast', protocol: 'DoH/DoT/UDP', pipelineRole: 'resolver', hopType: 'edge-pop', note: 'Germany PoP' }
+        ];
+
+        let LAND = [
+            [[72,-78],[72,-100],[71,-152],[68,-165],[63,-167],[60,-140],[56,-132],[52,-127],[49,-124],[46,-124],[42,-124],[38,-123],[34,-120],[32,-117],[28,-115],[24,-110],[22,-106],[20,-97],[18,-96],[18,-88],[16,-87],[14,-84],[10,-84],[8,-81],[9,-78],[10,-76],[12,-72],[15,-76],[18,-77],[20,-76],[22,-80],[25,-80],[28,-82],[30,-82],[33,-80],[35,-76],[38,-75],[40,-74],[42,-70],[44,-66],[45,-61],[47,-53],[44,-60],[43,-66],[41,-71],[38,-70],[36,-76],[30,-82],[28,-77],[26,-80],[22,-88],[18,-88],[20,-90],[22,-97],[26,-110],[32,-117],[38,-123],[48,-124],[55,-130],[58,-136],[60,-140],[64,-162],[68,-165],[70,-152],[73,-94],[72,-78]],
+            [[12,-72],[11,-74],[10,-76],[8,-77],[5,-77],[2,-80],[-1,-80],[-3,-80],[-5,-81],[-8,-79],[-12,-77],[-14,-76],[-18,-70],[-20,-70],[-23,-68],[-23,-44],[-28,-49],[-33,-52],[-35,-57],[-38,-56],[-41,-64],[-46,-67],[-52,-69],[-55,-68],[-55,-64],[-52,-72],[-47,-76],[-42,-65],[-38,-57],[-34,-53],[-28,-48],[-23,-44],[-18,-40],[-13,-39],[-8,-35],[-5,-35],[-2,-50],[2,-55],[5,-60],[8,-63],[10,-68],[12,-72]],
+            [[36,-10],[38,-10],[40,-9],[42,-9],[43,-4],[44,-1],[46,0],[47,1],[48,2],[50,2],[51,4],[52,5],[54,9],[56,8],[56,10],[58,6],[60,5],[61,5],[63,10],[65,14],[68,16],[70,20],[71,28],[71,30],[70,32],[68,28],[66,26],[64,28],[62,18],[60,19],[58,18],[56,12],[54,10],[52,14],[50,14],[48,17],[46,16],[44,12],[42,24],[41,29],[40,26],[38,24],[37,23],[36,22],[36,14],[36,-6],[36,-10]],
+            [[37,10],[35,0],[34,-5],[32,-8],[30,-10],[28,-14],[25,-17],[22,-17],[20,-17],[15,-17],[12,-16],[8,-14],[5,-10],[5,-4],[5,1],[5,10],[2,10],[0,10],[-5,12],[-8,14],[-12,14],[-18,12],[-22,14],[-25,17],[-28,17],[-30,18],[-34,18],[-34,20],[-33,26],[-31,28],[-28,32],[-25,35],[-20,39],[-15,41],[-12,44],[-5,40],[0,42],[5,43],[10,44],[12,45],[15,42],[20,40],[25,37],[28,35],[30,32],[32,35],[35,35],[37,10]],
+            [[42,28],[44,30],[48,32],[52,36],[55,40],[57,42],[60,44],[62,50],[63,60],[65,70],[68,72],[70,80],[72,100],[72,125],[70,135],[68,140],[64,136],[62,140],[58,140],[55,135],[52,130],[48,132],[45,135],[42,132],[38,128],[35,129],[32,121],[30,120],[28,110],[25,100],[22,96],[20,93],[18,80],[15,80],[12,80],[10,78],[8,78],[6,100],[4,104],[2,104],[-1,104],[-5,106],[-7,106],[-8,110],[-7,115],[-2,118],[0,120],[1,104],[4,104],[6,100],[10,100],[15,100],[20,105],[22,107],[25,102],[28,97],[30,80],[32,60],[35,55],[37,50],[38,44],[40,40],[42,28]],
+            [[-14,129],[-12,131],[-12,136],[-14,137],[-16,137],[-19,144],[-21,149],[-25,153],[-29,153],[-33,152],[-35,148],[-38,146],[-38,140],[-36,137],[-34,135],[-32,133],[-30,130],[-28,115],[-25,114],[-22,114],[-19,117],[-16,123],[-14,129]],
+            [[60,-44],[63,-42],[65,-40],[68,-30],[72,-22],[76,-20],[78,-22],[80,-30],[82,-40],[83,-45],[82,-55],[80,-62],[78,-68],[76,-72],[73,-58],[70,-52],[68,-50],[64,-50],[60,-44]],
+            [[31,130],[33,132],[35,134],[37,137],[40,140],[42,144],[43,145],[42,143],[40,140],[37,137],[35,134],[33,131],[31,130]]
+        ];
+
+        let globe = { cx: 0, cy: 0, R: 0, rotLon: -58 };
+
+        function projectPt(lat, lon) {
+            let phi = lat * DEG;
+            let lam = (lon - globe.rotLon) * DEG;
+            let cosPhi = Math.cos(phi);
+            return {
+                x: globe.cx + globe.R * cosPhi * Math.sin(lam),
+                y: globe.cy - globe.R * Math.sin(phi),
+                vis: cosPhi * Math.cos(lam) > 0,
+                depth: cosPhi * Math.cos(lam)
+            };
+        }
+
+        function drawGlobeSphere() {
+            let grd = ctx.createRadialGradient(globe.cx - globe.R * 0.25, globe.cy - globe.R * 0.25, globe.R * 0.05, globe.cx, globe.cy, globe.R * 1.4);
+            grd.addColorStop(0, 'rgba(30,40,70,0.15)');
+            grd.addColorStop(0.7, 'rgba(15,20,40,0.08)');
+            grd.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.beginPath();
+            ctx.arc(globe.cx, globe.cy, globe.R * 1.4, 0, Math.PI * 2);
+            ctx.fillStyle = grd;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(globe.cx, globe.cy, globe.R, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(8,12,22,0.9)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(100,140,200,0.2)';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+        }
+
+        function drawGraticule() {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(globe.cx, globe.cy, globe.R - 0.5, 0, Math.PI * 2);
+            ctx.clip();
+
+            ctx.strokeStyle = 'rgba(100,140,200,0.07)';
+            ctx.lineWidth = 0.5;
+
+            let lats = [-60, -30, 0, 30, 60];
+            for (let li = 0; li < lats.length; li++) {
+                ctx.beginPath();
+                let started = false;
+                for (let lon = -180; lon <= 180; lon += 3) {
+                    let p = projectPt(lats[li], lon);
+                    if (p.vis) {
+                        if (!started) { ctx.moveTo(p.x, p.y); started = true; }
+                        else ctx.lineTo(p.x, p.y);
+                    } else { started = false; }
+                }
+                ctx.stroke();
+            }
+
+            for (let mlon = -180; mlon < 180; mlon += 30) {
+                ctx.beginPath();
+                let started2 = false;
+                for (let lat = -90; lat <= 90; lat += 3) {
+                    let p = projectPt(lat, mlon);
+                    if (p.vis) {
+                        if (!started2) { ctx.moveTo(p.x, p.y); started2 = true; }
+                        else ctx.lineTo(p.x, p.y);
+                    } else { started2 = false; }
+                }
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'rgba(100,140,200,0.12)';
+            ctx.lineWidth = 0.7;
+            ctx.beginPath();
+            let started3 = false;
+            for (let elon = -180; elon <= 180; elon += 3) {
+                let ep = projectPt(0, elon);
+                if (ep.vis) {
+                    if (!started3) { ctx.moveTo(ep.x, ep.y); started3 = true; }
+                    else ctx.lineTo(ep.x, ep.y);
+                } else { started3 = false; }
+            }
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        function drawContinents() {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(globe.cx, globe.cy, globe.R - 0.5, 0, Math.PI * 2);
+            ctx.clip();
+
+            for (let ci = 0; ci < LAND.length; ci++) {
+                let coords = LAND[ci];
+                ctx.beginPath();
+                let started = false;
+                for (let pi = 0; pi < coords.length; pi++) {
+                    let p = projectPt(coords[pi][0], coords[pi][1]);
+                    if (p.vis) {
+                        if (!started) { ctx.moveTo(p.x, p.y); started = true; }
+                        else ctx.lineTo(p.x, p.y);
+                    } else { started = false; }
+                }
+                if (started) {
+                    ctx.fillStyle = 'rgba(80,120,180,0.04)';
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(100,160,220,0.12)';
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+
+            ctx.restore();
+        }
+
+        let convergePt = { x: 0, y: 0 };
+        let signalParticles = [];
+
+        function initSignalParticles() {
+            signalParticles = [];
+            for (let i = 0; i < RESOLVER_POPS.length; i++) {
+                for (let j = 0; j < 3; j++) {
+                    signalParticles.push({
+                        popIdx: i,
+                        t: Math.random(),
+                        speed: 0.003 + Math.random() * 0.004,
+                        size: 1.5 + Math.random() * 1.5
+                    });
+                }
+            }
+        }
+
+        function drawSignalArcs(time) {
+            let tgtX = HUB.x - (HUB._drawW || 88) / 2;
+            let tgtY = HUB.y;
+            for (let i = 0; i < RESOLVER_POPS.length; i++) {
+                let pop = RESOLVER_POPS[i];
+                let p = projectPt(pop.lat, pop.lon);
+                if (!p.vis) continue;
+
+                let cpx = p.x + (tgtX - p.x) * 0.5 + (p.y - tgtY) * 0.12;
+                let cpy = p.y + (tgtY - p.y) * 0.5;
+
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.quadraticCurveTo(cpx, cpy, tgtX, tgtY);
+                ctx.strokeStyle = hexToRgba(pop.color, 0.12 + p.depth * 0.06);
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            }
+
+            for (let si = 0; si < signalParticles.length; si++) {
+                let sp = signalParticles[si];
+                let pop2 = RESOLVER_POPS[sp.popIdx];
+                let p2 = projectPt(pop2.lat, pop2.lon);
+                if (!p2.vis) continue;
+
+                let t = sp.t;
+                let cpx2 = p2.x + (tgtX - p2.x) * 0.5 + (p2.y - tgtY) * 0.12;
+                let cpy2 = p2.y + (tgtY - p2.y) * 0.5;
+                let mt = 1 - t;
+                let px = mt * mt * p2.x + 2 * mt * t * cpx2 + t * t * tgtX;
+                let py = mt * mt * p2.y + 2 * mt * t * cpy2 + t * t * tgtY;
+
+                ctx.beginPath();
+                ctx.arc(px, py, sp.size, 0, Math.PI * 2);
+                ctx.fillStyle = hexToRgba(pop2.color, 0.5 + t * 0.3);
+                ctx.fill();
+            }
+        }
+
+        let hoveredPop = null;
+        let allLayoutNodes = [];
+        let popHitAreas = [];
+
+        function drawResolverMarkers() {
+            let visiblePops = [];
+            for (let i = 0; i < RESOLVER_POPS.length; i++) {
+                let pop = RESOLVER_POPS[i];
+                let p = projectPt(pop.lat, pop.lon);
+                if (p.vis) {
+                    visiblePops.push({ pop: pop, p: p, idx: i });
+                }
+            }
+
+            visiblePops.sort(function(a, b) { return a.p.depth - b.p.depth; });
+
+            let placedBoxes = [];
+            allLayoutNodes.forEach(function(nd) {
+                if (!nd._boxW) measureNodeBox(nd);
+                let hw = nd._halfW || nd.radius;
+                let hh = nd._halfH || nd.radius;
+                placedBoxes.push({ x: nd.x - hw, y: nd.y - hh, w: hw * 2, h: hh * 2 });
+            });
+            popHitAreas = [];
+
+            let labelGap = 12 * SCL;
+            let labelBand = 120 * SCL;
+            let maxLabelRight = globe.cx + globe.R + labelBand + labelGap;
+            let maxLabelLeft = globe.cx - globe.R - labelBand - labelGap;
+            let maxLabelTop = globe.cy - globe.R - labelBand;
+            let maxLabelBottom = globe.cy + globe.R + labelBand;
+
+            for (let vi = 0; vi < visiblePops.length; vi++) {
+                let vp = visiblePops[vi];
+                let pop2 = vp.pop;
+                let p2 = vp.p;
+                let alpha = 0.4 + p2.depth * 0.6;
+                let isHovered = hoveredPop === vp.idx;
+
+                ctx.beginPath();
+                ctx.arc(p2.x, p2.y, isHovered ? 9 : 7, 0, Math.PI * 2);
+                ctx.fillStyle = hexToRgba(pop2.color, (isHovered ? 0.3 : 0.15) * alpha);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.arc(p2.x, p2.y, isHovered ? 5 : 4, 0, Math.PI * 2);
+                ctx.fillStyle = hexToRgba(pop2.color, (isHovered ? 1 : 0.85) * alpha);
+                ctx.fill();
+
+                let label = isHovered ? (pop2.tag + ' \u00b7 ' + pop2.city) : pop2.city;
+                ctx.font = (isHovered ? 'bold ' : '') + FONT_TAG + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+                let tw = ctx.measureText(label).width;
+                let tagW = tw + 18 * SCL;
+                let tagH = Math.round(20 * SCL + 2);
+
+                let baseAngle = Math.atan2(p2.y - globe.cy, p2.x - globe.cx);
+                let bestX = null, bestY = null, bestScore = Infinity;
+                let candidateAngles = [0, 15, -15, 30, -30, 45, -45, 60, -60, 75, -75, 90, -90, 105, -105, 120, -120, 135, -135, 150, -150, 165, -165, 180];
+
+                let candidateDists = [globe.R * 0.15 + labelGap, globe.R * 0.25 + labelGap, globe.R * 0.35 + labelGap];
+                for (let di = 0; di < candidateDists.length; di++) {
+                for (let ci = 0; ci < candidateAngles.length; ci++) {
+                    let ca = baseAngle + candidateAngles[ci] * DEG;
+                    let dist = candidateDists[di];
+                    let cx = p2.x + Math.cos(ca) * dist;
+                    let cy = p2.y + Math.sin(ca) * dist;
+
+                    if (Math.cos(ca) < 0) cx -= tagW;
+
+                    cx = Math.max(Math.max(4, maxLabelLeft), Math.min(cx, maxLabelRight - tagW));
+                    cy = Math.max(Math.max(4, maxLabelTop), Math.min(cy, maxLabelBottom - tagH));
+
+                    let hasCollision = false;
+                    for (let pi = 0; pi < placedBoxes.length; pi++) {
+                        let pb = placedBoxes[pi];
+                        if (cx < pb.x + pb.w + 3 && cx + tagW > pb.x - 3 &&
+                            cy < pb.y + pb.h + 3 && cy + tagH > pb.y - 3) {
+                            hasCollision = true;
+                            break;
+                        }
+                    }
+
+                    let distFromDot = Math.sqrt((cx + tagW / 2 - p2.x) * (cx + tagW / 2 - p2.x) + (cy + tagH / 2 - p2.y) * (cy + tagH / 2 - p2.y));
+                    let score = (hasCollision ? 10000 : 0) + distFromDot;
+
+                    if (score < bestScore) {
+                        bestScore = score;
+                        bestX = cx;
+                        bestY = cy;
+                    }
+                }
+                }
+
+                if (bestScore >= 10000) {
+                    for (let ri = 0; ri < 8; ri++) {
+                        let shifted = false;
+                        for (let pi2 = 0; pi2 < placedBoxes.length; pi2++) {
+                            let pb2 = placedBoxes[pi2];
+                            let ovX = Math.min(bestX + tagW, pb2.x + pb2.w) - Math.max(bestX, pb2.x);
+                            let ovY = Math.min(bestY + tagH, pb2.y + pb2.h) - Math.max(bestY, pb2.y);
+                            if (ovX > 0 && ovY > 0) {
+                                if (ovY < ovX) {
+                                    bestY += (bestY < pb2.y ? -(ovY + 4) : (ovY + 4));
+                                } else {
+                                    bestX += (bestX < pb2.x ? -(ovX + 4) : (ovX + 4));
+                                }
+                                shifted = true;
+                            }
+                        }
+                        if (!shifted) break;
+                    }
+                    bestX = Math.max(4, Math.min(bestX, maxLabelRight - tagW));
+                    bestY = Math.max(4, Math.min(bestY, maxLabelBottom - tagH));
+                }
+
+                let rawTagX = bestX;
+                let rawTagY = bestY;
+                placedBoxes.push({ x: rawTagX, y: rawTagY, w: tagW, h: tagH });
+                popHitAreas.push({ x: rawTagX, y: rawTagY, w: tagW, h: tagH, dotX: p2.x, dotY: p2.y, idx: vp.idx });
+
+                let lineEndX = (rawTagX + tagW / 2 > p2.x) ? rawTagX : rawTagX + tagW;
+                ctx.beginPath();
+                ctx.moveTo(p2.x, p2.y);
+                ctx.lineTo(lineEndX, rawTagY + tagH / 2);
+                ctx.strokeStyle = hexToRgba(pop2.color, (isHovered ? 0.5 : 0.3) * alpha);
+                ctx.lineWidth = isHovered ? 1 : 0.7;
+                ctx.stroke();
+
+                roundRect(rawTagX, rawTagY, tagW, tagH, 4);
+                ctx.fillStyle = hexToRgba(pop2.color, isHovered ? 0.25 : 0.12 * alpha);
+                ctx.fill();
+                ctx.strokeStyle = hexToRgba(pop2.color, isHovered ? 0.8 : 0.4 * alpha);
+                ctx.lineWidth = isHovered ? 1.2 : 0.6;
+                ctx.stroke();
+
+                ctx.fillStyle = 'rgba(255,255,255,' + (isHovered ? 0.95 : 0.8 * alpha) + ')';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(label, rawTagX + 9 * SCL, rawTagY + tagH / 2);
+            }
+        }
+
+        function drawPopTooltip() {
+            if (hoveredPop === null) return;
+            let pop = RESOLVER_POPS[hoveredPop];
+            if (!pop) return;
+            let p = projectPt(pop.lat, pop.lon);
+            if (!p.vis) { hoveredPop = null; return; }
+
+            let lines = [
+                pop.resolver + ' \u2014 ' + pop.city + ', ' + pop.country,
+                'IP: ' + pop.ip + (pop.ipAlt !== 'n/a' ? ' / ' + pop.ipAlt : ''),
+                'AS' + (pop.asn > 0 ? pop.asn : 'N/A') + ' (' + pop.asOrg + ')',
+                'Protocol: ' + pop.protocol + ' (' + pop.transport + ')',
+                'Type: ' + pop.hopType.replace('-', ' '),
+                pop.note
+            ];
+
+            ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+            let maxW = 0;
+            for (let i = 0; i < lines.length; i++) {
+                let lw = ctx.measureText(lines[i]).width;
+                if (lw > maxW) maxW = lw;
+            }
+
+            let tipW = maxW + 24;
+            let lineH = 18;
+            let tipH = lines.length * lineH + 16;
+            let tipX = p.x + 18;
+            let tipY = p.y - tipH / 2;
+
+            if (tipX + tipW > globe.cx + globe.R + 60) {
+                tipX = p.x - tipW - 18;
+            }
+            if (tipY < 10) tipY = 10;
+            if (tipY + tipH > H - 10) tipY = H - tipH - 10;
+
+            ctx.save();
+            ctx.shadowColor = 'rgba(0,0,0,0.6)';
+            ctx.shadowBlur = 12;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+            roundRect(tipX, tipY, tipW, tipH, 6);
+            ctx.fillStyle = 'rgba(12, 16, 28, 0.95)';
+            ctx.fill();
+            ctx.restore();
+
+            roundRect(tipX, tipY, tipW, tipH, 6);
+            ctx.strokeStyle = hexToRgba(pop.color, 0.5);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            let headerH = lineH + 4;
+            roundRect(tipX, tipY, tipW, headerH, 6);
+            ctx.fillStyle = hexToRgba(pop.color, 0.15);
+            ctx.fill();
+
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.fillStyle = hexToRgba(pop.color, 0.95);
+            ctx.fillText(lines[0], tipX + 12, tipY + headerH / 2);
+
+            ctx.font = '11px -apple-system, BlinkMacSystemFont, monospace';
+            for (let j = 1; j < lines.length; j++) {
+                ctx.fillStyle = j === lines.length - 1 ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.7)';
+                if (j === lines.length - 1) ctx.font = '11px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.fillText(lines[j], tipX + 12, tipY + headerH + (j - 1) * lineH + lineH / 2 + 4);
+            }
+        }
+
+        function drawGlobe(time) {
+            drawGlobeSphere();
+            drawGraticule();
+            drawContinents();
+            drawSignalArcs(time);
+            drawResolverMarkers();
+
+            ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.fillText('Orthographic Projection', globe.cx, globe.cy + globe.R + 8 * SCL);
+            let degLabel = ((globe.rotLon % 360) + 360) % 360;
+            if (degLabel > 180) degLabel -= 360;
+            ctx.fillText(degLabel.toFixed(0) + '\u00b0 longitude center', globe.cx, globe.cy + globe.R + 20 * SCL);
+        }
+
+        let SOURCES = [
+            { id: 'root',  label: 'Root / TLD',      sub: 'IANA Root Zone\nTLD Registries',       color: COLORS.source, zone: 'source' },
+            { id: 'rdap',  label: 'RDAP / WHOIS',    sub: 'Registration Data\nAccess Protocol',   color: COLORS.intel,  zone: 'source' },
+            { id: 'ct',    label: 'CT / Subdomains',  sub: 'crt.sh \u00b7 Certspotter\nTransparency Logs', color: COLORS.intel,  zone: 'source' },
+            { id: 'cisa',  label: 'CISA / Threat',    sub: 'BOD 19-02\nIP Scanner Detection',     color: COLORS.intel,  zone: 'source' },
+            { id: 'probes', label: 'Probe Fleet',     sub: 'SMTP \u00b7 DANE \u00b7 TLS\nNmap \u00b7 testssl.sh', color: COLORS.source, zone: 'source' }
+        ];
+
+        let HUB = { id: 'hub', label: 'DNS Resolvers', sub: 'Signal Aggregation', color: COLORS.source, zone: 'hub', x: 0, y: 0, targetX: 0, targetY: 0, radius: 44, _initialized: false, shape: 'hub' };
+
+        let ENGINE = { id: 'engine', label: 'ICIE', sub: 'Analysis Engine', color: COLORS.engine, zone: 'engine', x: 0, y: 0, targetX: 0, targetY: 0, radius: 54, _initialized: false };
+
+        let CONFIDENCE = [
+            { id: 'ietf',  label: 'IETF Metadata',   sub: 'RFC Status \u00b7 Errata\nDraft Tracker',  color: COLORS.intel,  zone: 'confidence' },
+            { id: 'icae',  label: 'ICAE',  sub: 'Accuracy Audit',   color: '#ef9a9a', zone: 'confidence' },
+            { id: 'icuae', label: 'ICuAE', sub: 'Currency Audit',   color: '#a5d6a7', zone: 'confidence' },
+            { id: 'ede',   label: 'EDE',   sub: 'Epistemic\nDisclosure', color: '#ffab91', zone: 'confidence' }
+        ];
+
+        let STORAGE = [
+            { id: 'postgres', label: 'PostgreSQL', sub: 'Scan Results \u00b7 History\nDrift \u00b7 Analytics', color: COLORS.storage, zone: 'storage' },
+            { id: 'fixtures', label: 'Golden Fixtures', sub: 'Known-Good Baselines\nRFC Compliance Seeds', color: '#ffcc80', zone: 'storage' },
+            { id: 'wayback', label: 'Internet Archive', sub: 'Wayback Machine\nPermanent Record', color: '#81c784', zone: 'storage' }
+        ];
+
+        let PROTOCOLS = [
+            { id: 'spf',    label: 'SPF',     rfc: '7208',  cat: 'email' },
+            { id: 'dkim',   label: 'DKIM',    rfc: '6376',  cat: 'email' },
+            { id: 'dmarc',  label: 'DMARC',   rfc: '7489',  cat: 'email' },
+            { id: 'dnssec', label: 'DNSSEC',  rfc: '4035',  cat: 'policy' },
+            { id: 'dane',   label: 'DANE',    rfc: '6698',  cat: 'transport' },
+            { id: 'mtasts', label: 'MTA-STS', rfc: '8461',  cat: 'transport' },
+            { id: 'tlsrpt', label: 'TLS-RPT', rfc: '8460',  cat: 'transport' },
+            { id: 'bimi',   label: 'BIMI',    rfc: 'draft', cat: 'brand' },
+            { id: 'caa',    label: 'CAA',     rfc: '8659',  cat: 'policy' }
+        ];
+
+        let OUTPUTS = [
+            { id: 'reports', label: 'Reports',    sub: 'Engineer \u00b7 Executive\nRecon \u00b7 Comparison', color: COLORS.output, zone: 'output' },
+            { id: 'jsonapi', label: 'JSON API',   sub: 'Analysis \u00b7 Checksums\nSubdomains \u00b7 Health', color: COLORS.output, zone: 'output' },
+            { id: 'seo',    label: 'Schema.org',  sub: 'JSON-LD Structured Data\nGoogle \u00b7 Rich Results', color: COLORS.output, zone: 'output' },
+            { id: 'badges', label: 'SVG Badges',  sub: 'Posture Indicators\nEmbeddable', color: COLORS.output, zone: 'output' }
+        ];
+
+        let PROTO_EDGES = [
+            { from: 'dmarc', to: 'spf',    type: 'hard',  label: 'alignment',     labelT: 0.45 },
+            { from: 'dmarc', to: 'dkim',   type: 'hard',  label: 'alignment',     labelT: 0.45 },
+            { from: 'dane',  to: 'dnssec', type: 'hard',  label: 'requires',      labelT: 0.35 },
+            { from: 'bimi',  to: 'dmarc',  type: 'hard',  label: 'p=quarantine+', labelT: 0.5 },
+            { from: 'tlsrpt', to: 'mtasts', type: 'soft', label: 'reports',       labelT: 0.5 },
+            { from: 'tlsrpt', to: 'dane',  type: 'soft',  label: 'reports',       labelT: 0.4 },
+            { from: 'caa',   to: 'dnssec', type: 'soft',  label: 'strengthens',   labelT: 0.5 }
+        ];
+
+        let allNodes = {};
+
+        SOURCES.forEach(function(s) {
+            s.x = 0; s.y = 0; s.targetX = 0; s.targetY = 0;
+            s.radius = 30; s._initialized = false; s.shape = 'rect';
+            allNodes[s.id] = s;
+        });
+        allNodes[HUB.id] = HUB;
+        allNodes[ENGINE.id] = ENGINE;
+
+        CONFIDENCE.forEach(function(c) {
+            c.x = 0; c.y = 0; c.targetX = 0; c.targetY = 0;
+            c.radius = (c.id === 'ede') ? 48 : (c.id === 'ietf') ? 36 : 42;
+            c._initialized = false; c.shape = (c.id === 'ietf') ? 'rect' : 'diamond';
+            allNodes[c.id] = c;
+        });
+
+        STORAGE.forEach(function(s) {
+            s.x = 0; s.y = 0; s.targetX = 0; s.targetY = 0;
+            s.radius = (s.id === 'postgres') ? 36 : (s.id === 'wayback') ? 32 : 34;
+            s._initialized = false; s.shape = 'cylinder';
+            allNodes[s.id] = s;
+        });
+
+        PROTOCOLS.forEach(function(p) {
+            p.x = 0; p.y = 0; p.targetX = 0; p.targetY = 0;
+            p.radius = 36; p.color = COLORS[p.cat]; p.shape = 'circle';
+            p._initialized = false; p.zone = 'protocol';
+            allNodes[p.id] = p;
+        });
+
+        OUTPUTS.forEach(function(o) {
+            o.x = 0; o.y = 0; o.targetX = 0; o.targetY = 0;
+            o.radius = 36; o._initialized = false; o.shape = 'hexagon';
+            allNodes[o.id] = o;
+        });
+
+        let FLOW_EDGES = [];
+        FLOW_EDGES.push({ from: 'hub', to: 'engine', type: 'flow', label: '' });
+        SOURCES.forEach(function(s) {
+            FLOW_EDGES.push({ from: s.id, to: 'hub', type: 'flow', label: '' });
+        });
+        FLOW_EDGES.push({ from: 'ietf', to: 'engine', type: 'flow', label: 'informs' });
+        FLOW_EDGES.push({ from: 'ietf', to: 'icae', type: 'flow', label: 'informs' });
+        FLOW_EDGES.push({ from: 'ietf', to: 'icuae', type: 'flow', label: 'informs' });
+        FLOW_EDGES.push({ from: 'engine', to: 'icae', type: 'flow', label: '' });
+        FLOW_EDGES.push({ from: 'engine', to: 'icuae', type: 'flow', label: '' });
+        FLOW_EDGES.push({ from: 'icae', to: 'ede', type: 'flow', label: 'discloses' });
+        FLOW_EDGES.push({ from: 'icuae', to: 'ede', type: 'flow', label: 'discloses' });
+        FLOW_EDGES.push({ from: 'engine', to: 'postgres', type: 'flow', label: 'persist' });
+        FLOW_EDGES.push({ from: 'postgres', to: 'fixtures', type: 'flow', label: 'seeds' });
+        FLOW_EDGES.push({ from: 'postgres', to: 'wayback', type: 'flow', label: 'archives' });
+        PROTOCOLS.forEach(function(p) {
+            FLOW_EDGES.push({ from: 'engine', to: p.id, type: 'flow', label: '' });
+        });
+        OUTPUTS.forEach(function(o) {
+            FLOW_EDGES.push({ from: 'engine', to: o.id, type: 'flow', label: '' });
+        });
+        FLOW_EDGES.push({ from: 'postgres', to: 'reports', type: 'flow', label: 'history' });
+
+        function effRadius(n) {
+            let hw = (n._drawW || n.radius * 2.2) / 2;
+            let hh = (n._drawH || n.radius * 1.4) / 2;
+            return Math.max(hw, hh, n.radius) + 6;
+        }
+
+        function computeScaling() {
+            SCL = Math.max(0.65, Math.min(1.15, W / 1400));
+            FONT_LABEL = Math.round(Math.max(10, Math.min(15, 13 * SCL)));
+            FONT_SUB = Math.round(Math.max(8, Math.min(12, 10 * SCL)));
+            FONT_TAG = Math.round(Math.max(10, Math.min(15, 13 * SCL)));
+            MIN_SPACING = Math.round(Math.max(5, 8 * SCL));
+        }
+
+        function computeNodeBox(shape, radius, label, sub, scale, fontLabel, fontSub, measureFn) {
+            let labelW = measureFn(label, fontLabel);
+            let subW = 0;
+            let subLineCount = 0;
+            if (sub) {
+                let lines = sub.split('\n');
+                subLineCount = lines.length;
+                for (let i = 0; i < lines.length; i++) {
+                    let sw = measureFn(lines[i], fontSub);
+                    if (sw > subW) subW = sw;
+                }
+            }
+            let contentW = Math.max(labelW, subW) + 24 * scale;
+            let w, h;
+            if (shape === 'circle') {
+                w = Math.max(radius * 2, contentW);
+                h = radius * 2;
+            } else if (shape === 'diamond') {
+                w = Math.max(radius * 1.7, contentW + 8);
+                h = radius * 1.7;
+            } else if (shape === 'hexagon') {
+                w = Math.max(radius * 2, contentW);
+                h = radius * 2;
+            } else if (shape === 'cylinder') {
+                w = Math.max(radius * 2.4, contentW);
+                h = radius * 1.5 + 16;
+            } else if (shape === 'hub' || shape === 'roundRect') {
+                w = Math.max(radius * 2.4, contentW);
+                h = Math.max(radius * 1.4, 40 * scale);
+            } else {
+                w = Math.max(radius * 2.4, contentW);
+                h = Math.max(radius * 1.3, 40 * scale + (subLineCount > 1 ? (subLineCount - 1) * (fontSub + 2) : 0));
+            }
+            return { w: w, h: h, halfW: w / 2, halfH: h / 2, contentW: contentW, subLineCount: subLineCount };
+        }
+
+        function canvasMeasureText(text, fontSize) {
+            ctx.font = fontSize + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            return ctx.measureText(text).width;
+        }
+
+        function measureNodeBox(n) {
+            let box = computeNodeBox(n.shape, n.radius, n.label, n.sub || null, SCL, FONT_LABEL, FONT_SUB, canvasMeasureText);
+            n._boxW = box.w;
+            n._boxH = box.h;
+            n._halfW = box.halfW;
+            n._halfH = box.halfH;
+            return { w: box.w, h: box.h };
+        }
+
+        function aabbOverlap(a, b) {
+            let ax1 = a.x - a.hw, ax2 = a.x + a.hw;
+            let ay1 = a.y - a.hh, ay2 = a.y + a.hh;
+            let bx1 = b.x - b.hw, bx2 = b.x + b.hw;
+            let by1 = b.y - b.hh, by2 = b.y + b.hh;
+            let ox = Math.min(ax2, bx2) - Math.max(ax1, bx1);
+            let oy = Math.min(ay2, by2) - Math.max(ay1, by1);
+            if (ox > 0 && oy > 0) return { ox: ox, oy: oy };
+            return null;
+        }
+
+        function forceDirectedLayout(nodes, edges, zones, globalBounds, maxIter) {
+            let n = nodes.length;
+            if (n === 0) return;
+            let area = (globalBounds.x2 - globalBounds.x1) * (globalBounds.y2 - globalBounds.y1);
+            let k = Math.sqrt(area / n) * 0.8;
+            let kSq = k * k;
+
+            let dispX = new Float64Array(n);
+            let dispY = new Float64Array(n);
+
+            let idxMap = {};
+            for (let i = 0; i < n; i++) idxMap[nodes[i].id] = i;
+
+            let boxes = [];
+            for (let i = 0; i < n; i++) boxes[i] = measureNodeBox(nodes[i]);
+
+            let T0 = Math.max(globalBounds.x2 - globalBounds.x1, globalBounds.y2 - globalBounds.y1) * 0.1;
+            let iter = maxIter || 80;
+
+            for (let it = 0; it < iter; it++) {
+                let temp = T0 * (1 - it / iter);
+                if (temp < 0.1) break;
+
+                for (let i = 0; i < n; i++) { dispX[i] = 0; dispY[i] = 0; }
+
+                for (let i = 0; i < n; i++) {
+                    let ni = nodes[i];
+                    let bwi = (boxes[i].w / 2 + MIN_SPACING);
+                    let bhi = (boxes[i].h / 2 + MIN_SPACING);
+                    for (let j = i + 1; j < n; j++) {
+                        let nj = nodes[j];
+                        let dx = ni.targetX - nj.targetX;
+                        let dy = ni.targetY - nj.targetY;
+
+                        let bwj = (boxes[j].w / 2 + MIN_SPACING);
+                        let bhj = (boxes[j].h / 2 + MIN_SPACING);
+                        let minSepX = bwi + bwj;
+                        let minSepY = bhi + bhj;
+
+                        let normDx = minSepX > 0 ? dx / minSepX : dx;
+                        let normDy = minSepY > 0 ? dy / minSepY : dy;
+                        let normDist = Math.sqrt(normDx * normDx + normDy * normDy);
+                        if (normDist < 0.01) {
+                            normDx = (Math.random() - 0.5) * 0.1;
+                            normDy = (Math.random() - 0.5) * 0.1;
+                            normDist = Math.sqrt(normDx * normDx + normDy * normDy);
+                        }
+
+                        let repulse = kSq / (normDist * normDist + 0.01);
+                        if (normDist < 1.5) repulse *= 3.0;
+                        let fx = (normDx / normDist) * repulse;
+                        let fy = (normDy / normDist) * repulse;
+                        dispX[i] += fx; dispY[i] += fy;
+                        dispX[j] -= fx; dispY[j] -= fy;
+                    }
+                }
+
+                for (let ei = 0; ei < edges.length; ei++) {
+                    let e = edges[ei];
+                    let si = idxMap[e.from];
+                    let ti = idxMap[e.to];
+                    if (si === undefined || ti === undefined) continue;
+                    let dx = nodes[si].targetX - nodes[ti].targetX;
+                    let dy = nodes[si].targetY - nodes[ti].targetY;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 0.01) continue;
+                    let idealLen = k * 1.8;
+                    let attract = (dist - idealLen) / dist * 0.3;
+                    let fx = dx * attract;
+                    let fy = dy * attract;
+                    dispX[si] -= fx; dispY[si] -= fy;
+                    dispX[ti] += fx; dispY[ti] += fy;
+                }
+
+                for (let i = 0; i < n; i++) {
+                    let ni = nodes[i];
+                    let z = zones[ni.zone || ni.id];
+                    if (z && z.gx !== undefined) {
+                        let gdx = z.gx - ni.targetX;
+                        let gdy = z.gy - ni.targetY;
+                        let gStr = z.gravity || 0.15;
+                        dispX[i] += gdx * gStr;
+                        dispY[i] += gdy * gStr;
+                    }
+                }
+
+                let maxDisp = 0;
+                for (let i = 0; i < n; i++) {
+                    let ni = nodes[i];
+                    let dLen = Math.sqrt(dispX[i] * dispX[i] + dispY[i] * dispY[i]);
+                    if (dLen > 0) {
+                        let capped = Math.min(dLen, temp);
+                        ni.targetX += (dispX[i] / dLen) * capped;
+                        ni.targetY += (dispY[i] / dLen) * capped;
+                        if (capped > maxDisp) maxDisp = capped;
+                    }
+
+                    let z = zones[ni.zone || ni.id];
+                    if (z && z.bounds) {
+                        let hw = boxes[i].w / 2 + 4;
+                        let hh = boxes[i].h / 2 + 4;
+                        ni.targetX = Math.max(z.bounds.x1 + hw, Math.min(z.bounds.x2 - hw, ni.targetX));
+                        ni.targetY = Math.max(z.bounds.y1 + hh, Math.min(z.bounds.y2 - hh, ni.targetY));
+                    }
+                }
+
+                if (maxDisp < 0.5 && it > 10) break;
+            }
+
+            for (let pass = 0; pass < 12; pass++) {
+                let hasOverlap = false;
+                for (let i = 0; i < n; i++) {
+                    boxes[i] = measureNodeBox(nodes[i]);
+                }
+                for (let i = 0; i < n; i++) {
+                    let ni = nodes[i];
+                    let bwi = boxes[i].w / 2 + MIN_SPACING;
+                    let bhi = boxes[i].h / 2 + MIN_SPACING;
+                    for (let j = i + 1; j < n; j++) {
+                        let nj = nodes[j];
+                        let bwj = boxes[j].w / 2 + MIN_SPACING;
+                        let bhj = boxes[j].h / 2 + MIN_SPACING;
+                        let ov = aabbOverlap(
+                            { x: ni.targetX, y: ni.targetY, hw: bwi, hh: bhi },
+                            { x: nj.targetX, y: nj.targetY, hw: bwj, hh: bhj }
+                        );
+                        if (ov) {
+                            hasOverlap = true;
+                            let pushStr = 0.55 + pass * 0.08;
+                            if (ov.ox < ov.oy) {
+                                let px = ov.ox * pushStr + 3;
+                                if (ni.targetX <= nj.targetX) { ni.targetX -= px; nj.targetX += px; }
+                                else { ni.targetX += px; nj.targetX -= px; }
+                            } else {
+                                let py = ov.oy * pushStr + 3;
+                                if (ni.targetY <= nj.targetY) { ni.targetY -= py; nj.targetY += py; }
+                                else { ni.targetY += py; nj.targetY -= py; }
+                            }
+                        }
+                    }
+                    let z = zones[ni.zone || ni.id];
+                    if (z && z.bounds) {
+                        let hw = boxes[i].w / 2 + 4;
+                        let hh = boxes[i].h / 2 + 4;
+                        ni.targetX = Math.max(z.bounds.x1 + hw, Math.min(z.bounds.x2 - hw, ni.targetX));
+                        ni.targetY = Math.max(z.bounds.y1 + hh, Math.min(z.bounds.y2 - hh, ni.targetY));
+                    }
+                }
+                if (!hasOverlap) break;
+            }
+        }
+
+        function layoutAll() {
+            computeScaling();
+
+            let titleSafe = Math.max(H * 0.07, 42);
+            let legendSafe = H * 0.95;
+            let usableH = legendSafe - titleSafe;
+
+            let globeR = Math.min(W * 0.13 * SCL, H * 0.25 * SCL, 180);
+            globe.R = globeR;
+            globe.cx = W * 0.04 + globeR;
+            globe.cy = titleSafe + usableH * 0.42;
+
+            let pipeStart = globe.cx + globeR + W * 0.02;
+            let pipeEnd = W * 0.99;
+            let pipeTotal = pipeEnd - pipeStart;
+            let colGap = Math.max(4, pipeTotal * 0.01);
+            let c1w = pipeTotal * 0.13;
+            let c2w = pipeTotal * 0.20;
+            let c3w = pipeTotal * 0.42;
+            let c4w = pipeTotal * 0.16;
+            let col1L = pipeStart;
+            let col1R = col1L + c1w;
+            let col2L = col1R + colGap;
+            let col2R = col2L + c2w;
+            let col3L = col2R + colGap;
+            let col3R = col3L + c3w;
+            let col4L = col3R + colGap;
+            let col4R = pipeEnd;
+
+            let srcCx = (col1L + col1R) / 2;
+            convergePt.x = srcCx;
+            convergePt.y = globe.cy;
+
+            let srcSpacing = usableH / (SOURCES.length + 1);
+            SOURCES.forEach(function(s, i) {
+                s.targetX = srcCx;
+                s.targetY = titleSafe + (i + 1) * srcSpacing;
+            });
+
+            HUB.targetX = srcCx;
+            HUB.targetY = globe.cy;
+
+            let procCx = (col2L + col2R) / 2;
+            ENGINE.targetX = procCx;
+            ENGINE.targetY = titleSafe + usableH * 0.15;
+
+            let confSpread = Math.max(40, (col2R - col2L) * 0.32);
+            let confY = titleSafe + usableH * 0.42;
+            CONFIDENCE[0].targetX = procCx;
+            CONFIDENCE[0].targetY = confY - usableH * 0.06;
+            CONFIDENCE[1].targetX = procCx - confSpread * 0.5;
+            CONFIDENCE[1].targetY = confY + usableH * 0.06;
+            CONFIDENCE[2].targetX = procCx + confSpread * 0.5;
+            CONFIDENCE[2].targetY = confY + usableH * 0.06;
+            CONFIDENCE[3].targetX = procCx;
+            CONFIDENCE[3].targetY = confY + usableH * 0.18;
+
+            let storeY = titleSafe + usableH * 0.78;
+            let storeSpread = Math.max(confSpread * 0.8, 60);
+            STORAGE[0].targetX = procCx;
+            STORAGE[0].targetY = storeY;
+            STORAGE[1].targetX = procCx - storeSpread;
+            STORAGE[1].targetY = storeY + usableH * 0.10;
+            STORAGE[2].targetX = procCx + storeSpread;
+            STORAGE[2].targetY = storeY + usableH * 0.10;
+
+            let protoCx = (col3L + col3R) / 2;
+            let protoCy = titleSafe + usableH * 0.42;
+            let protoRx = (col3R - col3L) * 0.38;
+            let protoRy = usableH * 0.28;
+            let angleMap = [-130, -90, -50, -10, 30, 70, 110, 150, 190];
+            PROTOCOLS.forEach(function(p, i) {
+                let a = angleMap[i] * DEG;
+                p.targetX = protoCx + protoRx * Math.cos(a);
+                p.targetY = protoCy + protoRy * Math.sin(a);
+            });
+
+            let outCx = (col4L + col4R) / 2;
+            let outSpacing = usableH / (OUTPUTS.length + 1);
+            OUTPUTS.forEach(function(o, i) {
+                o.targetX = outCx;
+                o.targetY = titleSafe + (i + 1) * outSpacing;
+            });
+
+            let globalBounds = { x1: col1L, x2: col4R, y1: titleSafe, y2: legendSafe };
+
+            let zones = {
+                'source': {
+                    gx: srcCx, gy: titleSafe + usableH * 0.5,
+                    gravity: 0.35,
+                    bounds: { x1: col1L, x2: col1R, y1: titleSafe, y2: legendSafe }
+                },
+                'hub': {
+                    gx: srcCx, gy: globe.cy,
+                    gravity: 0.6,
+                    bounds: { x1: col1L, x2: col1R, y1: titleSafe + usableH * 0.20, y2: titleSafe + usableH * 0.70 }
+                },
+                'engine': {
+                    gx: procCx, gy: titleSafe + usableH * 0.15,
+                    gravity: 0.6,
+                    bounds: { x1: col2L, x2: col2R, y1: titleSafe, y2: titleSafe + usableH * 0.30 }
+                },
+                'confidence': {
+                    gx: procCx, gy: confY + usableH * 0.06,
+                    gravity: 0.30,
+                    bounds: { x1: col2L, x2: col2R, y1: titleSafe + usableH * 0.25, y2: titleSafe + usableH * 0.75 }
+                },
+                'storage': {
+                    gx: procCx, gy: storeY,
+                    gravity: 0.35,
+                    bounds: { x1: col2L - c2w * 0.3, x2: col2R + c2w * 0.3, y1: titleSafe + usableH * 0.68, y2: legendSafe }
+                },
+                'protocol': {
+                    gx: protoCx, gy: protoCy,
+                    gravity: 0.18,
+                    bounds: { x1: col3L, x2: col3R, y1: titleSafe, y2: titleSafe + usableH * 0.88 }
+                },
+                'output': {
+                    gx: outCx, gy: titleSafe + usableH * 0.5,
+                    gravity: 0.35,
+                    bounds: { x1: col4L, x2: col4R, y1: titleSafe, y2: legendSafe }
+                }
+            };
+
+            allLayoutNodes = SOURCES.concat([HUB, ENGINE], CONFIDENCE, STORAGE, PROTOCOLS, OUTPUTS);
+            let allLayoutEdges = FLOW_EDGES.concat(PROTO_EDGES);
+
+            let solverProfile = W > 1000 ? 'desktop' : (W > 600 ? 'tablet' : 'mobile');
+            let solverData = null;
+            try {
+                if (SOLVER_LAYOUTS && SOLVER_LAYOUTS[solverProfile] && SOLVER_LAYOUTS[solverProfile].nodeCenters) {
+                    solverData = SOLVER_LAYOUTS[solverProfile].nodeCenters;
+                }
+            } catch (e) { solverData = null; }
+
+            if (solverData) {
+                SOLVER_ACTIVE = true;
+                console.log('Topology: using hybrid solver (' + solverProfile + ')');
+                let solverRef = { desktop: { w: 1600, h: 900 }, tablet: { w: 1100, h: 940 }, mobile: { w: 420, h: 1700 } };
+                let ref = solverRef[solverProfile] || solverRef.desktop;
+                allLayoutNodes.forEach(function(nd) {
+                    let pos = solverData[nd.id];
+                    if (pos) {
+                        nd.targetX = (pos.x / ref.w) * W;
+                        nd.targetY = titleSafe + (pos.y / ref.h) * (legendSafe - titleSafe);
+                        let z = zones[nd.zone || nd.id];
+                        if (z && z.bounds) {
+                            let zw = z.bounds.x2 - z.bounds.x1;
+                            let zh = z.bounds.y2 - z.bounds.y1;
+                            let zpx = Math.min(30, zw * 0.15);
+                            let zpy = Math.min(20, zh * 0.15);
+                            if (z.bounds.x1 + zpx < z.bounds.x2 - zpx) {
+                                nd.targetX = Math.max(z.bounds.x1 + zpx, Math.min(z.bounds.x2 - zpx, nd.targetX));
+                            }
+                            if (z.bounds.y1 + zpy < z.bounds.y2 - zpy) {
+                                nd.targetY = Math.max(z.bounds.y1 + zpy, Math.min(z.bounds.y2 - zpy, nd.targetY));
+                            }
+                        }
+                        nd.targetX = Math.max(globalBounds.x1 + 10, Math.min(globalBounds.x2 - 10, nd.targetX));
+                        nd.targetY = Math.max(globalBounds.y1 + 10, Math.min(globalBounds.y2 - 10, nd.targetY));
+                    }
+                });
+            } else {
+                SOLVER_ACTIVE = false;
+                console.log('Topology: using FR fallback');
+                forceDirectedLayout(allLayoutNodes, allLayoutEdges, zones, globalBounds, 120);
+            }
+
+            allLayoutNodes.forEach(function(nd) {
+                measureNodeBox(nd);
+            });
+
+            let overlapPad = 14;
+            for (let op = 0; op < 40; op++) {
+                let anyOverlap = false;
+                for (let oi = 0; oi < allLayoutNodes.length; oi++) {
+                    for (let oj = oi + 1; oj < allLayoutNodes.length; oj++) {
+                        let na = allLayoutNodes[oi], nb = allLayoutNodes[oj];
+                        let ohw = (na._halfW || na.radius) + (nb._halfW || nb.radius) + overlapPad;
+                        let ohh = (na._halfH || na.radius) + (nb._halfH || nb.radius) + overlapPad;
+                        let odx = Math.abs(nb.targetX - na.targetX);
+                        let ody = Math.abs(nb.targetY - na.targetY);
+                        if (odx < ohw && ody < ohh) {
+                            let overX = ohw - odx;
+                            let overY = ohh - ody;
+                            let pushStr = 0.7;
+                            if (overX < overY) {
+                                let sx = (nb.targetX >= na.targetX ? 1 : -1) * overX * pushStr;
+                                na.targetX -= sx;
+                                nb.targetX += sx;
+                            } else {
+                                let sy = (nb.targetY >= na.targetY ? 1 : -1) * overY * pushStr;
+                                na.targetY -= sy;
+                                nb.targetY += sy;
+                            }
+                            anyOverlap = true;
+                        }
+                    }
+                }
+                if (!anyOverlap) break;
+                allLayoutNodes.forEach(function(nd) {
+                    let z = zones[nd.zone || nd.id];
+                    if (z && z.bounds) {
+                        let zHw = nd._halfW || nd.radius;
+                        let zHh = nd._halfH || nd.radius;
+                        nd.targetX = Math.max(z.bounds.x1 + zHw, Math.min(z.bounds.x2 - zHw, nd.targetX));
+                        nd.targetY = Math.max(z.bounds.y1 + zHh, Math.min(z.bounds.y2 - zHh, nd.targetY));
+                    }
+                    nd.targetX = Math.max(globalBounds.x1 + 10, Math.min(globalBounds.x2 - 10, nd.targetX));
+                    nd.targetY = Math.max(globalBounds.y1 + 10, Math.min(globalBounds.y2 - 10, nd.targetY));
+                });
+            }
+
+            allLayoutNodes.forEach(function(nd) {
+                if (!nd._initialized) {
+                    nd.x = nd.targetX;
+                    nd.y = nd.targetY;
+                    nd._initialized = true;
+                }
+            });
+        }
+
+        let hoverNode = null;
+        let mouseX = -1, mouseY = -1;
+
+        function hitTest(mx, my) {
+            let all = SOURCES.concat(CONFIDENCE, STORAGE, OUTPUTS, PROTOCOLS, [ENGINE, HUB]);
+            for (let i = 0; i < all.length; i++) {
+                let n = all[i];
+                let dx = mx - n.x;
+                let dy = my - n.y;
+                let hr = n.radius + 12;
+                if (dx * dx + dy * dy < hr * hr) return n;
+            }
+            return null;
+        }
+
+        function hitTestPop(mx, my) {
+            for (let i = popHitAreas.length - 1; i >= 0; i--) {
+                let ha = popHitAreas[i];
+                if (mx >= ha.x && mx <= ha.x + ha.w && my >= ha.y && my <= ha.y + ha.h) return ha.idx;
+                let ddx = mx - ha.dotX;
+                let ddy = my - ha.dotY;
+                if (ddx * ddx + ddy * ddy < 144) return ha.idx;
+            }
+            return null;
+        }
+
+        canvas.addEventListener('mousemove', function(ev) {
+            let rect = canvas.getBoundingClientRect();
+            mouseX = ev.clientX - rect.left;
+            mouseY = ev.clientY - rect.top;
+            hoverNode = hitTest(mouseX, mouseY);
+            hoveredPop = hitTestPop(mouseX, mouseY);
+            canvas.classList.toggle('topo-cursor-pointer', !!(hoverNode || hoveredPop !== null));
+        });
+
+        canvas.addEventListener('mouseleave', function() {
+            mouseX = -1; mouseY = -1; hoverNode = null; hoveredPop = null;
+            canvas.classList.remove('topo-cursor-pointer');
+        });
+
+        function getConnectedIds(nodeId) {
+            let ids = {};
+            FLOW_EDGES.concat(PROTO_EDGES).forEach(function(e) {
+                if (e.from === nodeId) ids[e.to] = true;
+                if (e.to === nodeId) ids[e.from] = true;
+            });
+            return ids;
+        }
+
+        function getNodeBoundary(node, tx, ty) {
+            let dx = tx - node.x;
+            let dy = ty - node.y;
+            let len = Math.sqrt(dx * dx + dy * dy) || 1;
+            let nx = dx / len;
+            let ny = dy / len;
+            let pad = 5;
+
+            if (!node._boxW) measureNodeBox(node);
+            let hw = node._halfW + pad;
+            let hh = node._halfH + pad;
+
+            if (node.shape === 'rect' || node.shape === 'hub') {
+                let tx2 = Math.abs(nx) > 0.001 ? hw / Math.abs(nx) : 99999;
+                let ty2 = Math.abs(ny) > 0.001 ? hh / Math.abs(ny) : 99999;
+                let t = Math.min(tx2, ty2);
+                return { x: node.x + nx * t, y: node.y + ny * t };
+            }
+            if (node.shape === 'diamond') {
+                let s = node.radius * 0.85 + pad;
+                let t2 = s / (Math.abs(nx) + Math.abs(ny) || 1);
+                return { x: node.x + nx * t2, y: node.y + ny * t2 };
+            }
+            if (node.shape === 'cylinder') {
+                let tx3 = Math.abs(nx) > 0.001 ? hw / Math.abs(nx) : 99999;
+                let ty3 = Math.abs(ny) > 0.001 ? hh / Math.abs(ny) : 99999;
+                return { x: node.x + nx * Math.min(tx3, ty3), y: node.y + ny * Math.min(tx3, ty3) };
+            }
+            if (node.shape === 'hexagon') {
+                let angle = Math.atan2(ny, nx);
+                let sector = Math.round(angle / (Math.PI / 3));
+                let sAngle = sector * Math.PI / 3;
+                let cosD = Math.cos(angle - sAngle);
+                let dist = cosD > 0.001 ? (node.radius + pad) / cosD : node.radius + pad;
+                dist = Math.min(dist, node.radius + pad + 4);
+                return { x: node.x + nx * dist, y: node.y + ny * dist };
+            }
+            return { x: node.x + nx * (node.radius + pad), y: node.y + ny * (node.radius + pad) };
+        }
+
+        let PROTO_IDS = {};
+        PROTOCOLS.forEach(function(p) { PROTO_IDS[p.id] = true; });
+
+        function findEdgeCurveOffset(from, to, edgeType) {
+            if (edgeType === 'flow') return null;
+            if (!PROTO_IDS[from.id] || !PROTO_IDS[to.id]) return null;
+            let mx = (from.x + to.x) / 2;
+            let my = (from.y + to.y) / 2;
+            let edx = to.x - from.x;
+            let edy = to.y - from.y;
+            let elen = Math.sqrt(edx * edx + edy * edy) || 1;
+            let perpX = -edy / elen;
+            let perpY = edx / elen;
+            let bestOffset = 0;
+            let closestDist = Infinity;
+            for (let pi = 0; pi < PROTOCOLS.length; pi++) {
+                let pn = PROTOCOLS[pi];
+                if (pn.id === from.id || pn.id === to.id) continue;
+                let dx2 = pn.x - mx;
+                let dy2 = pn.y - my;
+                let distToMid = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+                if (distToMid < pn.radius + 50 && distToMid < closestDist) {
+                    closestDist = distToMid;
+                    let side = dx2 * perpX + dy2 * perpY;
+                    bestOffset = (side > 0 ? -1 : 1) * Math.max(40, pn.radius + 20);
+                }
+            }
+            if (bestOffset === 0) return null;
+            return { cx: mx + perpX * bestOffset, cy: my + perpY * bestOffset };
+        }
+
+        function drawFlowEdge(e) {
+            let from = allNodes[e.from];
+            let to = allNodes[e.to];
+            if (!from || !to) return;
+
+            let isHL = hoverNode && (hoverNode.id === e.from || hoverNode.id === e.to);
+            let alpha;
+            if (e.type === 'flow') alpha = isHL ? 0.3 : 0.08;
+            else alpha = isHL ? 0.6 : (e.type === 'hard' ? 0.35 : 0.2);
+
+            let curve = findEdgeCurveOffset(from, to, e.type);
+
+            let startPt, endPt;
+            if (curve) {
+                startPt = getNodeBoundary(from, curve.cx, curve.cy);
+                endPt = getNodeBoundary(to, curve.cx, curve.cy);
+            } else {
+                startPt = getNodeBoundary(from, to.x, to.y);
+                endPt = getNodeBoundary(to, from.x, from.y);
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(startPt.x, startPt.y);
+            if (curve) {
+                ctx.quadraticCurveTo(curve.cx, curve.cy, endPt.x, endPt.y);
+            } else {
+                ctx.lineTo(endPt.x, endPt.y);
+            }
+            ctx.strokeStyle = 'rgba(255,255,255,' + alpha + ')';
+            if (e.type === 'soft') { ctx.setLineDash([4, 6]); ctx.lineWidth = 1; }
+            else if (e.type === 'flow') { ctx.setLineDash([3, 5]); ctx.lineWidth = 0.8; }
+            else { ctx.setLineDash([]); ctx.lineWidth = 1.5; }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            if (e.type !== 'flow') {
+                let now = Date.now();
+                let speed = 3000 + (e.from ? e.from.charCodeAt ? 0 : e.from * 400 : 0);
+                let probeT = ((now % speed) / speed);
+                let probePts = [];
+                if (curve) {
+                    for (let pi = 0; pi < 2; pi++) {
+                        let pt = (probeT + pi * 0.5) % 1.0;
+                        let px = (1-pt)*(1-pt)*startPt.x + 2*(1-pt)*pt*curve.cx + pt*pt*endPt.x;
+                        let py = (1-pt)*(1-pt)*startPt.y + 2*(1-pt)*pt*curve.cy + pt*pt*endPt.y;
+                        probePts.push({x:px, y:py, a: 0.7 - pi*0.3});
+                    }
+                } else {
+                    for (let pi2 = 0; pi2 < 2; pi2++) {
+                        let pt2 = (probeT + pi2 * 0.5) % 1.0;
+                        let px2 = startPt.x + (endPt.x - startPt.x) * pt2;
+                        let py2 = startPt.y + (endPt.y - startPt.y) * pt2;
+                        probePts.push({x:px2, y:py2, a: 0.7 - pi2*0.3});
+                    }
+                }
+                for (let ppI = 0; ppI < probePts.length; ppI++) {
+                    let pp = probePts[ppI];
+                    ctx.beginPath();
+                    ctx.arc(pp.x, pp.y, 2.5 * SCL, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(120,180,255,' + (pp.a * alpha * 3) + ')';
+                    ctx.fill();
+                }
+            }
+
+            if (e.label && (isHL || e.type !== 'flow')) {
+                let t = e.labelT || 0.5;
+                let lx, ly;
+                if (curve) {
+                    lx = (1 - t) * (1 - t) * from.x + 2 * (1 - t) * t * curve.cx + t * t * to.x;
+                    ly = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * curve.cy + t * t * to.y;
+                } else {
+                    lx = from.x + (to.x - from.x) * t;
+                    ly = from.y + (to.y - from.y) * t;
+                }
+                ly -= 8 * SCL;
+
+                for (let nri = 0; nri < allLayoutNodes.length; nri++) {
+                    let nn = allLayoutNodes[nri];
+                    let nhw = (nn._halfW || nn._boxW / 2 || nn.radius) + 12;
+                    let nhh = (nn._halfH || nn._boxH / 2 || nn.radius) + 12;
+                    if (nn.shape === 'circle') {
+                        let ldx = lx - nn.x;
+                        let ldy = ly - nn.y;
+                        let ldist = Math.sqrt(ldx * ldx + ldy * ldy);
+                        if (ldist < nn.radius + 24 && ldist > 0.1) {
+                            let lnorm = (nn.radius + 28) / ldist;
+                            lx = nn.x + ldx * lnorm;
+                            ly = nn.y + ldy * lnorm;
+                        }
+                    } else {
+                        let ndx = lx - nn.x;
+                        let ndy = ly - nn.y;
+                        if (Math.abs(ndx) < nhw && Math.abs(ndy) < nhh) {
+                            if (Math.abs(ndx) / nhw > Math.abs(ndy) / nhh) {
+                                lx = nn.x + (ndx >= 0 ? 1 : -1) * (nhw + 6);
+                            } else {
+                                ly = nn.y + (ndy >= 0 ? 1 : -1) * (nhh + 6);
+                            }
+                        }
+                    }
+                }
+
+                let edgeFontSize = Math.max(8, FONT_SUB - 1);
+                ctx.font = edgeFontSize + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+                let tw = ctx.measureText(e.label).width;
+                let pw = tw + 10 * SCL;
+                let ph = edgeFontSize + 8 * SCL;
+
+                for (let llPass = 0; llPass < 3; llPass++) {
+                    let llMoved = false;
+                    for (let pli = 0; pli < placedEdgeLabels.length; pli++) {
+                        let pl = placedEdgeLabels[pli];
+                        let olx = Math.min(lx + pw / 2, pl.x + pl.w / 2) - Math.max(lx - pw / 2, pl.x - pl.w / 2);
+                        let oly = Math.min(ly + ph / 2, pl.y + pl.h / 2) - Math.max(ly - ph / 2, pl.y - pl.h / 2);
+                        if (olx > 0 && oly > 0) {
+                            if (olx < oly) {
+                                lx += (lx >= pl.x ? 1 : -1) * (olx + 6);
+                            } else {
+                                ly += (ly >= pl.y ? 1 : -1) * (oly + 6);
+                            }
+                            llMoved = true;
+                        }
+                    }
+                    if (!llMoved) break;
+                }
+
+                ly = Math.max(20, Math.min(H - 20, ly));
+                lx = Math.max(30, Math.min(W - 30, lx));
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                let pr = ph / 2;
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(lx - pw / 2 + pr, ly - ph / 2);
+                ctx.lineTo(lx + pw / 2 - pr, ly - ph / 2);
+                ctx.arc(lx + pw / 2 - pr, ly, pr, -Math.PI / 2, Math.PI / 2);
+                ctx.lineTo(lx - pw / 2 + pr, ly + ph / 2);
+                ctx.arc(lx - pw / 2 + pr, ly, pr, Math.PI / 2, -Math.PI / 2);
+                ctx.closePath();
+
+                ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                ctx.shadowBlur = 6;
+                ctx.shadowOffsetY = 2;
+                let pillGrd = ctx.createLinearGradient(lx - pw/2, ly - ph/2, lx - pw/2, ly + ph/2);
+                pillGrd.addColorStop(0, isHL ? 'rgba(20, 26, 40, 0.92)' : 'rgba(14, 18, 30, 0.78)');
+                pillGrd.addColorStop(1, isHL ? 'rgba(10, 14, 24, 0.92)' : 'rgba(8, 10, 20, 0.78)');
+                ctx.fillStyle = pillGrd;
+                ctx.fill();
+                ctx.shadowColor = 'transparent';
+                ctx.shadowBlur = 0;
+                ctx.shadowOffsetY = 0;
+
+                ctx.strokeStyle = 'rgba(120,160,220,' + (isHL ? 0.35 : 0.15) + ')';
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+
+                let hlGrd = ctx.createLinearGradient(lx - pw/2, ly - ph/2, lx + pw/2, ly - ph/2);
+                hlGrd.addColorStop(0, 'rgba(255,255,255,0)');
+                hlGrd.addColorStop(0.5, 'rgba(255,255,255,' + (isHL ? 0.06 : 0.03) + ')');
+                hlGrd.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.moveTo(lx - pw / 2 + pr, ly - ph / 2);
+                ctx.lineTo(lx + pw / 2 - pr, ly - ph / 2);
+                ctx.arc(lx + pw / 2 - pr, ly, pr, -Math.PI / 2, 0);
+                ctx.lineTo(lx + pw / 2, ly);
+                ctx.lineTo(lx - pw / 2, ly);
+                ctx.arc(lx - pw / 2 + pr, ly, pr, Math.PI, -Math.PI / 2);
+                ctx.closePath();
+                ctx.fillStyle = hlGrd;
+                ctx.fill();
+                ctx.restore();
+
+                ctx.fillStyle = 'rgba(255,255,255,' + (isHL ? 0.92 : 0.6) + ')';
+                ctx.fillText(e.label, lx, ly);
+                placedEdgeLabels.push({ x: lx, y: ly, w: pw, h: ph });
+            }
+        }
+
+        function drawNodeTag(n, isHover, dimmed) {
+            let fs = FONT_LABEL;
+            if (!n._boxW) measureNodeBox(n);
+            let w = n._boxW;
+            let h = n._boxH;
+            n._drawW = w;
+            n._drawH = h;
+            ctx.font = (isHover ? 'bold ' : '') + fs + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            let r = 5;
+
+            roundRect(n.x - w / 2, n.y - h / 2, w, h, r);
+            ctx.fillStyle = hexToRgba(n.color, dimmed ? 0.04 : (isHover ? 0.18 : 0.08));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.12 : (isHover ? 0.7 : 0.3));
+            ctx.lineWidth = isHover ? 1.5 : 0.8;
+            ctx.stroke();
+
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.15)' : (isHover ? '#fff' : 'rgba(255,255,255,0.85)');
+            ctx.fillText(n.label, n.x, n.y - (n.sub && !dimmed ? 7 * SCL : 0));
+
+            if (!dimmed && n.sub) {
+                let lines = n.sub.split('\n');
+                ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.fillStyle = isHover ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.3)';
+                for (let i = 0; i < lines.length; i++) {
+                    ctx.fillText(lines[i], n.x, n.y + 6 * SCL + i * (FONT_SUB + 2));
+                }
+            }
+        }
+
+        function drawHubNode(n) {
+            let isHover = hoverNode && hoverNode.id === n.id;
+            let dimmed = hoverNode && !isHover && !getConnectedIds(hoverNode.id)[n.id];
+
+            if (!n._boxW) measureNodeBox(n);
+            let w = n._boxW;
+            let h = n._boxH;
+            n._drawW = w;
+            n._drawH = h;
+
+            let glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius * 2);
+            glow.addColorStop(0, hexToRgba(n.color, dimmed ? 0.03 : (isHover ? 0.15 : 0.06)));
+            glow.addColorStop(1, hexToRgba(n.color, 0));
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.radius * 2, 0, Math.PI * 2);
+            ctx.fillStyle = glow;
+            ctx.fill();
+
+            roundRect(n.x - w / 2, n.y - h / 2, w, h, 6);
+            ctx.fillStyle = hexToRgba(n.color, dimmed ? 0.05 : (isHover ? 0.2 : 0.1));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.15 : (isHover ? 0.8 : 0.4));
+            ctx.lineWidth = isHover ? 2 : 1.2;
+            ctx.stroke();
+
+            ctx.font = (isHover ? 'bold ' : '') + FONT_LABEL + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.2)' : (isHover ? '#fff' : 'rgba(255,255,255,0.9)');
+            ctx.fillText(n.label, n.x, n.y - 7 * SCL);
+
+            ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.4)';
+            ctx.fillText(n.sub, n.x, n.y + 8 * SCL);
+        }
+
+        function drawEngineNode(n) {
+            let isHover = hoverNode && hoverNode.id === n.id;
+            let dimmed = hoverNode && !isHover;
+
+            let pulseR = n.radius + Math.sin(time * 1.5) * 3;
+
+            let glow = ctx.createRadialGradient(n.x, n.y, pulseR * 0.2, n.x, n.y, pulseR * 2.5);
+            glow.addColorStop(0, hexToRgba(n.color, dimmed ? 0.03 : (isHover ? 0.15 : 0.08)));
+            glow.addColorStop(1, hexToRgba(n.color, 0));
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, pulseR * 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = glow;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, pulseR, 0, Math.PI * 2);
+            ctx.fillStyle = hexToRgba(n.color, dimmed ? 0.05 : (isHover ? 0.2 : 0.1));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.15 : (isHover ? 0.8 : 0.4));
+            ctx.lineWidth = isHover ? 2 : 1.2;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, pulseR * 0.55, 0, Math.PI * 2);
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.06 : 0.15);
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+
+            let engFont = Math.round(17 * SCL);
+            ctx.font = 'bold ' + engFont + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.2)' : (isHover ? '#fff' : 'rgba(255,255,255,0.9)');
+            ctx.fillText(n.label, n.x, n.y - 8 * SCL);
+
+            ctx.font = (FONT_SUB + 1) + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.5)';
+            ctx.fillText(n.sub, n.x, n.y + 12 * SCL);
+        }
+
+        function drawConfidenceNode(n) {
+            let isHover = hoverNode && hoverNode.id === n.id;
+            let conn = hoverNode ? getConnectedIds(hoverNode.id) : {};
+            let dimmed = hoverNode && !isHover && !conn[n.id];
+
+            if (n.shape === 'rect') {
+                drawNodeTag(n, isHover, dimmed);
+                return;
+            }
+
+            let r = n.radius;
+            ctx.save();
+            ctx.translate(n.x, n.y);
+            ctx.rotate(Math.PI / 4);
+            let s = r * 0.75;
+            ctx.beginPath();
+            ctx.rect(-s, -s, s * 2, s * 2);
+            ctx.fillStyle = hexToRgba(n.color, dimmed ? 0.04 : (isHover ? 0.18 : 0.08));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.12 : (isHover ? 0.7 : 0.35));
+            ctx.lineWidth = isHover ? 1.5 : 0.8;
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.font = (isHover ? 'bold ' : '') + FONT_LABEL + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.15)' : (isHover ? '#fff' : 'rgba(255,255,255,0.85)');
+            let subLines = n.sub ? n.sub.split('\n') : [];
+            ctx.fillText(n.label, n.x, n.y - (subLines.length > 1 ? 8 : 5) * SCL);
+
+            ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.1)' : (isHover ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.35)');
+            for (let i = 0; i < subLines.length; i++) {
+                ctx.fillText(subLines[i], n.x, n.y + 6 * SCL + i * (FONT_SUB + 2));
+            }
+        }
+
+        function drawProtocolNode(p) {
+            let isHover = hoverNode && hoverNode.id === p.id;
+            let conn = hoverNode ? getConnectedIds(hoverNode.id) : {};
+            let dimmed = hoverNode && !isHover && !conn[p.id];
+
+            let r = p.radius;
+
+            let glowR = r * 1.5;
+            let glow = ctx.createRadialGradient(p.x, p.y, r * 0.3, p.x, p.y, glowR);
+            glow.addColorStop(0, hexToRgba(p.color, dimmed ? 0.03 : (isHover ? 0.2 : 0.1)));
+            glow.addColorStop(1, hexToRgba(p.color, 0));
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+            ctx.fillStyle = glow;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+            ctx.fillStyle = hexToRgba(p.color, dimmed ? 0.05 : (isHover ? 0.22 : 0.1));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(p.color, dimmed ? 0.12 : (isHover ? 0.85 : 0.45));
+            ctx.lineWidth = isHover ? 2 : 1;
+            ctx.stroke();
+
+            let fontSize = Math.round((p.label.length > 6 ? 12 : (p.label.length > 4 ? 13 : 15)) * SCL);
+            ctx.font = (isHover ? 'bold ' : '') + fontSize + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.15)' : (isHover ? '#fff' : 'rgba(255,255,255,0.9)');
+            ctx.fillText(p.label, p.x, p.y - 6 * SCL);
+
+            ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.08)' : (isHover ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.3)');
+            ctx.fillText('RFC ' + (p.rfc === 'draft' ? 'Draft' : p.rfc), p.x, p.y + 10 * SCL);
+        }
+
+        function drawStorageNode(n) {
+            let isHover = hoverNode && hoverNode.id === n.id;
+            let conn = hoverNode ? getConnectedIds(hoverNode.id) : {};
+            let dimmed = hoverNode && !isHover && !conn[n.id];
+
+            if (!n._boxW) measureNodeBox(n);
+            let w = n._boxW;
+            let h = n._boxH;
+            n._drawW = w;
+            n._drawH = h;
+            let ew = w / 2;
+            let eh = 7;
+
+            ctx.beginPath();
+            ctx.ellipse(n.x, n.y - h / 2, ew, eh, 0, Math.PI, Math.PI * 2);
+            ctx.lineTo(n.x + ew, n.y + h / 2);
+            ctx.ellipse(n.x, n.y + h / 2, ew, eh, 0, 0, Math.PI);
+            ctx.lineTo(n.x - ew, n.y - h / 2);
+            ctx.fillStyle = hexToRgba(n.color, dimmed ? 0.04 : (isHover ? 0.18 : 0.08));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.12 : (isHover ? 0.7 : 0.3));
+            ctx.lineWidth = isHover ? 1.5 : 0.8;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.ellipse(n.x, n.y - h / 2, ew, eh, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.08 : (isHover ? 0.5 : 0.2));
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+
+            let fs = Math.round((n.label.length > 10 ? 11 : 12) * SCL);
+            ctx.font = (isHover ? 'bold ' : '') + fs + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.15)' : (isHover ? '#fff' : 'rgba(255,255,255,0.75)');
+            ctx.fillText(n.label, n.x, n.y);
+
+            if (!dimmed && n.sub) {
+                let lines = n.sub.split('\n');
+                ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.fillStyle = isHover ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.2)';
+                for (let i = 0; i < lines.length; i++) {
+                    ctx.fillText(lines[i], n.x, n.y + h / 2 + 12 * SCL + i * (FONT_SUB + 2));
+                }
+            }
+        }
+
+        function drawOutputNode(n) {
+            let isHover = hoverNode && hoverNode.id === n.id;
+            let conn = hoverNode ? getConnectedIds(hoverNode.id) : {};
+            let dimmed = hoverNode && !isHover && !conn[n.id];
+
+            let r = n.radius;
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+                let angle = Math.PI / 6 + i * Math.PI / 3;
+                let hx = n.x + r * Math.cos(angle);
+                let hy = n.y + r * Math.sin(angle);
+                if (i === 0) ctx.moveTo(hx, hy);
+                else ctx.lineTo(hx, hy);
+            }
+            ctx.closePath();
+            ctx.fillStyle = hexToRgba(n.color, dimmed ? 0.04 : (isHover ? 0.18 : 0.08));
+            ctx.fill();
+            ctx.strokeStyle = hexToRgba(n.color, dimmed ? 0.12 : (isHover ? 0.7 : 0.3));
+            ctx.lineWidth = isHover ? 1.5 : 0.8;
+            ctx.stroke();
+
+            let fs2 = Math.round((n.label.length > 10 ? 10 : (n.label.length > 7 ? 11 : 13)) * SCL);
+            ctx.font = (isHover ? 'bold ' : '') + fs2 + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = dimmed ? 'rgba(255,255,255,0.15)' : (isHover ? '#fff' : 'rgba(255,255,255,0.75)');
+            ctx.fillText(n.label, n.x, n.y - (n.sub && !dimmed ? 5 * SCL : 0));
+
+            if (!dimmed && n.sub) {
+                let lines = n.sub.split('\n');
+                ctx.font = FONT_SUB + 'px -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.fillStyle = isHover ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.2)';
+                for (let i = 0; i < lines.length; i++) {
+                    ctx.fillText(lines[i], n.x, n.y + 8 * SCL + i * (FONT_SUB + 2));
+                }
+            }
+        }
+
+        let AMBIENT_COUNT = 50;
+        let ambientParticles = [];
+        function initAmbient() {
+            ambientParticles = [];
+            for (let i = 0; i < AMBIENT_COUNT; i++) {
+                ambientParticles.push({
+                    x: Math.random() * (W || 1200),
+                    y: Math.random() * (H || 700),
+                    vx: (Math.random() - 0.5) * 0.15,
+                    vy: (Math.random() - 0.5) * 0.1 + 0.02,
+                    size: Math.random() * 1 + 0.3,
+                    alpha: Math.random() * 0.1 + 0.02
+                });
+            }
+        }
+
+        let flowParticles = [];
+        function initFlowParticles() {
+            flowParticles = [];
+            FLOW_EDGES.forEach(function(e) {
+                let count = 2;
+                for (let i = 0; i < count; i++) {
+                    flowParticles.push({
+                        edge: e,
+                        t: Math.random(),
+                        speed: 0.002 + Math.random() * 0.003,
+                        size: 1.8,
+                        alpha: 0.4
+                    });
+                }
+            });
+            PROTO_EDGES.forEach(function(e) {
+                for (let i = 0; i < 2; i++) {
+                    flowParticles.push({
+                        edge: e,
+                        t: Math.random(),
+                        speed: 0.002 + Math.random() * 0.002,
+                        size: 1.5,
+                        alpha: 0.35
+                    });
+                }
+            });
+        }
+
+        let time = 0;
+
+        function resize() {
+            let rect = wrap.getBoundingClientRect();
+            W = rect.width;
+            H = rect.height;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            layoutAll();
+        }
+
+        function update() {
+            time += 0.016;
+
+            globe.rotLon -= 0.08;
+
+            let allArr = SOURCES.concat(CONFIDENCE, STORAGE, OUTPUTS, PROTOCOLS, [ENGINE, HUB]);
+            for (let i = 0; i < allArr.length; i++) {
+                let n = allArr[i];
+                let bx = Math.sin(time * 0.3 + n.targetX * 0.01) * 1.5;
+                let by = Math.cos(time * 0.25 + n.targetY * 0.01) * 1;
+                n.x += (n.targetX + bx - n.x) * 0.04;
+                n.y += (n.targetY + by - n.y) * 0.04;
+            }
+
+            for (let ai = 0; ai < ambientParticles.length; ai++) {
+                let ap = ambientParticles[ai];
+                ap.x += ap.vx;
+                ap.y += ap.vy;
+                if (ap.x < 0) ap.x = W;
+                if (ap.x > W) ap.x = 0;
+                if (ap.y < 0) ap.y = H;
+                if (ap.y > H) ap.y = 0;
+            }
+
+            for (let fi = 0; fi < flowParticles.length; fi++) {
+                flowParticles[fi].t += flowParticles[fi].speed;
+                if (flowParticles[fi].t > 1) flowParticles[fi].t -= 1;
+            }
+
+            for (let si = 0; si < signalParticles.length; si++) {
+                signalParticles[si].t += signalParticles[si].speed;
+                if (signalParticles[si].t > 1) signalParticles[si].t -= 1;
+            }
+        }
+
+        function drawAmbient() {
+            for (let i = 0; i < ambientParticles.length; i++) {
+                let ap = ambientParticles[i];
+                ctx.beginPath();
+                ctx.arc(ap.x, ap.y, ap.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,' + ap.alpha + ')';
+                ctx.fill();
+            }
+        }
+
+        function drawFlowParticles() {
+            for (let i = 0; i < flowParticles.length; i++) {
+                let fp = flowParticles[i];
+                let from = allNodes[fp.edge.from];
+                let to = allNodes[fp.edge.to];
+                if (!from || !to) continue;
+                let curve = findEdgeCurveOffset(from, to, fp.edge.type);
+                let startPt, endPt;
+                if (curve) {
+                    startPt = getNodeBoundary(from, curve.cx, curve.cy);
+                    endPt = getNodeBoundary(to, curve.cx, curve.cy);
+                } else {
+                    startPt = getNodeBoundary(from, to.x, to.y);
+                    endPt = getNodeBoundary(to, from.x, from.y);
+                }
+                let x, y;
+                if (curve) {
+                    let ft = fp.t;
+                    x = (1 - ft) * (1 - ft) * startPt.x + 2 * (1 - ft) * ft * curve.cx + ft * ft * endPt.x;
+                    y = (1 - ft) * (1 - ft) * startPt.y + 2 * (1 - ft) * ft * curve.cy + ft * ft * endPt.y;
+                } else {
+                    x = startPt.x + (endPt.x - startPt.x) * fp.t;
+                    y = startPt.y + (endPt.y - startPt.y) * fp.t;
+                }
+                let isHL = hoverNode && (hoverNode.id === fp.edge.from || hoverNode.id === fp.edge.to);
+                let alpha = isHL ? fp.alpha * 1.8 : fp.alpha * 0.5;
+                let color = from.color || COLORS.engine;
+                ctx.beginPath();
+                ctx.arc(x, y, fp.size * (isHL ? 1.3 : 1), 0, Math.PI * 2);
+                ctx.fillStyle = hexToRgba(color, alpha);
+                ctx.fill();
+            }
+        }
+
+        let placedEdgeLabels = [];
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            drawAmbient();
+            drawGlobe(time);
+
+            placedEdgeLabels = [];
+            FLOW_EDGES.forEach(function(e) { drawFlowEdge(e); });
+            PROTO_EDGES.forEach(function(e) { drawFlowEdge(e); });
+            drawFlowParticles();
+
+            SOURCES.forEach(function(s) {
+                let isHover = hoverNode && hoverNode.id === s.id;
+                let conn = hoverNode ? getConnectedIds(hoverNode.id) : {};
+                let dimmed = hoverNode && !isHover && !conn[s.id];
+                drawNodeTag(s, isHover, dimmed);
+            });
+
+            drawHubNode(HUB);
+            drawEngineNode(ENGINE);
+            CONFIDENCE.forEach(function(c) { drawConfidenceNode(c); });
+            STORAGE.forEach(function(s) { drawStorageNode(s); });
+            PROTOCOLS.forEach(function(p) { drawProtocolNode(p); });
+            OUTPUTS.forEach(function(o) { drawOutputNode(o); });
+
+            if (debugBounds) {
+                allLayoutNodes.forEach(function(nd) {
+                    if (!nd._boxW) measureNodeBox(nd);
+                    let hw = nd._halfW || nd.radius;
+                    let hh = nd._halfH || nd.radius;
+                    ctx.strokeStyle = 'rgba(0,255,0,0.5)';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([3, 3]);
+                    ctx.strokeRect(nd.x - hw, nd.y - hh, hw * 2, hh * 2);
+                    ctx.setLineDash([]);
+                });
+            }
+
+            drawPopTooltip();
+        }
+
+        let debugBounds = window.location.search.indexOf('debug=bounds') !== -1;
+        let paused = false;
+
+        function loop() {
+            if (!paused) {
+                update();
+                draw();
+            }
+            requestAnimationFrame(loop);
+        }
+
+        document.addEventListener('visibilitychange', function() {
+            paused = document.hidden;
+        });
+
+        resize();
+        initAmbient();
+        initFlowParticles();
+        initSignalParticles();
+        window.addEventListener('resize', function() {
+            resize();
+            initAmbient();
+        });
+        loop();
+    })();
+    </script>
+</body>
+</html>

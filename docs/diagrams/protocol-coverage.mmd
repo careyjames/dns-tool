@@ -1,0 +1,30 @@
+%%{ init: { 'theme': 'dark', 'themeVariables': { 'primaryColor': '#1e3a5f', 'primaryTextColor': '#e6edf3', 'primaryBorderColor': '#58a6ff', 'lineColor': '#58a6ff', 'secondaryColor': '#0c1018', 'tertiaryColor': '#111720', 'fontSize': '14px' } } }%%
+graph TD
+    subgraph email["Email Authentication"]
+        SPF["<b>SPF</b><br/><i>RFC 7208</i>"]:::blue
+        DKIM["<b>DKIM</b><br/><i>RFC 6376</i>"]:::blue
+        DMARC["<b>DMARC</b><br/><i>RFC 7489</i>"]:::blue
+    end
+
+    subgraph transport["Transport Security"]
+        DANE["<b>DANE/TLSA</b><br/><i>RFC 6698</i>"]:::green
+        DNSSEC["<b>DNSSEC</b><br/><i>RFC 4033–4035</i>"]:::green
+        BIMI["<b>BIMI</b><br/><i>BIMI Working Group</i>"]:::green
+    end
+
+    subgraph policy["Policy &amp; Reporting"]
+        MTASTS["<b>MTA-STS</b><br/><i>RFC 8461</i>"]:::purple
+        TLSRPT["<b>TLS-RPT</b><br/><i>RFC 8460</i>"]:::purple
+        CAA["<b>CAA</b><br/><i>RFC 8659</i>"]:::purple
+    end
+
+    ICIE["<b>ICIE</b><br/><i>Intelligence Classification</i><br/><i>&amp; Interpretation Engine</i>"]:::cyan
+
+    email --> ICIE
+    transport --> ICIE
+    policy --> ICIE
+
+    classDef blue fill:#1a3a6b,stroke:#60a5fa,stroke-width:2px,color:#e6edf3
+    classDef green fill:#0a3a1a,stroke:#4ade80,stroke-width:2px,color:#e6edf3
+    classDef purple fill:#2a1a4b,stroke:#c084fc,stroke-width:2px,color:#e6edf3
+    classDef cyan fill:#0a3a4a,stroke:#22d3ee,stroke-width:2px,color:#e6edf3

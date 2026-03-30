@@ -1,0 +1,120 @@
+rules:
+
+  - id: dns-tool-raw-redirect-no-wrapper
+    pattern: $CTX.Redirect($STATUS, $URL)
+    languages: [go]
+    severity: WARNING
+    message: >
+      Direct use of c.Redirect() detected. For user-controlled or external
+      URLs, prefer safe redirect wrappers that validate the target URL
+      against an allowlist. Internal redirects to hardcoded paths are acceptable.
+    metadata:
+      category: security
+      technology: [go, gin]
+      cwe: ["CWE-601: URL Redirection to Untrusted Site"]
+      references:
+        - https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/04-Testing_for_Client-side_URL_Redirect
+    paths:
+      exclude:
+        - "*_test.go"
+        - "vendor/**"
+
+  - id: dns-tool-user-controlled-redirect
+    pattern-either:
+      - pattern: |
+          $URL := $CTX.Query(...)
+          ...
+          $CTX.Redirect($STATUS, $URL)
+      - pattern: |
+          $URL := $CTX.Param(...)
+          ...
+          $CTX.Redirect($STATUS, $URL)
+      - pattern: |
+          $URL := $CTX.PostForm(...)
+          ...
+          $CTX.Redirect($STATUS, $URL)
+    languages: [go]
+    severity: ERROR
+    message: >
+      User-controlled input flows directly into a redirect target.
+      This is a potential open redirect vulnerability (CWE-601).
+      Validate the URL against an allowlist of trusted destinations.
+    metadata:
+      category: security
+      technology: [go, gin]
+      cwe: ["CWE-601: URL Redirection to Untrusted Site"]
+      confidence: HIGH
+
+  - id: dns-tool-raw-external-link
+    pattern-either:
+      - pattern: fmt.Sprintf("https://%s/...", $USERVAR)
+      - pattern: fmt.Sprintf("http://%s/...", $USERVAR)
+      - pattern: |
+          "https://" + $USERVAR + ...
+      - pattern: |
+          "http://" + $USERVAR + ...
+    languages: [go]
+    severity: WARNING
+    message: >
+      Constructing external URLs from user-controlled variables.
+      Ensure the URL domain is validated against an allowlist to
+      prevent SSRF or open redirect attacks.
+    metadata:
+      category: security
+      technology: [go]
+      cwe: ["CWE-918: Server-Side Request Forgery"]
+    paths:
+      exclude:
+        - "*_test.go"
+        - "vendor/**"
+
+  - id: dns-tool-hardcoded-secret
+    pattern-either:
+      - pattern: |
+          $VAR = "AKIA..."
+      - pattern: |
+          $VAR = "sk-..."
+      - pattern: |
+          $VAR = "ghp_..."
+      - pattern: |
+          $VAR = "glpat-..."
+      - pattern: |
+          password := "..."
+      - pattern: |
+          apiKey := "..."
+      - pattern: |
+          secret := "..."
+    languages: [go]
+    severity: ERROR
+    message: >
+      Possible hardcoded secret or API key detected. Use environment
+      variables or a secrets manager instead.
+    metadata:
+      category: security
+      technology: [go]
+      cwe: ["CWE-798: Use of Hard-coded Credentials"]
+      confidence: MEDIUM
+    paths:
+      exclude:
+        - "*_test.go"
+        - "vendor/**"
+        - "stubs/**"
+        - "tests/**"
+
+  - id: dns-tool-tls-skip-verify-untagged
+    pattern: |
+      &tls.Config{..., InsecureSkipVerify: true, ...}
+    languages: [go]
+    severity: WARNING
+    message: >
+      TLS certificate verification is disabled. If this is intentional
+      for a security diagnostic tool, add a SECINTENT tag and register
+      in security/security-intents.yaml. Otherwise, enable verification.
+    metadata:
+      category: security
+      technology: [go]
+      cwe: ["CWE-295: Improper Certificate Validation"]
+    paths:
+      exclude:
+        - "*_test.go"
+        - "vendor/**"

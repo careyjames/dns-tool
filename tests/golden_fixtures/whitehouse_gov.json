@@ -1,0 +1,567 @@
+{
+  "auth_query_status": {},
+  "auth_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "NS": 86400,
+    "SOA": 1800,
+    "TXT": 3600
+  },
+  "authoritative_records": {
+    "A": [
+      "192.0.66.51"
+    ],
+    "AAAA": [
+      "2a04:fa87:fffd::c000:42b7"
+    ],
+    "CAA": [],
+    "DMARC": [
+      "v=DMARC1; p=reject; rua=mailto:b1fabe8b7f3f41a181ecd1253a794edf@dmarc-reports.cloudflare.net,mailto:reports@dmarc.cyber.dhs.gov"
+    ],
+    "MTA-STS": [],
+    "MX": [],
+    "NS": [
+      "ernest.ns.cloudflare.com.",
+      "wally.ns.cloudflare.com."
+    ],
+    "SOA": [
+      "ernest.ns.cloudflare.com. dns.cloudflare.com. 2395513730 10000 2400 604800 1800"
+    ],
+    "TLS-RPT": [],
+    "TXT": [
+      "MS=ms61205702",
+      "_ag15rep8dkdk6c65mcqgkcmtszqxbqt",
+      "google-site-verification=TfE8QdIcAwpNcoG9l9AxMIzz69S5PPd8peS-Pj1qtXk",
+      "v=spf1 include:spf.mail.dmz.pitc.gov include:spf.protection.outlook.com include:spf.mandrillapp.com ip4:214.3.115.10/32 ip4:214.3.115.12/32 ip4:214.3.115.14/32 ip4:214.3.115.225/32 ip4:214.3.140.16/32 ip4:214.3.140.22/32 ip4:214.3.140.255/32 ~all"
+    ]
+  },
+  "basic_records": {
+    "A": [
+      "192.0.66.51"
+    ],
+    "AAAA": [
+      "2a04:fa87:fffd::c000:426d"
+    ],
+    "CAA": null,
+    "CNAME": null,
+    "DMARC": [
+      "v=DMARC1; p=reject; rua=mailto:b1fabe8b7f3f41a181ecd1253a794edf@dmarc-reports.cloudflare.net,mailto:reports@dmarc.cyber.dhs.gov"
+    ],
+    "MX": null,
+    "NS": [
+      "wally.ns.cloudflare.com.",
+      "ernest.ns.cloudflare.com."
+    ],
+    "SOA": [
+      "ernest.ns.cloudflare.com. dns.cloudflare.com. 2395513730 10000 2400 604800 1800"
+    ],
+    "SRV": [],
+    "TXT": [
+      "v=spf1 include:spf.mail.dmz.pitc.gov include:spf.protection.outlook.com include:spf.mandrillapp.com ip4:214.3.115.10/32 ip4:214.3.115.12/32 ip4:214.3.115.14/32 ip4:214.3.115.225/32 ip4:214.3.140.16/32 ip4:214.3.140.22/32 ip4:214.3.140.255/32 ~all",
+      "google-site-verification=TfE8QdIcAwpNcoG9l9AxMIzz69S5PPd8peS-Pj1qtXk",
+      "_ag15rep8dkdk6c65mcqgkcmtszqxbqt",
+      "MS=ms61205702"
+    ]
+  },
+  "bimi_analysis": {
+    "logo_error": null,
+    "logo_format": "SVG",
+    "logo_url": "https://whitehouse.gov/wp-content/themes/whitehouse/assets/svg/wh-bimi-avatar.svg",
+    "logo_valid": true,
+    "message": "BIMI with VMC certificate (from Verified CA)",
+    "record": "v=BIMI1; l=https://whitehouse.gov/wp-content/themes/whitehouse/assets/svg/wh-bimi-avatar.svg; a=https://whitehouse.gov/.well-known/vmc/executive_office_of_the_president.pem",
+    "status": "success",
+    "vmc_error": null,
+    "vmc_issuer": "Verified CA",
+    "vmc_subject": null,
+    "vmc_url": "https://whitehouse.gov/.well-known/vmc/executive_office_of_the_president.pem",
+    "vmc_valid": true
+  },
+  "caa_analysis": {
+    "has_iodef": false,
+    "has_wildcard": false,
+    "issuers": [],
+    "message": "No CAA records found - any CA can issue certificates",
+    "records": [],
+    "status": "warning"
+  },
+  "ct_subdomains": {
+    "message": "CT log returned HTTP 503",
+    "source": "Certificate Transparency Logs",
+    "status": "warning",
+    "subdomains": [],
+    "total_certs": 0,
+    "unique_subdomains": 0
+  },
+  "dane_analysis": {
+    "dane_deployable": true,
+    "has_dane": false,
+    "issues": [],
+    "message": "No MX records available \u2014 DANE check skipped",
+    "mx_hosts_checked": 0,
+    "mx_hosts_with_dane": 0,
+    "mx_provider": null,
+    "requires_dnssec": true,
+    "status": "info",
+    "tlsa_records": []
+  },
+  "dkim_analysis": {
+    "found_providers": [
+      "MailChimp (Mandrill)",
+      "Microsoft 365"
+    ],
+    "key_issues": null,
+    "key_strengths": null,
+    "message": "Found DKIM records for 2 selector(s)",
+    "primary_dkim_note": "",
+    "primary_has_dkim": true,
+    "primary_provider": "Microsoft 365",
+    "security_gateway": null,
+    "selectors": {
+      "mandrill._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "MailChimp (Mandrill)",
+        "records": [
+          "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrLHiExVd55zd/IQ/J/mRwSRMAocV/hMB3jXwaHH36d9NaVynQFYV8NaWi69c1veUtRzGt7yAioXqLj7Z4TeEUoOLgrKsn8YnckGs9i3B3tVFB+Ch/4mPhXWiNfNdynHWBcPcbJ8kjEQ2U8y78dHZj1YeRXXVvWob2OaKynO8/lQIDAQAB;"
+        ],
+        "user_hint": false
+      },
+      "selector1._domainkey": {
+        "key_info": [
+          {
+            "issues": [],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": false,
+            "test_mode": false
+          }
+        ],
+        "provider": "Microsoft 365",
+        "records": [
+          "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp1ziKBtcYab3KdfsvO0BqkVLdLeezt+YxATDxubNLHd1moBUT0x3aNVIot3Dq/wbyxz+4uhQrHEsunkzDxtMgSUDmR62hHkJyjo58f5BSAk2WWD5TcrB0SRqVrtWwRklZT3URO+Dl1q/+pSfGLVylZ7sm71RSBAd4b8MmrB3+Izd/GLiozokw30S66a/Oc34cdNLTE4Kqwk66HkWNXRERBg4naZ/KWyLVC74Ut+f+h9vR8h/BmvMOjGCBf1dcNQ/jZwnE3Ye0o41ZqF8xIuipyYCRtHFT0GOJH7CtcCRo+NZux/rCzddpu6DaPkX5xe171F5rfx7vHmIFyaBw08JdQIDAQAB;"
+        ],
+        "user_hint": false
+      }
+    },
+    "status": "success",
+    "third_party_only": false
+  },
+  "dmarc_analysis": {
+    "adkim": "relaxed",
+    "aspf": "relaxed",
+    "dmarc_like": null,
+    "dmarcbis_tags": {},
+    "issues": [
+      "No np= tag (DMARCbis) \u2014 non-existent subdomains inherit p= policy but adding np=reject provides explicit protection against subdomain spoofing"
+    ],
+    "message": "DMARC policy reject (100%) - excellent protection",
+    "np_policy": null,
+    "pct": 100,
+    "policy": "reject",
+    "psd_flag": null,
+    "records": [
+      "v=DMARC1; p=reject; rua=mailto:b1fabe8b7f3f41a181ecd1253a794edf@dmarc-reports.cloudflare.net,mailto:reports@dmarc.cyber.dhs.gov"
+    ],
+    "rua": "mailto:b1fabe8b7f3f41a181ecd1253a794edf@dmarc-reports.cloudflare.net,mailto:reports@dmarc.cyber.dhs.gov",
+    "ruf": null,
+    "status": "success",
+    "subdomain_policy": null,
+    "t_testing": null,
+    "valid_records": [
+      "v=DMARC1; p=reject; rua=mailto:b1fabe8b7f3f41a181ecd1253a794edf@dmarc-reports.cloudflare.net,mailto:reports@dmarc.cyber.dhs.gov"
+    ]
+  },
+  "dns_infrastructure": {
+    "alt_security_items": [
+      "DNSSEC validated"
+    ],
+    "assessment": "Enterprise-grade DNS infrastructure",
+    "is_government": true,
+    "provider_features": [
+      "DDoS protection",
+      "Anycast",
+      "Auto-DNSSEC available"
+    ],
+    "provider_name": "Cloudflare",
+    "provider_tier": "enterprise"
+  },
+  "dnssec_analysis": {
+    "ad_flag": true,
+    "ad_resolver": "8.8.8.8",
+    "algorithm": 13,
+    "algorithm_name": "ECDSA P-256/SHA-256",
+    "chain_of_trust": "complete",
+    "dnskey_records": [
+      "256 3 13 oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==",
+      "257 3 13 mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ=="
+    ],
+    "ds_records": [
+      "2371 13 2 BE4C7B11AD123596BA672B13FFDA04CA73C9FE0652E66542AEFADAF206B381AE"
+    ],
+    "has_dnskey": true,
+    "has_ds": true,
+    "message": "DNSSEC fully configured and validated \u2014 AD (Authenticated Data) flag set by resolver 8.8.8.8 confirming cryptographic chain of trust from root to zone (RFC 4035 \u00a73.2.3)",
+    "status": "success"
+  },
+  "domain_exists": true,
+  "domain_status": "active",
+  "domain_status_message": null,
+  "email_security_mgmt": {
+    "actively_managed": true,
+    "provider_count": 1,
+    "providers": [
+      {
+        "capabilities": [
+          "DMARC reporting",
+          "DMARC analytics"
+        ],
+        "detected_from": [
+          "DMARC"
+        ],
+        "name": "Cloudflare DMARC",
+        "sources": [
+          "DMARC aggregate reports (rua)"
+        ],
+        "vendor": "Cloudflare"
+      }
+    ],
+    "spf_flattening": null
+  },
+  "has_null_mx": false,
+  "hosting_summary": {
+    "dns_hosting": "Cloudflare",
+    "domain": "whitehouse.gov",
+    "email_hosting": "Unknown",
+    "hosting": "Unknown"
+  },
+  "is_no_mail_domain": false,
+  "mail_posture": {
+    "badge": "success",
+    "dns_tier": "enterprise",
+    "verdict": "Protected"
+  },
+  "mta_sts_analysis": {
+    "dns_id": null,
+    "hosting_cname": null,
+    "message": "No MTA-STS record found",
+    "mode": null,
+    "policy": null,
+    "policy_error": null,
+    "policy_fetched": false,
+    "policy_max_age": null,
+    "policy_mode": null,
+    "policy_mx": [],
+    "record": null,
+    "status": "warning"
+  },
+  "ns_delegation_analysis": {
+    "child_ns": [
+      "ernest.ns.cloudflare.com",
+      "wally.ns.cloudflare.com"
+    ],
+    "delegation_ok": true,
+    "match": null,
+    "message": "2 nameserver(s) configured",
+    "note": "Parent zone delegation could not be verified",
+    "parent_ns": [],
+    "status": "success"
+  },
+  "posture": {
+    "absent": [
+      "MTA-STS",
+      "TLS-RPT",
+      "CAA"
+    ],
+    "color": "success",
+    "configured": [
+      "SPF",
+      "DMARC (reject)",
+      "DKIM",
+      "BIMI",
+      "DNSSEC"
+    ],
+    "critical_issues": null,
+    "deliberate_monitoring": false,
+    "deliberate_monitoring_note": "",
+    "grade": "STRONG",
+    "icon": "shield-alt",
+    "issues": [
+      "No CAA records"
+    ],
+    "label": "Email authentication with full DMARC enforcement. MTA-STS, TLS-RPT not configured.",
+    "message": "Email authentication with full DMARC enforcement. MTA-STS, TLS-RPT not configured.",
+    "monitoring": null,
+    "recommendations": [
+      "No CAA records"
+    ],
+    "score": 78,
+    "state": "STRONG",
+    "verdicts": {
+      "brand": "BIMI brand logo configured. CAA not configured \u2014 any CA can issue certificates.",
+      "brand_answer": "Partially",
+      "brand_secure": false,
+      "dns": "DNS responses are cryptographically signed and verified via DNSSEC.",
+      "dns_secure": true,
+      "domain_answer": "No",
+      "email": "DMARC policy is reject \u2014 spoofed messages will be blocked by receiving servers. DKIM keys verified with strong cryptography.",
+      "email_answer": "No",
+      "email_secure": true
+    }
+  },
+  "propagation_status": {
+    "A": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "AAAA": {
+      "mismatch": true,
+      "status": "propagating",
+      "synced": false
+    },
+    "CAA": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "CNAME": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "DMARC": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "MX": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "NS": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SOA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SRV": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "TXT": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    }
+  },
+  "registrar_info": {
+    "registrar": "get.gov (Registrant: REDACTED FOR PRIVACY)",
+    "source": "RDAP",
+    "status": "success"
+  },
+  "remediation": {
+    "all_fixes": [
+      {
+        "dns_record": "yourdomain.com CAA 0 issue \"letsencrypt.org\"",
+        "fix": "Publish CAA DNS records to restrict which Certificate Authorities can issue TLS certificates for your domain. Specify your preferred CA (e.g., letsencrypt.org, digicert.com).",
+        "rfc": "RFC 8659 \u00a74",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659#section-4",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Add CAA records"
+      },
+      {
+        "dns_record": "_mta-sts.yourdomain.com TXT \"v=STSv1; id=20240101\"",
+        "fix": "Publish an MTA-STS DNS record and host a policy file at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt. This tells senders to require TLS when delivering mail to your domain.",
+        "rfc": "RFC 8461 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8461#section-3",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Deploy MTA-STS policy"
+      },
+      {
+        "dns_record": "_smtp._tls.yourdomain.com TXT \"v=TLSRPTv1; rua=mailto:tls-reports@yourdomain.com\"",
+        "fix": "TLS-RPT (TLS Reporting) sends you reports about TLS connection failures when other servers try to deliver mail to your domain. Helps diagnose MTA-STS and STARTTLS issues.",
+        "rfc": "RFC 8460 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8460#section-3",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure TLS-RPT reporting"
+      }
+    ],
+    "fix_count": 3,
+    "posture_achievable": "SECURE",
+    "top_fixes": [
+      {
+        "dns_record": "yourdomain.com CAA 0 issue \"letsencrypt.org\"",
+        "fix": "Publish CAA DNS records to restrict which Certificate Authorities can issue TLS certificates for your domain. Specify your preferred CA (e.g., letsencrypt.org, digicert.com).",
+        "rfc": "RFC 8659 \u00a74",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659#section-4",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Add CAA records"
+      },
+      {
+        "dns_record": "_mta-sts.yourdomain.com TXT \"v=STSv1; id=20240101\"",
+        "fix": "Publish an MTA-STS DNS record and host a policy file at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt. This tells senders to require TLS when delivering mail to your domain.",
+        "rfc": "RFC 8461 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8461#section-3",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Deploy MTA-STS policy"
+      },
+      {
+        "dns_record": "_smtp._tls.yourdomain.com TXT \"v=TLSRPTv1; rua=mailto:tls-reports@yourdomain.com\"",
+        "fix": "TLS-RPT (TLS Reporting) sends you reports about TLS connection failures when other servers try to deliver mail to your domain. Helps diagnose MTA-STS and STARTTLS issues.",
+        "rfc": "RFC 8460 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8460#section-3",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure TLS-RPT reporting"
+      }
+    ]
+  },
+  "resolver_consensus": {
+    "checks_performed": 4,
+    "consensus_reached": true,
+    "discrepancies": null,
+    "per_record_consensus": {
+      "A": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "MX": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "NS": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "TXT": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      }
+    },
+    "resolvers_queried": 4
+  },
+  "resolver_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "NS": 21600,
+    "SOA": 1800,
+    "TXT": 3600
+  },
+  "section_status": {
+    "auth": {
+      "status": "ok"
+    },
+    "basic": {
+      "status": "ok"
+    },
+    "bimi": {
+      "status": "ok"
+    },
+    "caa": {
+      "status": "ok"
+    },
+    "ct_subdomains": {
+      "status": "ok"
+    },
+    "dane": {
+      "status": "ok"
+    },
+    "dkim": {
+      "status": "ok"
+    },
+    "dmarc": {
+      "status": "ok"
+    },
+    "dnssec": {
+      "status": "ok"
+    },
+    "mta_sts": {
+      "status": "ok"
+    },
+    "ns_delegation": {
+      "status": "ok"
+    },
+    "registrar": {
+      "status": "ok"
+    },
+    "resolver_consensus": {
+      "status": "ok"
+    },
+    "spf": {
+      "status": "ok"
+    },
+    "tlsrpt": {
+      "status": "ok"
+    }
+  },
+  "smtp_transport": null,
+  "spf_analysis": {
+    "all_mechanism": "~all",
+    "includes": [
+      "spf.mail.dmz.pitc.gov",
+      "spf.protection.outlook.com",
+      "spf.mandrillapp.com"
+    ],
+    "issues": null,
+    "lookup_count": 3,
+    "lookup_mechanisms": [
+      "include:spf.mail.dmz.pitc.gov",
+      "include:spf.protection.outlook.com",
+      "include:spf.mandrillapp.com"
+    ],
+    "message": "SPF valid with industry-standard soft fail (~all), 3/10 lookups",
+    "no_mail_intent": false,
+    "permissiveness": "SOFT",
+    "records": [
+      "_ag15rep8dkdk6c65mcqgkcmtszqxbqt",
+      "v=spf1 include:spf.mail.dmz.pitc.gov include:spf.protection.outlook.com include:spf.mandrillapp.com ip4:214.3.115.10/32 ip4:214.3.115.12/32 ip4:214.3.115.14/32 ip4:214.3.115.225/32 ip4:214.3.140.16/32 ip4:214.3.140.22/32 ip4:214.3.140.255/32 ~all",
+      "google-site-verification=TfE8QdIcAwpNcoG9l9AxMIzz69S5PPd8peS-Pj1qtXk",
+      "MS=ms61205702"
+    ],
+    "spf_like": null,
+    "status": "success",
+    "valid_records": [
+      "v=spf1 include:spf.mail.dmz.pitc.gov include:spf.protection.outlook.com include:spf.mandrillapp.com ip4:214.3.115.10/32 ip4:214.3.115.12/32 ip4:214.3.115.14/32 ip4:214.3.115.225/32 ip4:214.3.140.16/32 ip4:214.3.140.22/32 ip4:214.3.140.255/32 ~all"
+    ]
+  },
+  "tlsrpt_analysis": {
+    "message": "No TLS-RPT record found",
+    "record": null,
+    "rua": null,
+    "status": "warning"
+  },
+  "_captured_at": "2026-02-10T07:00:00Z",
+  "_captured_version": "go-server",
+  "_domain": "whitehouse.gov",
+  "_schema_version": 2,
+  "_tool_version": "go-server"
+}

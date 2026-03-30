@@ -1,0 +1,8 @@
+# Generated artifacts (regenerate locally; never commit)
+*_git_log_full.txt
+*_git_log_summary.txt
+*_git_log_filtered.txt
+*_git_log.json
+*.zip
+.DS_Store
+generated/

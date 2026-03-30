@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Site Analytics - DNS Tool</title>
+    <meta name="robots" content="noindex, nofollow">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "chart-bar" "me-2"}}Site Analytics
+                </h1>
+                <p class="text-muted mb-0">Privacy-respecting usage metrics — no cookies, no PII, daily-rotating salted hashes</p>
+            </div>
+            <a href="/ops" class="btn btn-outline-secondary">
+                {{icon "arrow-left" "me-2"}}Admin Dashboard
+            </a>
+        </div>
+
+        {{template "flash_messages" .}}
+
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h4 mb-1 text-info">{{.Summary.TotalPageviews}}</div>
+                        <small class="text-muted">Total Pageviews</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h4 mb-1 text-success">{{.Summary.TotalUniqueVisitors}}</div>
+                        <small class="text-muted">Unique Visitors (30d)</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h4 mb-1 text-warning">{{.Summary.TotalAnalyses}}</div>
+                        <small class="text-muted">Analyses Run</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h4 mb-1 text-secondary">{{.Summary.TotalUniqueDomains}}</div>
+                        <small class="text-muted">Unique Domains</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-2 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h5 mb-1 text-info">{{.Summary.DaysTracked}}</div>
+                        <small class="text-muted">Days Tracked</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h5 mb-1 text-success">{{.Summary.AvgDailyPageviews}}</div>
+                        <small class="text-muted">Avg Daily Pageviews</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <div class="card text-center">
+                    <div class="card-body py-3">
+                        <div class="h5 mb-1 text-warning">{{.Summary.AvgDailyVisitors}}</div>
+                        <small class="text-muted">Avg Daily Visitors</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{icon "external-link-alt" "me-2"}}Top Referrer Sources</h5>
+                    </div>
+                    <div class="card-body">
+                        {{if .Summary.TopReferrers}}
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Source</th>
+                                    <th scope="col" class="text-end">Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range .Summary.TopReferrers}}
+                                <tr>
+                                    <td><code>{{.Source}}</code></td>
+                                    <td class="text-end">{{.Count}}</td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                        {{else}}
+                        <p class="text-muted mb-0">No referrer data yet. Analytics begin accumulating after the first page view.</p>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{icon "file-alt" "me-2"}}Top Pages</h5>
+                    </div>
+                    <div class="card-body">
+                        {{if .Summary.TopPages}}
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Page</th>
+                                    <th scope="col" class="text-end">Views</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range .Summary.TopPages}}
+                                <tr>
+                                    <td><code>{{.Path}}</code></td>
+                                    <td class="text-end">{{.Count}}</td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                        {{else}}
+                        <p class="text-muted mb-0">No page data yet. Analytics begin accumulating after the first page view.</p>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">{{icon "calendar-alt" "me-2"}}Daily Breakdown (Last 30 Days)</h5>
+            </div>
+            <div class="card-body">
+                {{if .Days}}
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col" class="text-end">Pageviews</th>
+                                <th scope="col" class="text-end">Unique Visitors</th>
+                                <th scope="col" class="text-end">Analyses</th>
+                                <th scope="col" class="text-end">Unique Domains</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Days}}
+                            <tr>
+                                <td>{{.Date}}</td>
+                                <td class="text-end">{{.Pageviews}}</td>
+                                <td class="text-end">{{.UniqueVisitors}}</td>
+                                <td class="text-end">{{.AnalysesRun}}</td>
+                                <td class="text-end">{{.UniqueDomainsAnalyzed}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+                {{else}}
+                <p class="text-muted mb-0">No analytics data yet. Data will appear here after the first full day of tracking.</p>
+                {{end}}
+            </div>
+        </div>
+
+        <div class="card border-success mb-4">
+            <div class="card-body">
+                <h6 class="text-success mb-2">{{icon "user-shield" "me-2"}}Privacy Design</h6>
+                <ul class="mb-0 small">
+                    <li>No cookies or tracking pixels — server-side only</li>
+                    <li>IP addresses are salted and hashed with a daily-rotating key — never stored or persisted</li>
+                    <li>No PII collected — zero personal data in the database</li>
+                    <li>Aggregate counts only — individual visitor paths are not reconstructable</li>
+                    <li>Self-hosted — no third-party analytics services</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

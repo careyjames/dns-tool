@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Founder's Manifesto — DNS Tool</title>
+<link rel="stylesheet" href="pdf-base.css">
+<style>
+  .non-normative-badge {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #b8860b;
+    background: #fdf6e3;
+    border: 1pt solid #d2b48c;
+    border-radius: 3pt;
+    padding: 2pt 8pt;
+    margin-bottom: 6pt;
+  }
+  .non-normative-note {
+    font-size: 9.5pt;
+    color: #666;
+    font-style: italic;
+    background: #fdf6e3;
+    border: 0.5pt solid #d2b48c;
+    border-left: 3pt solid #d2b48c;
+    padding: 8pt 12pt;
+    margin: 10pt 0 16pt 0;
+    break-inside: avoid;
+  }
+  .declaration-block {
+    background: #faf9f6;
+    border-left: 3pt solid #C8A878;
+    padding: 12pt 16pt;
+    margin: 10pt 0 16pt 0;
+    font-family: "Courier New", monospace;
+    font-size: 9.5pt;
+    line-height: 1.7;
+    color: #333;
+    break-inside: avoid;
+  }
+  .tag { color: #b8860b; font-weight: 600; }
+  .role-badge {
+    display: inline-block;
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 1pt 5pt;
+    border-radius: 2pt;
+    margin-right: 3pt;
+  }
+  .role-aspiration { background: #e3f2fd; color: #1565c0; }
+  .role-asymptote { background: #f3e5f5; color: #7b1fa2; }
+  .role-constraint { background: #e8f5e9; color: #2e7d32; }
+  .role-foundation { background: #fff3e0; color: #e65100; }
+  .role-hypothesis { background: #fce4ec; color: #c62828; }
+  .role-condition { background: #f5f5f5; color: #555; }
+  .role-observation { background: #f5f5f5; color: #555; }
+  .role-target { background: #e3f2fd; color: #1565c0; }
+  .disconfirm-block {
+    background: #fef2f2;
+    border: 0.5pt solid #fca5a5;
+    border-left: 3pt solid #ef4444;
+    padding: 8pt 12pt;
+    margin: 6pt 0;
+    break-inside: avoid;
+  }
+  .disconfirm-label {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #dc2626;
+    margin-bottom: 2pt;
+  }
+  .disconfirm-block p { margin: 0; font-size: 10pt; }
+  .family-grid {
+    display: table;
+    width: 100%;
+    margin: 10pt 0;
+    border-collapse: separate;
+    border-spacing: 6pt 0;
+  }
+  .family-card {
+    display: table-cell;
+    width: 33%;
+    padding: 10pt 12pt;
+    vertical-align: top;
+    border: 0.5pt solid #e5e5e0;
+    border-radius: 2pt;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    text-align: left;
+  }
+  .family-card h4 { margin: 0 0 4pt 0; font-size: 10.5pt; color: #333; }
+  .family-card p { margin: 0 0 4pt 0; font-size: 9.5pt; text-align: left; }
+  .family-card a { font-size: 8.5pt; word-break: break-all; }
+
+  .semaphore-designation {
+    text-align: center;
+    margin: 0 auto 6pt auto;
+    padding: 0;
+    width: 100%;
+    display: block;
+  }
+  .semaphore-designation .sem-label {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 0 0 1pt 0;
+    text-align: center;
+  }
+  .semaphore-designation .sem-label-nonnorm { color: #316964; }
+  .semaphore-designation .sem-math {
+    font-family: "Courier New", monospace;
+    font-size: 6.5pt;
+    color: #777;
+    line-height: 1.3;
+    margin: 0;
+    text-align: center;
+  }
+  .semaphore-designation .sem-quote {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 7pt;
+    font-style: italic;
+    color: #666;
+    margin: 1pt 0 0 0;
+    text-align: center;
+  }
+  .semaphore-designation .sem-rfc {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 6.5pt;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.06em;
+    margin: 0;
+    text-align: center;
+  }
+
+  .semaphore-ledger {
+    break-inside: avoid;
+    margin: 16pt 0 6pt 0;
+    padding: 10pt 0 0 0;
+    border-top: 0.75pt solid #C8A878;
+  }
+  .semaphore-ledger .ledger-title {
+    text-align: center;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 6pt 0;
+  }
+  .ledger-cards {
+    display: flex;
+    gap: 6pt;
+    width: 100%;
+  }
+  .ledger-card {
+    flex: 1 1 0;
+    border: 0.4pt solid #ddd;
+    border-radius: 2pt;
+    padding: 8pt 6pt 6pt 6pt;
+    text-align: center;
+    min-width: 0;
+  }
+  .ledger-card.lc-norm { border-top: 1.5pt solid #9e7c38; }
+  .ledger-card.lc-nonnorm { border-top: 1.5pt solid #316964; }
+  .ledger-card.lc-crit { border-top: 1.5pt solid #990f1e; }
+  .ledger-card .lc-badge {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 4pt auto;
+    display: block;
+  }
+  .ledger-card .lc-name {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 1.5pt 0;
+    text-align: center;
+  }
+  .ledger-card.lc-norm .lc-name { color: #9e7c38; }
+  .ledger-card.lc-nonnorm .lc-name { color: #316964; }
+  .ledger-card.lc-crit .lc-name { color: #990f1e; }
+  .ledger-card .lc-transform {
+    font-family: "Courier New", monospace;
+    font-size: 7.5pt;
+    color: #666;
+    line-height: 1.3;
+    margin: 0;
+    text-align: center;
+  }
+  .ledger-card .lc-quote {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 7.5pt;
+    font-style: italic;
+    color: #555;
+    margin: 1.5pt 0 1pt 0;
+    text-align: center;
+  }
+  .ledger-card .lc-rfc {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 7pt;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.03em;
+    margin: 0;
+    text-align: center;
+  }
+  .ledger-closure {
+    text-align: center;
+    margin: 6pt 0 0 0;
+    padding: 4pt 0 0 0;
+    border-top: 0.25pt solid #e5e5e0;
+  }
+  .ledger-closure .closure-title {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 1pt 0;
+  }
+  .ledger-closure .closure-math {
+    font-family: "Courier New", monospace;
+    font-size: 7pt;
+    color: #777;
+    margin: 0;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<div class="authority-header">
+  <div class="authority-logo">
+    <img src="assets/owl-signature-nonnorm-opaque.png" alt="Owl of Athena &mdash; Non-Normative">
+  </div>
+
+  <div class="semaphore-designation">
+    <p class="sem-label sem-label-nonnorm">Non-Normative</p>
+    <p class="sem-math">T = &sigma;<sub>v</sub> &ensp; det = &minus;1 &ensp;&ensp; (x, y) &rarr; (&minus;x, y)</p>
+    <p class="sem-quote">&ldquo;This reflects the standard.&rdquo;</p>
+    <p class="sem-rfc">Informative / Advisory (NOTE)</p>
+  </div>
+
+  <div class="authority-title">
+    <h1>DNS Tool</h1>
+    <p class="subtitle">Founder&rsquo;s Manifesto</p>
+  </div>
+
+  <div class="authority-meta">
+    <p class="author-name">Carey James Balboa</p>
+    <p class="author-role">Independent DNS Security Researcher</p>
+    <p>
+      <span class="meta-label">ORCID</span>&ensp;<a href="https://orcid.org/0009-0000-5237-9065">0009-0000-5237-9065</a>&emsp;
+      <span class="meta-label">DOI</span>&ensp;<a href="https://doi.org/10.5281/zenodo.18854899">10.5281/zenodo.18854899</a><br>
+      <span class="meta-label">Project</span>&ensp;<a href="https://dnstool.it-help.tech">dnstool.it-help.tech</a>&emsp;
+      <span class="meta-label">Source</span>&ensp;<a href="https://github.com/IT-Help-San-Diego/dns-tool">github.com/IT-Help-San-Diego/dns-tool</a><br>
+      <span class="meta-label">Version</span>&ensp;10&emsp;&middot;&emsp;<span class="meta-label">License</span>&ensp;BUSL-1.1
+    </p>
+  </div>
+</div>
+
+<div class="non-normative-note">
+  This document expresses the aspirational vision and design philosophy that motivates DNS Tool&rsquo;s architecture. It is distinct from the project&rsquo;s scientific claims, which are bounded, falsifiable, and documented separately in the <a href="https://dnstool.it-help.tech/foundations">Philosophical Foundations</a> paper and the <a href="https://dnstool.it-help.tech/methodology">methodology paper</a> (Balboa, 2026). Where this manifesto says &ldquo;[MUST],&rdquo; it declares a design target, not a proven state. The <a href="https://dnstool.it-help.tech/communication-standards">Communication Standards</a> document enforces the measurable quality gate that ensures these aspirations translate into readable, accessible output.
+</div>
+
+<h2>The Declaration</h2>
+
+<div class="declaration-block">
+GOALS: (even <span class="tag">[IF]</span> unreasonable)<br><br>
+Projected Code Maintainability: <span class="tag">[1000+yr]</span> Code.<br>
+<span class="tag">[ZERO_ERRORS]</span>, <span class="tag">[ZERO_WASTE]</span>, <span class="tag">[FULL_HISTORY]</span><br>
+<span class="tag">[AND]</span> evidentiary <span class="tag">[ACCOUNTABILITY]</span><br>
++ <span class="tag">[VERBOSE+++++]</span> <span class="tag">[COMPLETE_CONTEXTUAL_LOGIC]</span><br>
+<span class="tag">[GAP-DRIFT_ALERTS]</span>,<br>
+user quality drift monitoring with modular extensive data structure<br>
+for humans and their logic AND AI systems and their machine logic.<br><br>
+We test, measure, and cross-reference until we achieve <span class="tag">[MUST]</span>.<br>
+It <span class="tag">[MUST]</span> be what a <span class="tag">[VERIFIED]</span> <span class="tag">[GOLDEN_LOGIC_MASTER]</span> would look like in this world.<br>
+<span class="tag">[PRISTINE_CODE]</span>.<br><br>
+<span class="tag">[DEEP_PAST]</span> + <span class="tag">[FAR_FUTURE]</span> = Multi-generational tools<br>
+that would have a chance to collect and assimilate enough data<br>
+to advance humankind.<br><br>
+HELLO McFly.<br><br>
+Furthermore, how can modern computer tools advance humankind<br>
+when they don&rsquo;t already consider 2000+ years of <span class="tag">[EXISTING]</span> logic?<br>
+Maybe build upon that <span class="tag">[CODE_FOUNDATION]</span> first.<br><br>
+&mdash; Carey Balboa
+</div>
+
+<h2>Tag Grammar</h2>
+
+<p>The bracket notation above is intentional. Each tag carries a specific semantic role within the manifesto&rsquo;s reasoning structure. The grammar is defined here so the notation is readable rather than arbitrary.</p>
+
+<table>
+  <tr><th>Tag</th><th>Role</th><th>Meaning</th></tr>
+  <tr><td><code>[IF]</code></td><td><span class="role-badge role-condition">Condition</span></td><td>Acknowledges that the stated goal may exceed current engineering capability. The condition is preserved, not hidden.</td></tr>
+  <tr><td><code>[1000+yr]</code></td><td><span class="role-badge role-aspiration">Aspiration</span></td><td>Design target for code structure, documentation depth, and data preservation. Not a prediction &mdash; a directional constraint.</td></tr>
+  <tr><td><code>[ZERO_ERRORS]</code></td><td><span class="role-badge role-asymptote">Asymptote</span></td><td>Zero is unreachable. The value is in the pursuit: every error found is an error the system failed to prevent.</td></tr>
+  <tr><td><code>[ZERO_WASTE]</code></td><td><span class="role-badge role-asymptote">Asymptote</span></td><td>Every line of code, stored byte, and UI element should justify its existence.</td></tr>
+  <tr><td><code>[FULL_HISTORY]</code></td><td><span class="role-badge role-constraint">Constraint</span></td><td>No decision or correction silently overwritten. EDE Amendment Chain, audit log, and Git history implement this.</td></tr>
+  <tr><td><code>[ACCOUNTABILITY]</code></td><td><span class="role-badge role-constraint">Constraint</span></td><td>Every output must trace to an evidence basis. Golden Logic Registry and citation registry are implementations.</td></tr>
+  <tr><td><code>[VERBOSE+++++]</code></td><td><span class="role-badge role-aspiration">Aspiration</span></td><td>Err on the side of too much context. Silent failures are unacceptable.</td></tr>
+  <tr><td><code>[COMPLETE_CONTEXTUAL_LOGIC]</code></td><td><span class="role-badge role-aspiration">Aspiration</span></td><td>Reasoning gaps should be detectable and flagged.</td></tr>
+  <tr><td><code>[GAP-DRIFT_ALERTS]</code></td><td><span class="role-badge role-constraint">Constraint</span></td><td>State divergence from declared intent must be surfaced, not suppressed.</td></tr>
+  <tr><td><code>[MUST]</code></td><td><span class="role-badge role-target">Design Target</span></td><td>RFC 2119 semantics. Aspiration, knowing partial achievement is still valuable.</td></tr>
+  <tr><td><code>[VERIFIED]</code></td><td><span class="role-badge role-constraint">Constraint</span></td><td>Claims require evidence. ICAE validates against golden fixtures.</td></tr>
+  <tr><td><code>[GOLDEN_LOGIC_MASTER]</code></td><td><span class="role-badge role-aspiration">Aspiration</span></td><td>Reasoning transparent enough for any practitioner to audit from first principles.</td></tr>
+  <tr><td><code>[PRISTINE_CODE]</code></td><td><span class="role-badge role-asymptote">Asymptote</span></td><td>Quality measured by clarity of intent to a reader arriving decades later.</td></tr>
+  <tr><td><code>[DEEP_PAST]</code></td><td><span class="role-badge role-foundation">Foundation</span></td><td>2000+ years of formal logic, evidentiary standards, Socratic method.</td></tr>
+  <tr><td><code>[FAR_FUTURE]</code></td><td><span class="role-badge role-aspiration">Aspiration</span></td><td>Multi-generational data preservation and tool design.</td></tr>
+  <tr><td><code>[EXISTING]</code></td><td><span class="role-badge role-observation">Observation</span></td><td>Logical frameworks inherited from philosophy, law, intelligence tradecraft, mathematics.</td></tr>
+  <tr><td><code>[CODE_FOUNDATION]</code></td><td><span class="role-badge role-hypothesis">Hypothesis</span></td><td>Software building on classical logic may produce more durable systems. Testable.</td></tr>
+</table>
+
+<h2>Scientific Grounding</h2>
+
+<h3>The 2000-Year Logic Argument</h3>
+
+<p>The claim that modern software engineering underutilizes classical logical frameworks is supported by a growing body of research on software traceability and decision documentation gaps.</p>
+
+<p><strong>Formal logic</strong> (Aristotle, <em>Prior Analytics</em>, c. 350 BCE) established the syllogistic reasoning structures that inform the conditional logic at the heart of programming. <strong>Evidentiary standards</strong> (Roman law, <em>Corpus Juris Civilis</em>, 534 CE; English common law, 13th century onward) developed burden of proof, chain of custody, and admissibility concepts that DNS Tool&rsquo;s confidence engine draws from. <strong>Socratic method</strong> (<em>elenchus</em>, 5th century BCE) provides the falsification-through-questioning pattern applied in the verification workflow.</p>
+
+<p><strong>Contemporary evidence for the traceability gap:</strong></p>
+<ul>
+  <li>Jansen, A. &amp; Bosch, J. (2005). &ldquo;Software Architecture as a Set of Architectural Design Decisions.&rdquo; <em>5th Working IEEE/IFIP Conference on Software Architecture (WICSA&rsquo;05)</em>. DOI: <a href="https://doi.org/10.1109/WICSA.2005.61">10.1109/WICSA.2005.61</a></li>
+  <li>Lago, P. et al. (2009). &ldquo;Visualizing Software Architecture Design Decisions.&rdquo; <em>Software Architecture Knowledge Management</em>. Springer.</li>
+  <li>Bhat, M. et al. (2020). &ldquo;Automatic Extraction of Design Decisions from Issue Management Systems.&rdquo; <em>European Conference on Software Architecture</em>.</li>
+</ul>
+
+<p>The argument is not that computer science is ignorant of logic. It is that most software <em>systems</em> do not preserve the reasoning behind their conclusions in a form that can be independently audited. They produce outputs. They rarely produce <em>epistemic trails</em>.</p>
+
+<h3>The &ldquo;1000-Year Code&rdquo; Thesis</h3>
+
+<p>No code written today will run unchanged for 1000 years. The aspiration is about <em>decision-preservation longevity</em>: building systems where the reasoning behind every architectural choice is preserved in a form that remains interpretable regardless of the technology stack.</p>
+
+<p>Historical precedent suggests this is achievable in other domains. The Domesday Book (1086 CE) remains interpretable after nearly a millennium &mdash; not because its medium endured, but because its structure is self-documenting. The Rosetta Stone (196 BCE) is interpretable because it preserves the same content in multiple representation systems. These are analogies, not proofs &mdash; but they illustrate a principle worth testing.</p>
+
+<p><strong>DNS Tool&rsquo;s implementations of this principle:</strong></p>
+<ul>
+  <li><strong>Git history</strong> &mdash; Every change, with commit message and author attribution</li>
+  <li><strong>EDE Amendment Chain</strong> &mdash; SHA-3-512 hashed corrections with explicit grounds</li>
+  <li><strong>Golden Logic Registry</strong> &mdash; RFC-to-code-to-test traceability</li>
+  <li><strong>Scrutiny tags</strong> &mdash; Every source file classified by analytical role</li>
+  <li><strong>Citation registry</strong> &mdash; Machine-readable references to every authoritative standard cited</li>
+  <li><strong>FULL_HISTORY constraint</strong> &mdash; Corrections are appended, not replaced</li>
+</ul>
+
+<h2>The Generalization Hypothesis</h2>
+
+<p>DNS was chosen as the first domain because it provides the strongest possible ground truth: RFCs define correct behavior with mathematical precision, and the live DNS infrastructure provides an observable, auditable state at any moment.</p>
+
+<p>The broader hypothesis: the confidence scoring, drift detection, evidentiary accountability, and epistemic transparency patterns developed for DNS can be extended to domains where ground truth is fuzzier.</p>
+
+<p><strong>Transfer criteria:</strong></p>
+<ol>
+  <li>The target domain must have a definable (even if imprecise) notion of &ldquo;correct state&rdquo;</li>
+  <li>The domain must have observable signals that can be measured repeatedly</li>
+  <li>The confidence calibration methodology must produce meaningful Brier scores in the new domain</li>
+  <li>The drift detection must distinguish true state changes from measurement noise</li>
+</ol>
+
+<p><strong>Disconfirmation conditions (with thresholds):</strong></p>
+
+<div class="disconfirm-block">
+  <div class="disconfirm-label">Calibration Failure</div>
+  <p>If confidence scores exhibit Expected Calibration Error (ECE) &gt; 0.15 after a minimum of 200 scored events, the confidence model does not transfer without domain-specific recalibration. DNS Tool&rsquo;s current ECE target: &lt; 0.05.</p>
+</div>
+
+<div class="disconfirm-block">
+  <div class="disconfirm-label">Drift Detection Noise</div>
+  <p>If drift detection produces a false-positive rate exceeding 30% over a 90-day evaluation window (minimum 50 drift events), the sensitivity model is DNS-specific and requires domain adaptation.</p>
+</div>
+
+<div class="disconfirm-block">
+  <div class="disconfirm-label">Evidentiary Overhead</div>
+  <p>If the epistemic trail adds &gt; 20% to analysis time without measurably improving decision accuracy (A/B comparison over a minimum of 100 decisions), the overhead model is not justified for that domain.</p>
+</div>
+
+<p>DNS is the foundation. Whether it generalizes is an empirical question, not a declaration.</p>
+
+<h2>On Passion and Rigor</h2>
+
+<p>This manifesto uses strong language because the problems it describes are consequential. Software that loses its reasoning. Systems that overwrite their own corrections. Intelligence tools that assert confidence they haven&rsquo;t earned. These are not aesthetic complaints. They are failure modes that erode trust, obscure accountability, and degrade the quality of human decisions that depend on machine outputs.</p>
+
+<p>The passion expressed here is not in tension with scientific rigor. It is the motivation <em>for</em> rigor. The project&rsquo;s scientific claims remain bounded, falsifiable, and independently verifiable &mdash; as documented in the <a href="https://dnstool.it-help.tech/methodology">methodology paper</a>, the <a href="https://dnstool.it-help.tech/foundations">philosophical foundations</a>, and the confidence engine&rsquo;s own calibration metrics.</p>
+
+<p>The brackets are not decoration. They are constraints. And constraints, properly defined, are the foundation of every scientific discipline that has ever endured.</p>
+
+<h2>Document Family</h2>
+
+<p>This manifesto is one of three linked documents that define how DNS Tool thinks, speaks, and presents itself.</p>
+
+<div class="family-grid">
+  <div class="family-card">
+    <h4>Philosophical Foundations</h4>
+    <p>The peer-review-grade scientific framework. Every claim is bounded, cited, and falsifiable. Full academic citations.</p>
+    <p><a href="https://dnstool.it-help.tech/foundations">dnstool.it-help.tech/foundations</a></p>
+  </div>
+  <div class="family-card" style="border-left: 2pt solid #d2b48c;">
+    <h4>Founder&rsquo;s Manifesto</h4>
+    <p><em>This document.</em> Non-normative. The aspirational vision that started the project. Tagged, grounded, distinct from the science.</p>
+    <p><a href="https://dnstool.it-help.tech/manifesto">dnstool.it-help.tech/manifesto</a></p>
+  </div>
+  <div class="family-card">
+    <h4>Communication Standards</h4>
+    <p>The enforcer. Measurable Clarity + Vision dual-gate with WCAG thresholds and CI-checkable criteria.</p>
+    <p><a href="https://dnstool.it-help.tech/communication-standards">dnstool.it-help.tech/communication-standards</a></p>
+  </div>
+</div>
+
+<div class="semaphore-ledger">
+  <p class="ledger-title">Owl Semaphore System &mdash; Classification Ledger</p>
+  <div class="ledger-cards">
+    <div class="ledger-card lc-norm">
+      <img class="lc-badge" src="assets/owl-NORMATIVE-intro.png" alt="Normative Owl">
+      <p class="lc-name">Normative</p>
+      <p class="lc-transform">T = I &ensp; det = +1</p>
+      <p class="lc-transform">(x, y) &rarr; (x, y)</p>
+      <p class="lc-quote">&ldquo;This is the standard.&rdquo;</p>
+      <p class="lc-rfc">RFC 2119 MUST / SHALL</p>
+    </div>
+    <div class="ledger-card lc-nonnorm">
+      <img class="lc-badge" src="assets/owl-NONNORMATIVE-intro.png" alt="Non-Normative Owl">
+      <p class="lc-name">Non-Normative</p>
+      <p class="lc-transform">T = &sigma;<sub>v</sub> &ensp; det = &minus;1</p>
+      <p class="lc-transform">(x, y) &rarr; (&minus;x, y)</p>
+      <p class="lc-quote">&ldquo;This reflects the standard.&rdquo;</p>
+      <p class="lc-rfc">Informative / Advisory (NOTE)</p>
+    </div>
+    <div class="ledger-card lc-crit">
+      <img class="lc-badge" src="assets/owl-CRITICAL-intro.png" alt="Critical Owl">
+      <p class="lc-name">Critical</p>
+      <p class="lc-transform">T = C<sub>2</sub> &ensp; det = +1</p>
+      <p class="lc-transform">(x, y) &rarr; (&minus;x, &minus;y)</p>
+      <p class="lc-quote">&ldquo;This inverts the standard.&rdquo;</p>
+      <p class="lc-rfc">RFC 2119 MUST NOT / SHALL NOT</p>
+    </div>
+  </div>
+  <div class="ledger-closure">
+    <p class="closure-title">Composition Identities in O(2)</p>
+    <p class="closure-math">&sigma; &#x2218; &sigma; = I &ensp;&middot;&ensp; R(&theta;<sub>1</sub>) &#x2218; R(&theta;<sub>2</sub>) = R(&theta;<sub>1</sub>+&theta;<sub>2</sub>) &ensp;&middot;&ensp; &sigma; &#x2218; R(&theta;) = &sigma;<sub>&theta;</sub></p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>&ldquo;Go out and gather as many different redundant sources of intelligence as you can, and then classify and analyze.&rdquo;</p>
+  <p>&copy; 2024&ndash;2026 IT Help San Diego Inc. &mdash; <a href="https://dnstool.it-help.tech">DNS Security Intelligence</a></p>
+  <p><strong>Related documents:</strong>
+    <a href="https://dnstool.it-help.tech/methodology">Methodology Paper</a> &middot;
+    <a href="https://dnstool.it-help.tech/foundations">Philosophical Foundations</a> &middot;
+    <a href="https://dnstool.it-help.tech/communication-standards">Communication Standards</a> &middot;
+    <a href="https://dnstool.it-help.tech/reference-library">Reference Library</a> &middot;
+    <a href="https://dnstool.it-help.tech/sources">Sources &amp; Citations</a>
+  </p>
+</div>
+
+</body>
+</html>

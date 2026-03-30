@@ -1,0 +1,1258 @@
+{
+  "auth_query_status": {},
+  "auth_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "MX": 300,
+    "NS": 86400,
+    "SOA": 1800,
+    "TXT": 300
+  },
+  "authoritative_records": {
+    "A": [
+      "104.18.27.120",
+      "104.18.26.120"
+    ],
+    "AAAA": [
+      "2606:4700::6812:1b78",
+      "2606:4700::6812:1a78"
+    ],
+    "CAA": [],
+    "DMARC": [
+      "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s"
+    ],
+    "MTA-STS": [],
+    "MX": [
+      "0 ."
+    ],
+    "NS": [
+      "elliott.ns.cloudflare.com.",
+      "hera.ns.cloudflare.com."
+    ],
+    "SOA": [
+      "elliott.ns.cloudflare.com. dns.cloudflare.com. 2395194487 10000 2400 604800 1800"
+    ],
+    "TLS-RPT": [],
+    "TXT": [
+      "_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9",
+      "v=spf1 -all"
+    ]
+  },
+  "basic_records": {
+    "A": [
+      "104.18.26.120",
+      "104.18.27.120"
+    ],
+    "AAAA": [
+      "2606:4700::6812:1a78",
+      "2606:4700::6812:1b78"
+    ],
+    "CAA": null,
+    "CNAME": null,
+    "DMARC": [
+      "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s"
+    ],
+    "MX": [
+      "0 ."
+    ],
+    "NS": [
+      "hera.ns.cloudflare.com.",
+      "elliott.ns.cloudflare.com."
+    ],
+    "SOA": [
+      "elliott.ns.cloudflare.com. dns.cloudflare.com. 2395194487 10000 2400 604800 1800"
+    ],
+    "SRV": [],
+    "TXT": [
+      "v=spf1 -all",
+      "_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"
+    ]
+  },
+  "bimi_analysis": {
+    "logo_error": null,
+    "logo_format": null,
+    "logo_url": null,
+    "logo_valid": null,
+    "message": "No BIMI record found",
+    "record": null,
+    "status": "warning",
+    "vmc_error": null,
+    "vmc_issuer": null,
+    "vmc_subject": null,
+    "vmc_url": null,
+    "vmc_valid": null
+  },
+  "caa_analysis": {
+    "has_iodef": false,
+    "has_wildcard": false,
+    "issuers": [],
+    "message": "No CAA records found - any CA can issue certificates",
+    "records": [],
+    "status": "warning"
+  },
+  "ct_subdomains": {
+    "message": "Certificate Transparency lookup failed",
+    "source": "Certificate Transparency Logs",
+    "status": "warning",
+    "subdomains": [],
+    "total_certs": 0,
+    "unique_subdomains": 0
+  },
+  "dane_analysis": {
+    "dane_deployable": true,
+    "has_dane": false,
+    "issues": [],
+    "message": "No valid MX hosts \u2014 DANE check skipped",
+    "mx_hosts_checked": 0,
+    "mx_hosts_with_dane": 0,
+    "mx_provider": null,
+    "requires_dnssec": true,
+    "status": "info",
+    "tlsa_records": []
+  },
+  "dkim_analysis": {
+    "found_providers": [
+      "Amazon SES",
+      "Brevo (Sendinblue)",
+      "Campaign Monitor",
+      "Everlytic",
+      "Google Workspace",
+      "MailChimp",
+      "MailChimp (Mandrill)",
+      "Mailgun",
+      "Mailjet",
+      "Mimecast",
+      "Postmark",
+      "Proofpoint",
+      "SendGrid",
+      "SparkPost",
+      "Zendesk"
+    ],
+    "key_issues": [
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)",
+      "Key revoked (p= empty)"
+    ],
+    "key_strengths": null,
+    "message": "Found 37 DKIM selector(s) but some keys are revoked",
+    "primary_dkim_note": "",
+    "primary_has_dkim": false,
+    "primary_provider": "Unknown",
+    "security_gateway": null,
+    "selectors": {
+      "amazonses._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Amazon SES",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "cm._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Campaign Monitor",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "default._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "dkim._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "email._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "everlytickey1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Everlytic",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "fm1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "fm2._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "fm3._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "google._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Google Workspace",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "google2048._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Google Workspace",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "k1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "k2._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mail._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mailchimp._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "MailChimp",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mailer._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mailgun._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Mailgun",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mailjet._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Mailjet",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mandrill._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "MailChimp (Mandrill)",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mimecast._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Mimecast",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "mx._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "postmark._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Postmark",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "proofpoint._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Proofpoint",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "protonmail._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "protonmail2._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "protonmail3._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "s1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "s2._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "selector1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "selector2._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "sendgrid._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "SendGrid",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "sendinblue._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Brevo (Sendinblue)",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "sig1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "smtp._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Unknown",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "sparkpost._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "SparkPost",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "zendesk1._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Zendesk",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      },
+      "zendesk2._domainkey": {
+        "key_info": [
+          {
+            "issues": [
+              "Key revoked (p= empty)"
+            ],
+            "key_bits": null,
+            "key_type": "rsa",
+            "revoked": true,
+            "test_mode": false
+          }
+        ],
+        "provider": "Zendesk",
+        "records": [
+          "v=DKIM1; p="
+        ],
+        "user_hint": false
+      }
+    },
+    "status": "warning",
+    "third_party_only": false
+  },
+  "dmarc_analysis": {
+    "adkim": "strict",
+    "aspf": "strict",
+    "dmarc_like": null,
+    "dmarcbis_tags": {},
+    "issues": [
+      "No aggregate reporting (rua) configured \u2014 you won't receive reports about authentication results and potential abuse"
+    ],
+    "message": "DMARC policy reject (100%) - excellent protection",
+    "np_policy": null,
+    "pct": 100,
+    "policy": "reject",
+    "psd_flag": null,
+    "records": [
+      "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s"
+    ],
+    "rua": null,
+    "ruf": null,
+    "status": "success",
+    "subdomain_policy": "reject",
+    "t_testing": null,
+    "valid_records": [
+      "v=DMARC1;p=reject;sp=reject;adkim=s;aspf=s"
+    ]
+  },
+  "dns_infrastructure": {
+    "alt_security_items": [
+      "DNSSEC validated"
+    ],
+    "assessment": "Enterprise-grade DNS infrastructure",
+    "is_government": false,
+    "provider_features": [
+      "DDoS protection",
+      "Anycast",
+      "Auto-DNSSEC available"
+    ],
+    "provider_name": "Cloudflare",
+    "provider_tier": "enterprise"
+  },
+  "dnssec_analysis": {
+    "ad_flag": true,
+    "ad_resolver": "8.8.8.8",
+    "algorithm": 13,
+    "algorithm_name": "ECDSA P-256/SHA-256",
+    "chain_of_trust": "complete",
+    "dnskey_records": [
+      "256 3 13 oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==",
+      "256 3 13 kxipjoIbNZDsWqEKaYaGq6fM/XThrRp1ue6AV9R/n3eWxpGCeCWJb47PEEEj/Q6VAYFW/7UFo5mXoZfxKYZa3A==",
+      "257 3 13 mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ=="
+    ],
+    "ds_records": [
+      "2371 13 2 C988EC423E3880EB8DD8A46FE06CA230EE23F35B578D64E78B29C3E1C83D245A"
+    ],
+    "has_dnskey": true,
+    "has_ds": true,
+    "message": "DNSSEC fully configured and validated \u2014 AD (Authenticated Data) flag set by resolver 8.8.8.8 confirming cryptographic chain of trust from root to zone (RFC 4035 \u00a73.2.3)",
+    "status": "success"
+  },
+  "domain_exists": true,
+  "domain_status": "active",
+  "domain_status_message": null,
+  "email_security_mgmt": {
+    "actively_managed": false,
+    "provider_count": 0,
+    "providers": [],
+    "spf_flattening": null
+  },
+  "has_null_mx": true,
+  "hosting_summary": {
+    "dns_hosting": "Cloudflare",
+    "domain": "example.com",
+    "email_hosting": "Unknown",
+    "hosting": "Unknown"
+  },
+  "is_no_mail_domain": true,
+  "mail_posture": {
+    "badge": "warning",
+    "dns_tier": "enterprise",
+    "verdict": "Partially"
+  },
+  "mta_sts_analysis": {
+    "dns_id": null,
+    "hosting_cname": null,
+    "message": "No MTA-STS record found",
+    "mode": null,
+    "policy": null,
+    "policy_error": null,
+    "policy_fetched": false,
+    "policy_max_age": null,
+    "policy_mode": null,
+    "policy_mx": [],
+    "record": null,
+    "status": "warning"
+  },
+  "ns_delegation_analysis": {
+    "child_ns": [
+      "elliott.ns.cloudflare.com",
+      "hera.ns.cloudflare.com"
+    ],
+    "delegation_ok": true,
+    "match": null,
+    "message": "2 nameserver(s) configured",
+    "note": "Parent zone delegation could not be verified",
+    "parent_ns": [],
+    "status": "success"
+  },
+  "posture": {
+    "absent": [
+      "DKIM",
+      "MTA-STS",
+      "TLS-RPT",
+      "CAA"
+    ],
+    "color": "warning",
+    "configured": [
+      "SPF",
+      "DMARC (reject)",
+      "DNSSEC"
+    ],
+    "critical_issues": [
+      "No DKIM found"
+    ],
+    "deliberate_monitoring": false,
+    "deliberate_monitoring_note": "",
+    "grade": "FAIR",
+    "icon": "exclamation-triangle",
+    "issues": [
+      "No DKIM found",
+      "No DMARC aggregate reporting (rua) configured \u2014 unable to monitor authentication results",
+      "No CAA records"
+    ],
+    "label": "SPF and DMARC present but DKIM not verified. DKIM signing is required for full DMARC alignment.",
+    "message": "SPF and DMARC present but DKIM not verified. DKIM signing is required for full DMARC alignment.",
+    "monitoring": null,
+    "recommendations": [
+      "No DMARC aggregate reporting (rua) configured \u2014 unable to monitor authentication results",
+      "No CAA records"
+    ],
+    "score": 55,
+    "state": "FAIR",
+    "verdicts": {
+      "brand": "No brand protection configured. Any CA can issue certificates and no brand logo verification in place.",
+      "brand_answer": "Yes",
+      "brand_secure": false,
+      "dns": "DNS responses are cryptographically signed and verified via DNSSEC.",
+      "dns_secure": true,
+      "domain_answer": "No",
+      "email": "Partial email authentication configured \u2014 some spoofed messages may be delivered.",
+      "email_answer": "Partially",
+      "email_secure": false
+    }
+  },
+  "propagation_status": {
+    "A": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "AAAA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "CAA": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "CNAME": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "DMARC": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "MX": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "NS": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SOA": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    },
+    "SRV": {
+      "mismatch": false,
+      "status": "unknown",
+      "synced": false
+    },
+    "TXT": {
+      "mismatch": false,
+      "status": "synchronized",
+      "synced": true
+    }
+  },
+  "registrar_info": {
+    "registrar": "RESERVED-Internet Assigned Numbers Authority",
+    "source": "RDAP",
+    "status": "success"
+  },
+  "remediation": {
+    "all_fixes": [
+      {
+        "dns_record": "selector1._domainkey.yourdomain.com TXT \"v=DKIM1; k=rsa; p=<public_key>\"",
+        "fix": "DKIM (DomainKeys Identified Mail) adds a cryptographic signature to outgoing emails, proving they haven't been tampered with. Enable DKIM in your email provider's settings.",
+        "rfc": "RFC 6376 \u00a73.6",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc6376#section-3.6",
+        "severity_color": "danger",
+        "severity_label": "Critical",
+        "severity_order": 1,
+        "title": "Configure DKIM signing"
+      },
+      {
+        "dns_record": "yourdomain.com CAA 0 issue \"letsencrypt.org\"",
+        "fix": "Publish CAA DNS records to restrict which Certificate Authorities can issue TLS certificates for your domain. Specify your preferred CA (e.g., letsencrypt.org, digicert.com).",
+        "rfc": "RFC 8659 \u00a74",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659#section-4",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Add CAA records"
+      },
+      {
+        "dns_record": "_mta-sts.yourdomain.com TXT \"v=STSv1; id=20240101\"",
+        "fix": "Publish an MTA-STS DNS record and host a policy file at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt. This tells senders to require TLS when delivering mail to your domain.",
+        "rfc": "RFC 8461 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8461#section-3",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Deploy MTA-STS policy"
+      },
+      {
+        "dns_record": "_smtp._tls.yourdomain.com TXT \"v=TLSRPTv1; rua=mailto:tls-reports@yourdomain.com\"",
+        "fix": "TLS-RPT (TLS Reporting) sends you reports about TLS connection failures when other servers try to deliver mail to your domain. Helps diagnose MTA-STS and STARTTLS issues.",
+        "rfc": "RFC 8460 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8460#section-3",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure TLS-RPT reporting"
+      },
+      {
+        "dns_record": "default._bimi.yourdomain.com TXT \"v=BIMI1; l=https://yourdomain.com/logo.svg\"",
+        "fix": "Publish a BIMI DNS record pointing to your brand logo (SVG Tiny PS format). For full support in Gmail, you will also need a Verified Mark Certificate (VMC).",
+        "rfc": "BIMI Spec",
+        "rfc_url": "https://bimigroup.org/implementation-guide/",
+        "severity_color": "secondary",
+        "severity_label": "Low",
+        "severity_order": 4,
+        "title": "Configure BIMI brand logo"
+      }
+    ],
+    "fix_count": 5,
+    "posture_achievable": "STRONG",
+    "top_fixes": [
+      {
+        "dns_record": "selector1._domainkey.yourdomain.com TXT \"v=DKIM1; k=rsa; p=<public_key>\"",
+        "fix": "DKIM (DomainKeys Identified Mail) adds a cryptographic signature to outgoing emails, proving they haven't been tampered with. Enable DKIM in your email provider's settings.",
+        "rfc": "RFC 6376 \u00a73.6",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc6376#section-3.6",
+        "severity_color": "danger",
+        "severity_label": "Critical",
+        "severity_order": 1,
+        "title": "Configure DKIM signing"
+      },
+      {
+        "dns_record": "yourdomain.com CAA 0 issue \"letsencrypt.org\"",
+        "fix": "Publish CAA DNS records to restrict which Certificate Authorities can issue TLS certificates for your domain. Specify your preferred CA (e.g., letsencrypt.org, digicert.com).",
+        "rfc": "RFC 8659 \u00a74",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659#section-4",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Add CAA records"
+      },
+      {
+        "dns_record": "_mta-sts.yourdomain.com TXT \"v=STSv1; id=20240101\"",
+        "fix": "Publish an MTA-STS DNS record and host a policy file at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt. This tells senders to require TLS when delivering mail to your domain.",
+        "rfc": "RFC 8461 \u00a73",
+        "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8461#section-3",
+        "severity_color": "info",
+        "severity_label": "Medium",
+        "severity_order": 3,
+        "title": "Deploy MTA-STS policy"
+      }
+    ]
+  },
+  "resolver_consensus": {
+    "checks_performed": 4,
+    "consensus_reached": true,
+    "discrepancies": null,
+    "per_record_consensus": {
+      "A": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "MX": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "NS": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      },
+      "TXT": {
+        "consensus": true,
+        "discrepancies": null,
+        "resolver_count": 1
+      }
+    },
+    "resolvers_queried": 4
+  },
+  "resolver_ttl": {
+    "A": 300,
+    "AAAA": 300,
+    "MX": 75,
+    "NS": 21600,
+    "SOA": 584,
+    "TXT": 300
+  },
+  "section_status": {
+    "auth": {
+      "status": "ok"
+    },
+    "basic": {
+      "status": "ok"
+    },
+    "bimi": {
+      "status": "ok"
+    },
+    "caa": {
+      "status": "ok"
+    },
+    "ct_subdomains": {
+      "status": "ok"
+    },
+    "dane": {
+      "status": "ok"
+    },
+    "dkim": {
+      "status": "ok"
+    },
+    "dmarc": {
+      "status": "ok"
+    },
+    "dnssec": {
+      "status": "ok"
+    },
+    "mta_sts": {
+      "status": "ok"
+    },
+    "ns_delegation": {
+      "status": "ok"
+    },
+    "registrar": {
+      "status": "ok"
+    },
+    "resolver_consensus": {
+      "status": "ok"
+    },
+    "spf": {
+      "status": "ok"
+    },
+    "tlsrpt": {
+      "status": "ok"
+    }
+  },
+  "smtp_transport": null,
+  "spf_analysis": {
+    "all_mechanism": "-all",
+    "includes": null,
+    "issues": null,
+    "lookup_count": 0,
+    "lookup_mechanisms": null,
+    "message": "Valid SPF (no mail allowed) - domain declares it sends no email",
+    "no_mail_intent": true,
+    "permissiveness": "STRICT",
+    "records": [
+      "v=spf1 -all",
+      "_k2n1y4vw3qtb4skdx9e7dxt97qrmmq9"
+    ],
+    "spf_like": null,
+    "status": "success",
+    "valid_records": [
+      "v=spf1 -all"
+    ]
+  },
+  "tlsrpt_analysis": {
+    "message": "No TLS-RPT record found",
+    "record": null,
+    "rua": null,
+    "status": "warning"
+  },
+  "_captured_at": "2026-02-10T07:00:00Z",
+  "_captured_version": "go-server",
+  "_domain": "example.com",
+  "_schema_version": 2,
+  "_tool_version": "go-server"
+}

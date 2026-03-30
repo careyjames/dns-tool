@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Recon Report — {{.Domain}} - DNS Tool</title>
+    <meta name="description" content="Red team recon report for {{.Domain}}. Attack surface analysis: SPF, DKIM, DMARC, DANE, DNSSEC, MTA-STS, BIMI, CAA.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="x-report-mode" content="{{.ReportMode}}">
+    <meta name="x-public-suffix" content="{{if .IsPublicSuffix}}1{{else}}0{{end}}">
+    <meta property="og:url" content="https://dnstool.it-help.tech/analyze?domain={{.Domain}}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Recon Report — {{.Domain}} - DNS Tool">
+    <meta property="og:description" content="Red team recon report — attack surface analysis for {{.Domain}}.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Covert Recon Report">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Recon Report — {{.Domain}} - DNS Tool">
+    <meta name="twitter:description" content="Red team recon report — attack surface analysis for {{.Domain}}.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    {{template "head_css" .}}
+    {{template "critical_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .print-report-header { display: none; }
+        .print-report-footer { display: none; }
+    </style>
+</head>
+<body class="covert-mode">
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4" data-analysis-id="{{.AnalysisID}}">
+        {{template "flash_messages" .}}
+
+        <div class="alert border-0 mb-3 u-covert-banner" role="alert">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                <div class="d-flex align-items-start">
+                    {{icon "biohazard" "me-2 mt-1 u-covert-active-label"}}
+                    <div>
+                        <strong class="u-covert-active-label">COVERT MODE ACTIVE</strong> <span class="u-covert-recon-beta-tag">Beta</span>
+                        <span class="text-muted ms-1">&mdash; Same intelligence, adversarial lens. Every finding reframed for offensive awareness.</span>
+                        <div class="small text-muted mt-1">{{icon "moon" "me-1"}}Optimized for low-light tactical environments
+                            <span class="covert-env-selector">
+                                <span class="covert-env-label">Environment:</span>
+                                <button type="button" class="covert-env-btn" data-env="submarine" title="Submarine — Ultra-low emission, silent running. MIL-STD-3009 Class B minimum luminance.">{{icon "eye-slash" "me-1"}}Submarine</button>
+                                <button type="button" class="covert-env-btn active" data-env="tactical" title="Tactical Field — Standard night ops, NVG-off. Rhodopsin-preserving red per MIL-STD-3009.">{{icon "crosshairs" "me-1"}}Tactical</button>
+                                <button type="button" class="covert-env-btn" data-env="basement" title="Operator's Den — Enhanced readability with tactical red tinting. For extended analysis sessions.">{{icon "terminal" "me-1"}}Operator</button>
+                            </span>
+                        </div>
+                        <div class="mt-1 u-covert-disclosure">{{icon "info-circle" "me-1"}}Red spectrum preserves <a href="https://apps.dtic.mil/sti/citations/tr/AD0639176" target="_blank" rel="noopener">scotopic adaptation</a> per <a href="https://apps.dtic.mil/sti/tr/pdf/ADA148883.pdf" target="_blank" rel="noopener">MIL-STD-3009</a> and <a href="/static/references/MIL-STD-1472G.pdf" target="_blank" rel="noopener">MIL-STD-1472G</a> tactical lighting discipline. All findings are identical to the standard report. For full immersion, use Focus Mode or <a href="https://support.google.com/chrome/answer/9658361" target="_blank" rel="noopener">install as app</a>.</div>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 align-items-center flex-nowrap">
+                    <button class="btn btn-sm text-nowrap u-covert-focus-btn covert-fullscreen-btn" type="button" title="Focus Mode — hide browser chrome for full scotopic immersion">
+                        {{icon "expand" "me-1"}}Focus
+                    </button>
+                    {{if .AnalysisID}}
+                    <a href="/analysis/{{.AnalysisID}}/view/{{if .IsPublicSuffix}}Z{{else}}E{{end}}" class="btn btn-sm text-nowrap u-covert-exit-btn">
+                        {{icon "arrow-right" "me-1"}}Exit Covert Mode
+                    </a>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        {{if .Ephemeral}}
+        {{if .DevNull}}
+        <div class="alert alert-dark border-0 mb-3 u-devnull-banner">
+            <div class="d-flex align-items-start">
+                {{icon "terminal" "me-2 mt-1 text-danger"}}
+                <div>
+                    <strong class="text-danger"><code>&gt; ./dns-tool --output /dev/null</code></strong>
+                    <p class="mb-1 mt-1 text-light">This scan ran in <strong>/dev/null mode</strong>. Nothing was written to our database &mdash; no history entry, no analytics, no statistics, no account association.</p>
+                    <p class="mb-0 small text-muted">{{icon "biohazard" "me-1"}}When you close this tab, these results are gone.</p>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="alert alert-warning border-0 mb-3 u-bg-warn-soft">
+            <div class="d-flex align-items-start">
+                {{icon "shield-alt" "me-2 mt-1 text-warning"}}
+                <div>
+                    <strong>Ephemeral Results &mdash; Not Saved</strong>
+                    <p class="mb-0 mt-1 small">Custom DKIM selectors detected. Sign in to persist results.</p>
+                </div>
+            </div>
+        </div>
+        {{end}}
+        {{end}}
+
+        {{$results := .Results}}
+        {{$spf := mapGetMap "spf_analysis" $results}}
+        {{$dmarc := mapGetMap "dmarc_analysis" $results}}
+        {{$dkim := mapGetMap "dkim_analysis" $results}}
+        {{$bimi := mapGetMap "bimi_analysis" $results}}
+        {{$dnssec := mapGetMap "dnssec_analysis" $results}}
+        {{$caa := mapGetMap "caa_analysis" $results}}
+        {{$dane := mapGetMap "dane_analysis" $results}}
+        {{$mta_sts := mapGetMap "mta_sts_analysis" $results}}
+        {{$tlsrpt := mapGetMap "tlsrpt_analysis" $results}}
+        {{$posture := mapGetMap "posture" $results}}
+        {{$remediation := mapGetMap "remediation" $results}}
+        {{$hosting := mapGetMap "hosting_summary" $results}}
+        {{$registrar := mapGetMap "registrar_info" $results}}
+        {{$basic := mapGetMap "basic_records" $results}}
+        {{$ns := mapGetMap "ns_delegation_analysis" $results}}
+        {{$dns_infra := mapGetMap "dns_infrastructure" $results}}
+        {{$esm := mapGetMap "email_security_mgmt" $results}}
+        {{$mp := mapGetMap "mail_posture" $results}}
+        {{$resolver_consensus := mapGetMap "resolver_consensus" $results}}
+        {{$smtp := mapGetMap "smtp_transport" $results}}
+        {{$ct := mapGetMap "ct_subdomains" $results}}
+        {{$auth_records := mapGetMap "authoritative_records" $results}}
+        {{$secret_exposure := mapGetMap "secret_exposure" $results}}
+        {{$web_exposure := mapGetMap "web_exposure" $results}}
+        {{$security_txt := mapGetMap "security_txt" $results}}
+        {{$ai_surface := mapGetMap "ai_surface" $results}}
+        {{$edge_cdn := mapGetMap "edge_cdn" $results}}
+        {{$saas_txt := mapGetMap "saas_txt" $results}}
+        {{$dangling_dns := mapGetMap "dangling_dns" $results}}
+        {{$https_svcb := mapGetMap "https_svcb" $results}}
+        {{$asn_info := mapGetMap "asn_info" $results}}
+        {{$cds_cdnskey := mapGetMap "cds_cdnskey" $results}}
+        {{$smimea := mapGetMap "smimea_openpgpkey" $results}}
+        {{$delegation_consistency := mapGetMap "delegation_consistency" $results}}
+        {{$ns_fleet := mapGetMap "ns_fleet" $results}}
+        {{$dnssec_ops := mapGetMap "dnssec_ops" $results}}
+
+        <div class="results-header mb-4">
+            <div class="results-header-info">
+                <h1 class="h3 mb-1">{{icon "crosshairs" "me-2"}}Recon Report</h1>
+                <div class="domain-display">
+                    <span class="domain-name-prominent font-monospace">{{.Domain}}</span>
+                    {{if ne .AsciiDomain .Domain}}
+                        <span class="badge bg-secondary ms-2 font-monospace">ASCII: {{.AsciiDomain}}</span>
+                    {{end}}
+                </div>
+                {{if or .AnalysisTimestamp (gt .AnalysisDuration 0)}}
+                <div class="small text-muted results-meta u-opacity-70 font-monospace">
+                    {{if .AnalysisTimestamp}}{{icon "clock" "me-1"}}<span>{{.AnalysisTimestamp}}</span>{{end}}
+                    {{if and .AnalysisTimestamp (gt .AnalysisDuration 0)}}<span class="mx-1">·</span>{{end}}
+                    {{if gt .AnalysisDuration 0}}{{icon "stopwatch" "me-1"}}<span>{{formatFloat 1 .AnalysisDuration}}s</span>{{end}}
+                    {{if .ToolVersion}}
+                        <span class="mx-1">·</span>{{icon "tag" "me-1"}}<span>v{{.ToolVersion}}</span>
+                    {{end}}
+                </div>
+                {{end}}
+            </div>
+            <div class="results-header-actions">
+                {{if .AnalysisID}}
+                <a href="/analysis/{{.AnalysisID}}/view/{{if .IsPublicSuffix}}Z{{else}}E{{end}}" class="btn btn-outline-info me-2" title="{{if .IsPublicSuffix}}View the Zone Health Report{{else}}View the full Engineer's DNS Intelligence Report{{end}}">
+                    {{icon "file-alt" "me-1"}}{{if .IsPublicSuffix}}Zone Health{{else}}Engineer's{{end}}
+                </a>
+                {{end}}
+                <button type="button" class="btn btn-outline-info me-2" id="printReportBtn" title="Print this Recon Report">
+                    {{icon "print" "me-1"}}Print
+                </button>
+                <a href="/analyze?domain={{.AsciiDomain}}" id="reanalyzeBtn" class="btn btn-analyze" data-domain="{{.AsciiDomain}}"
+                    {{if gt .WaitSeconds 0}}data-wait-seconds="{{.WaitSeconds}}" data-wait-reason="{{.WaitReason}}"{{end}}>
+                    {{icon "sync-alt" "me-2"}}Re-scan
+                </a>
+                <a href="/" class="btn btn-outline-primary">
+                    {{icon "search" "me-2"}}New Target
+                </a>
+            </div>
+        </div>
+
+        {{if not .DomainExists}}
+        <div class="card border-info mb-4">
+            <div class="card-body text-center py-5">
+                <div class="mb-4">
+                    {{icon "skull-crossbones" "icon-4x text-muted opacity-75"}}
+                </div>
+                <h2 class="h3 mb-3">
+                    <span class="badge bg-secondary px-4 py-2">
+                        {{icon "ghost" "me-2"}}Target Not Found
+                    </span>
+                </h2>
+                <p class="lead text-muted mb-4 font-monospace">{{default "Domain does not resolve. No DNS delegation detected." (mapGetStr "domain_status_message" $results)}}</p>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="alert alert-info border-info mb-0 text-light u-bg-info-15">
+                            <p class="alert-heading mb-2 fw-semibold">{{icon "terminal" "me-2"}}Recon Assessment</p>
+                            <ul class="text-start mb-0 small font-monospace">
+                                <li>No authoritative DNS data &mdash; domain is dark</li>
+                                <li>Possibly unregistered, expired, or undelegated</li>
+                                <li>No attack surface to evaluate</li>
+                                <li>Consider WHOIS/RDAP for historical registration data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="/" class="btn btn-primary btn-lg">
+                        {{icon "crosshairs" "me-2"}}New Target
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{else}}
+
+        {{if and $posture (not .IsPublicSuffix)}}
+        {{$postureColor := mapGetStr "color" $posture}}
+        {{$postureIcon := mapGetStr "icon" $posture}}
+        {{$postureState := mapGetStr "state" $posture}}
+        {{$postureCritical := mapGetSlice "critical_issues" $posture}}
+        {{$postureRecs := mapGetSlice "recommendations" $posture}}
+        {{$postureMonitoring := mapGetSlice "monitoring" $posture}}
+        {{$postureConfiguredCount := len (mapGetSlice "configured" $posture)}}
+        {{$postureAbsentCount := len (mapGetSlice "absent" $posture)}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-{{$postureColor}} bg-{{$postureColor}} bg-opacity-10">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                            <div class="d-flex align-items-center">
+                                {{icon "crosshairs" "icon-2x text-{{$postureColor}} me-3"}}
+                                <div>
+                                    <span class="fw-semibold">{{icon "user-secret" "me-1"}}Target Assessment</span>
+                                    <div class="d-flex align-items-center mt-1">
+                                        <span class="fw-semibold me-2 font-monospace">Target Hardness:</span>
+                                        <span class="badge bg-{{$postureColor}} fs-6 px-3 py-2">{{if eq $postureColor "success"}}Hardened{{else if eq $postureColor "warning"}}Moderate{{else if eq $postureColor "danger"}}Soft Target{{else}}{{$postureState}}{{end}}</span>
+                                    </div>
+                                    <small class="d-block mt-1 font-monospace">
+                                        {{if gt $postureConfiguredCount 0}}<span class="text-success">{{icon "shield-alt" "me-1"}}{{$postureConfiguredCount}} defensive layers</span>{{end}}
+                                        {{if and (gt $postureConfiguredCount 0) (gt $postureAbsentCount 0)}}<span class="mx-1">|</span>{{end}}
+                                        {{if gt $postureAbsentCount 0}}<span class="text-danger">{{icon "bug" "me-1"}}{{$postureAbsentCount}} attack surface gaps</span>{{end}}
+                                    </small>
+                                </div>
+                            </div>
+                            {{if or $postureCritical $postureRecs $postureMonitoring}}
+                            <div class="mt-2 mt-md-0 font-monospace">
+                                {{if $postureCritical}}
+                                    <span class="text-danger d-block small">{{icon "skull-crossbones" "me-1"}}{{len $postureCritical}} exploitable</span>
+                                {{end}}
+                                {{if $postureRecs}}
+                                    <span class="text-warning d-block small">{{icon "exclamation-triangle" "me-1"}}{{len $postureRecs}} weakness{{if gt (len $postureRecs) 1}}es{{end}}</span>
+                                {{end}}
+                                {{if $postureMonitoring}}
+                                    <span class="text-info d-block small">{{icon "eye" "me-1"}}{{len $postureMonitoring}} monitoring</span>
+                                {{end}}
+                            </div>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        {{if .UnifiedConfidence}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-{{.UnifiedConfidence.BootstrapClass}} bg-dark">
+                    <div class="card-body py-2">
+                        <div class="d-flex align-items-center justify-content-between font-monospace">
+                            <div class="d-flex align-items-center">
+                                {{icon .UnifiedConfidence.Icon (printf "text-%s me-2" .UnifiedConfidence.BootstrapClass)}}
+                                <span class="small">ANALYSIS CONFIDENCE</span>
+                                <span class="badge bg-{{.UnifiedConfidence.BootstrapClass}} ms-2">{{.UnifiedConfidence.Level}}</span>
+                                <span class="text-muted ms-2 small">{{.UnifiedConfidence.ScoreDisplay}}/100</span>
+                            </div>
+                            <div class="d-flex gap-2 small text-muted">
+                                <span>ACC:{{.UnifiedConfidence.AccuracyDisplay}}</span>
+                                <span>CUR:{{.UnifiedConfidence.CurrencyDisplay}}</span>
+                                <span>MAT:{{.UnifiedConfidence.MaturityLevel}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        {{if .IsPublicSuffix}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-info bg-info bg-opacity-10">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center">
+                            {{icon "globe-americas" "icon-2x text-info me-3"}}
+                            <div>
+                                <span class="fw-semibold">Registry Zone &mdash; Infrastructure Analysis</span>
+                                <div class="small text-muted mt-1 font-monospace">Top-level domain detected. Email and brand protocols skipped &mdash; running infrastructure-only analysis.</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 pt-3 border-top border-secondary">
+                            <div class="small fw-semibold font-monospace mb-2">{{icon "crosshairs" "me-1"}}Active Recon Vectors</div>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "shield-alt" "me-1"}}DNSSEC Chain</span>
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "certificate" "me-1"}}CAA Policy</span>
+                                {{if not .IsPublicSuffix}}<span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "lock" "me-1"}}DANE / TLSA</span>{{end}}
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "server" "me-1"}}NS Delegation</span>
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "terminal" "me-1"}}Nmap DNS</span>
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "bolt" "me-1"}}HTTPS / SVCB</span>
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "key" "me-1"}}CDS / CDNSKEY</span>
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "building" "me-1"}}Registrar</span>
+                                <span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small py-1 px-2">{{icon "check-double" "me-1"}}Resolver Consensus</span>
+                            </div>
+                            <div class="mt-2 small text-muted font-monospace">
+                                {{icon "ban" "me-1"}}Skipped: SPF, DKIM, DMARC, BIMI, MTA-STS, TLS-RPT, SMTP transport, CT subdomains, security.txt, AI surface, secret exposure
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        {{if not .IsPublicSuffix}}
+        <div class="row" id="section-email">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "skull-crossbones" "me-2"}}Email Spoofability</span>
+                            <span class="section-question dt-question dt-question--section">Can you spoof email from this domain?
+                                {{if $posture}}
+                                {{$verdicts := mapGetMap "verdicts" $posture}}
+                                {{$emailShort := mapGetStr "email_answer_short" $verdicts}}
+                                {{$emailColor := mapGetStr "email_answer_color" $verdicts}}
+                                {{$emailReason := mapGetStr "email_answer_reason" $verdicts}}
+                                {{if $emailShort}}
+                                    <span class="intel-verdict">
+                                        <span class="intel-verdict-answer verdict-{{$emailColor}}">{{$emailShort}}</span>
+                                        {{if $emailReason}}<span class="intel-verdict-reason">{{$emailReason}}</span>{{end}}
+                                    </span>
+                                {{end}}
+                                {{end}}
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="mb-4">
+                            <div class="small font-monospace mb-2 u-recon-annotation">&gt; analyzing sender authorization policy...</div>
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}SPF &mdash; Sender Policy Framework</h6>
+                            {{$spfStatus := mapGetStr "status" $spf}}
+                            {{$spfRecord := mapGetStr "record" $spf}}
+                            <div class="alert {{if eq $spfStatus "success"}}alert-success{{else}}alert-danger{{end}} py-2 mb-2 small">
+                                {{if eq $spfStatus "success"}}
+                                {{icon "shield-alt" "me-1"}}SPF is configured &mdash; sender authorization restricts spoofing
+                                {{else}}
+                                {{icon "bug" "me-1"}}No SPF record &mdash; any server can claim to send from this domain
+                                {{end}}
+                            </div>
+                            {{if $spfRecord}}
+                            <div class="code-block font-monospace small mb-2">{{$spfRecord}}</div>
+                            {{end}}
+                            <details class="small text-muted">
+                                <summary class="font-monospace">RFC 7208 &mdash; Sender Policy Framework</summary>
+                                <p class="mt-1 mb-0">SPF allows domain owners to specify which mail servers are authorized to send email on behalf of their domain. Without SPF, any server can forge the envelope sender.</p>
+                            </details>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="small font-monospace mb-2 u-recon-annotation">&gt; enumerating cryptographic selectors...</div>
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DKIM &mdash; DomainKeys Identified Mail</h6>
+                            {{$dkimStatus := mapGetStr "status" $dkim}}
+                            <div class="alert {{if eq $dkimStatus "success"}}alert-success{{else if eq $dkimStatus "partial"}}alert-warning{{else}}alert-info{{end}} py-2 mb-2 small">
+                                {{icon "fingerprint" "me-1"}}DKIM selectors reveal mail infrastructure
+                                {{if eq $dkimStatus "success"}} &mdash; signatures found{{else if eq $dkimStatus "partial"}} &mdash; partial coverage{{else}} &mdash; limited discovery{{end}}
+                            </div>
+                            {{$selectors := mapGetSlice "selectors" $dkim}}
+                            {{if $selectors}}
+                            <div class="mb-2">
+                                {{range $selectors}}
+                                {{$sel := toMap .}}
+                                {{if $sel}}
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <code class="small">{{mapGetStr "selector" $sel}}</code>
+                                    {{$keyLen := mapGetFloat "key_length" $sel}}
+                                    {{if gt $keyLen 0}}<span class="badge bg-secondary small">{{formatFloat 0 $keyLen}}-bit</span>{{end}}
+                                    {{$selStatus := mapGetStr "status" $sel}}
+                                    {{if eq $selStatus "found"}}<span class="badge bg-success small">found</span>{{end}}
+                                </div>
+                                {{end}}
+                                {{end}}
+                            </div>
+                            {{end}}
+                            <details class="small text-muted">
+                                <summary class="font-monospace">RFC 6376 &mdash; DomainKeys Identified Mail</summary>
+                                <p class="mt-1 mb-0">DKIM provides cryptographic authentication of email messages. Selector names often reveal email providers (e.g., google, selector1 = Microsoft 365).</p>
+                            </details>
+                        </div>
+
+                        <div class="mb-2">
+                            <div class="small font-monospace mb-2 u-recon-annotation">&gt; evaluating enforcement policy...</div>
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DMARC &mdash; Domain-based Message Authentication</h6>
+                            {{$dmarcStatus := mapGetStr "status" $dmarc}}
+                            {{$dmarcPolicy := mapGetStr "policy" $dmarc}}
+                            {{$dmarcRecord := mapGetStr "record" $dmarc}}
+                            <div class="alert {{if eq $dmarcPolicy "reject"}}alert-success{{else if eq $dmarcPolicy "quarantine"}}alert-warning{{else}}alert-danger{{end}} py-2 mb-2 small">
+                                {{if eq $dmarcPolicy "reject"}}
+                                {{icon "shield-alt" "me-1"}}DMARC p=reject &mdash; hard enforcement. Spoofing will be rejected.
+                                {{else if eq $dmarcPolicy "quarantine"}}
+                                {{icon "exclamation-triangle" "me-1"}}DMARC p=quarantine &mdash; authentication failures are sequestered, not rejected. Forensic telemetry is preserved (<a href="https://datatracker.ietf.org/doc/html/rfc7489#section-7" target="_blank" rel="noopener" class="text-info">RFC 7489 &sect;7</a>). Some organizations maintain this posture as a deliberate monitoring strategy. See <a href="https://csrc.nist.gov/pubs/sp/800/177/r1/final" target="_blank" rel="noopener" class="text-info">NIST SP 800-177</a>
+                                {{else if eq $dmarcPolicy "none"}}
+                                {{icon "bug" "me-1"}}DMARC p=none &mdash; monitoring only, no enforcement. Spoofing is trivial.
+                                {{else}}
+                                {{icon "skull-crossbones" "me-1"}}No DMARC &mdash; domain has zero email authentication enforcement
+                                {{end}}
+                            </div>
+                            {{if $dmarcRecord}}
+                            <div class="code-block font-monospace small mb-2">{{$dmarcRecord}}</div>
+                            {{end}}
+                            {{$misplacedDMARC := toMap (mapGet "misplaced_dmarc" $dmarc)}}
+                            {{if and $misplacedDMARC (mapGetBool "detected" $misplacedDMARC)}}
+                            <div class="alert alert-danger py-2 mb-2 small">
+                                {{icon "ghost" "me-1"}}<strong>Ghost DMARC Record</strong> &mdash; a <code>v=DMARC1</code> record is sitting in the root TXT zone instead of <code>_dmarc.{{.Domain}}</code>. Mail receivers ignore it completely. {{$policyHint := mapGetStr "policy_hint" $misplacedDMARC}}{{$activePolicy := mapGetStr "policy" $dmarc}}{{if and $policyHint $activePolicy (ne $policyHint $activePolicy)}}The owner thinks they have <strong>p={{$policyHint}}</strong> but the active policy is <strong>p={{$activePolicy}}</strong>. Classic misconfiguration &mdash; the security posture they believe they have does not exist.{{else if and $policyHint (not $activePolicy)}}The owner thinks they have <strong>p={{$policyHint}}</strong> but there is no valid DMARC record at <code>_dmarc.{{.Domain}}</code>. Zero enforcement.{{end}}
+                                {{$misplacedRecords := mapGetSlice "records" $misplacedDMARC}}
+                                {{if $misplacedRecords}}
+                                <div class="code-block font-monospace small mt-1">{{index $misplacedRecords 0}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                            <details class="small text-muted">
+                                <summary class="font-monospace">RFC 7489 &mdash; DMARC</summary>
+                                <p class="mt-1 mb-0">DMARC ties SPF and DKIM together with a policy that tells receiving servers what to do with unauthenticated mail. p=none is monitoring only &mdash; attackers love it.</p>
+                            </details>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{if not .IsPublicSuffix}}
+        <div class="row" id="section-dane">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "user-secret" "me-2"}}Transport Security</span>
+                            <span class="section-question dt-question dt-question--section">Can you intercept email in transit?
+                                {{if $posture}}
+                                {{$verdicts := mapGetMap "verdicts" $posture}}
+                                {{$transportVerdict := mapGetMap "transport" $verdicts}}
+                                {{if $transportVerdict}}
+                                {{$transportAnswer := mapGetStr "answer" $transportVerdict}}
+                                {{$transportColor := mapGetStr "color" $transportVerdict}}
+                                {{$transportReason := mapGetStr "reason" $transportVerdict}}
+                                {{if $transportAnswer}}
+                                    <span class="intel-verdict">
+                                        <span class="intel-verdict-answer verdict-{{$transportColor}}">{{$transportAnswer}}</span>
+                                        {{if $transportReason}}<span class="intel-verdict-reason">{{$transportReason}}</span>{{end}}
+                                    </span>
+                                {{end}}
+                                {{end}}
+                                {{end}}
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="mb-4">
+                            <div class="small font-monospace mb-2 u-recon-annotation">&gt; probing certificate pinning via DNSSEC chain...</div>
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DANE / TLSA</h6>
+                            {{$daneStatus := mapGetStr "status" $dane}}
+                            <div class="alert {{if eq $daneStatus "success"}}alert-success{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if eq $daneStatus "success"}}
+                                {{icon "lock" "me-1"}}DANE TLSA records pin certificates via DNSSEC &mdash; MITM requires compromising the DNS chain
+                                {{else}}
+                                {{icon "unlock" "me-1"}}No DANE &mdash; TLS is opportunistic and can be downgraded
+                                {{end}}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}MTA-STS</h6>
+                            {{$mtaStsStatus := mapGetStr "status" $mta_sts}}
+                            {{$mtaStsMode := mapGetStr "mode" $mta_sts}}
+                            <div class="alert {{if eq $mtaStsMode "enforce"}}alert-success{{else if eq $mtaStsMode "testing"}}alert-info{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if eq $mtaStsMode "enforce"}}
+                                {{icon "shield-alt" "me-1"}}MTA-STS enforce mode &mdash; senders required to use TLS
+                                {{else if eq $mtaStsMode "testing"}}
+                                {{icon "flask" "me-1"}}MTA-STS testing mode &mdash; reporting only, no enforcement
+                                {{else if eq $mtaStsStatus "success"}}
+                                {{icon "info-circle" "me-1"}}MTA-STS configured
+                                {{else}}
+                                {{icon "unlock" "me-1"}}MTA-STS not enforced &mdash; STARTTLS stripping possible
+                                {{end}}
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}TLS-RPT</h6>
+                            {{$tlsrptStatus := mapGetStr "status" $tlsrpt}}
+                            <div class="alert {{if eq $tlsrptStatus "success"}}alert-success{{else}}alert-secondary{{end}} py-2 mb-2 small">
+                                {{if eq $tlsrptStatus "success"}}
+                                {{icon "chart-line" "me-1"}}TLS-RPT configured &mdash; TLS failures are reported to the domain owner
+                                {{else}}
+                                {{icon "eye-slash" "me-1"}}No TLS-RPT &mdash; TLS failures go unnoticed by the domain owner
+                                {{end}}
+                            </div>
+                            <details class="small text-muted">
+                                <summary class="font-monospace">RFC 8460 &mdash; SMTP TLS Reporting</summary>
+                                <p class="mt-1 mb-0">TLS-RPT enables reporting of TLS negotiation failures. Without it, STARTTLS downgrade attacks leave no trace.</p>
+                            </details>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        <div class="row" id="section-brand">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "mask" "me-2"}}Brand &amp; Certificate Security</span>
+                            <span class="section-question dt-question dt-question--section">Can you fake this brand's identity?
+                                {{if $posture}}
+                                {{$verdicts := mapGetMap "verdicts" $posture}}
+                                {{$brandVerdict := mapGetMap "brand_impersonation" $verdicts}}
+                                {{if $brandVerdict}}
+                                {{$brandAnswer := mapGetStr "answer" $brandVerdict}}
+                                {{$brandColor := mapGetStr "color" $brandVerdict}}
+                                {{$brandReason := mapGetStr "reason" $brandVerdict}}
+                                {{if $brandAnswer}}
+                                    <span class="intel-verdict">
+                                        <span class="intel-verdict-answer verdict-{{$brandColor}}">{{$brandAnswer}}</span>
+                                        {{if $brandReason}}<span class="intel-verdict-reason">{{$brandReason}}</span>{{end}}
+                                    </span>
+                                {{end}}
+                                {{end}}
+                                {{end}}
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}BIMI</h6>
+                            {{$bimiStatus := mapGetStr "status" $bimi}}
+                            <div class="alert {{if eq $bimiStatus "success"}}alert-success{{else}}alert-secondary{{end}} py-2 mb-2 small">
+                                {{if eq $bimiStatus "success"}}
+                                {{icon "certificate" "me-1"}}BIMI configured &mdash; brand logo verified in email clients. Harder to impersonate visually.
+                                {{else}}
+                                {{icon "eye-slash" "me-1"}}No BIMI &mdash; no verified brand logo in email clients. Visual impersonation is easy.
+                                {{end}}
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}CAA &mdash; Certificate Authority Authorization</h6>
+                            {{$caaStatus := mapGetStr "status" $caa}}
+                            {{$caaRecords := mapGetSlice "records" $caa}}
+                            <div class="alert {{if eq $caaStatus "success"}}alert-success{{else}}alert-danger{{end}} py-2 mb-2 small">
+                                {{if eq $caaStatus "success"}}
+                                {{icon "lock" "me-1"}}CAA restricts certificate issuance to authorized CAs. Attacker must compromise an approved CA or exploit issuance delay windows.
+                                {{else}}
+                                {{icon "skull-crossbones" "me-1"}}No CAA &mdash; any CA on earth can issue a valid certificate for this domain. An attacker can obtain a trusted cert from the cheapest, fastest CA and stand up a convincing HTTPS phishing clone or MitM proxy.
+                                {{end}}
+                            </div>
+                            {{if $caaRecords}}
+                            <div class="mb-2">
+                                {{range $caaRecords}}
+                                <div class="code-block font-monospace small mb-1">{{.}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                            <details class="small text-muted">
+                                <summary class="font-monospace">RFC 8659 &mdash; CAA</summary>
+                                <p class="mt-1 mb-0">CAA records specify which Certificate Authorities are authorized to issue certificates. Without CAA, an attacker could obtain a valid cert from any CA.</p>
+                            </details>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        <div class="row" id="section-dnssec">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "bug" "me-2"}}DNS Infrastructure</span>
+                            <span class="section-question dt-question dt-question--section">Can you poison the DNS?
+                                {{if $posture}}
+                                {{$verdicts := mapGetMap "verdicts" $posture}}
+                                {{$dnsVerdict := mapGetMap "dns_tampering" $verdicts}}
+                                {{if $dnsVerdict}}
+                                {{$dnsAnswer := mapGetStr "answer" $dnsVerdict}}
+                                {{$dnsColor := mapGetStr "color" $dnsVerdict}}
+                                {{$dnsReason := mapGetStr "reason" $dnsVerdict}}
+                                {{if $dnsAnswer}}
+                                    <span class="intel-verdict">
+                                        <span class="intel-verdict-answer verdict-{{$dnsColor}}">{{$dnsAnswer}}</span>
+                                        {{if $dnsReason}}<span class="intel-verdict-reason">{{$dnsReason}}</span>{{end}}
+                                    </span>
+                                {{end}}
+                                {{end}}
+                                {{end}}
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="mb-4">
+                            <div class="small font-monospace mb-2 u-recon-annotation">&gt; validating cryptographic chain of trust...</div>
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DNSSEC</h6>
+                            {{$dnssecStatus := mapGetStr "status" $dnssec}}
+                            <div class="alert {{if eq $dnssecStatus "secure"}}alert-success{{else}}alert-danger{{end}} py-2 mb-2 small">
+                                {{if eq $dnssecStatus "secure"}}
+                                {{icon "lock" "me-1"}}DNSSEC validated &mdash; DNS responses are cryptographically signed
+                                {{else}}
+                                {{icon "skull-crossbones" "me-1"}}No DNSSEC &mdash; DNS responses can be spoofed or poisoned
+                                {{end}}
+                            </div>
+                            <details class="small text-muted">
+                                <summary class="font-monospace">RFC 4033&ndash;4035 &mdash; DNSSEC</summary>
+                                <p class="mt-1 mb-0">DNSSEC adds cryptographic signatures to DNS responses, preventing cache poisoning and response forgery. Without DNSSEC, an attacker can forge DNS answers.</p>
+                            </details>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}NS Delegation</h6>
+                            {{$nsCount := mapGetFloat "ns_count" $ns}}
+                            {{$nameservers := mapGetSlice "nameservers" $ns}}
+                            <div class="alert alert-info py-2 mb-2 small">
+                                {{icon "server" "me-1"}}{{formatFloat 0 $nsCount}} nameserver{{if ne $nsCount 1.0}}s{{end}} detected
+                                {{if lt $nsCount 2.0}} &mdash; single point of failure{{end}}
+                            </div>
+                            {{if $nameservers}}
+                            <div class="mb-2">
+                                {{range $nameservers}}
+                                <code class="d-block small font-monospace mb-1">{{.}}</code>
+                                {{end}}
+                            </div>
+                            {{end}}
+                        </div>
+
+                        {{if $dns_infra}}
+                        {{$dnsProvider := mapGetStr "provider" $dns_infra}}
+                        {{if $dnsProvider}}
+                        <div class="mb-2">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DNS Provider</h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-info">{{$dnsProvider}}</span>
+                            </div>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{if not .IsPublicSuffix}}
+        <div class="row" id="section-infra">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "crosshairs" "me-2"}}Attack Surface Discovery</span>
+                            <span class="section-question dt-question dt-question--section">What can you find from the outside?</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        {{if $ct}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Subdomain Discovery (Multi-Source)</h6>
+                            {{$ctCount := mapGetFloat "count" $ct}}
+                            {{$subdomains := mapGetSlice "subdomains" $ct}}
+                            <div class="alert alert-info py-2 mb-2 small">
+                                {{icon "sitemap" "me-1"}}{{formatFloat 0 $ctCount}} subdomain{{if ne $ctCount 1.0}}s{{end}} discovered via CT logs + DNS probing + Nmap SAN extraction
+                            </div>
+                            {{if $subdomains}}
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped mb-0 font-monospace small" aria-label="Discovered subdomains">
+                                    <thead>
+                                        <tr><th scope="col">Subdomain</th></tr>
+                                    </thead>
+                                    <tbody id="subdomainTbody">
+                                        {{range $i, $sub := $subdomains}}
+                                        {{if lt $i 20}}
+                                        <tr><td><code>{{$sub}}</code></td></tr>
+                                        {{end}}
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{if gt $ctCount 20.0}}
+                            <div class="small text-muted mt-2 font-monospace">
+                                {{icon "ellipsis-h" "me-1"}}Showing 20 of {{formatFloat 0 $ctCount}} discovered subdomains
+                            </div>
+                            {{end}}
+                            {{end}}
+                        </div>
+                        {{end}}
+
+                        {{if $dangling_dns}}
+                        {{if mapGetBool "found" $dangling_dns}}
+                        <div class="mb-4">
+                            <div class="alert alert-danger py-2 mb-2 small border-danger">
+                                {{icon "skull-crossbones" "me-1"}}<strong>CRITICAL:</strong> Dangling DNS records detected &mdash; subdomain takeover may be possible
+                            </div>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $saas_txt}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}SaaS Services (TXT Record Discovery)</h6>
+                            {{$svcCount := mapGetFloat "service_count" $saas_txt}}
+                            {{$services := mapGetSlice "services" $saas_txt}}
+                            {{if gt $svcCount 0}}
+                            <div class="alert alert-info py-2 mb-2 small">
+                                {{icon "puzzle-piece" "me-1"}}{{formatFloat 0 $svcCount}} SaaS service{{if ne $svcCount 1.0}}s{{end}} detected via DNS TXT verification records
+                            </div>
+                            {{if $services}}
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                {{range $services}}
+                                {{$svc := toMap .}}
+                                {{if $svc}}
+                                <span class="badge bg-secondary font-monospace">{{mapGetStr "name" $svc}}</span>
+                                {{end}}
+                                {{end}}
+                            </div>
+                            {{end}}
+                            {{else}}
+                            <div class="small text-muted">No SaaS verification records found</div>
+                            {{end}}
+                        </div>
+                        {{end}}
+
+                        {{if $edge_cdn}}
+                        {{$cdnProvider := mapGetStr "provider" $edge_cdn}}
+                        {{if $cdnProvider}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}CDN / Edge Provider</h6>
+                            <span class="badge bg-info">{{$cdnProvider}}</span>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $secret_exposure}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Secret Exposure</h6>
+                            {{$secretFound := mapGetBool "found" $secret_exposure}}
+                            <div class="alert {{if $secretFound}}alert-danger{{else}}alert-success{{end}} py-2 mb-2 small">
+                                {{if $secretFound}}
+                                {{icon "skull-crossbones" "me-1"}}Exposed secrets detected &mdash; credentials or keys may be publicly accessible
+                                {{else}}
+                                {{icon "check" "me-1"}}No exposed secrets detected in common paths
+                                {{end}}
+                            </div>
+                        </div>
+                        {{end}}
+
+                        {{if $web_exposure}}
+                        <div class="mb-2">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Web Exposure</h6>
+                            {{$webFound := mapGetBool "found" $web_exposure}}
+                            <div class="alert {{if $webFound}}alert-warning{{else}}alert-success{{end}} py-2 mb-2 small">
+                                {{if $webFound}}
+                                {{icon "exclamation-triangle" "me-1"}}Web exposure findings detected &mdash; review for information disclosure
+                                {{else}}
+                                {{icon "check" "me-1"}}No significant web exposure detected
+                                {{end}}
+                            </div>
+                        </div>
+                        {{end}}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        <div class="row" id="report-integrity">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "fingerprint" "me-2"}}Intelligence Metadata</span>
+                            <span class="section-question dt-question dt-question--section">Can you verify this independently?</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3 mb-3">
+                            {{if .IntegrityHash}}
+                            <div class="col-12">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">SHA-3-512 Integrity Hash</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <code class="small font-monospace u-break-all">{{.IntegrityHash}}</code>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="copyIntegrityHash" data-hash="{{.IntegrityHash}}" title="Copy hash">
+                                        <span class="visually-hidden">Copy</span>{{icon "copy"}}
+                                    </button>
+                                </div>
+                            </div>
+                            {{end}}
+                            <div class="col-6 col-md-3">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">RFC References</div>
+                                <span class="fw-semibold">{{.RFCCount}}</span>
+                            </div>
+                            {{if .ToolVersion}}
+                            <div class="col-6 col-md-3">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">Tool Version</div>
+                                <span class="fw-semibold font-monospace">v{{.ToolVersion}}</span>
+                            </div>
+                            {{end}}
+                            {{if .PostureHash}}
+                            <div class="col-6 col-md-3">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">Posture Hash</div>
+                                <code class="small">{{substr 0 16 .PostureHash}}&hellip;</code>
+                            </div>
+                            {{end}}
+                        </div>
+
+                        {{if .VerificationCommands}}
+                        <details>
+                            <summary class="fw-semibold font-monospace small">{{icon "terminal" "me-1"}}Verification Commands &mdash; Independently verify every finding</summary>
+                            <div class="mt-2">
+                                {{range .VerificationCommands}}
+                                <div class="mb-2">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <span class="small fw-semibold">{{.Label}}</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="{{.Command}}" title="Copy command">
+                                            <span class="visually-hidden">Copy</span>{{icon "copy"}}
+                                        </button>
+                                    </div>
+                                    <div class="code-block font-monospace small">{{.Command}}</div>
+                                </div>
+                                {{end}}
+                            </div>
+                        </details>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="section-recon-intel">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "satellite-dish" "me-2"}}Operational Intelligence</span>
+                            <span class="section-question dt-question dt-question--section">What do the raw records reveal?</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        {{if $basic}}
+                        {{$aRecords := mapGetSlice "a_records" $basic}}
+                        {{$aaaaRecords := mapGetSlice "aaaa_records" $basic}}
+                        {{$mxRecords := mapGetSlice "mx_records" $basic}}
+                        {{if or $aRecords $aaaaRecords $mxRecords}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Target Infrastructure &mdash; Copy-Pasteable</h6>
+                            {{if $aRecords}}
+                            <div class="mb-2">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">{{icon "server" "me-1"}}IPv4 (A Records)</div>
+                                {{range $aRecords}}
+                                <div class="code-block font-monospace small mb-1 d-flex align-items-center justify-content-between">
+                                    <span>{{.}}</span>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="{{.}}" title="Copy IP" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                </div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                            {{if $aaaaRecords}}
+                            <div class="mb-2">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">{{icon "network-wired" "me-1"}}IPv6 (AAAA Records)</div>
+                                {{range $aaaaRecords}}
+                                <div class="code-block font-monospace small mb-1 d-flex align-items-center justify-content-between">
+                                    <span>{{.}}</span>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="{{.}}" title="Copy IP" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                </div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                            {{if $mxRecords}}
+                            <div class="mb-2">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">{{icon "envelope" "me-1"}}Mail Exchangers (MX)</div>
+                                {{range $mxRecords}}
+                                <div class="code-block font-monospace small mb-1">{{.}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $resolver_consensus}}
+                        {{$resolverCount := mapGetFloat "resolver_count" $resolver_consensus}}
+                        {{$consensus := mapGetBool "consensus" $resolver_consensus}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Resolver Consensus</h6>
+                            <div class="alert {{if $consensus}}alert-success{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if $consensus}}
+                                {{icon "check-double" "me-1"}}{{formatFloat 0 $resolverCount}} resolvers agree &mdash; consistent DNS responses across providers
+                                {{else}}
+                                {{icon "exclamation-triangle" "me-1"}}Resolver disagreement detected &mdash; possible DNS manipulation or propagation delay
+                                {{end}}
+                            </div>
+                        </div>
+                        {{end}}
+
+                        {{if $smtp}}
+                        {{$smtpStatus := mapGetStr "status" $smtp}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}SMTP Transport Intelligence</h6>
+                            <div class="alert {{if eq $smtpStatus "success"}}alert-success{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if eq $smtpStatus "success"}}
+                                {{icon "lock" "me-1"}}STARTTLS verified &mdash; mail transport encrypted
+                                {{else}}
+                                {{icon "unlock" "me-1"}}STARTTLS not verified &mdash; mail may transit in cleartext
+                                {{end}}
+                            </div>
+                            {{$smtpBanner := mapGetStr "banner" $smtp}}
+                            {{if $smtpBanner}}
+                            <div class="mb-2">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">SMTP Banner (Fingerprint)</div>
+                                <div class="code-block font-monospace small">{{$smtpBanner}}</div>
+                            </div>
+                            {{end}}
+                            {{$smtpProbeCovert := mapGetMap "probe" $smtp}}
+                            {{if $smtpProbeCovert}}
+                            {{$multiProbeC := mapGetSlice "multi_probe" $smtpProbeCovert}}
+                            {{if $multiProbeC}}
+                            <div class="mb-2">
+                                <div class="small text-muted text-uppercase mb-1 font-monospace">Multi-Probe Recon</div>
+                                {{$consensusC := mapGetMap "probe_consensus" $smtpProbeCovert}}
+                                {{if $consensusC}}
+                                {{$agreementC := mapGetStr "agreement" $consensusC}}
+                                <div class="code-block font-monospace small mb-1">consensus: {{$agreementC}} | probes: {{mapGetFloat "total_probes" $consensusC}} | observed: {{mapGetFloat "observed" $consensusC}}</div>
+                                {{end}}
+                                {{range $multiProbeC}}
+                                {{$mpc := toMap .}}
+                                <div class="code-block font-monospace small mb-1">[{{mapGetStr "probe_label" $mpc}}] status={{mapGetStr "status" $mpc}} verdict={{mapGetStr "probe_verdict" $mpc}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                            {{end}}
+                        </div>
+                        {{end}}
+
+                        {{if $registrar}}
+                        {{$registrarName := mapGetStr "registrar" $registrar}}
+                        {{if $registrarName}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Registrar</h6>
+                            <div class="code-block font-monospace small">{{$registrarName}}</div>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $hosting}}
+                        {{$hostProvider := mapGetStr "provider" $hosting}}
+                        {{if $hostProvider}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Hosting Provider</h6>
+                            <div class="code-block font-monospace small">{{$hostProvider}}</div>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $asn_info}}
+                        {{$asnNumber := mapGetStr "asn" $asn_info}}
+                        {{$asnOrg := mapGetStr "org" $asn_info}}
+                        {{if or $asnNumber $asnOrg}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}ASN Intelligence</h6>
+                            {{if $asnNumber}}<div class="code-block font-monospace small mb-1">AS{{$asnNumber}} {{if $asnOrg}}&mdash; {{$asnOrg}}{{end}}</div>{{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $ns}}
+                        {{$nsServers := mapGetSlice "nameservers" $ns}}
+                        {{if $nsServers}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}NS Delegation</h6>
+                            {{$nsProvider := mapGetStr "provider" $ns}}
+                            {{if $nsProvider}}<div class="alert alert-info py-2 mb-2 small">{{icon "server" "me-1"}}DNS Provider: <strong>{{$nsProvider}}</strong></div>{{end}}
+                            {{range $nsServers}}
+                            <div class="code-block font-monospace small mb-1">{{.}}</div>
+                            {{end}}
+                            {{$nsIssues := mapGetSlice "issues" $ns}}
+                            {{if $nsIssues}}
+                            <div class="mt-2">
+                                {{range $nsIssues}}
+                                <div class="small text-warning">{{icon "exclamation-triangle" "me-1"}}{{.}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{$nmap_dns := mapGetMap "nmap_dns" $results}}
+                        {{if $nmap_dns}}
+                        {{$nmapStatus := mapGetStr "status" $nmap_dns}}
+                        {{if ne $nmapStatus ""}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DNS Server Security (Nmap)</h6>
+                            {{$zt := mapGetMap "zone_transfer" $nmap_dns}}
+                            {{$rec := mapGetMap "recursion" $nmap_dns}}
+                            {{if $zt}}
+                            {{$ztVuln := mapGetBool "vulnerable" $zt}}
+                            <div class="alert {{if $ztVuln}}alert-danger{{else}}alert-success{{end}} py-2 mb-2 small">
+                                {{if $ztVuln}}{{icon "skull-crossbones" "me-1"}}Zone transfer (AXFR) allowed &mdash; full zone enumeration possible{{else}}{{icon "lock" "me-1"}}Zone transfer denied{{end}}
+                            </div>
+                            {{end}}
+                            {{if $rec}}
+                            {{$recVuln := mapGetBool "vulnerable" $rec}}
+                            <div class="alert {{if $recVuln}}alert-warning{{else}}alert-success{{end}} py-2 mb-2 small">
+                                {{if $recVuln}}{{icon "exclamation-triangle" "me-1"}}Open recursion detected &mdash; DNS amplification risk{{else}}{{icon "lock" "me-1"}}Recursion restricted{{end}}
+                            </div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $delegation_consistency}}
+                        {{$dcStatus := mapGetStr "status" $delegation_consistency}}
+                        {{if and (ne $dcStatus "") (ne $dcStatus "info")}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}Delegation Consistency</h6>
+                            {{$dcIssues := mapGetSlice "issues" $delegation_consistency}}
+                            <div class="alert {{if eq $dcStatus "success"}}alert-success{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if eq $dcStatus "success"}}{{icon "check" "me-1"}}Parent/child delegation consistent{{else}}{{icon "exclamation-triangle" "me-1"}}{{len $dcIssues}} delegation issue{{if ne (len $dcIssues) 1}}s{{end}} detected{{end}}
+                            </div>
+                            {{if $dcIssues}}
+                            <div class="small font-monospace text-warning">
+                                {{range $dcIssues}}
+                                <div>{{icon "angle-right" "me-1"}}{{.}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                            {{$dsAlign := mapGetMap "ds_key_alignment" $delegation_consistency}}
+                            {{if $dsAlign}}
+                            <div class="d-flex flex-wrap gap-1 mt-2">
+                                <span class="badge bg-{{if mapGetBool "aligned" $dsAlign}}success{{else}}warning text-dark{{end}} bg-opacity-10 border font-monospace small">DS/DNSKEY: {{if mapGetBool "aligned" $dsAlign}}aligned{{else}}misaligned{{end}}</span>
+                            </div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $ns_fleet}}
+                        {{$fleetStatus := mapGetStr "status" $ns_fleet}}
+                        {{if and (ne $fleetStatus "") (ne $fleetStatus "info")}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}NS Fleet Matrix</h6>
+                            {{$fleetIssues := mapGetSlice "issues" $ns_fleet}}
+                            <div class="alert {{if eq $fleetStatus "success"}}alert-success{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if eq $fleetStatus "success"}}{{icon "check" "me-1"}}All nameservers healthy{{else}}{{icon "exclamation-triangle" "me-1"}}{{len $fleetIssues}} fleet issue{{if ne (len $fleetIssues) 1}}s{{end}}{{end}}
+                            </div>
+                            {{$diversity := mapGetMap "diversity" $ns_fleet}}
+                            {{if $diversity}}
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                <span class="badge bg-secondary bg-opacity-25 border border-secondary border-opacity-25 font-monospace small">ASNs: {{mapGetInt "unique_asns" $diversity}}</span>
+                                <span class="badge bg-secondary bg-opacity-25 border border-secondary border-opacity-25 font-monospace small">Operators: {{mapGetInt "unique_operators" $diversity}}</span>
+                                {{$dScore := mapGetStr "score" $diversity}}
+                                <span class="badge bg-{{if eq $dScore "excellent"}}success{{else if eq $dScore "good"}}info{{else if eq $dScore "fair"}}warning text-dark{{else}}danger{{end}} bg-opacity-10 border font-monospace small">Diversity: {{$dScore}}</span>
+                            </div>
+                            {{end}}
+                            {{if $fleetIssues}}
+                            <div class="small font-monospace text-warning">
+                                {{range $fleetIssues}}
+                                <div>{{icon "angle-right" "me-1"}}{{.}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $dnssec_ops}}
+                        {{$opsStatus := mapGetStr "status" $dnssec_ops}}
+                        {{if and (ne $opsStatus "") (ne $opsStatus "info")}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}DNSSEC Operations</h6>
+                            {{$opsIssues := mapGetSlice "issues" $dnssec_ops}}
+                            <div class="alert {{if eq $opsStatus "success"}}alert-success{{else if eq $opsStatus "warning"}}alert-warning{{else if eq $opsStatus "error"}}alert-danger{{else}}alert-secondary{{end}} py-2 mb-2 small">
+                                {{if eq $opsStatus "success"}}{{icon "check" "me-1"}}{{else if eq $opsStatus "error"}}{{icon "skull-crossbones" "me-1"}}{{else}}{{icon "exclamation-triangle" "me-1"}}{{end}}{{mapGetStr "message" $dnssec_ops}}
+                            </div>
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                <span class="badge bg-secondary bg-opacity-25 border border-secondary border-opacity-25 font-monospace small">Keys: {{mapGetInt "key_count" $dnssec_ops}}</span>
+                                <span class="badge bg-secondary bg-opacity-25 border border-secondary border-opacity-25 font-monospace small">Sigs: {{mapGetInt "signature_count" $dnssec_ops}}</span>
+                                {{$doe := mapGetMap "denial_of_existence" $dnssec_ops}}
+                                {{if $doe}}<span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small">{{mapGetStr "method" $doe}}</span>{{end}}
+                                {{$rollover := mapGetMap "rollover_readiness" $dnssec_ops}}
+                                {{if $rollover}}<span class="badge bg-{{if eq (mapGetStr "readiness" $rollover) "ready"}}success{{else}}secondary{{end}} bg-opacity-10 border font-monospace small">Rollover: {{mapGetStr "readiness" $rollover}}</span>{{end}}
+                            </div>
+                            {{if $opsIssues}}
+                            <div class="small font-monospace text-warning">
+                                {{range $opsIssues}}
+                                <div>{{icon "angle-right" "me-1"}}{{.}}</div>
+                                {{end}}
+                            </div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $https_svcb}}
+                        {{$svcbStatus := mapGetStr "status" $https_svcb}}
+                        {{if and (ne $svcbStatus "") (ne $svcbStatus "n/a")}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}HTTPS / SVCB Records</h6>
+                            {{$hasHTTPS := mapGetBool "has_https" $https_svcb}}
+                            {{$hasECH := mapGetBool "has_ech" $https_svcb}}
+                            {{$alpn := mapGetStr "alpn" $https_svcb}}
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                {{if $hasHTTPS}}<span class="badge bg-success bg-opacity-10 border border-success border-opacity-25 font-monospace small">HTTPS RR</span>{{end}}
+                                {{if $hasECH}}<span class="badge bg-info bg-opacity-10 border border-info border-opacity-25 font-monospace small">ECH</span>{{end}}
+                                {{if $alpn}}<span class="badge bg-secondary bg-opacity-25 border border-secondary border-opacity-25 font-monospace small">ALPN: {{$alpn}}</span>{{end}}
+                            </div>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        {{if $security_txt}}
+                        {{$secTxtFound := mapGetBool "found" $security_txt}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}security.txt (RFC 9116)</h6>
+                            <div class="alert {{if $secTxtFound}}alert-info{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if $secTxtFound}}
+                                {{icon "shield-alt" "me-1"}}Vulnerability disclosure program detected
+                                {{$secContact := mapGetStr "contact" $security_txt}}
+                                {{if $secContact}}<div class="mt-1 font-monospace">Contact: {{$secContact}}</div>{{end}}
+                                {{else}}
+                                {{icon "exclamation-triangle" "me-1"}}No security.txt &mdash; no documented vulnerability disclosure channel
+                                {{end}}
+                            </div>
+                        </div>
+                        {{end}}
+
+                        {{if $ai_surface}}
+                        {{$aiStatus := mapGetStr "status" $ai_surface}}
+                        {{if and (ne $aiStatus "") (ne $aiStatus "n/a")}}
+                        <div class="mb-4">
+                            <h6 class="fw-semibold font-monospace">{{icon "terminal" "me-1"}}AI / LLM Crawling Policy</h6>
+                            {{$aiBlocked := mapGetBool "ai_blocked" $ai_surface}}
+                            {{$contentUsage := mapGetStr "content_usage" $ai_surface}}
+                            <div class="alert {{if $aiBlocked}}alert-success{{else}}alert-warning{{end}} py-2 mb-2 small">
+                                {{if $aiBlocked}}
+                                {{icon "robot" "me-1"}}AI crawlers blocked via robots.txt
+                                {{else}}
+                                {{icon "robot" "me-1"}}AI crawlers not explicitly blocked
+                                {{end}}
+                                {{if $contentUsage}}<div class="mt-1 font-monospace small">Content-Usage: {{$contentUsage}}</div>{{end}}
+                            </div>
+                        </div>
+                        {{end}}
+                        {{end}}
+
+                        <details class="mt-3">
+                            <summary class="fw-semibold font-monospace small">{{icon "terminal" "me-1"}}Quick Recon Commands</summary>
+                            <div class="mt-2">
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Full DNS dump</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>dig any {{.Domain}} +noall +answer</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="dig any {{.Domain}} +noall +answer" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">NS delegation</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>dig +noall +answer {{.Domain}} NS</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="dig +noall +answer {{.Domain}} NS" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                {{if not .IsTLD}}
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Reverse DNS</span>
+                                    {{if $basic}}{{$aList := mapGetSlice "a_records" $basic}}{{if $aList}}
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>dig -x {{index $aList 0}} +short</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="dig -x {{index $aList 0}} +short" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                    {{end}}{{end}}
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Nmap service scan</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>nmap -sV -T4 {{.Domain}}</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="nmap -sV -T4 {{.Domain}}" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Certificate chain</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>openssl s_client -connect {{.Domain}}:443 -servername {{.Domain}} 2>/dev/null | openssl x509 -noout -subject -issuer -dates</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="openssl s_client -connect {{.Domain}}:443 -servername {{.Domain}} 2>/dev/null | openssl x509 -noout -subject -issuer -dates" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                {{end}}
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">WHOIS lookup</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>whois {{.Domain}}</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="whois {{.Domain}}" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                {{if not .IsTLD}}
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">HTTP headers</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -sI https://{{.Domain}} | head -20</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -sI https://{{.Domain}} | head -20" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                {{end}}
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{if .AnalysisID}}
+        <div class="row" id="section-data-exfil">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-flex align-items-center justify-content-between flex-wrap">
+                            <span>{{icon "share-square" "me-2"}}Data Exfil</span>
+                            <span class="section-question dt-question dt-question--section">How fast can you extract and pivot?</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <a href="/api/analysis/{{.AnalysisID}}?download=1" class="btn btn-sm btn-outline-secondary" download>
+                                {{icon "file" "me-1"}}JSON
+                            </a>
+                            <a href="/api/analysis/{{.AnalysisID}}/checksum?format=sha3" class="btn btn-sm btn-outline-secondary" download>
+                                {{icon "fingerprint" "me-1"}}SHA-3 Checksum
+                            </a>
+                            <a href="/badge/embed?domain={{.AsciiDomain}}" class="btn btn-sm btn-outline-danger">
+                                {{icon "certificate" "me-1"}}Security Badge
+                            </a>
+                        </div>
+
+                        <details>
+                            <summary class="fw-semibold font-monospace small">{{icon "terminal" "me-1"}}CLI &amp; Pipeline Commands</summary>
+                            <div class="mt-2">
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Download JSON</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -sO 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}?download=1'</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -sO 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}?download=1'" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Verify integrity (SHA-3-512)</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -sI 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | grep X-SHA3-512</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -sI 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | grep X-SHA3-512" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Extract all IPs (jq)</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.basic_records | (.A // [])[], (.AAAA // [])[]'</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.basic_records | (.A // [])[], (.AAAA // [])[]'" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Extract MX hosts (jq)</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.basic_records.MX[]'</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.basic_records.MX[]'" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Extract nameservers (jq)</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.basic_records.NS[]'</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.basic_records.NS[]'" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Subdomains from CT logs (jq)</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.subdomains.discovered[]?' 2>/dev/null | sort -u</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq -r '.full_results.subdomains.discovered[]?' 2>/dev/null | sort -u" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="small fw-semibold font-monospace">Pipe to file (full report)</span>
+                                    <div class="code-block font-monospace small d-flex align-items-center justify-content-between">
+                                        <span>curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq . > {{.AsciiDomain}}-intel.json</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary copy-cmd-btn" data-cmd="curl -s 'https://dnstool.it-help.tech/api/analysis/{{.AnalysisID}}' | jq . > {{.AsciiDomain}}-intel.json" title="Copy" ><span class="visually-hidden">Copy</span>{{icon "copy"}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        <div class="row mt-4 mb-4" id="section-recon-faq">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-center mb-4 font-monospace u-recon-faq-heading">Operational FAQ</h2>
+                <div class="accordion" id="reconFaqAccordion">
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#rfaq1">
+                                What intelligence does a recon scan surface?
+                            </button>
+                        </h3>
+                        <div id="rfaq1" class="accordion-collapse collapse" data-bs-parent="#reconFaqAccordion">
+                            <div class="accordion-body text-muted small font-monospace">
+                                A single scan enumerates the target's DNS infrastructure, email authentication posture (SPF, DKIM, DMARC), transport security controls (DANE/TLSA, MTA-STS, TLS-RPT), DNSSEC chain integrity, certificate authority restrictions (CAA), hosting and provider fingerprinting, subdomain surface via Certificate Transparency logs, and SaaS service discovery through TXT verification records. Every finding maps to a specific RFC and includes terminal commands for independent verification. No proprietary databases. No black boxes.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#rfaq2">
+                                How do you determine if a target is spoofable?
+                            </button>
+                        </h3>
+                        <div id="rfaq2" class="accordion-collapse collapse" data-bs-parent="#reconFaqAccordion">
+                            <div class="accordion-body text-muted small font-monospace">
+                                Three signals: (1) SPF record presence and mechanism — does the domain declare authorized senders? (2) DMARC policy level — p=none means monitoring only, no enforcement. p=quarantine sends suspicious mail to spam. p=reject instructs receivers to refuse unauthorized messages entirely. (3) DKIM key publication and strength — are signing keys published, and are they strong enough to resist brute-force? A domain with no DMARC or p=none is operationally spoofable — receivers will deliver forged messages to the inbox. The verdict badges in this report tell you the disposition at a glance.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#rfaq3">
+                                Why does DNSSEC matter for DNS manipulation?
+                            </button>
+                        </h3>
+                        <div id="rfaq3" class="accordion-collapse collapse" data-bs-parent="#reconFaqAccordion">
+                            <div class="accordion-body text-muted small font-monospace">
+                                Without DNSSEC, DNS responses are unsigned plaintext — vulnerable to cache poisoning, on-path manipulation, and BGP hijacking of resolver traffic. An unsigned domain means an attacker with network position can redirect traffic by injecting forged DNS responses. DNSSEC adds cryptographic signatures to every DNS response, creating a chain of trust from the root zone to the target domain. This report checks the AD (Authenticated Data) flag across multiple resolvers. No AD flag means the domain is operating without DNS integrity verification.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#rfaq4">
+                                Is passive DNS recon legal?
+                            </button>
+                        </h3>
+                        <div id="rfaq4" class="accordion-collapse collapse" data-bs-parent="#reconFaqAccordion">
+                            <div class="accordion-body text-muted small font-monospace">
+                                DNS records are public by design — the DNS protocol exists to serve records to anyone who asks. Every query this tool makes is a standard DNS lookup, HTTPS request, or SMTP banner connection that any mail server performs millions of times daily. No exploitation, no authentication bypass, no authorization required. This is passive OSINT collection — reading publicly observable data and producing intelligence from it. The same data is available to anyone with <code>dig</code>, <code>openssl</code>, and <code>curl</code>. We provide the verification commands so you can confirm every finding independently.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#rfaq5">
+                                How does this differ from nmap, subfinder, or amass?
+                            </button>
+                        </h3>
+                        <div id="rfaq5" class="accordion-collapse collapse" data-bs-parent="#reconFaqAccordion">
+                            <div class="accordion-body text-muted small font-monospace">
+                                Those tools are collection-focused — they enumerate targets. This tool is analysis-focused — it collects, cross-references, classifies, and produces intelligence products with confidence-calibrated verdicts. Subfinder finds subdomains; we find subdomains <em>and</em> assess the security posture of the parent domain's email authentication, transport security, DNS integrity, and provider infrastructure. Nmap probes ports; we probe the DNS control plane that determines where traffic flows before it reaches those ports. Think of this as the intelligence layer that sits above raw enumeration.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-dark border-secondary">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#rfaq6">
+                                What controls make a target hardened?
+                            </button>
+                        </h3>
+                        <div id="rfaq6" class="accordion-collapse collapse" data-bs-parent="#reconFaqAccordion">
+                            <div class="accordion-body text-muted small font-monospace">
+                                Full stack: DMARC p=reject with DKIM and SPF aligned. DNSSEC signed with valid chain. DANE/TLSA records pinning mail transport certificates. MTA-STS enforcing encrypted delivery. TLS-RPT collecting transport failure reports. CAA restricting certificate issuance. Enterprise DNS provider with DDoS controls. Professional DMARC monitoring service processing aggregate reports. That's a domain where the DNS control plane is actively managed and defended. Most domains have two or three of these. Very few have all of them. The posture score in this report quantifies exactly where the target sits on that spectrum.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="text-center small font-monospace u-recon-sigint">
+                    <p class="mb-1 u-recon-sigint-heading">&#x2591;&#x2592;&#x2593; SIGINT COLLECTION COMPLETE &#x2593;&#x2592;&#x2591;</p>
+                    <p class="mb-1 u-recon-sigint-quote">
+                        "The street finds its own uses for things." &mdash; William Gibson
+                    </p>
+                    <p class="mb-0 u-recon-sigint-credits">
+                        Standing on the shoulders of giants &mdash;
+                        <a href="https://2600.com" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="2600: The Hacker Quarterly, est. 1984">2600</a> &#xb7;
+                        <a href="https://nmap.org" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="Nmap &mdash; Fyodor's gift to the community">nmap</a> &#xb7;
+                        <a href="https://www.defcon.org" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="DEF CON &mdash; The largest underground hacking conference">DEF CON</a> &#xb7;
+                        <a href="http://www.phrack.org" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="Phrack Magazine &mdash; Smashing the stack since 1985">Phrack</a> &#xb7;
+                        <a href="https://www.eff.org" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="Electronic Frontier Foundation &mdash; Defending digital freedom">EFF</a> &#xb7;
+                        <a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="The Tor Project &mdash; Anonymity is not a crime">Tor</a> &#xb7;
+                        <a href="https://wireshark.org" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="Wireshark &mdash; See the packets">Wireshark</a> &#xb7;
+                        <a href="https://www.metasploit.com" target="_blank" rel="noopener noreferrer" class="u-recon-sigint-link" title="Metasploit &mdash; Know your enemy">Metasploit</a>
+                    </p>
+                    <p class="mb-0 mt-2 u-recon-sigint-whisper">
+                        HACK THE PLANET
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {{end}}
+
+    </main>
+
+    <output id="loadingOverlay" class="loading-overlay" aria-live="polite" aria-busy="true">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                {{icon "crosshairs" "icon-spin covert-show"}}
+                {{icon "globe" "icon-spin covert-hide"}}
+            </div>
+            <output class="mt-4 mb-2 h4 covert-show">Running Target Reconnaissance</output>
+            <output class="mt-4 mb-2 h4 covert-hide">Running Multi-Source Intelligence Audit</output>
+            <p class="text-muted mb-0" id="loadingDomain">{{.Domain}}</p>
+            <div class="loading-elapsed mt-2">
+                <span class="text-muted small" id="loadingTimer">0s</span>
+            </div>
+            <div class="loading-dots mt-2" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="scan-checklist mt-3" id="scanChecklist">
+                <div class="scan-phase" data-delay="0">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>DNS records &mdash; Cloudflare, Google, Quad9, OpenDNS, DNS4EU</span>
+                </div>
+                <div class="scan-phase" data-delay="1200">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>Email auth &mdash; SPF, DMARC, DKIM selectors</span>
+                </div>
+                <div class="scan-phase" data-delay="2500">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>DNSSEC chain of trust &amp; DANE/TLSA</span>
+                </div>
+                <div class="scan-phase" data-delay="3500">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>Certificate Transparency &amp; subdomain discovery</span>
+                </div>
+                <div class="scan-phase" data-delay="5000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>SMTP transport &amp; STARTTLS verification</span>
+                </div>
+                <div class="scan-phase" data-delay="7000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>MTA-STS, TLS-RPT, BIMI, CAA</span>
+                </div>
+                <div class="scan-phase" data-delay="9000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>Infrastructure &amp; attack surface mapping</span>
+                </div>
+                <div class="scan-phase" data-delay="12000">
+                    {{icon "circle-notch" "icon-spin scan-icon scan-pending"}}
+                    <span>Classification &amp; threat assessment</span>
+                </div>
+            </div>
+            <p class="text-muted small mt-3 mb-0 u-maxw-440-fadein font-monospace" id="loadingNote">
+                Every result includes terminal commands for independent verification. No proprietary magic. No black boxes.
+            </p>
+        </div>
+    </output>
+
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    function resetCopyIcon(el) {
+        el.innerHTML = '{{icon "copy"}}';
+    }
+    function onCopySuccess(el) {
+        el.innerHTML = '{{icon "check"}}';
+        setTimeout(function() { resetCopyIcon(el); }, 1500);
+    }
+    function handleCopyCmd(btn) {
+        const cmd = btn.dataset.cmd;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(cmd).then(function() {
+                onCopySuccess(btn);
+            }).catch(function() { /* clipboard write failed — ignored */ }); // NOSONAR
+        }
+    }
+
+    function setupCopyCommandButtons() {
+        for (const btn of document.querySelectorAll('.copy-cmd-btn')) {
+            btn.addEventListener('click', function() { handleCopyCmd(btn); });
+        }
+    }
+
+    function handleReconPage(html, respUrl) {
+        document.open();
+        document.write(html);
+        document.close();
+        globalThis.scrollTo(0, 0);
+        const modeMeta = document.querySelector('meta[name="x-report-mode"]');
+        const idEl = document.querySelector('[data-analysis-id]');
+        const rMode = modeMeta ? modeMeta.content : '';
+        const rAid = idEl ? idEl.dataset.analysisId : '';
+        if (rAid && rMode) {
+            globalThis.history.replaceState(null, '', '/analysis/' + rAid + '/view/' + rMode);
+        } else if (respUrl && respUrl !== globalThis.location.href) {
+            globalThis.history.replaceState(null, '', respUrl);
+        }
+    }
+
+    function setupIntegrityHashCopy() {
+        const btn = document.getElementById('copyIntegrityHash');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                const hash = this.dataset.hash;
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(hash).then(function() {
+                        onCopySuccess(btn);
+                    }).catch(function() { /* clipboard write failed — ignored */ }); // NOSONAR
+                }
+            });
+        }
+    }
+
+    function updateCovertButton(btn, seconds) {
+        if (seconds <= 0) {
+            btn.innerHTML = '{{icon "sync-alt" "me-2"}}Re-scan';
+            btn.classList.remove('disabled', 'btn-secondary');
+            btn.classList.add('btn-analyze');
+        } else {
+            btn.innerHTML = '{{icon "clock" "me-2"}}Ready in ' + seconds + 's';
+            setTimeout(function() { updateCovertButton(btn, seconds - 1); }, 1000);
+        }
+    }
+
+    function startCovertCountdown(btn, seconds) {
+        btn.classList.add('disabled');
+        btn.classList.remove('btn-analyze');
+        btn.classList.add('btn-secondary');
+        updateCovertButton(btn, seconds);
+    }
+
+    function handleCovertReanalyzeResponse(resp) {
+        return resp.text().then(function(html) { handleReconPage(html, resp.url); });
+    }
+
+    function submitCovertReanalyze(btn) {
+        const domain = btn.dataset.domain;
+        const overlay = document.getElementById('loadingOverlay');
+
+        btn.innerHTML = '{{icon "spinner" "icon-spin me-2"}}Scanning...';
+        btn.classList.add('disabled');
+        document.body.classList.add('loading');
+
+        if (overlay) {
+            if (typeof showOverlay === 'function') {
+                showOverlay(overlay);
+            } else {
+                overlay.classList.add('is-active');
+            }
+            if (typeof startStatusCycle === 'function') {
+                startStatusCycle(overlay);
+            }
+        }
+
+        const url = '/analyze?domain=' + encodeURIComponent(domain) + '&covert=1&refresh=' + Date.now();
+        fetch(url, {
+            headers: { 'X-Requested-With': 'fetch' },
+            redirect: 'follow'
+        }).then(function(resp) {
+            return handleCovertReanalyzeResponse(resp);
+        }).catch(function() { // NOSONAR — fallback to full navigation on fetch failure
+            globalThis.location.href = url;
+        });
+    }
+
+    (function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCopyCommandButtons();
+            setupIntegrityHashCopy();
+
+            for (const link of document.querySelectorAll('.u-covert-exit-btn')) {
+                link.addEventListener('click', function() {
+                    try { localStorage.setItem('covertMode', '0'); } catch(error_) { /* intentional */ }
+                });
+            }
+            const engBtn = document.querySelector('.results-header-actions a[href*="/view"]');
+            if (engBtn) {
+                engBtn.addEventListener('click', function() {
+                    try { localStorage.setItem('covertMode', '0'); } catch(error_) { /* intentional */ }
+                });
+            }
+
+            const printBtn = document.getElementById('printReportBtn');
+            if (printBtn) {
+                printBtn.addEventListener('click', function() { globalThis.print(); });
+            }
+
+            const tooltipInstances = [];
+            function initCovertTooltips() {
+                const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                for (const el of tooltipTriggerList) {
+                    tooltipInstances.push(new bootstrap.Tooltip(el, { trigger: 'hover focus' }));
+                }
+            }
+            if (typeof bootstrap === 'undefined') { globalThis.addEventListener('load', initCovertTooltips); }
+            else { initCovertTooltips(); }
+            let scrollTimer;
+            globalThis.addEventListener('scroll', function() {
+                if (scrollTimer) return;
+                scrollTimer = setTimeout(function() { scrollTimer = null; }, 100);
+                for (const t of tooltipInstances) { t.hide(); }
+            }, { passive: true });
+
+            const reanalyzeBtn = document.getElementById('reanalyzeBtn');
+            if (reanalyzeBtn) {
+                const waitSeconds = Number.parseInt(reanalyzeBtn.dataset.waitSeconds) || 0;
+
+                if (waitSeconds > 0) {
+                    startCovertCountdown(reanalyzeBtn, waitSeconds);
+                }
+
+                reanalyzeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.classList.contains('disabled')) return;
+                    submitCovertReanalyze(this);
+                });
+            }
+        });
+    })();
+    </script>
+
+    {{template "footer" .}}
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "controls": {
+    "ISO_27002_2022": {
+      "8.20": {
+        "name": "Network security",
+        "description": "Networks and network services shall be secured, monitored, and controlled"
+      },
+      "8.23": {
+        "name": "Web filtering / transport protection",
+        "description": "Access to external networks shall be controlled and protected"
+      },
+      "8.24": {
+        "name": "Use of cryptography",
+        "description": "Cryptographic controls shall be used to protect confidentiality, integrity, and authenticity"
+      }
+    }
+  },
+  "dns_capabilities": {
+    "DNSSEC": {
+      "description": "Cryptographic validation of DNS data",
+      "rfc": ["RFC4033", "RFC4034", "RFC4035"],
+      "evidence_keys": ["RRSIG", "DNSKEY", "DS"]
+    },
+    "DoT": {
+      "description": "DNS over TLS",
+      "rfc": ["RFC7858"],
+      "evidence_keys": ["DoT"]
+    },
+    "DoH": {
+      "description": "DNS over HTTPS",
+      "rfc": ["RFC8484"],
+      "evidence_keys": ["DoH"]
+    }
+  }
+}

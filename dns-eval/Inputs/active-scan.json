@@ -1,0 +1,2004 @@
+{
+  "domain": "neildegrassetyson.com",
+  "full_results": {
+    "_analysis_provenance": {
+      "analysis_scope": "owned_dns",
+      "input_kind": "dns_domain"
+    },
+    "_icae_snapshot": {
+      "overall_maturity": "development",
+      "unified_confidence": {
+        "accuracy_factor": 63.3,
+        "currency_factor": 74,
+        "explanation": "The measurement system is still accumulating scan history. Accuracy and currency are adequate but the system has not yet reached full maturity.",
+        "level": "MODERATE",
+        "maturity_ceiling": 60,
+        "maturity_level": "development",
+        "protocol_count": 9,
+        "score": 60,
+        "weakest_detail": "System maturity is capping the confidence score \u2014 the scan data is strong but more scan history is needed to unlock higher tiers",
+        "weakest_link": "maturity"
+      }
+    },
+    "_scan_telemetry": {
+      "analysis_id": 0,
+      "timings": [
+        {
+          "phase_group": "ct_subdomains",
+          "phase_task": "ct_subdomains",
+          "started_at_ms": 0,
+          "duration_ms": 0,
+          "record_count": 0
+        },
+        {
+          "phase_group": "registrar_infra",
+          "phase_task": "registrar",
+          "started_at_ms": 0,
+          "duration_ms": 0,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dnssec_dane",
+          "phase_task": "dnssec",
+          "started_at_ms": 0,
+          "duration_ms": 65,
+          "record_count": 0
+        },
+        {
+          "phase_group": "smtp_transport",
+          "phase_task": "nmap_dns",
+          "started_at_ms": 0,
+          "duration_ms": 81,
+          "record_count": 0
+        },
+        {
+          "phase_group": "ct_subdomains",
+          "phase_task": "secret_exposure",
+          "started_at_ms": 0,
+          "duration_ms": 240,
+          "record_count": 0
+        },
+        {
+          "phase_group": "ct_subdomains",
+          "phase_task": "security_txt",
+          "started_at_ms": 0,
+          "duration_ms": 246,
+          "record_count": 0
+        },
+        {
+          "phase_group": "ct_subdomains",
+          "phase_task": "ai_surface",
+          "started_at_ms": 0,
+          "duration_ms": 761,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dns_records",
+          "phase_task": "resolver_consensus",
+          "started_at_ms": 0,
+          "duration_ms": 2001,
+          "record_count": 0
+        },
+        {
+          "phase_group": "email_auth",
+          "phase_task": "dmarc",
+          "started_at_ms": 0,
+          "duration_ms": 2017,
+          "record_count": 0
+        },
+        {
+          "phase_group": "policy_records",
+          "phase_task": "tlsrpt",
+          "started_at_ms": 0,
+          "duration_ms": 2023,
+          "record_count": 0
+        },
+        {
+          "phase_group": "policy_records",
+          "phase_task": "mta_sts",
+          "started_at_ms": 0,
+          "duration_ms": 2023,
+          "record_count": 0
+        },
+        {
+          "phase_group": "policy_records",
+          "phase_task": "caa",
+          "started_at_ms": 0,
+          "duration_ms": 2023,
+          "record_count": 0
+        },
+        {
+          "phase_group": "policy_records",
+          "phase_task": "bimi",
+          "started_at_ms": 0,
+          "duration_ms": 2025,
+          "record_count": 0
+        },
+        {
+          "phase_group": "email_auth",
+          "phase_task": "spf",
+          "started_at_ms": 0,
+          "duration_ms": 2028,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dns_records",
+          "phase_task": "basic",
+          "started_at_ms": 0,
+          "duration_ms": 2047,
+          "record_count": 0
+        },
+        {
+          "phase_group": "registrar_infra",
+          "phase_task": "ns_delegation",
+          "started_at_ms": 0,
+          "duration_ms": 2133,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dns_records",
+          "phase_task": "auth",
+          "started_at_ms": 0,
+          "duration_ms": 2255,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dnssec_dane",
+          "phase_task": "cds_cdnskey",
+          "started_at_ms": 0,
+          "duration_ms": 4109,
+          "record_count": 0
+        },
+        {
+          "phase_group": "smtp_transport",
+          "phase_task": "smimea_openpgpkey",
+          "started_at_ms": 0,
+          "duration_ms": 4166,
+          "record_count": 0
+        },
+        {
+          "phase_group": "registrar_infra",
+          "phase_task": "https_svcb",
+          "started_at_ms": 0,
+          "duration_ms": 4168,
+          "record_count": 0
+        },
+        {
+          "phase_group": "registrar_infra",
+          "phase_task": "ns_fleet",
+          "started_at_ms": 0,
+          "duration_ms": 5334,
+          "record_count": 0
+        },
+        {
+          "phase_group": "email_auth",
+          "phase_task": "dkim",
+          "started_at_ms": 0,
+          "duration_ms": 8111,
+          "record_count": 0
+        },
+        {
+          "phase_group": "registrar_infra",
+          "phase_task": "delegation_consistency",
+          "started_at_ms": 0,
+          "duration_ms": 10504,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dnssec_dane",
+          "phase_task": "dnssec_ops",
+          "started_at_ms": 0,
+          "duration_ms": 14201,
+          "record_count": 0
+        },
+        {
+          "phase_group": "dnssec_dane",
+          "phase_task": "dane",
+          "started_at_ms": 14201,
+          "duration_ms": 0,
+          "record_count": 0
+        },
+        {
+          "phase_group": "smtp_transport",
+          "phase_task": "smtp_transport",
+          "started_at_ms": 14201,
+          "duration_ms": 0,
+          "record_count": 0
+        },
+        {
+          "phase_group": "web3_analysis",
+          "phase_task": "web3_analysis",
+          "started_at_ms": 14201,
+          "duration_ms": 2005,
+          "record_count": 0
+        },
+        {
+          "phase_group": "analysis_engine",
+          "phase_task": "synthesis",
+          "started_at_ms": 14201,
+          "duration_ms": 8145,
+          "record_count": 0
+        }
+      ],
+      "total_duration_ms": 22347,
+      "sha3_512": "38b349bd45f2509d2a734ef34772dced22cf3beb094d36b281a7dd53ee5f3892462a6e977ff663caa809d8b6f67d744b54516578206b35a8c6dce03d660cc547"
+    },
+    "_schema_version": 2,
+    "_tool_version": "26.37.38",
+    "ai_surface": {
+      "evidence": [
+        {
+          "confidence": "Observed",
+          "detail": "robots.txt found but no AI-specific blocking directives",
+          "severity": "low",
+          "source": "https://neildegrassetyson.com/robots.txt",
+          "type": "robots_txt_no_ai_blocks"
+        }
+      ],
+      "hidden_prompts": {
+        "artifact_count": 0,
+        "artifacts": [],
+        "evidence": [],
+        "message": "No hidden prompt-like artifacts detected",
+        "status": "success"
+      },
+      "llms_txt": {
+        "content": "",
+        "evidence": [],
+        "fields": {},
+        "found": false,
+        "full_content": "",
+        "full_found": false,
+        "full_url": null,
+        "url": null
+      },
+      "message": "No AI governance measures detected",
+      "poisoning": {
+        "evidence": [],
+        "ioc_count": 0,
+        "iocs": [],
+        "message": "No AI recommendation poisoning indicators found",
+        "status": "success"
+      },
+      "robots_txt": {
+        "allowed_crawlers": null,
+        "allows_ai_crawlers": true,
+        "blocked_crawlers": null,
+        "blocks_ai_crawlers": false,
+        "content_usage": {
+          "ai_denied": false,
+          "found": false,
+          "parameters": {},
+          "raw": ""
+        },
+        "directives": null,
+        "evidence": [],
+        "found": true,
+        "url": "https://neildegrassetyson.com/robots.txt"
+      },
+      "status": "info",
+      "summary": {
+        "allows_ai": true,
+        "blocks_ai": false,
+        "has_content_usage": false,
+        "has_llms_txt": false,
+        "hidden_count": 0,
+        "message": "No AI governance measures detected",
+        "poisoning_count": 0,
+        "status": "info",
+        "total_evidence": 1
+      }
+    },
+    "analysis_scope": "owned_dns",
+    "asn_info": {
+      "ipv4_asn": [
+        {
+          "as_name": "Cloudflare London, LLC",
+          "asn": "209242",
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "country": "US",
+          "ip": "141.193.213.20",
+          "prefix": "141.193.213.0/24"
+        },
+        {
+          "as_name": "Cloudflare London, LLC",
+          "asn": "209242",
+          "confidence": {
+            "label": "Third-party data",
+            "level": "third_party",
+            "method": "Team Cymru DNS-based ASN lookup"
+          },
+          "country": "US",
+          "ip": "141.193.213.21",
+          "prefix": "141.193.213.0/24"
+        }
+      ],
+      "ipv6_asn": null,
+      "issues": [],
+      "message": "Resolved 1 unique ASN(s) across 2 IP address(es)",
+      "status": "success",
+      "unique_asns": [
+        {
+          "as_name": "Cloudflare London, LLC",
+          "asn": "209242",
+          "country": "US"
+        }
+      ]
+    },
+    "auth_query_status": {},
+    "auth_ttl": {
+      "A": 3600,
+      "NS": 21600,
+      "SOA": 21600
+    },
+    "authoritative_records": {
+      "A": [
+        "141.193.213.21",
+        "141.193.213.20"
+      ],
+      "AAAA": [],
+      "CAA": [],
+      "DMARC": [],
+      "MTA-STS": [],
+      "MX": [],
+      "NS": [
+        "ns-cloud-d2.googledomains.com.",
+        "ns-cloud-d1.googledomains.com.",
+        "ns-cloud-d4.googledomains.com.",
+        "ns-cloud-d3.googledomains.com."
+      ],
+      "SOA": [
+        "ns-cloud-d1.googledomains.com. cloud-dns-hostmaster.google.com. 7 21600 3600 259200 300"
+      ],
+      "TLS-RPT": [],
+      "TXT": []
+    },
+    "basic_records": {
+      "A": [
+        "141.193.213.20",
+        "141.193.213.21"
+      ],
+      "AAAA": null,
+      "CAA": null,
+      "CNAME": null,
+      "MX": null,
+      "NS": [
+        "ns-cloud-d2.googledomains.com.",
+        "ns-cloud-d1.googledomains.com.",
+        "ns-cloud-d3.googledomains.com.",
+        "ns-cloud-d4.googledomains.com."
+      ],
+      "SOA": [
+        "ns-cloud-d1.googledomains.com. cloud-dns-hostmaster.google.com. 7 21600 3600 259200 300"
+      ],
+      "SRV": [],
+      "TXT": null
+    },
+    "bimi_analysis": {
+      "logo_error": null,
+      "logo_format": null,
+      "logo_url": null,
+      "logo_valid": null,
+      "message": "No BIMI record found",
+      "record": null,
+      "status": "warning",
+      "vmc_error": null,
+      "vmc_issuer": null,
+      "vmc_subject": null,
+      "vmc_url": null,
+      "vmc_valid": null
+    },
+    "caa_analysis": {
+      "has_iodef": false,
+      "has_wildcard": false,
+      "issuers": [],
+      "message": "No CAA records found - any CA can issue certificates",
+      "records": [],
+      "status": "warning"
+    },
+    "calibrated_confidence": {
+      "BIMI": 0.7,
+      "CAA": 0.7,
+      "DANE": 0.7,
+      "DKIM": 0.7,
+      "DMARC": 0.5,
+      "DNSSEC": 0.5,
+      "MTA_STS": 0.7,
+      "SPF": 0.5,
+      "TLS_RPT": 0.7
+    },
+    "cds_cdnskey": {
+      "automation": "cds_only",
+      "cdnskey_records": [],
+      "cds_records": [
+        {
+          "algorithm": "RSASHA256",
+          "digest_type": 2,
+          "key_tag": 47966,
+          "raw": "neildegrassetyson.com.\t300\tIN\tCDS\t47966 8 2 62D7E9FE3DBBE1DC64623516CDE1FB767A5865C6DABAE1E00E514624C8F47BD8"
+        }
+      ],
+      "has_cdnskey": false,
+      "has_cds": true,
+      "issues": [],
+      "message": "CDS records present for automated DS updates",
+      "status": "success"
+    },
+    "ct_subdomains": {
+      "caveat": "Subdomains discovered via CT logs (RFC 6962), DNS probing of common service names, and CNAME chain traversal.",
+      "cname_count": 1,
+      "ct_available": true,
+      "ct_source": "cache",
+      "current_count": "1",
+      "displayed_count": 1,
+      "expired_count": "0",
+      "providers_found": 0,
+      "source": "Certificate Transparency + DNS Intelligence",
+      "status": "success",
+      "subdomains": [
+        {
+          "cert_count": "5",
+          "cname_target": "0x9ghpiu21f7.wpeproxy.com",
+          "first_seen": "2026-02-18T20:54:08",
+          "is_current": true,
+          "issuers": [
+            "Google Trust Services"
+          ],
+          "name": "www.neildegrassetyson.com",
+          "source": "ct"
+        }
+      ],
+      "total_certs": 0,
+      "unique_subdomains": 1
+    },
+    "currency_report": {
+      "overall_grade": "adequate",
+      "overall_score": 74,
+      "dimensions": [
+        {
+          "dimension": "currentness",
+          "standard": "ISO/IEC 25012",
+          "grade": "excellent",
+          "score": 100,
+          "details": "All record data is within its TTL validity window",
+          "record_types_evaluated": 3
+        },
+        {
+          "dimension": "ttl_compliance",
+          "standard": "RFC 8767",
+          "grade": "excellent",
+          "score": 100,
+          "details": "All resolver TTLs are within authoritative limits (RFC 8767 compliant)",
+          "record_types_evaluated": 3
+        },
+        {
+          "dimension": "completeness",
+          "standard": "NIST SP 800-53 SI-7",
+          "grade": "stale",
+          "score": 20,
+          "details": "12 of 15 expected record types are missing TTL data",
+          "record_types_evaluated": 3
+        },
+        {
+          "dimension": "source_credibility",
+          "standard": "ISO/IEC 25012 + SPJ",
+          "grade": "excellent",
+          "score": 100,
+          "details": "All resolvers return consistent data \u2014 high source credibility",
+          "record_types_evaluated": 4
+        },
+        {
+          "dimension": "ttl_relevance",
+          "standard": "NIST SP 800-53 SI-7",
+          "grade": "adequate",
+          "score": 50,
+          "details": "Some TTLs deviate from typical ranges \u2014 may indicate custom configuration",
+          "record_types_evaluated": 3,
+          "findings": [
+            {
+              "record_type": "NS",
+              "observed_ttl": 21532,
+              "typical_ttl": 86400,
+              "ratio": 0.24921296296296297,
+              "severity": "medium",
+              "standard": "NIST SP 800-53 SI-7",
+              "recommendation": "NS TTL is below typical \u2014 observed 21532s, typical value is 1 day (86400s). Short TTLs increase DNS query volume but enable faster propagation. If you are preparing for a migration or need rapid failover, this may be intentional (RFC 1035 \u00a73.2.1). For steady-state production, consider 86400 seconds per NIST SP 800-53 SI-7 relevance guidance. Use the TTL Tuner for profile-specific recommendations."
+            },
+            {
+              "record_type": "SOA",
+              "observed_ttl": 21532,
+              "typical_ttl": 3600,
+              "ratio": 5.981111111111111,
+              "severity": "high",
+              "standard": "NIST SP 800-53 SI-7",
+              "recommendation": "SOA TTL is above typical \u2014 observed 21532s, typical value is 1 hour (3600s). Long TTLs reduce DNS query volume but slow propagation when records change. Consider 3600 seconds for a balance of performance and flexibility per NIST SP 800-53 SI-7 relevance guidance."
+            }
+          ]
+        }
+      ],
+      "resolver_count": 5,
+      "record_count": 3,
+      "guidance": "DNS data shows some aging or gaps \u2014 consider re-scanning for critical decisions",
+      "provider_name": "Google Cloud DNS",
+      "soa_compliance": {
+        "provider": "Google Cloud DNS",
+        "has_soa": true,
+        "serial": "7",
+        "refresh": 21600,
+        "retry": 3600,
+        "expire": 259200,
+        "min_ttl": 300,
+        "primary_ns": "ns-cloud-d1.googledomains.com",
+        "admin_email": "cloud-dns-hostmaster.google.com",
+        "findings": [
+          {
+            "field": "Expire",
+            "observed": "3 days (259200s)",
+            "rfc_range": "14\u201328 days (1,209,600\u20132,419,200s)",
+            "rfc": "RFC 1912 \u00a72.2",
+            "rfc_link": "https://datatracker.ietf.org/doc/html/rfc1912#section-2.2",
+            "severity": "error",
+            "explanation": "SOA Expire is 3 days (259200s). RFC 1912 \u00a72.2 recommends 1,209,600\u20132,419,200 seconds (14\u201328 days). If the primary nameserver becomes unreachable, secondary nameservers will stop serving this zone after only 3 days (259200s)."
+          }
+        ]
+      }
+    },
+    "dane_analysis": {
+      "dane_deployable": true,
+      "dnssec_chain_status": "unknown",
+      "dnssec_required_note": "DANE requires DNSSEC (RFC 6698 \u00a71). TLSA records are only validated when the zone is DNSSEC-signed.",
+      "has_dane": false,
+      "issues": [],
+      "message": "No MX records available \u2014 DANE check skipped",
+      "mx_hosts_checked": 0,
+      "mx_hosts_with_dane": 0,
+      "mx_provider": null,
+      "requires_dnssec": true,
+      "status": "info",
+      "tlsa_records": []
+    },
+    "dangling_dns": {
+      "checked": true,
+      "dangling_count": 0,
+      "dangling_records": null,
+      "issues": [],
+      "message": "No dangling DNS records detected",
+      "status": "success"
+    },
+    "delegation_consistency": {
+      "ds_key_alignment": {
+        "aligned": true,
+        "issues": [],
+        "matched_pairs": [
+          {
+            "dnskey_algorithm": 8,
+            "dnskey_key_tag": 47966,
+            "ds_algorithm": 8,
+            "ds_key_tag": 47966
+          }
+        ],
+        "unmatched_ds": [],
+        "unmatched_keys": []
+      },
+      "glue_analysis": {
+        "complete": true,
+        "glue_missing": 0,
+        "glue_present": 0,
+        "in_bailiwick_count": 0,
+        "issues": [],
+        "nameservers": [
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-cloud-d1.googledomains.com"
+          },
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-cloud-d2.googledomains.com"
+          },
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-cloud-d3.googledomains.com"
+          },
+          {
+            "complete": true,
+            "has_ipv4_glue": false,
+            "has_ipv6_glue": false,
+            "in_bailiwick": false,
+            "ns": "ns-cloud-d4.googledomains.com"
+          }
+        ]
+      },
+      "issues": [
+        "Could not retrieve NS TTL from parent zone"
+      ],
+      "message": "Delegation consistency: 1 issue(s) found",
+      "soa_consistency": {
+        "consistent": true,
+        "issues": [],
+        "serials": {
+          "ns-cloud-d1.googledomains.com": 7,
+          "ns-cloud-d2.googledomains.com": 7,
+          "ns-cloud-d3.googledomains.com": 7,
+          "ns-cloud-d4.googledomains.com": 7
+        },
+        "unique_count": 1
+      },
+      "status": "warning",
+      "ttl_comparison": {
+        "child_ttl": 21600,
+        "drift_secs": 0,
+        "issues": [
+          "Could not retrieve NS TTL from parent zone"
+        ],
+        "match": false
+      }
+    },
+    "dkim_analysis": {
+      "domainkey_delegation": null,
+      "found_providers": null,
+      "key_issues": null,
+      "key_strengths": null,
+      "message": "DKIM not discoverable via common selectors (large providers use rotating selectors)",
+      "mx_legacy_note": "",
+      "primary_dkim_note": "",
+      "primary_has_dkim": false,
+      "primary_provider": "Unknown",
+      "security_gateway": null,
+      "selectors": {},
+      "spf_ancillary_note": "",
+      "status": "info",
+      "third_party_only": false
+    },
+    "dmarc_analysis": {
+      "adkim": "relaxed",
+      "aspf": "relaxed",
+      "dmarc_like": [],
+      "dmarcbis_tags": {},
+      "issues": [],
+      "message": "No DMARC record found",
+      "np_policy": null,
+      "pct": 100,
+      "policy": null,
+      "psd_flag": null,
+      "records": [],
+      "rua": null,
+      "ruf": null,
+      "ruf_note": {},
+      "status": "missing",
+      "subdomain_policy": null,
+      "t_testing": null,
+      "unknown_tags": null,
+      "valid_records": []
+    },
+    "dmarc_report_auth": {
+      "checked": false,
+      "external_domains": [],
+      "issues": [],
+      "message": "No external reporting domains detected",
+      "status": "success"
+    },
+    "dns_infrastructure": {
+      "alt_security_items": [],
+      "assessment": "Standard DNS",
+      "is_government": false,
+      "provider_features": [],
+      "provider_tier": "standard"
+    },
+    "dnssec_analysis": {
+      "ad_flag": true,
+      "ad_resolver": "8.8.8.8",
+      "algorithm": 8,
+      "algorithm_name": "RSA/SHA-256",
+      "algorithm_observation": {
+        "label": "Adequate",
+        "observation": "RSA/SHA-256 \u2014 MUST implement, widely deployed (RFC 8624 \u00a73.1)",
+        "quantum_note": "All current DNSSEC algorithms use classical cryptography. Post-quantum DNSSEC standards are in active IETF development (draft-sheth-pqc-dnssec-strategy) but no PQC algorithms have been standardized for DNSSEC yet.",
+        "rfc": "RFC 8624 / RFC 9157",
+        "strength": "adequate"
+      },
+      "chain_of_trust": "complete",
+      "dnskey_records": [
+        "256 3 8 AwEAAY1NmTOrk5ozbZRfwrrVRIUroBAucb/8hryWB10IlxPqAJLXXImpTW1BCVOVyBNZ7LuLJiJ/PdPCrfQTTAcJtM2X...",
+        "257 3 8 AwEAAZWYTc88pkIqO4c/KJ2gLMDIM3JgtkDHUuYSxuqoHBxfOKjb1oSzGgralfowBSUrUqv6GDZBTmqOIuM1pxWjkk5+..."
+      ],
+      "ds_records": [
+        "47966 8 2 62D7E9FE3DBBE1DC64623516CDE1FB767A5865C6DABAE1E00E514624C8F47BD8"
+      ],
+      "has_dnskey": true,
+      "has_ds": true,
+      "message": "DNSSEC fully configured and validated \u2014 AD (Authenticated Data) flag set by resolver 8.8.8.8 confirming cryptographic chain of trust from root to zone (RFC 4035 \u00a73.2.3)",
+      "status": "success"
+    },
+    "dnssec_ops": {
+      "denial_of_existence": {
+        "method": "none"
+      },
+      "issues": [
+        "CDS/CDNSKEY automation present but only single KSK \u2014 pre-publish second KSK before rollover"
+      ],
+      "key_count": 2,
+      "keys": [
+        {
+          "algorithm": 8,
+          "algorithm_name": "RSA/SHA-256",
+          "flags": 256,
+          "key_role": "ZSK",
+          "key_size": 1056,
+          "key_tag": 3760,
+          "protocol": 3
+        },
+        {
+          "algorithm": 8,
+          "algorithm_name": "RSA/SHA-256",
+          "flags": 257,
+          "key_role": "KSK",
+          "key_size": 2088,
+          "key_tag": 47966,
+          "protocol": 3
+        }
+      ],
+      "ksk_algorithms": [
+        "RSA/SHA-256"
+      ],
+      "message": "DNSSEC operational notes: 1 item(s) to review",
+      "rollover_readiness": {
+        "automation": "partial",
+        "has_cdnskey": false,
+        "has_cds": true,
+        "multiple_ksks": false,
+        "readiness": "partial"
+      },
+      "signature_count": 6,
+      "signatures": [
+        {
+          "algorithm": 8,
+          "expiration": "2026-04-07T01:20:51Z",
+          "expired": false,
+          "expiring_soon": false,
+          "inception": "2026-03-16T01:20:51Z",
+          "key_tag": 3760,
+          "labels": 2,
+          "signer": "neildegrassetyson.com.",
+          "time_to_expiry": "452h18m9.311581956s",
+          "ttl": 21600,
+          "type_covered": "NS"
+        },
+        {
+          "algorithm": 8,
+          "expiration": "2026-04-07T01:20:51Z",
+          "expired": false,
+          "expiring_soon": false,
+          "inception": "2026-03-16T01:20:51Z",
+          "key_tag": 3760,
+          "labels": 2,
+          "signer": "neildegrassetyson.com.",
+          "time_to_expiry": "452h18m9.311581956s",
+          "ttl": 21600,
+          "type_covered": "SOA"
+        },
+        {
+          "algorithm": 8,
+          "expiration": "2026-04-07T01:20:51Z",
+          "expired": false,
+          "expiring_soon": false,
+          "inception": "2026-03-16T01:20:51Z",
+          "key_tag": 3760,
+          "labels": 2,
+          "signer": "neildegrassetyson.com.",
+          "time_to_expiry": "452h18m9.311581956s",
+          "ttl": 0,
+          "type_covered": "NSEC3PARAM"
+        },
+        {
+          "algorithm": 8,
+          "expiration": "2026-04-07T01:20:51Z",
+          "expired": false,
+          "expiring_soon": false,
+          "inception": "2026-03-16T01:20:51Z",
+          "key_tag": 47966,
+          "labels": 2,
+          "signer": "neildegrassetyson.com.",
+          "time_to_expiry": "452h18m9.311581956s",
+          "ttl": 300,
+          "type_covered": "DNSKEY"
+        },
+        {
+          "algorithm": 8,
+          "expiration": "2026-04-07T01:20:51Z",
+          "expired": false,
+          "expiring_soon": false,
+          "inception": "2026-03-16T01:20:51Z",
+          "key_tag": 3760,
+          "labels": 2,
+          "signer": "neildegrassetyson.com.",
+          "time_to_expiry": "452h18m9.311581956s",
+          "ttl": 3600,
+          "type_covered": "A"
+        },
+        {
+          "algorithm": 8,
+          "expiration": "2026-04-07T01:20:51Z",
+          "expired": false,
+          "expiring_soon": false,
+          "inception": "2026-03-16T01:20:51Z",
+          "key_tag": 47966,
+          "labels": 2,
+          "signer": "neildegrassetyson.com.",
+          "time_to_expiry": "452h18m9.311581956s",
+          "ttl": 300,
+          "type_covered": "CDS"
+        }
+      ],
+      "status": "warning",
+      "zsk_algorithms": [
+        "RSA/SHA-256"
+      ]
+    },
+    "domain": "neildegrassetyson.com",
+    "domain_exists": true,
+    "domain_status": "active",
+    "domain_status_message": null,
+    "edge_cdn": {
+      "cdn_indicators": [],
+      "cdn_provider": "",
+      "is_behind_cdn": false,
+      "issues": [],
+      "message": "Domain appears to use direct origin hosting",
+      "origin_visible": true,
+      "status": "success"
+    },
+    "email_security_mgmt": {
+      "actively_managed": false,
+      "confidence": {
+        "label": "Inferred",
+        "level": "inferred",
+        "method": "DMARC rua/ruf domain matching"
+      },
+      "provider_count": 0,
+      "providers": [],
+      "spf_flattening": null
+    },
+    "ewma_drift": {
+      "ChainCompleteness": {
+        "Value": 37.74933333333334,
+        "UCL": 59.12265224592059,
+        "LCL": 40.87734775407941,
+        "OutOfControl": true,
+        "Trend": "declining",
+        "Period": 4
+      },
+      "ResolverConsensus": {
+        "Value": 50.12190476190477,
+        "UCL": 59.12265224592059,
+        "LCL": 40.87734775407941,
+        "OutOfControl": false,
+        "Trend": "improving",
+        "Period": 4
+      },
+      "SourceCredibility": {
+        "Value": 79.52000000000001,
+        "UCL": 59.12265224592059,
+        "LCL": 40.87734775407941,
+        "OutOfControl": true,
+        "Trend": "stable",
+        "Period": 4
+      },
+      "TTLCompliance": {
+        "Value": 79.52000000000001,
+        "UCL": 59.12265224592059,
+        "LCL": 40.87734775407941,
+        "OutOfControl": true,
+        "Trend": "stable",
+        "Period": 4
+      },
+      "TemporalValidity": {
+        "Value": 79.52000000000001,
+        "UCL": 59.12265224592059,
+        "LCL": 40.87734775407941,
+        "OutOfControl": true,
+        "Trend": "stable",
+        "Period": 4
+      }
+    },
+    "freshness_matrix": {
+      "entries": [
+        {
+          "record_type": "A",
+          "observed_ttl_seconds": 3532,
+          "typical_ttl_seconds": 300,
+          "rescan_after_seconds": 3886,
+          "rescan_label": "1 hour",
+          "propagation_note": "A records typically propagate within 5 minutes. Some resolvers may cache up to the TTL value."
+        },
+        {
+          "record_type": "AAAA",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 300,
+          "rescan_after_seconds": 330,
+          "rescan_label": "5 minutes",
+          "propagation_note": "AAAA records follow the same propagation pattern as A records."
+        },
+        {
+          "record_type": "MX",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "MX record changes may take up to 1 hour to propagate. Mail delivery may be affected during transition."
+        },
+        {
+          "record_type": "TXT",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "TXT records (including SPF) typically propagate within 1 hour. Verify with multiple resolvers."
+        },
+        {
+          "record_type": "NS",
+          "observed_ttl_seconds": 21532,
+          "typical_ttl_seconds": 86400,
+          "rescan_after_seconds": 23686,
+          "rescan_label": "6 hours",
+          "propagation_note": "Nameserver changes can take 24\u201348 hours for full global propagation due to parent zone TTLs."
+        },
+        {
+          "record_type": "CNAME",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 300,
+          "rescan_after_seconds": 330,
+          "rescan_label": "5 minutes",
+          "propagation_note": "CNAME changes propagate quickly but downstream records inherit the CNAME TTL."
+        },
+        {
+          "record_type": "CAA",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "CAA record changes take effect within TTL. Certificate authorities check at issuance time."
+        },
+        {
+          "record_type": "SOA",
+          "observed_ttl_seconds": 21532,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 23686,
+          "rescan_label": "6 hours",
+          "propagation_note": "SOA changes propagate to secondaries based on the Refresh interval in the SOA record."
+        },
+        {
+          "record_type": "SPF",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "SPF record changes propagate within the TXT record TTL. Test with dig before relying on scan results."
+        },
+        {
+          "record_type": "DMARC",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "DMARC policy changes at _dmarc subdomain propagate within TTL. Reporting changes take 24\u201348h to reflect in aggregate reports."
+        },
+        {
+          "record_type": "DKIM",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "DKIM selector records propagate within TTL. New selectors are available immediately once published; key rotation requires overlap period."
+        },
+        {
+          "record_type": "MTA-STS",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 86400,
+          "rescan_after_seconds": 86400,
+          "rescan_label": "24 hours",
+          "propagation_note": "MTA-STS policy changes require updating both the DNS TXT record AND the policy file at /.well-known/mta-sts.txt. The max_age directive in the policy controls how long senders cache it."
+        },
+        {
+          "record_type": "TLS-RPT",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "TLS-RPT changes propagate within TTL. Report delivery changes take effect in the next reporting period (typically 24 hours)."
+        },
+        {
+          "record_type": "BIMI",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "BIMI record changes propagate within TTL. VMC certificate validation by mail providers may take additional time."
+        },
+        {
+          "record_type": "TLSA",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "TLSA/DANE records must be published BEFORE rotating TLS certificates. Premature certificate rotation breaks DANE validation."
+        },
+        {
+          "record_type": "DNSSEC",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 86400,
+          "rescan_after_seconds": 86400,
+          "rescan_label": "24 hours",
+          "propagation_note": "DNSSEC signing changes (DS record updates at registrar) can take 24\u201348 hours. Key rollovers require careful timing per RFC 7583."
+        },
+        {
+          "record_type": "DANE",
+          "observed_ttl_seconds": 0,
+          "typical_ttl_seconds": 3600,
+          "rescan_after_seconds": 3961,
+          "rescan_label": "1 hour",
+          "propagation_note": "DANE/TLSA record updates follow the TLSA TTL. Coordinate with TLS certificate lifecycle."
+        }
+      ],
+      "entry_count": 17,
+      "guidance": "Re-scan times are based on observed TTL values from authoritative and resolver responses. After making DNS changes, wait at least the recommended interval before re-scanning for updated results.",
+      "max_rescan": 86400,
+      "min_rescan": 30
+    },
+    "has_null_mx": false,
+    "hosting_summary": {
+      "dns_confidence": {
+        "label": "Observed",
+        "level": "observed",
+        "method": "NS record analysis"
+      },
+      "dns_from_parent": false,
+      "dns_hosting": "Google Domains",
+      "domain": "neildegrassetyson.com",
+      "email_confidence": {},
+      "email_hosting": "Unknown",
+      "hosting": "Unknown",
+      "hosting_confidence": {}
+    },
+    "https_svcb": {
+      "has_https": false,
+      "has_svcb": false,
+      "https_records": [],
+      "issues": [],
+      "message": "No HTTPS or SVCB records found",
+      "status": "info",
+      "supports_ech": false,
+      "supports_http3": false,
+      "svcb_records": []
+    },
+    "is_no_mail_domain": false,
+    "is_tld": false,
+    "mail_posture": {
+      "badge": "Unprotected",
+      "classification": "unprotected",
+      "color": "danger",
+      "icon": "times-circle",
+      "is_no_mail": false,
+      "label": "Unprotected",
+      "missing_steps": [
+        {
+          "action": "Publish an SPF record",
+          "control": "SPF Record",
+          "rfc": "RFC 7208",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7208",
+          "risk": "No sender authorization"
+        },
+        {
+          "action": "Publish a DMARC record",
+          "control": "DMARC Policy",
+          "rfc": "RFC 7489",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7489",
+          "risk": "No spoofing protection policy"
+        }
+      ],
+      "present_count": 0,
+      "signals": {
+        "dmarc_reject": {
+          "description": "DMARC reject policy active",
+          "label": "DMARC reject",
+          "missing_risk": "Spoofed mail may be delivered",
+          "present": false,
+          "rfc": "RFC 7489",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7489"
+        },
+        "null_mx": {
+          "description": "Null MX record published",
+          "label": "Null MX",
+          "missing_risk": "Domain may receive unwanted mail",
+          "present": false,
+          "rfc": "RFC 7505",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7505"
+        },
+        "spf_deny": {
+          "description": "SPF hard fail configured",
+          "label": "SPF -all",
+          "missing_risk": "Unauthorized senders not explicitly rejected",
+          "present": false,
+          "rfc": "RFC 7208",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7208"
+        }
+      },
+      "summary": "No email authentication controls observed \u2014 this domain appears vulnerable to spoofing.",
+      "total_signals": 3,
+      "verdict": "unprotected"
+    },
+    "mta_sts_analysis": {
+      "dns_id": null,
+      "hosting_cname": null,
+      "message": "No MTA-STS record found",
+      "mode": null,
+      "policy": null,
+      "policy_error": null,
+      "policy_fetched": false,
+      "policy_max_age": null,
+      "policy_mode": null,
+      "policy_mx": [],
+      "record": null,
+      "status": "warning"
+    },
+    "nmap_dns": {
+      "cache_snoop": {
+        "message": "Cache snooping not possible (correct configuration)",
+        "nameserver": "ns-cloud-d3.googledomains.com",
+        "vulnerable": false
+      },
+      "issues": [],
+      "message": "No DNS server misconfigurations found on ns-cloud-d3.googledomains.com",
+      "nameservers": [
+        "ns-cloud-d3.googledomains.com",
+        "ns-cloud-d2.googledomains.com",
+        "ns-cloud-d1.googledomains.com",
+        "ns-cloud-d4.googledomains.com"
+      ],
+      "nsid": {
+        "found": false,
+        "id": "",
+        "message": "No nameserver identity information disclosed",
+        "nameserver": "ns-cloud-d3.googledomains.com",
+        "version": ""
+      },
+      "recursion": {
+        "message": "Recursion disabled (correct configuration)",
+        "nameserver": "ns-cloud-d3.googledomains.com",
+        "open": false
+      },
+      "scan_duration_ms": 54,
+      "status": "good",
+      "zone_transfer": {
+        "message": "Zone transfer denied (correct configuration)",
+        "nameserver": "ns-cloud-d3.googledomains.com",
+        "record_count": 0,
+        "vulnerable": false
+      }
+    },
+    "ns_delegation_analysis": {
+      "child_ns": [
+        "ns-cloud-d1.googledomains.com",
+        "ns-cloud-d2.googledomains.com",
+        "ns-cloud-d3.googledomains.com",
+        "ns-cloud-d4.googledomains.com"
+      ],
+      "delegation_ok": true,
+      "dns_providers": [
+        "Google Cloud DNS",
+        "Google Domains"
+      ],
+      "enterprise_detail": "Nameservers span 2 providers (Google Cloud DNS, Google Domains). Multi-provider DNS provides resilience against single-provider outages \u2014 an enterprise best practice for critical domains.",
+      "enterprise_label": "Enterprise DNS (Multi-Provider Redundancy)",
+      "enterprise_pattern": "multi-provider",
+      "match": null,
+      "message": "4 nameserver(s) configured",
+      "nameservers": [
+        "ns-cloud-d1.googledomains.com",
+        "ns-cloud-d2.googledomains.com",
+        "ns-cloud-d3.googledomains.com",
+        "ns-cloud-d4.googledomains.com"
+      ],
+      "note": "Parent zone delegation could not be verified",
+      "ns_count": 4,
+      "parent_ns": [],
+      "status": "success"
+    },
+    "ns_fleet": {
+      "diversity": {
+        "asn_list": [
+          "15169"
+        ],
+        "operator_list": [
+          "Google LLC"
+        ],
+        "score": "fair",
+        "score_detail": "1 ASN(s), 4 /24 prefix(es) \u2014 consider adding diversity",
+        "unique_asns": 1,
+        "unique_operators": 1,
+        "unique_prefix24s": 4
+      },
+      "issues": [
+        "ns-cloud-d3.googledomains.com: UDP unreachable on port 53",
+        "ns-cloud-d4.googledomains.com: UDP unreachable on port 53",
+        "ns-cloud-d2.googledomains.com: UDP unreachable on port 53",
+        "ns-cloud-d1.googledomains.com: UDP unreachable on port 53"
+      ],
+      "message": "Analyzed 4 nameserver(s) for neildegrassetyson.com",
+      "nameservers": [
+        {
+          "aa_flag": true,
+          "as_name": "Google LLC",
+          "asn": "15169",
+          "hostname": "ns-cloud-d3.googledomains.com",
+          "ipv4": [
+            "216.239.36.109"
+          ],
+          "ipv6": [
+            "2001:4860:4802:36::6d"
+          ],
+          "is_lame": false,
+          "prefix": "216.239.36.0/24",
+          "soa_serial": 7,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        },
+        {
+          "aa_flag": true,
+          "as_name": "Google LLC",
+          "asn": "15169",
+          "hostname": "ns-cloud-d4.googledomains.com",
+          "ipv4": [
+            "216.239.38.109"
+          ],
+          "ipv6": [
+            "2001:4860:4802:38::6d"
+          ],
+          "is_lame": false,
+          "prefix": "216.239.32.0/19",
+          "soa_serial": 7,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        },
+        {
+          "aa_flag": true,
+          "as_name": "Google LLC",
+          "asn": "15169",
+          "hostname": "ns-cloud-d2.googledomains.com",
+          "ipv4": [
+            "216.239.34.109"
+          ],
+          "ipv6": [
+            "2001:4860:4802:34::6d"
+          ],
+          "is_lame": false,
+          "prefix": "216.239.32.0/19",
+          "soa_serial": 7,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        },
+        {
+          "aa_flag": true,
+          "as_name": "Google LLC",
+          "asn": "15169",
+          "hostname": "ns-cloud-d1.googledomains.com",
+          "ipv4": [
+            "216.239.32.109"
+          ],
+          "ipv6": [
+            "2001:4860:4802:32::6d"
+          ],
+          "is_lame": false,
+          "prefix": "216.239.32.0/19",
+          "soa_serial": 7,
+          "soa_serial_ok": true,
+          "tcp_reachable": true,
+          "udp_reachable": false
+        }
+      ],
+      "serial_consensus": true,
+      "status": "warning"
+    },
+    "posture": {
+      "absent": [
+        "SPF",
+        "DMARC",
+        "MTA-STS",
+        "TLS-RPT",
+        "BIMI",
+        "DANE",
+        "CAA"
+      ],
+      "color": "danger",
+      "configured": [
+        "DKIM (inferred via Unknown)",
+        "DNSSEC"
+      ],
+      "critical_issues": [
+        "No SPF and no DMARC \u2014 domain is completely unprotected against email spoofing. Both protocols are RFC-recommended (not mandatory), but their absence leaves the domain open to impersonation (CVE-2024-7208, CVE-2024-49040)"
+      ],
+      "deliberate_monitoring": false,
+      "deliberate_monitoring_note": "",
+      "grade": "Critical Risk",
+      "icon": "exclamation-triangle",
+      "issues": [
+        "No SPF record published \u2014 RFC 7208 defines the SPF mechanism but does not mandate publication. Without SPF, any server can send email claiming to be this domain (CVE-2024-7208, CVE-2024-7209)",
+        "No DMARC record published \u2014 RFC 7489 is Informational (not Standards Track); DMARCbis will elevate to Standards Track. Without DMARC, receivers have no policy for handling SPF/DKIM failures \u2014 spoofed mail may be delivered (CVE-2024-49040)"
+      ],
+      "label": "Critical Risk",
+      "message": "No SPF or DMARC records \u2014 domain is unprotected against email spoofing",
+      "monitoring": [
+        "DKIM signing inferred from provider \u2014 could not directly verify selector"
+      ],
+      "provider_limited": [],
+      "recommendations": [
+        "Publish an SPF record to authorize legitimate mail senders",
+        "Publish a DMARC record starting with p=none and rua reporting"
+      ],
+      "score": 22,
+      "state": "Critical Risk",
+      "verdicts": {
+        "ai_crawler_governance": {
+          "answer": "No",
+          "color": "warning",
+          "reason": "robots.txt present but does not block AI crawlers \u2014 content may be freely scraped"
+        },
+        "ai_hidden_prompts": {
+          "answer": "No",
+          "color": "success",
+          "reason": "No hidden prompt artifacts found in page source"
+        },
+        "ai_llms_txt": {
+          "answer": "No",
+          "color": "secondary",
+          "reason": "No llms.txt file detected \u2014 AI models have no structured instructions for this domain"
+        },
+        "ai_poisoning": {
+          "answer": "No",
+          "color": "success",
+          "reason": "No indicators of AI recommendation manipulation found"
+        },
+        "brand_impersonation": {
+          "answer": "Yes",
+          "color": "danger",
+          "icon": "exclamation-triangle",
+          "label": "Exposed",
+          "reason": "No DMARC policy (RFC 7489) \u2014 attackers can send email appearing to be from this domain with no sender-authentication barrier"
+        },
+        "certificate_control": {
+          "answer": "No",
+          "color": "secondary",
+          "icon": "shield-alt",
+          "label": "Not Configured",
+          "reason": "No CAA records \u2014 any certificate authority may issue certificates for this domain"
+        },
+        "dns_tampering": {
+          "answer": "No",
+          "color": "success",
+          "icon": "shield-alt",
+          "label": "Protected",
+          "reason": "DNSSEC signed and validated, cryptographic chain of trust verified"
+        },
+        "email_answer": "Yes \u2014 no SPF or DMARC protection",
+        "email_answer_color": "danger",
+        "email_answer_reason": "no SPF or DMARC protection",
+        "email_answer_short": "Yes",
+        "email_spoofing": {
+          "color": "danger",
+          "icon": "exclamation-triangle",
+          "label": "Exposed"
+        },
+        "transport": {
+          "answer": "No",
+          "color": "secondary",
+          "label": "Not Enforced",
+          "reason": "No MTA-STS or DANE \u2014 mail transport encryption is opportunistic only"
+        }
+      }
+    },
+    "propagation_status": {
+      "A": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "AAAA": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "CAA": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "CNAME": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "MX": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "NS": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "SOA": {
+        "mismatch": false,
+        "status": "synchronized",
+        "synced": true
+      },
+      "SRV": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      },
+      "TXT": {
+        "mismatch": false,
+        "status": "unknown",
+        "synced": false
+      }
+    },
+    "registrar_info": {
+      "cache_hit": true,
+      "confidence": {
+        "label": "Observed",
+        "level": "observed",
+        "method": "RDAP registry lookup"
+      },
+      "registrar": "Squarespace Domains II LLC",
+      "source": "RDAP",
+      "status": "success"
+    },
+    "remediation": {
+      "all_fixes": [
+        {
+          "dns_host": "_dmarc.neildegrassetyson.com",
+          "dns_host_help": "",
+          "dns_purpose": "Instructs receiving servers to reject all email from this domain \u2014 no legitimate mail is expected.",
+          "dns_type": "TXT",
+          "dns_value": "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;",
+          "fix": "This domain has no MX records and appears to be a website-only domain. A DMARC reject policy tells receiving mail servers to reject any email claiming to be from your domain.",
+          "rfc": "RFC 7489",
+          "rfc_obsolete": false,
+          "rfc_status": "Informational",
+          "rfc_title": "Domain-based Message Authentication, Reporting, and Conformance (DMARC)",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7489",
+          "section": "DMARC",
+          "severity_color": "warning",
+          "severity_label": "High",
+          "title": "Add DMARC Reject for No-Mail Domain"
+        },
+        {
+          "dns_host": "neildegrassetyson.com",
+          "dns_host_help": "",
+          "dns_purpose": "Explicitly declares no servers are authorized to send email from this domain.",
+          "dns_type": "TXT",
+          "dns_value": "v=spf1 -all",
+          "fix": "This domain has no MX records and appears to be a website-only domain. Publishing a strict SPF record explicitly declares that no servers are authorized to send email, preventing attackers from spoofing your domain.",
+          "rfc": "RFC 7208",
+          "rfc_obsolete": false,
+          "rfc_status": "Proposed Standard",
+          "rfc_title": "Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7208",
+          "section": "SPF",
+          "severity_color": "warning",
+          "severity_label": "High",
+          "title": "Lock Down SPF for No-Mail Domain"
+        },
+        {
+          "dns_host": "neildegrassetyson.com",
+          "dns_host_help": "(root of domain \u2014 adjust CA to match your provider)",
+          "dns_purpose": "CAA constrains which CAs can issue certificates for this domain.",
+          "dns_type": "CAA",
+          "dns_value": "0 issue \"letsencrypt.org\"",
+          "fix": "CAA records specify which Certificate Authorities may issue certificates for your domain, reducing the risk of unauthorized certificate issuance.",
+          "rfc": "RFC 8659",
+          "rfc_obsolete": false,
+          "rfc_status": "Proposed Standard",
+          "rfc_title": "DNS Certification Authority Authorization (CAA) Resource Record",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659",
+          "section": "CAA",
+          "severity_color": "secondary",
+          "severity_label": "Low",
+          "title": "Add CAA Records"
+        }
+      ],
+      "fix_count": 3,
+      "per_section": {
+        "CAA": [
+          {
+            "dns_host": "neildegrassetyson.com",
+            "dns_host_help": "(root of domain \u2014 adjust CA to match your provider)",
+            "dns_purpose": "CAA constrains which CAs can issue certificates for this domain.",
+            "dns_type": "CAA",
+            "dns_value": "0 issue \"letsencrypt.org\"",
+            "fix": "CAA records specify which Certificate Authorities may issue certificates for your domain, reducing the risk of unauthorized certificate issuance.",
+            "rfc": "RFC 8659",
+            "rfc_obsolete": false,
+            "rfc_title": "RFC 8659",
+            "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659",
+            "section": "CAA",
+            "severity_color": "secondary",
+            "severity_label": "Low",
+            "title": "Add CAA Records"
+          }
+        ],
+        "DMARC": [
+          {
+            "dns_host": "_dmarc.neildegrassetyson.com",
+            "dns_host_help": "",
+            "dns_purpose": "Instructs receiving servers to reject all email from this domain \u2014 no legitimate mail is expected.",
+            "dns_type": "TXT",
+            "dns_value": "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;",
+            "fix": "This domain has no MX records and appears to be a website-only domain. A DMARC reject policy tells receiving mail servers to reject any email claiming to be from your domain.",
+            "rfc": "RFC 7489",
+            "rfc_obsolete": false,
+            "rfc_title": "RFC 7489",
+            "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7489",
+            "section": "DMARC",
+            "severity_color": "warning",
+            "severity_label": "High",
+            "title": "Add DMARC Reject for No-Mail Domain"
+          }
+        ],
+        "SPF": [
+          {
+            "dns_host": "neildegrassetyson.com",
+            "dns_host_help": "",
+            "dns_purpose": "Explicitly declares no servers are authorized to send email from this domain.",
+            "dns_type": "TXT",
+            "dns_value": "v=spf1 -all",
+            "fix": "This domain has no MX records and appears to be a website-only domain. Publishing a strict SPF record explicitly declares that no servers are authorized to send email, preventing attackers from spoofing your domain.",
+            "rfc": "RFC 7208",
+            "rfc_obsolete": false,
+            "rfc_title": "RFC 7208",
+            "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7208",
+            "section": "SPF",
+            "severity_color": "warning",
+            "severity_label": "High",
+            "title": "Lock Down SPF for No-Mail Domain"
+          }
+        ]
+      },
+      "posture_achievable": "Low Risk",
+      "rfc_metadata_enriched": true,
+      "top_fixes": [
+        {
+          "dns_host": "_dmarc.neildegrassetyson.com",
+          "dns_host_help": "",
+          "dns_purpose": "Instructs receiving servers to reject all email from this domain \u2014 no legitimate mail is expected.",
+          "dns_type": "TXT",
+          "dns_value": "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s;",
+          "fix": "This domain has no MX records and appears to be a website-only domain. A DMARC reject policy tells receiving mail servers to reject any email claiming to be from your domain.",
+          "rfc": "RFC 7489",
+          "rfc_obsolete": false,
+          "rfc_status": "Informational",
+          "rfc_title": "Domain-based Message Authentication, Reporting, and Conformance (DMARC)",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7489",
+          "section": "DMARC",
+          "severity_color": "warning",
+          "severity_label": "High",
+          "title": "Add DMARC Reject for No-Mail Domain"
+        },
+        {
+          "dns_host": "neildegrassetyson.com",
+          "dns_host_help": "",
+          "dns_purpose": "Explicitly declares no servers are authorized to send email from this domain.",
+          "dns_type": "TXT",
+          "dns_value": "v=spf1 -all",
+          "fix": "This domain has no MX records and appears to be a website-only domain. Publishing a strict SPF record explicitly declares that no servers are authorized to send email, preventing attackers from spoofing your domain.",
+          "rfc": "RFC 7208",
+          "rfc_obsolete": false,
+          "rfc_status": "Proposed Standard",
+          "rfc_title": "Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc7208",
+          "section": "SPF",
+          "severity_color": "warning",
+          "severity_label": "High",
+          "title": "Lock Down SPF for No-Mail Domain"
+        },
+        {
+          "dns_host": "neildegrassetyson.com",
+          "dns_host_help": "(root of domain \u2014 adjust CA to match your provider)",
+          "dns_purpose": "CAA constrains which CAs can issue certificates for this domain.",
+          "dns_type": "CAA",
+          "dns_value": "0 issue \"letsencrypt.org\"",
+          "fix": "CAA records specify which Certificate Authorities may issue certificates for your domain, reducing the risk of unauthorized certificate issuance.",
+          "rfc": "RFC 8659",
+          "rfc_obsolete": false,
+          "rfc_status": "Proposed Standard",
+          "rfc_title": "DNS Certification Authority Authorization (CAA) Resource Record",
+          "rfc_url": "https://datatracker.ietf.org/doc/html/rfc8659",
+          "section": "CAA",
+          "severity_color": "secondary",
+          "severity_label": "Low",
+          "title": "Add CAA Records"
+        }
+      ]
+    },
+    "resolver_consensus": {
+      "checks_performed": 4,
+      "consensus_reached": true,
+      "discrepancies": null,
+      "per_record_consensus": {
+        "A": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        },
+        "MX": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        },
+        "NS": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        },
+        "TXT": {
+          "consensus": true,
+          "discrepancies": null,
+          "resolver_count": 1
+        }
+      },
+      "resolvers_queried": 5
+    },
+    "resolver_ttl": {
+      "A": 3532,
+      "NS": 21532,
+      "SOA": 21532
+    },
+    "rfc_metadata": {
+      "1035": {
+        "is_obsolete": false,
+        "number": "1035",
+        "status": "Internet Standard",
+        "title": "Domain names - implementation and specification"
+      },
+      "3207": {
+        "is_obsolete": false,
+        "number": "3207",
+        "status": "Proposed Standard",
+        "title": "SMTP Service Extension for Secure SMTP over Transport Layer Security"
+      },
+      "3596": {
+        "is_obsolete": false,
+        "number": "3596",
+        "status": "Internet Standard",
+        "title": "DNS Extensions to Support IP Version 6"
+      },
+      "4033": {
+        "is_obsolete": false,
+        "number": "4033",
+        "status": "Proposed Standard",
+        "title": "DNS Security Introduction and Requirements"
+      },
+      "4034": {
+        "is_obsolete": false,
+        "number": "4034",
+        "status": "Proposed Standard",
+        "title": "Resource Records for the DNS Security Extensions"
+      },
+      "4035": {
+        "is_obsolete": false,
+        "number": "4035",
+        "status": "Proposed Standard",
+        "title": "Protocol Modifications for the DNS Security Extensions"
+      },
+      "5321": {
+        "is_obsolete": false,
+        "number": "5321",
+        "status": "Draft Standard",
+        "title": "Simple Mail Transfer Protocol"
+      },
+      "6376": {
+        "is_obsolete": false,
+        "number": "6376",
+        "status": "Internet Standard",
+        "title": "DomainKeys Identified Mail (DKIM) Signatures"
+      },
+      "6698": {
+        "is_obsolete": false,
+        "number": "6698",
+        "status": "Proposed Standard",
+        "title": "The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA"
+      },
+      "6962": {
+        "is_obsolete": false,
+        "number": "6962",
+        "status": "Experimental",
+        "title": "Certificate Transparency"
+      },
+      "7208": {
+        "is_obsolete": false,
+        "number": "7208",
+        "status": "Proposed Standard",
+        "title": "Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1"
+      },
+      "7489": {
+        "is_obsolete": false,
+        "number": "7489",
+        "status": "Informational",
+        "title": "Domain-based Message Authentication, Reporting, and Conformance (DMARC)"
+      },
+      "7672": {
+        "is_obsolete": false,
+        "number": "7672",
+        "status": "Proposed Standard",
+        "title": "SMTP Security via Opportunistic DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS)"
+      },
+      "8078": {
+        "is_obsolete": false,
+        "number": "8078",
+        "status": "Proposed Standard",
+        "title": "Managing DS Records from the Parent via CDS/CDNSKEY"
+      },
+      "8301": {
+        "is_obsolete": false,
+        "number": "8301",
+        "status": "Proposed Standard",
+        "title": "Cryptographic Algorithm and Key Usage Update to DomainKeys Identified Mail (DKIM)"
+      },
+      "8460": {
+        "is_obsolete": false,
+        "number": "8460",
+        "status": "Proposed Standard",
+        "title": "SMTP TLS Reporting"
+      },
+      "8461": {
+        "is_obsolete": false,
+        "number": "8461",
+        "status": "Proposed Standard",
+        "title": "SMTP MTA Strict Transport Security (MTA-STS)"
+      },
+      "8659": {
+        "is_obsolete": false,
+        "number": "8659",
+        "status": "Proposed Standard",
+        "title": "DNS Certification Authority Authorization (CAA) Resource Record"
+      },
+      "9083": {
+        "is_obsolete": false,
+        "number": "9083",
+        "status": "Internet Standard",
+        "title": "JSON Responses for the Registration Data Access Protocol (RDAP)"
+      },
+      "9460": {
+        "is_obsolete": false,
+        "number": "9460",
+        "status": "Proposed Standard",
+        "title": "Service Binding and Parameter Specification via the DNS (SVCB and HTTPS Resource Records)"
+      },
+      "9495": {
+        "is_obsolete": false,
+        "number": "9495",
+        "status": "Proposed Standard",
+        "title": "Certification Authority Authorization (CAA) Processing for Email Addresses"
+      }
+    },
+    "saas_txt": {
+      "issues": [],
+      "message": "No SaaS services detected",
+      "service_count": 0,
+      "services": [],
+      "status": "success"
+    },
+    "secret_exposure": {
+      "finding_count": 0,
+      "findings": [],
+      "message": "No exposed secrets detected in public page source",
+      "scanned_urls": [
+        "https://neildegrassetyson.com/",
+        "https://neildegrassetyson.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1",
+        "https://neildegrassetyson.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"
+      ],
+      "status": "clear"
+    },
+    "section_status": {
+      "ai_surface": {
+        "status": "ok"
+      },
+      "auth": {
+        "status": "ok"
+      },
+      "basic": {
+        "status": "ok"
+      },
+      "bimi": {
+        "status": "ok"
+      },
+      "caa": {
+        "status": "ok"
+      },
+      "cds_cdnskey": {
+        "status": "ok"
+      },
+      "ct_subdomains": {
+        "status": "ok"
+      },
+      "dane": {
+        "status": "ok"
+      },
+      "delegation_consistency": {
+        "status": "ok"
+      },
+      "dkim": {
+        "status": "ok"
+      },
+      "dmarc": {
+        "status": "ok"
+      },
+      "dnssec": {
+        "status": "ok"
+      },
+      "dnssec_ops": {
+        "status": "ok"
+      },
+      "https_svcb": {
+        "status": "ok"
+      },
+      "mta_sts": {
+        "status": "ok"
+      },
+      "nmap_dns": {
+        "status": "ok"
+      },
+      "ns_delegation": {
+        "status": "ok"
+      },
+      "ns_fleet": {
+        "status": "ok"
+      },
+      "registrar": {
+        "status": "ok"
+      },
+      "resolver_consensus": {
+        "status": "ok"
+      },
+      "secret_exposure": {
+        "status": "ok"
+      },
+      "security_txt": {
+        "status": "ok"
+      },
+      "smimea_openpgpkey": {
+        "status": "ok"
+      },
+      "spf": {
+        "status": "ok"
+      },
+      "tlsrpt": {
+        "status": "ok"
+      }
+    },
+    "security_txt": {
+      "ack": [],
+      "canonical": [],
+      "contacts": [],
+      "encryption": [],
+      "expired": false,
+      "expires": null,
+      "fetch_error": null,
+      "found": false,
+      "hiring": [],
+      "issues": [],
+      "languages": null,
+      "message": "No security.txt found",
+      "policy": [],
+      "signed": false,
+      "status": "info",
+      "url": null
+    },
+    "smimea_openpgpkey": {
+      "has_openpgpkey": false,
+      "has_smimea": false,
+      "issues": [],
+      "message": "No SMIMEA or OPENPGPKEY records found \u2014 email encryption keys not published via DNS",
+      "openpgpkey_records": [],
+      "smimea_records": [],
+      "status": "info"
+    },
+    "smtp_transport": {
+      "dns_inferred": true,
+      "inference_note": "Transport security assessed via DNS policy records (MTA-STS, DANE, TLS-RPT) \u2014 the standards-aligned primary method per NIST SP 800-177 Rev. 1 and RFC 8461. Direct SMTP probing is a supplementary verification step.",
+      "inference_signals": [],
+      "issues": [],
+      "message": "No MX records found",
+      "policy": {
+        "dane": {
+          "present": false
+        },
+        "mta_sts": {
+          "mode": "none",
+          "present": false
+        },
+        "provider": {
+          "identified": false
+        },
+        "signals": null,
+        "tlsrpt": {
+          "present": false
+        },
+        "verdict": "none"
+      },
+      "probe": {
+        "observations": [],
+        "probe_method": "none",
+        "reason": "No MX records found for this domain",
+        "status": "skipped"
+      },
+      "servers": [],
+      "status": "info",
+      "summary": {
+        "expiring_soon": 0,
+        "reachable": 0,
+        "starttls_supported": 0,
+        "tls_1_2": 0,
+        "tls_1_3": 0,
+        "total_servers": 0,
+        "valid_certs": 0
+      },
+      "telemetry": {
+        "observability": false,
+        "reporting_uris": [],
+        "tlsrpt_configured": false
+      },
+      "version": 2
+    },
+    "spf_analysis": {
+      "all_mechanism": null,
+      "includes": [],
+      "issues": [],
+      "lookup_count": 0,
+      "lookup_mechanisms": [],
+      "message": "No SPF record found",
+      "no_mail_intent": false,
+      "permissiveness": null,
+      "records": [],
+      "redirect_chain": [],
+      "resolved_spf": "",
+      "spf_like": [],
+      "status": "missing",
+      "valid_records": []
+    },
+    "tlsrpt_analysis": {
+      "message": "No TLS-RPT record found",
+      "record": null,
+      "rua": null,
+      "status": "warning"
+    },
+    "web3_analysis": {
+      "detected": false,
+      "dnssec_trust": {
+        "dnssec_present": true,
+        "dnssec_valid": true,
+        "status": "validated"
+      },
+      "dnssec_trust_note": "DNSSEC validated \u2014 DNS records are cryptographically signed, supporting trustless Web3 resolution",
+      "indicator_count": 0,
+      "indicators": [],
+      "status": "not_detected"
+    }
+  }
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Remediation Workspace — DNS Tool</title>
+    <meta name="description" content="Copy-paste-ready DNS records to fix your domain security. Actionable remediation guidance for SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS, BIMI, and CAA.">
+    <meta property="og:url" content="https://dnstool.it-help.tech/remediation">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Remediation Workspace — DNS Tool">
+    <meta property="og:description" content="Copy-paste-ready DNS records to fix your domain security. Actionable remediation for SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS, BIMI, and CAA.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Remediation Workspace">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/remediation">
+    <meta name="twitter:title" content="Remediation Workspace — DNS Tool">
+    <meta name="twitter:description" content="Copy-paste-ready DNS records to fix your domain security. Actionable remediation for SPF, DKIM, DMARC, DNSSEC, DANE, MTA-STS, BIMI, and CAA.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/remediation">
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container py-4">
+        {{template "flash_messages" .}}
+
+        {{if .ShowForm}}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-4">
+                    <h1 class="h3 mb-2">{{icon "wrench" "text-warning me-2"}}Remediation Workspace</h1>
+                    <p class="text-muted">Get copy-paste-ready DNS records to fix your domain security issues.</p>
+                </div>
+
+                <div class="card border-0 bg-dark bg-opacity-50 mb-4">
+                    <div class="card-body p-4">
+                        <form method="POST" action="/remediation" autocomplete="off">
+                            <input type="hidden" name="csrf_token" value="{{.CsrfToken}}">
+
+                            <div class="mb-3">
+                                <label for="domainInput" class="form-label fw-semibold">Domain Name</label>
+                                <input type="text" class="form-control bg-dark border-secondary text-light" id="domainInput" name="domain" placeholder="example.com" value="{{.FormDomain}}" autocapitalize="off" spellcheck="false">
+                                <div class="form-text text-muted">Enter the domain you want to fix.</div>
+                            </div>
+
+                            <div class="d-flex align-items-center my-3">
+                                <hr class="flex-grow-1 border-secondary">
+                                <span class="mx-3 text-muted small fw-semibold">OR</span>
+                                <hr class="flex-grow-1 border-secondary">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="analysisIdInput" class="form-label fw-semibold">Scan Number</label>
+                                <input type="text" class="form-control bg-dark border-secondary text-light" id="analysisIdInput" name="analysis_id" placeholder="12345" autocapitalize="off">
+                                <div class="form-text text-muted">Or enter a specific scan number from your analysis history.</div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-warning fw-semibold">
+                                    {{icon "clipboard-list" "me-2"}}Load Remediation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {{if .SuggestScan}}
+                <div class="text-center">
+                    <p class="text-muted mb-2">No previous scan found for <strong>{{.SuggestDomain}}</strong>.</p>
+                    <a href="/?domain={{.SuggestDomain}}" class="btn btn-outline-info">
+                        {{icon "search" "me-1"}}Run a Scan First
+                    </a>
+                </div>
+                {{end}}
+
+                <div class="card border-0 bg-dark bg-opacity-25 mt-4">
+                    <div class="card-body">
+                        <h2 class="h6 text-muted mb-3">{{icon "info-circle" "me-1"}}How It Works</h2>
+                        <div class="row g-3">
+                            <div class="col-md-4 text-center">
+                                <div class="h3 mb-1 text-info">1</div>
+                                <p class="small text-muted mb-0"><strong>Scan</strong> your domain to identify security gaps</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="h3 mb-1 text-warning">2</div>
+                                <p class="small text-muted mb-0"><strong>Copy</strong> the exact DNS records from this page</p>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="h3 mb-1 text-success">3</div>
+                                <p class="small text-muted mb-0"><strong>Paste</strong> into Cloudflare, GoDaddy, or your DNS provider</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        {{if .ShowResults}}
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                    <div>
+                        <h1 class="h4 mb-1">{{icon "wrench" "text-warning me-2"}}Remediation: <span class="text-info">{{.AnalysisDomain}}</span></h1>
+                        <p class="text-muted small mb-0">
+                            Scan #{{.AnalysisID}} &middot; {{.AnalysisTime}}
+                            {{if .PostureAchievable}} &middot; Achievable posture: <span class="badge bg-{{if or (eq .PostureAchievable "Secure") (eq .PostureAchievable "Informational") (eq .PostureAchievable "Low Risk")}}success{{else}}warning{{end}}">{{.PostureAchievable}}</span>{{end}}
+                        </p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="/analysis/{{.AnalysisID}}" class="btn btn-sm btn-outline-secondary">
+                            {{icon "chart-bar" "me-1"}}Full Report
+                        </a>
+                        <a href="/?domain={{.AnalysisDomain}}" class="btn btn-sm btn-outline-success">
+                            {{icon "sync" "me-1"}}Re-Scan to Verify
+                        </a>
+                    </div>
+                </div>
+
+                {{if eq .FixCount 0}}
+                <div class="card border-0 bg-dark bg-opacity-50">
+                    <div class="card-body text-center py-5">
+                        <div class="h1 text-success mb-2">{{icon "check-circle"}}</div>
+                        <h2 class="h5">No Issues Found</h2>
+                        <p class="text-muted">This domain appears well-configured. No remediation actions needed.</p>
+
+                        <div class="my-4">
+                            <img src="/badge?domain={{.AnalysisDomain}}&style=detailed" alt="DNS security posture badge for {{.AnalysisDomain}}" class="img-fluid mx-auto d-block u-max-w-540">
+                        </div>
+
+                        <hr class="border-secondary my-4 mx-auto u-max-w-320">
+
+                        <p class="text-muted small mb-3">Proud of your security posture? Share it.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <a href="/badge/embed?domain={{.AnalysisDomain}}" class="btn btn-sm btn-outline-info">
+                                {{icon "code" "me-1"}}Embed Badge on Your Site
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-light" id="btnCopyReportLink" title="Copy report link to clipboard">
+                                {{icon "link" "me-1"}}Copy Report Link
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+
+                <div class="alert alert-dark border border-warning border-opacity-25 mb-4">
+                    <div class="d-flex align-items-center">
+                        {{icon "clipboard-list" "text-warning me-2 h5 mb-0"}}
+                        <div>
+                            <strong>{{.FixCount}} remediation item{{if gt .FixCount 1}}s{{end}}</strong> found.
+                            Click any record value to copy it to your clipboard, then paste it into your DNS provider.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 bg-dark bg-opacity-25 mb-4">
+                    <div class="card-body">
+                        <h2 class="h6 mb-3">{{icon "map-signs" "me-1 text-info"}}Provider Quick Guide</h2>
+                        <ul class="nav nav-tabs nav-tabs-sm mb-3" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active small" data-bs-toggle="tab" data-bs-target="#providerCloudflare" type="button" role="tab" aria-selected="true">Cloudflare</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link small" data-bs-toggle="tab" data-bs-target="#providerGoDaddy" type="button" role="tab" aria-selected="false">GoDaddy</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link small" data-bs-toggle="tab" data-bs-target="#providerGeneric" type="button" role="tab" aria-selected="false">Other Providers</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="providerCloudflare" role="tabpanel">
+                                <ol class="small text-muted mb-0">
+                                    <li>Log in to <strong>dash.cloudflare.com</strong> and select your domain</li>
+                                    <li>Go to <strong>DNS &rarr; Records</strong></li>
+                                    <li>Click <strong>Add Record</strong></li>
+                                    <li>Select the <strong>Type</strong> shown below (TXT, CNAME, MX, etc.)</li>
+                                    <li>Paste the <strong>Name</strong> (host) and <strong>Content</strong> (value) from each card below</li>
+                                    <li>Set <strong>Proxy status</strong> to DNS only (grey cloud) for email records</li>
+                                    <li>Click <strong>Save</strong></li>
+                                </ol>
+                            </div>
+                            <div class="tab-pane fade" id="providerGoDaddy" role="tabpanel">
+                                <ol class="small text-muted mb-0">
+                                    <li>Log in to <strong>dcc.godaddy.com</strong></li>
+                                    <li>Select your domain, then click <strong>DNS</strong> (or <strong>Manage DNS</strong>)</li>
+                                    <li>Scroll to <strong>DNS Records</strong> and click <strong>Add New Record</strong></li>
+                                    <li>Select the <strong>Type</strong> shown below</li>
+                                    <li>In <strong>Name</strong>, enter the host (use <code>@</code> for the root domain)</li>
+                                    <li>In <strong>Value</strong>, paste the record value from the card below</li>
+                                    <li>Click <strong>Save</strong></li>
+                                </ol>
+                            </div>
+                            <div class="tab-pane fade" id="providerGeneric" role="tabpanel">
+                                <ol class="small text-muted mb-0">
+                                    <li>Log in to your DNS hosting provider's control panel</li>
+                                    <li>Navigate to <strong>DNS Management</strong> or <strong>Zone Editor</strong></li>
+                                    <li>Add a new record with the type, host, and value shown in each card below</li>
+                                    <li>For the host field, use <code>@</code> if your provider requires it for the root domain</li>
+                                    <li>Save and allow up to 24–48 hours for propagation (usually much faster)</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{if .DNSFixes}}
+                <h2 class="h5 mb-3">{{icon "dns" "me-1 text-info"}}DNS Records to Add or Update</h2>
+                <div class="row g-3 mb-4">
+                    {{range .DNSFixes}}
+                    <div class="col-12">
+                        <div class="card border-0 bg-dark bg-opacity-50 u-border-left-{{.SeverityColor}}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-2 flex-wrap gap-2">
+                                    <span class="badge bg-{{.SeverityColor}}">{{.SeverityLabel}}</span>
+                                    <span class="badge bg-dark border border-secondary text-light">{{.Section}}</span>
+                                    <strong>{{.Title}}</strong>
+                                </div>
+                                <p class="text-muted small mb-3">{{.Description}}</p>
+
+                                {{if .DNSPurpose}}
+                                <div class="text-muted small mb-2">{{icon "info-circle" "me-1"}}{{.DNSPurpose}}</div>
+                                {{end}}
+
+                                <div class="row g-2 mb-2">
+                                    <div class="col-sm-2">
+                                        <div class="small text-muted mb-1">Record Type</div>
+                                        <div class="code-block small py-1 px-2">{{.DNSType}}</div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="small text-muted mb-1">Host / Name {{if .DNSHostHelp}}<span class="text-secondary">{{.DNSHostHelp}}</span>{{end}}</div>
+                                        <div class="code-block small py-1 px-2">{{.DNSHost}}</div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="small text-muted mb-1">Value / Content</div>
+                                        <div class="code-block small py-1 px-2">{{.DNSValue}}</div>
+                                    </div>
+                                </div>
+
+                                {{if .CopyableRecord}}
+                                <div class="mt-2">
+                                    <div class="small text-muted mb-1">{{icon "copy" "me-1"}}Full record (click to copy)</div>
+                                    <div class="code-block small py-2 px-3 border-info bg-dark">{{.CopyableRecord}}</div>
+                                </div>
+                                {{end}}
+
+                                {{if .RFCURL}}
+                                <div class="mt-2">
+                                    <a href="{{.RFCURL}}" target="_blank" rel="noopener" class="text-muted small">
+                                        {{icon "book" "me-1"}}{{.RFC}}
+                                    </a>
+                                </div>
+                                {{end}}
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+                {{end}}
+
+                {{if .ManualFixes}}
+                <h2 class="h5 mb-3">{{icon "cog" "me-1 text-secondary"}}Manual Configuration Steps</h2>
+                <div class="row g-3 mb-4">
+                    {{range .ManualFixes}}
+                    <div class="col-12">
+                        <div class="card border-0 bg-dark bg-opacity-50 u-border-left-{{.SeverityColor}}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-2 flex-wrap gap-2">
+                                    <span class="badge bg-{{.SeverityColor}}">{{.SeverityLabel}}</span>
+                                    <span class="badge bg-dark border border-secondary text-light">{{.Section}}</span>
+                                    <strong>{{.Title}}</strong>
+                                </div>
+                                <p class="text-muted small mb-1">{{.Description}}</p>
+                                {{if .RFCURL}}
+                                <a href="{{.RFCURL}}" target="_blank" rel="noopener" class="text-muted small">
+                                    {{icon "book" "me-1"}}{{.RFC}}
+                                </a>
+                                {{end}}
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+                {{end}}
+
+                <div class="card border-0 bg-dark bg-opacity-25 mb-4">
+                    <div class="card-body text-center py-4">
+                        <h2 class="h5 mb-2">{{icon "check-circle" "text-success me-1"}}Done making changes?</h2>
+                        <p class="text-muted small mb-3">After updating your DNS records, run a new scan to verify everything is correct. DNS changes typically propagate within minutes, but can take up to 48 hours.</p>
+                        <a href="/?domain={{.AnalysisDomain}}" class="btn btn-success">
+                            {{icon "sync" "me-2"}}Re-Scan {{.AnalysisDomain}}
+                        </a>
+                    </div>
+                </div>
+
+                {{end}}
+            </div>
+        </div>
+        {{end}}
+    </main>
+
+    {{template "footer" .}}
+    {{template "scripts" .}}
+    {{if .ShowResults}}
+    <script nonce="{{.CspNonce}}">
+    (function() {
+        const btn = document.getElementById('btnCopyReportLink');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                const url = '{{.BaseURL}}/analysis/{{.AnalysisID}}';
+                navigator.clipboard.writeText(url).then(function() {
+                    btn.innerHTML = '{{icon "check" "me-1"}}Copied!';
+                    setTimeout(function() {
+                        btn.innerHTML = '{{icon "link" "me-1"}}Copy Report Link';
+                    }, 2000);
+                });
+            });
+        }
+        function handleCopyResult(el, orig) {
+            el.classList.add('border-success');
+            el.textContent = 'Copied!';
+            setTimeout(function() {
+                el.textContent = orig;
+                el.classList.remove('border-success');
+            }, 1200);
+        }
+        function copyCodeBlock(el) {
+            const text = el.textContent.trim();
+            navigator.clipboard.writeText(text).then(function() {
+                handleCopyResult(el, text);
+            });
+        }
+        function handleCodeBlockClick() { copyCodeBlock(this); }
+        document.querySelectorAll('.code-block').forEach(function(el) {
+            el.style.cursor = 'pointer';
+            el.title = 'Click to copy';
+            el.addEventListener('click', handleCodeBlockClick);
+        });
+    })();
+    </script>
+    {{end}}
+</body>
+</html>

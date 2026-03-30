@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>System Logs - DNS Tool</title>
+    <meta name="robots" content="noindex, nofollow">
+    {{template "critical_css" .}}
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container-fluid my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "file-text" "me-2"}}System Logs
+                </h1>
+                <p class="text-muted mb-0">Structured log intelligence — {{.TotalCount}} total entries</p>
+            </div>
+            <div>
+                <a href="/ops" class="btn btn-outline-secondary me-2">
+                    {{icon "arrow-left" "me-1"}}Dashboard
+                </a>
+                <a href="/ops/telemetry" class="btn btn-outline-info me-2">
+                    {{icon "activity" "me-1"}}Telemetry
+                </a>
+                <a href="/admin/logs/export{{buildExportQuery .FilterLevel .FilterCategory .FilterDomain .FilterTraceID .FilterAfter .FilterBefore}}" class="btn btn-outline-success">
+                    {{icon "download" "me-1"}}Export JSONL
+                </a>
+            </div>
+        </div>
+
+        {{template "flash_messages" .}}
+
+        <div class="row mb-4">
+            {{range .LevelCounts}}
+            <div class="col-auto mb-2">
+                <div class="card text-center" style="min-width:100px">
+                    <div class="card-body py-2 px-3">
+                        <div class="h5 mb-0 {{levelColor .Level}}">{{.Cnt}}</div>
+                        <small class="text-muted">{{.Level}}</small>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <form method="GET" action="/admin/logs" class="row g-2 align-items-end">
+                    <div class="col-auto">
+                        <label for="filter-level" class="form-label small text-muted mb-1">Level</label>
+                        <select id="filter-level" name="level" class="form-select form-select-sm">
+                            <option value="">All</option>
+                            <option value="ERROR" {{if eq .FilterLevel "ERROR"}}selected{{end}}>ERROR</option>
+                            <option value="WARN" {{if eq .FilterLevel "WARN"}}selected{{end}}>WARN</option>
+                            <option value="INFO" {{if eq .FilterLevel "INFO"}}selected{{end}}>INFO</option>
+                            <option value="DEBUG" {{if eq .FilterLevel "DEBUG"}}selected{{end}}>DEBUG</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label for="filter-category" class="form-label small text-muted mb-1">Category</label>
+                        <select id="filter-category" name="category" class="form-select form-select-sm">
+                            <option value="">All</option>
+                            <option value="scan" {{if eq .FilterCategory "scan"}}selected{{end}}>Scan</option>
+                            <option value="security" {{if eq .FilterCategory "security"}}selected{{end}}>Security</option>
+                            <option value="performance" {{if eq .FilterCategory "performance"}}selected{{end}}>Performance</option>
+                            <option value="system" {{if eq .FilterCategory "system"}}selected{{end}}>System</option>
+                            <option value="external_api" {{if eq .FilterCategory "external_api"}}selected{{end}}>External API</option>
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <label for="filter-domain" class="form-label small text-muted mb-1">Domain</label>
+                        <input id="filter-domain" type="text" name="domain" class="form-control form-control-sm" placeholder="e.g. example.com" value="{{.FilterDomain}}">
+                    </div>
+                    <div class="col-auto">
+                        <label for="filter-trace-id" class="form-label small text-muted mb-1">Trace ID</label>
+                        <input id="filter-trace-id" type="text" name="trace_id" class="form-control form-control-sm" placeholder="e.g. a1b2c3d4" value="{{.FilterTraceID}}">
+                    </div>
+                    <div class="col-auto">
+                        <label for="filter-after" class="form-label small text-muted mb-1">After</label>
+                        <input id="filter-after" type="datetime-local" name="after" class="form-control form-control-sm" value="{{.FilterAfter}}">
+                    </div>
+                    <div class="col-auto">
+                        <label for="filter-before" class="form-label small text-muted mb-1">Before</label>
+                        <input id="filter-before" type="datetime-local" name="before" class="form-control form-control-sm" value="{{.FilterBefore}}">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-sm btn-primary">{{icon "search" "me-1"}}Filter</button>
+                        <a href="/admin/logs" class="btn btn-sm btn-outline-secondary ms-1">Clear</a>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width:150px">Timestamp</th>
+                                <th style="width:70px">Level</th>
+                                <th style="width:80px">Category</th>
+                                <th style="width:120px">Event</th>
+                                <th>Message</th>
+                                <th style="width:140px">Domain</th>
+                                <th style="width:80px">Trace</th>
+                                <th style="width:40px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{range .Logs}}
+                            <tr>
+                                <td class="text-nowrap small">{{.Timestamp}}</td>
+                                <td><span class="badge {{levelBadge .Level}}">{{.Level}}</span></td>
+                                <td class="small">{{.Category}}</td>
+                                <td class="small font-monospace">{{.Event}}</td>
+                                <td class="small text-truncate" style="max-width:300px" title="{{.Message}}">{{.Message}}</td>
+                                <td class="small font-monospace">{{.Domain}}</td>
+                                <td class="small font-monospace">
+                                    {{if .TraceID}}<a href="/admin/logs?trace_id={{.TraceID}}">{{.TraceID}}</a>{{end}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-1 log-detail-btn" data-attrs="{{.AttrsJSON}}" data-msg="{{.Message}}" title="View details">
+                                        {{icon "chevron-down" ""}}
+                                    </button>
+                                </td>
+                            </tr>
+                            {{else}}
+                            <tr><td colspan="8" class="text-center text-muted py-4">No log entries found matching filters</td></tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {{if .RecentEvents}}
+        <div class="card">
+            <div class="card-header"><strong>Recent Event Types (24h)</strong></div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    {{range .RecentEvents}}
+                    <span class="badge bg-dark border">{{.Event}} <span class="text-info">{{.Cnt}}</span></span>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+        {{end}}
+    </main>
+
+    <div class="modal fade" id="logDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Log Entry Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="logDetailMsg" class="mb-3"></p>
+                    <pre id="logDetailAttrs" class="bg-dark p-3 rounded" style="max-height:400px;overflow:auto"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{template "footer" .}}
+    {{template "body_scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    (function(){
+        let modal = null;
+        document.addEventListener('click', function(e) {
+            let btn = e.target.closest('.log-detail-btn');
+            if (!btn) return;
+            let attrs = btn.dataset.attrs;
+            let msg = btn.dataset.msg;
+            let msgEl = document.getElementById('logDetailMsg');
+            let attrsEl = document.getElementById('logDetailAttrs');
+            if (msgEl) msgEl.textContent = msg || '';
+            if (attrsEl) attrsEl.textContent = attrs || '{}';
+            if (!modal) {
+                let el = document.getElementById('logDetailModal');
+                if (el && typeof bootstrap !== 'undefined') {
+                    modal = new bootstrap.Modal(el);
+                }
+            }
+            if (modal) modal.show();
+        });
+    })();
+    </script>
+</body>
+</html>

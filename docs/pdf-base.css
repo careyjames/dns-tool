@@ -1,0 +1,303 @@
+@page {
+  size: letter;
+  margin: 0.85in 1in 0.9in 1in;
+
+  @bottom-center {
+    content: counter(page) " of " counter(pages);
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 8pt;
+    color: #999;
+  }
+
+  @bottom-right {
+    content: "DNS Tool · dnstool.it-help.tech";
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 7pt;
+    color: #bbb;
+    letter-spacing: 0.03em;
+  }
+}
+
+@page :first {
+  @bottom-center { content: none; }
+  @bottom-right { content: none; }
+  margin-top: 0.7in;
+}
+
+body {
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 11.5pt;
+  line-height: 1.55;
+  color: #1a1a1a;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.authority-header {
+  text-align: center;
+  margin-bottom: 4pt;
+  padding-bottom: 6pt;
+  border-bottom: 1.5pt solid #C8A878;
+}
+
+.authority-logo {
+  text-align: center;
+  margin-bottom: 1pt;
+}
+
+.authority-logo img {
+  width: 96px;
+  height: 96px;
+}
+
+.authority-title {
+  text-align: center;
+}
+
+.authority-title h1 {
+  font-size: 16.5pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1pt 0;
+  letter-spacing: 0.015em;
+}
+
+.authority-title .subtitle {
+  font-size: 10pt;
+  color: #555;
+  font-style: italic;
+  margin: 0 0 5pt 0;
+}
+
+.authority-meta {
+  text-align: center;
+  font-size: 8.5pt;
+  color: #444;
+  line-height: 1.35;
+}
+
+.authority-meta .author-name {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1pt 0;
+}
+
+.authority-meta .author-role {
+  font-size: 8pt;
+  color: #666;
+  margin: 0 0 2pt 0;
+}
+
+.authority-meta a {
+  color: #2a5d9f;
+  text-decoration: none;
+}
+
+.meta-label {
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  font-size: 7.5pt;
+  letter-spacing: 0.08em;
+}
+
+.authority-meta .artifact-note {
+  font-style: italic;
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 3pt;
+}
+
+h2 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  border-bottom: 0.75pt solid #C8A878;
+  padding-bottom: 4pt;
+  margin: 22pt 0 10pt 0;
+  break-after: avoid;
+}
+
+h3 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #333;
+  margin: 14pt 0 6pt 0;
+  break-after: avoid;
+}
+
+h4 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #444;
+  margin: 10pt 0 4pt 0;
+  break-after: avoid;
+}
+
+p {
+  margin: 0 0 8pt 0;
+  text-align: justify;
+  orphans: 3;
+  widows: 3;
+}
+
+ul {
+  margin: 4pt 0 10pt 0;
+  padding-left: 18pt;
+}
+
+li {
+  margin-bottom: 3pt;
+  orphans: 2;
+  widows: 2;
+}
+
+ol {
+  margin: 4pt 0 10pt 0;
+  padding-left: 22pt;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.section-abstract {
+  font-size: 10.5pt;
+  color: #333;
+  background: #fafaf8;
+  border-left: 3pt solid #C8A878;
+  padding: 10pt 14pt;
+  margin: 12pt 0 18pt 0;
+  break-inside: avoid;
+}
+
+code, pre {
+  font-family: "Courier New", monospace;
+  font-size: 9pt;
+  background: #f5f5f2;
+  padding: 1pt 4pt;
+  border-radius: 2pt;
+}
+
+pre {
+  padding: 10pt 14pt;
+  overflow-x: auto;
+  border: 0.5pt solid #ddd;
+  margin: 8pt 0 12pt 0;
+  break-inside: avoid;
+}
+
+.citation-block {
+  background: #f5f5f2;
+  border: 0.5pt solid #ddd;
+  padding: 10pt 14pt;
+  font-family: "Courier New", monospace;
+  font-size: 9pt;
+  margin: 8pt 0;
+  line-height: 1.5;
+  break-inside: avoid;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 8pt 0 12pt 0;
+  font-size: 10pt;
+  break-inside: auto;
+}
+
+thead {
+  display: table-header-group;
+}
+
+tr {
+  break-inside: avoid;
+}
+
+th {
+  background: #f5f5f2;
+  font-weight: 600;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #333;
+  padding: 6pt 8pt;
+  border-bottom: 1pt solid #C8A878;
+  text-align: left;
+}
+
+td {
+  padding: 5pt 8pt;
+  border-bottom: 0.5pt solid #e5e5e0;
+  vertical-align: top;
+}
+
+hr {
+  border: none;
+  border-top: 0.5pt solid #ccc;
+  margin: 20pt 0;
+}
+
+.page-break {
+  break-before: page;
+}
+
+.footer {
+  text-align: center;
+  font-size: 8.5pt;
+  color: #888;
+  margin-top: 28pt;
+  padding-top: 10pt;
+  border-top: 0.75pt solid #C8A878;
+  line-height: 1.6;
+}
+
+.footer a {
+  color: #2a5d9f;
+  text-decoration: none;
+}
+
+.checklist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  line-height: 1.4;
+  margin-bottom: 10pt;
+}
+
+.checklist-table td {
+  padding: 3pt 0;
+  vertical-align: top;
+  border: none;
+}
+
+.checklist-badge {
+  width: 52pt;
+  padding-right: 6pt !important;
+}
+
+.gate-badge {
+  display: inline-block;
+  font-size: 6.5pt;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1pt 4pt;
+  border-radius: 2pt;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.gate-clarity {
+  background: #e8f0fe;
+  color: #1a4d8f;
+  border: 0.5pt solid #b6d0f0;
+}
+
+.gate-vision {
+  background: #fef3e0;
+  color: #8a5a00;
+  border: 0.5pt solid #f0d8a0;
+}

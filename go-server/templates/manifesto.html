@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+{{htmlComment " The brackets are not decoration. They are constraints. "}}
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    {{template "head_css" .}}
+    <title>Founder's Manifesto — DNS Tool</title>
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Non-normative founder's statement of intent: the aspirational vision and design philosophy that motivates DNS Tool's architecture. By Carey James Balboa.">
+    <meta property="article:published_time" content="2025-04-01">
+    <meta property="article:modified_time" content="2026-03-20">
+    <meta property="og:url" content="https://dnstool.it-help.tech/manifesto">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Founder's Manifesto — DNS Tool">
+    <meta property="og:description" content="The aspirational vision and design philosophy that motivates DNS Tool's architecture. Non-normative statement by Carey James Balboa.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Founder's Manifesto">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="dnstool.it-help.tech">
+    <meta property="twitter:url" content="https://dnstool.it-help.tech/manifesto">
+    <meta name="twitter:title" content="Founder's Manifesto — DNS Tool">
+    <meta name="twitter:description" content="The aspirational vision and design philosophy that motivates DNS Tool's architecture. Non-normative statement by Carey James Balboa.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <link rel="canonical" href="https://dnstool.it-help.tech/manifesto">
+    <script type="application/ld+json" nonce="{{.CspNonce}}">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Founder's Manifesto — DNS Tool",
+        "description": "Non-normative founder's statement: the aspirational vision and design philosophy that motivates DNS Tool's architecture.",
+        "url": "https://dnstool.it-help.tech/manifesto",
+        "mainEntityOfPage": "https://dnstool.it-help.tech/manifesto",
+        "datePublished": "2026-03-18",
+        "dateModified": "2026-03-19",
+        "image": "https://dnstool.it-help.tech/static/images/og-image.png",
+        "author": {
+            "@type": "Person",
+            "name": "Carey James Balboa",
+            "sameAs": "https://orcid.org/0009-0000-5237-9065"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "IT Help San Diego Inc.",
+            "url": "https://www.it-help.tech",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dnstool.it-help.tech/static/images/owl-of-athena.png"
+            }
+        },
+        "isPartOf": {
+            "@type": "WebApplication",
+            "name": "DNS Tool",
+            "url": "https://dnstool.it-help.tech"
+        }
+    }
+    </script>
+    <style nonce="{{.CspNonce}}">
+        .manifesto-page { max-width: 900px; }
+
+        .manifesto-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(210,153,34,0.1);
+            border: 1px solid rgba(210,153,34,0.35);
+            border-radius: 4px;
+            padding: 0.2rem 0.65rem;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: #d2992a;
+            white-space: nowrap;
+        }
+        .manifesto-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d2992a;
+            flex-shrink: 0;
+        }
+
+        .manifesto-section {
+            background: linear-gradient(145deg, #0c1018 0%, #111720 50%, #0e141c 100%);
+            border: 1px solid rgba(210,153,34,0.12);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .manifesto-section:hover {
+            border-color: rgba(210,153,34,0.3);
+            box-shadow: 0 8px 32px rgba(210,153,34,0.06);
+        }
+        .manifesto-section-header {
+            background: linear-gradient(90deg, rgba(210,153,34,0.1) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(210,153,34,0.12);
+            padding: 1rem 1.5rem;
+        }
+        .manifesto-section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin: 0;
+        }
+        .manifesto-section-header h2 i {
+            color: #d2992a;
+            margin-right: 0.5rem;
+        }
+        .manifesto-section-body {
+            padding: 1.5rem;
+        }
+        .manifesto-section-body p,
+        .manifesto-section-body li {
+            color: rgba(170,178,188,0.85);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .manifesto-blockquote {
+            background: rgba(210,153,34,0.04);
+            border-left: 3px solid rgba(210,153,34,0.4);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 0 0 1rem 0;
+            font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.8;
+            color: #c0c8d4;
+        }
+        .manifesto-blockquote .tag {
+            color: #d2992a;
+            font-weight: 600;
+        }
+
+        .manifesto-tag-table {
+            width: 100%;
+            font-size: 0.82rem;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .manifesto-tag-table th {
+            background: rgba(210,153,34,0.08);
+            color: #aab2bc;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid rgba(210,153,34,0.15);
+        }
+        .manifesto-tag-table td {
+            padding: 0.55rem 0.8rem;
+            border-bottom: 1px solid rgba(125,142,168,0.06);
+            color: rgba(170,178,188,0.85);
+            vertical-align: top;
+        }
+        .manifesto-tag-table tr:last-child td {
+            border-bottom: none;
+        }
+        .manifesto-tag-table code {
+            color: #d2992a;
+            background: rgba(210,153,34,0.08);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-size: 0.78rem;
+        }
+        .manifesto-role-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.1rem 0.45rem;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .role-aspiration { background: rgba(200,149,106,0.12); color: #c8956a; border: 1px solid rgba(200,149,106,0.25); }
+        .role-asymptote { background: rgba(200,149,106,0.12); color: #c8956a; border: 1px solid rgba(200,149,106,0.25); }
+        .role-constraint { background: rgba(63,185,80,0.12); color: #3fb950; border: 1px solid rgba(63,185,80,0.25); }
+        .role-foundation { background: rgba(210,153,34,0.12); color: #d2992a; border: 1px solid rgba(210,153,34,0.25); }
+        .role-hypothesis { background: rgba(248,81,73,0.12); color: #f85149; border: 1px solid rgba(248,81,73,0.25); }
+        .role-condition { background: rgba(156,163,175,0.12); color: #9ca3af; border: 1px solid rgba(156,163,175,0.25); }
+        .role-observation { background: rgba(156,163,175,0.12); color: #9ca3af; border: 1px solid rgba(156,163,175,0.25); }
+        .role-target { background: rgba(200,149,106,0.12); color: #c8956a; border: 1px solid rgba(200,149,106,0.25); }
+
+        .manifesto-citation {
+            font-size: 0.8rem;
+            color: rgba(170,178,188,0.7);
+            padding-left: 1rem;
+            border-left: 2px solid rgba(125,142,168,0.12);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .manifesto-impl-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .manifesto-impl-list li {
+            padding: 0.4rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        .manifesto-impl-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(210,153,34,0.5);
+        }
+
+        .manifesto-disconfirm {
+            background: rgba(248,81,73,0.04);
+            border: 1px solid rgba(248,81,73,0.12);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .manifesto-disconfirm-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #f85149;
+            margin-bottom: 0.25rem;
+        }
+        .manifesto-disconfirm p {
+            margin-bottom: 0;
+        }
+
+        .manifesto-family {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+        .manifesto-family-card {
+            background: rgba(125,142,168,0.04);
+            border: 1px solid rgba(125,142,168,0.12);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            transition: border-color 0.3s;
+        }
+        .manifesto-family-card:hover {
+            border-color: rgba(125,142,168,0.25);
+        }
+        .manifesto-family-card h3 {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #e6edf3;
+            margin-bottom: 0.5rem;
+        }
+        .manifesto-family-card p {
+            font-size: 0.82rem;
+            margin-bottom: 0.5rem;
+        }
+        .manifesto-family-card a {
+            font-size: 0.8rem;
+        }
+
+        .manifesto-closing {
+            text-align: center;
+            padding: 1.5rem 0;
+            color: rgba(170,178,188,0.6);
+            font-style: italic;
+            font-size: 0.88rem;
+        }
+    </style>
+</head>
+<body>
+    {{template "nav" .}}
+    <main id="main-content">
+        <div class="container manifesto-page py-4">
+
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                <div>
+                    <h1 class="h4 mb-1" style="color: #e6edf3;">Founder's Manifesto</h1>
+                    <p class="text-muted mb-0" style="font-size: 0.82rem;">Carey James Balboa &middot; <a href="https://orcid.org/0009-0000-5237-9065" target="_blank" rel="noopener" class="text-info text-decoration-none">ORCID 0009-0000-5237-9065</a></p>
+                </div>
+                <span class="manifesto-badge"><span class="manifesto-badge-dot"></span>Non-Normative</span>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-body" style="padding-top: 1rem; padding-bottom: 0.75rem;">
+                    <p class="mb-0" style="font-size: 0.82rem; color: rgba(170,178,188,0.7);">This document expresses the aspirational vision and design philosophy that motivates DNS Tool's architecture. It is distinct from the project's scientific claims, which are bounded, falsifiable, and documented separately in the <a href="/foundations" class="text-info text-decoration-none">Philosophical Foundations</a> paper and the <a href="/methodology" class="text-info text-decoration-none">methodology paper</a> (Balboa, 2026). Where this manifesto says "<span class="tag" style="color: #d2992a;">[MUST]</span>," it declares a design target, not a proven state. The <a href="/communication-standards" class="text-info text-decoration-none">Communication Standards</a> document enforces the measurable quality gate that ensures these aspirations translate into readable, accessible output.</p>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "eye" "me-2"}}The Owl Semaphore</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <p class="mb-3" style="font-size: 0.85rem; color: #8b949e;">The Owl of Athena encodes semantic state through orientation and color. Each transform is a distance-preserving linear transformation of the plane &mdash; a subset of the orthogonal group O(2). This document carries the <span style="color:#4A9D96;font-weight:700;">Non-Normative</span> designation.</p>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <div class="text-center p-3" style="background: rgba(212,168,83,0.06); border: 1px solid rgba(212,168,83,0.15); border-radius: 10px;">
+                                <img src="{{staticVersionURL "exports/owl-semaphore/NORM-composite-transparent-540.png" .AppVersion}}" alt="Normative Standard — gold owl on dark, gold outer ring" width="72" height="72" class="mb-2" style="border-radius:50%;background:#0d1117;padding:2px;border:2px solid rgba(212,168,83,0.3);">
+                                <p class="mb-1" style="font-size:0.82rem;font-weight:700;color:#d4a853;">NORMATIVE</p>
+                                <p class="mb-1" style="font-size:0.72rem;color:#aab2bc;font-family:'SFMono-Regular',Consolas,monospace;">T = I &ensp; det = +1</p>
+                                <p class="mb-1" style="font-size:0.68rem;color:#8b949e;font-family:'SFMono-Regular',Consolas,monospace;">(x, y) &rarr; (x, y)</p>
+                                <p class="mb-0" style="font-size:0.78rem;color:#d4a853;font-style:italic;">&ldquo;This is the standard.&rdquo;</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3" style="background: rgba(74,157,150,0.06); border: 1px solid rgba(74,157,150,0.15); border-radius: 10px;">
+                                <img src="{{staticVersionURL "exports/owl-semaphore/NONNORM-composite-transparent-540.png" .AppVersion}}" alt="Non-Normative Standard — teal owl on cool gray, teal outer ring" width="72" height="72" class="mb-2" style="border-radius:50%;background:#0d1117;padding:2px;border:2px solid rgba(74,157,150,0.3);">
+                                <p class="mb-1" style="font-size:0.82rem;font-weight:700;color:#4A9D96;">NON-NORMATIVE</p>
+                                <p class="mb-1" style="font-size:0.72rem;color:#aab2bc;font-family:'SFMono-Regular',Consolas,monospace;">T = &sigma;<sub>v</sub> &ensp; det = &minus;1</p>
+                                <p class="mb-1" style="font-size:0.68rem;color:#8b949e;font-family:'SFMono-Regular',Consolas,monospace;">(x, y) &rarr; (&minus;x, y)</p>
+                                <p class="mb-0" style="font-size:0.78rem;color:#4A9D96;font-style:italic;">&ldquo;This reflects the standard.&rdquo;</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3" style="background: rgba(139,0,0,0.06); border: 1px solid rgba(139,0,0,0.15); border-radius: 10px;">
+                                <img src="{{staticVersionURL "exports/owl-semaphore/CRIT-composite-transparent-540.png" .AppVersion}}" alt="Critical Standard — red owl on warm red, red outer ring" width="72" height="72" class="mb-2" style="border-radius:50%;background:#0d1117;padding:2px;border:2px solid rgba(139,0,0,0.3);">
+                                <p class="mb-1" style="font-size:0.82rem;font-weight:700;color:#f85149;">CRITICAL</p>
+                                <p class="mb-1" style="font-size:0.72rem;color:#aab2bc;font-family:'SFMono-Regular',Consolas,monospace;">T = C<sub>2</sub> &ensp; det = +1</p>
+                                <p class="mb-1" style="font-size:0.68rem;color:#8b949e;font-family:'SFMono-Regular',Consolas,monospace;">(x, y) &rarr; (&minus;x, &minus;y)</p>
+                                <p class="mb-0" style="font-size:0.78rem;color:#f85149;font-style:italic;">&ldquo;This inverts the standard.&rdquo;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-2" style="background:rgba(13,17,23,0.4);border:1px solid rgba(200,149,106,0.1);border-radius:6px;">
+                        <p class="mb-0" style="font-size:0.75rem;color:#8b949e;"><strong style="color:#58a6ff;">Redundant encoding:</strong> Color + orientation + context label. The semaphore remains readable under color vision deficiency, small render sizes, and degraded single-channel contexts. <strong style="color:#d4a853;">Standards mapping:</strong> Normative = RFC 2119 MUST/SHALL. Non-normative = Informative/NOTE. Critical = CVE/Security advisory.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "scroll" "me-2"}}The Declaration</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <div class="manifesto-blockquote">
+                        GOALS: (even <span class="tag">[IF]</span> unreasonable)<br><br>
+                        Projected Code Maintainability: <span class="tag">[1000+yr]</span> Code.<br>
+                        <span class="tag">[ZERO_ERRORS]</span>, <span class="tag">[ZERO_WASTE]</span>, <span class="tag">[FULL_HISTORY]</span><br>
+                        <span class="tag">[AND]</span> evidentiary <span class="tag">[ACCOUNTABILITY]</span><br>
+                        + <span class="tag">[VERBOSE+++++]</span> <span class="tag">[COMPLETE_CONTEXTUAL_LOGIC]</span><br>
+                        <span class="tag">[GAP-DRIFT_ALERTS]</span>,<br>
+                        user quality drift monitoring with modular extensive data structure<br>
+                        for humans and their logic AND AI systems and their machine logic.<br><br>
+                        We test, measure, and cross-reference until we achieve <span class="tag">[MUST]</span>.<br>
+                        It <span class="tag">[MUST]</span> be what a <span class="tag">[VERIFIED]</span> <span class="tag">[GOLDEN_LOGIC_MASTER]</span> would look like in this world.<br>
+                        <span class="tag">[PRISTINE_CODE]</span>.<br><br>
+                        <span class="tag">[DEEP_PAST]</span> + <span class="tag">[FAR_FUTURE]</span> = Multi-generational tools<br>
+                        that would have a chance to collect and assimilate enough data<br>
+                        to advance humankind.<br><br>
+                        HELLO McFly.<br><br>
+                        Furthermore, how can modern computer tools advance humankind<br>
+                        when they don't already consider 2000+ years of <span class="tag">[EXISTING]</span> logic?<br>
+                        Maybe build upon that <span class="tag">[CODE_FOUNDATION]</span> first.<br><br>
+                        &mdash; Carey Balboa
+                    </div>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "tags" "me-2"}}Tag Grammar</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <p class="mb-3">The bracket notation above is intentional. Each tag carries a specific semantic role within the manifesto's reasoning structure.</p>
+                    <div class="table-responsive">
+                        <table class="manifesto-tag-table">
+                            <thead>
+                                <tr><th>Tag</th><th>Role</th><th>Meaning</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><code>[IF]</code></td><td><span class="manifesto-role-badge role-condition">Condition</span></td><td>Acknowledges that the stated goal may exceed current engineering capability. The condition is preserved, not hidden.</td></tr>
+                                <tr><td><code>[1000+yr]</code></td><td><span class="manifesto-role-badge role-aspiration">Aspiration</span></td><td>Design target for decisions about code structure, documentation depth, and data preservation. Not a prediction &mdash; a directional constraint.</td></tr>
+                                <tr><td><code>[ZERO_ERRORS]</code></td><td><span class="manifesto-role-badge role-asymptote">Asymptote</span></td><td>Zero is unreachable in practice. The value is in the pursuit: every error found is an error the system failed to prevent.</td></tr>
+                                <tr><td><code>[ZERO_WASTE]</code></td><td><span class="manifesto-role-badge role-asymptote">Asymptote</span></td><td>Every line of code, every stored byte, every UI element should justify its existence. Waste is entropy the system did not catch.</td></tr>
+                                <tr><td><code>[FULL_HISTORY]</code></td><td><span class="manifesto-role-badge role-constraint">Constraint</span></td><td>No decision, correction, or finding should be silently overwritten. The EDE Amendment Chain, audit log, and Git history implement this.</td></tr>
+                                <tr><td><code>[ACCOUNTABILITY]</code></td><td><span class="manifesto-role-badge role-constraint">Constraint</span></td><td>Every output must trace to an evidence basis. The Golden Logic Registry and citation registry are implementations.</td></tr>
+                                <tr><td><code>[VERBOSE+++++]</code></td><td><span class="manifesto-role-badge role-aspiration">Aspiration</span></td><td>Err on the side of too much context. Silent failures are unacceptable. Implicit assumptions are bugs.</td></tr>
+                                <tr><td><code>[COMPLETE_CONTEXTUAL_LOGIC]</code></td><td><span class="manifesto-role-badge role-aspiration">Aspiration</span></td><td>Reasoning gaps &mdash; places where the system reaches a conclusion without showing its work &mdash; should be detectable and flagged.</td></tr>
+                                <tr><td><code>[GAP-DRIFT_ALERTS]</code></td><td><span class="manifesto-role-badge role-constraint">Constraint</span></td><td>When the system's state diverges from its declared intent, that divergence must be surfaced, not suppressed.</td></tr>
+                                <tr><td><code>[MUST]</code></td><td><span class="manifesto-role-badge role-target">Design Target</span></td><td>Borrowed from RFC 2119 semantics. The standard the system aspires to meet, knowing partial achievement is still valuable.</td></tr>
+                                <tr><td><code>[VERIFIED]</code></td><td><span class="manifesto-role-badge role-constraint">Constraint</span></td><td>Claims require evidence. The ICAE confidence engine validates analysis output against golden fixtures.</td></tr>
+                                <tr><td><code>[GOLDEN_LOGIC_MASTER]</code></td><td><span class="manifesto-role-badge role-aspiration">Aspiration</span></td><td>A system whose reasoning is so transparent that any practitioner could audit every conclusion from first principles.</td></tr>
+                                <tr><td><code>[PRISTINE_CODE]</code></td><td><span class="manifesto-role-badge role-asymptote">Asymptote</span></td><td>Code quality measured by the clarity of its intent to a reader who arrives decades later.</td></tr>
+                                <tr><td><code>[DEEP_PAST]</code></td><td><span class="manifesto-role-badge role-foundation">Foundation</span></td><td>Formal logic, evidentiary standards, Socratic method, chain of custody &mdash; 2000+ years of accumulated reasoning methodology.</td></tr>
+                                <tr><td><code>[FAR_FUTURE]</code></td><td><span class="manifesto-role-badge role-aspiration">Aspiration</span></td><td>Multi-generational data preservation. If the data is worth collecting, it is worth collecting in a form that outlasts the current technology stack.</td></tr>
+                                <tr><td><code>[EXISTING]</code></td><td><span class="manifesto-role-badge role-observation">Observation</span></td><td>The logical frameworks already exist. They were inherited &mdash; often without acknowledgment &mdash; from philosophy, law, intelligence tradecraft, and mathematics.</td></tr>
+                                <tr><td><code>[CODE_FOUNDATION]</code></td><td><span class="manifesto-role-badge role-hypothesis">Hypothesis</span></td><td>Software that explicitly builds on classical logic may produce more durable, more trustworthy systems. This is testable.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "flask" "me-2"}}Scientific Grounding</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <h3 style="font-size: 0.95rem; font-weight: 600; color: #e6edf3; margin-bottom: 0.75rem;">The 2000-Year Logic Argument</h3>
+                    <p>The claim that modern software engineering underutilizes classical logical frameworks is supported by a growing body of research on software traceability and decision documentation gaps.</p>
+                    <p><strong style="color: #c0c8d4;">Formal logic</strong> (Aristotle, <em>Prior Analytics</em>, c. 350 BCE) established the syllogistic reasoning structures that inform the conditional logic at the heart of programming. <strong style="color: #c0c8d4;">Evidentiary standards</strong> (Roman law, <em>Corpus Juris Civilis</em>, 534 CE; English common law, 13th century onward) developed the concepts of burden of proof, chain of custody, and admissibility that DNS Tool's confidence engine draws from. <strong style="color: #c0c8d4;">Socratic method</strong> (<em>elenchus</em>, 5th century BCE) provides the falsification-through-questioning pattern that DNS Tool applies in its verification workflow.</p>
+
+                    <p class="mb-2" style="font-size: 0.82rem; font-weight: 600; color: #aab2bc;">Contemporary evidence for the traceability gap:</p>
+                    <div class="manifesto-citation">Jansen, A. &amp; Bosch, J. (2005). "Software Architecture as a Set of Architectural Design Decisions." <em>5th Working IEEE/IFIP Conference on Software Architecture (WICSA'05)</em>. <a href="https://doi.org/10.1109/WICSA.2005.61" target="_blank" rel="noopener" class="text-info text-decoration-none">DOI: 10.1109/WICSA.2005.61</a></div>
+                    <div class="manifesto-citation">Lago, P. et al. (2009). "Visualizing Software Architecture Design Decisions." <em>Software Architecture Knowledge Management</em>. Springer.</div>
+                    <div class="manifesto-citation mb-3">Bhat, M. et al. (2020). "Automatic Extraction of Design Decisions from Issue Management Systems." <em>European Conference on Software Architecture</em>.</div>
+
+                    <p>The argument is not that computer science is ignorant of logic. It is that most software <em>systems</em> &mdash; the actual running code &mdash; do not preserve the reasoning behind their conclusions in a form that can be independently audited. They produce outputs. They rarely produce <em>epistemic trails</em>.</p>
+
+                    <hr style="border-color: rgba(125,142,168,0.1); margin: 1.5rem 0;">
+
+                    <h3 style="font-size: 0.95rem; font-weight: 600; color: #e6edf3; margin-bottom: 0.75rem;">The "1000-Year Code" Thesis</h3>
+                    <p>No code written today will run unchanged for 1000 years. The aspiration is about <em>decision-preservation longevity</em>: building systems where the reasoning behind every architectural choice is preserved in a form that remains interpretable regardless of the technology stack.</p>
+                    <p>Historical precedent suggests this is achievable in other domains. The Domesday Book (1086 CE) remains interpretable after nearly a millennium &mdash; not because its medium endured, but because its structure is self-documenting. The Rosetta Stone (196 BCE) is interpretable because it preserves the same content in multiple representation systems. These are analogies, not proofs &mdash; but they illustrate a principle worth testing.</p>
+
+                    <p class="mb-2" style="font-size: 0.82rem; font-weight: 600; color: #aab2bc;">DNS Tool's implementations of this principle:</p>
+                    <ul class="manifesto-impl-list">
+                        <li><strong style="color: #c0c8d4;">Git history</strong> &mdash; Every change, with commit message and author attribution</li>
+                        <li><strong style="color: #c0c8d4;">EDE Amendment Chain</strong> &mdash; SHA-3-512 hashed corrections with explicit grounds</li>
+                        <li><strong style="color: #c0c8d4;">Golden Logic Registry</strong> &mdash; RFC-to-code-to-test traceability</li>
+                        <li><strong style="color: #c0c8d4;">Scrutiny tags</strong> &mdash; Every source file classified by analytical role</li>
+                        <li><strong style="color: #c0c8d4;">Citation registry</strong> &mdash; Machine-readable references to every authoritative standard cited</li>
+                        <li><strong style="color: #c0c8d4;">FULL_HISTORY constraint</strong> &mdash; Corrections are appended, not replaced</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "project-diagram" "me-2"}}The Generalization Hypothesis</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <p>DNS was chosen as the first domain because it provides the strongest possible ground truth: RFCs define correct behavior with mathematical precision, and the live DNS infrastructure provides an observable, auditable state at any moment.</p>
+                    <p>The broader hypothesis: the confidence scoring, drift detection, evidentiary accountability, and epistemic transparency patterns developed for DNS can be extended to domains where ground truth is fuzzier.</p>
+
+                    <p class="mb-2" style="font-size: 0.82rem; font-weight: 600; color: #aab2bc;">Transfer criteria:</p>
+                    <ul class="manifesto-impl-list mb-3">
+                        <li>The target domain must have a definable (even if imprecise) notion of "correct state"</li>
+                        <li>The domain must have observable signals that can be measured repeatedly</li>
+                        <li>The confidence calibration methodology must produce meaningful Brier scores in the new domain</li>
+                        <li>The drift detection must distinguish true state changes from measurement noise</li>
+                    </ul>
+
+                    <p class="mb-2" style="font-size: 0.82rem; font-weight: 600; color: #f85149;">Disconfirmation conditions:</p>
+                    <div class="manifesto-disconfirm">
+                        <div class="manifesto-disconfirm-label">Calibration Failure</div>
+                        <p>If confidence scores exhibit Expected Calibration Error (ECE) &gt; 0.15 after a minimum of 200 scored events, the confidence model does not transfer without domain-specific recalibration. DNS Tool's current ECE target: &lt; 0.05.</p>
+                    </div>
+                    <div class="manifesto-disconfirm">
+                        <div class="manifesto-disconfirm-label">Drift Detection Noise</div>
+                        <p>If drift detection produces a false-positive rate exceeding 30% over a 90-day evaluation window (minimum 50 drift events), the sensitivity model is DNS-specific and requires domain adaptation.</p>
+                    </div>
+                    <div class="manifesto-disconfirm">
+                        <div class="manifesto-disconfirm-label">Evidentiary Overhead</div>
+                        <p>If the epistemic trail adds &gt; 20% to analysis time without measurably improving decision accuracy (A/B comparison over a minimum of 100 decisions), the overhead model is not justified for that domain.</p>
+                    </div>
+
+                    <p class="mt-3">DNS is the foundation. Whether it generalizes is an empirical question, not a declaration.</p>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "fire" "me-2"}}On Passion and Rigor</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <p>This manifesto uses strong language because the problems it describes are consequential. Software that loses its reasoning. Systems that overwrite their own corrections. Intelligence tools that assert confidence they haven't earned. These are not aesthetic complaints. They are failure modes that erode trust, obscure accountability, and degrade the quality of human decisions that depend on machine outputs.</p>
+                    <p>The passion expressed here is not in tension with scientific rigor. It is the motivation <em>for</em> rigor. The project's scientific claims remain bounded, falsifiable, and independently verifiable &mdash; as documented in the <a href="/methodology" class="text-info text-decoration-none">methodology paper</a>, the <a href="/foundations" class="text-info text-decoration-none">philosophical foundations</a>, and the confidence engine's own calibration metrics.</p>
+                    <p class="mb-0">The brackets are not decoration. They are constraints. And constraints, properly defined, are the foundation of every scientific discipline that has ever endured.</p>
+                </div>
+            </div>
+
+            <div class="manifesto-section">
+                <div class="manifesto-section-header">
+                    <h2>{{icon "sitemap" "me-2"}}Document Family</h2>
+                </div>
+                <div class="manifesto-section-body">
+                    <p class="mb-3">This manifesto is one of three linked documents that define how DNS Tool thinks, speaks, and presents itself.</p>
+                    <div class="manifesto-family">
+                        <div class="manifesto-family-card">
+                            <h3>{{icon "book" "me-1"}} Philosophical Foundations</h3>
+                            <p>The peer-review-grade scientific framework. Every claim is bounded, cited, and falsifiable. Socratic verification, Aristotelian rhetoric, and epistemic integrity &mdash; with full academic citations.</p>
+                            <a href="/foundations" class="text-info text-decoration-none">{{icon "file-pdf" "me-1"}}Read the paper &rarr;</a>
+                        </div>
+                        <div class="manifesto-family-card" style="border-color: rgba(210,153,34,0.25);">
+                            <h3>{{icon "scroll" "me-1"}} Founder's Manifesto</h3>
+                            <p>You are here. The aspirational vision &mdash; non-normative, passionate, the fire that started the whole thing. Tagged, grounded, but not constrained by the same evidentiary bar as the science.</p>
+                            <span class="manifesto-badge" style="font-size: 0.75rem;"><span class="manifesto-badge-dot"></span>Non-Normative</span>
+                        </div>
+                        <div class="manifesto-family-card">
+                            <h3>{{icon "ruler-combined" "me-1"}} Communication Standards</h3>
+                            <p>The enforcer. Measurable Clarity + Vision dual-gate with WCAG contrast thresholds, font-size floors, heading hierarchy rules, and CI-checkable enforcement criteria.</p>
+                            <a href="/communication-standards" class="text-info text-decoration-none">{{icon "clipboard-check" "me-1"}}Read the standards &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manifesto-closing">
+                <p class="mb-2">&ldquo;Go out and gather as many different redundant sources of intelligence as you can, and then classify and analyze.&rdquo;</p>
+                <p class="mb-0" style="font-size: 0.8rem;">&copy; 2024&ndash;2026 IT Help San Diego Inc. &mdash; DNS Security Intelligence</p>
+            </div>
+
+        </div>
+    </main>
+    {{template "footer" .}}
+    {{template "scripts" .}}
+</body>
+</html>

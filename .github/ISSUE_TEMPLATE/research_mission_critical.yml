@@ -1,0 +1,184 @@
+name: "\U0001F6A8 Research Mission Critical"
+description: >
+  Scientifically validated issue — incorrect RFC citation, flawed methodology,
+  broken detection vector, or confidence logic error. These are existential.
+title: "[Research] "
+labels: ["triage:research", "priority:P0", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Research Mission Critical
+
+        This template is for issues that affect the **scientific accuracy** of DNS Tool.
+        Examples: incorrect RFC interpretation, flawed confidence scoring, broken
+        detection vectors, methodology errors.
+
+        **Before filing:** Verify your finding against the RFC text. Include section
+        numbers. Reproduce the issue. This category triggers immediate investigation.
+
+  - type: checkboxes
+    id: duplicate_search
+    attributes:
+      label: Duplicate Check
+      description: Please search existing issues before filing a new one.
+      options:
+        - label: I have searched the existing issues and this has not been reported
+          required: true
+
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Affected Protocol
+      description: Which DNS security protocol is affected?
+      options:
+        - SPF (RFC 7208)
+        - DKIM (RFC 6376)
+        - DMARC (RFC 7489 / DMARCbis)
+        - DANE/TLSA (RFC 6698 / RFC 7671)
+        - DNSSEC (RFC 4033-4035)
+        - BIMI (draft-brand-indicators-for-message-identification)
+        - MTA-STS (RFC 8461)
+        - TLS-RPT (RFC 8460)
+        - CAA (RFC 8659)
+        - ICAE/Confidence Engine
+        - Drift Engine / Posture Hashing
+        - Cross-Protocol / Multiple
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: DNS Tool Version
+      description: >
+        Which version of DNS Tool exhibited this behavior?
+        Check the footer of any page or the /health endpoint.
+      placeholder: "e.g., 26.34.54"
+    validations:
+      required: true
+
+  - type: textarea
+    id: rfc_reference
+    attributes:
+      label: RFC Reference
+      description: >
+        Cite the specific RFC section that supports your finding.
+        Include the RFC number and section (e.g., "RFC 7489 §6.3").
+        Quote the relevant normative text (MUST/SHOULD/MAY language).
+      placeholder: |
+        RFC XXXX §X.X states:
+        "[quote the relevant normative text here]"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior (per RFC)
+      description: What should DNS Tool do according to the RFC? Be specific.
+      placeholder: |
+        Per RFC XXXX §X.X, when a domain has [specific configuration],
+        the tool should report [specific verdict/finding] because [reasoning].
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed_behavior
+    attributes:
+      label: Observed Behavior
+      description: >
+        What does DNS Tool actually do? Include scan results, screenshots,
+        or API output. Paste the actual output you see.
+      placeholder: |
+        When scanning [domain], the tool reports:
+        - Finding: [exact text from the report]
+        - Severity: [what was shown]
+        - This contradicts RFC XXXX because [explanation]
+    validations:
+      required: true
+
+  - type: textarea
+    id: confidence_impact
+    attributes:
+      label: Confidence Impact Assessment
+      description: >
+        How does this affect the reliability of DNS Tool's analysis?
+        Does it produce false positives, false negatives, or incorrect severity ratings?
+      placeholder: |
+        This causes [false positives / false negatives / incorrect severity]
+        for domains that [describe the class of affected domains].
+        Estimated scope: [how many domains could be affected].
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: Step-by-step instructions to reproduce the issue.
+      placeholder: |
+        1. Navigate to dnstool.it-help.tech
+        2. Scan domain: [specific domain]
+        3. Observe the [SPF/DMARC/etc.] section of the report
+        4. Compare finding X with RFC XXXX §X.X
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence & Artifacts
+      description: >
+        Attach screenshots, dig output, scan results, or any supporting evidence.
+        You can drag and drop files here. Include dig/nslookup output for the
+        domain in question to provide ground truth.
+      placeholder: |
+        dig output:
+        ```
+        $ dig TXT _dmarc.example.com
+        [paste output]
+        ```
+
+        DNS Tool report screenshot: [drag and drop]
+    validations:
+      required: false
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Regression Scope
+      description: Is this a new bug or has it always been this way?
+      options:
+        - New regression (worked correctly before)
+        - Long-standing issue (never worked correctly)
+        - Unknown / not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_fix
+    attributes:
+      label: Proposed Fix or Hypothesis
+      description: >
+        If you have a suggested correction, describe it here.
+        Reference specific RFC language or methodology changes.
+      placeholder: |
+        The correct interpretation per RFC XXXX is:
+        [proposed correction with RFC citation]
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: validation
+    attributes:
+      label: Validation Checklist
+      description: Confirm you have done your due diligence.
+      options:
+        - label: I have read the relevant RFC section(s) and verified my interpretation
+          required: true
+        - label: I can reproduce this issue with a specific domain or configuration
+          required: true
+        - label: This is NOT a security vulnerability (use Security Advisory for those)
+          required: true

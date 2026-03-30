@@ -1,0 +1,27 @@
+# DNS Tool — Domain Security Intelligence
+# https://dnstool.it-help.tech
+#
+# Philosophy: Open intelligence benefits everyone.
+# Reports cite RFCs, use open standards, and are independently verifiable.
+#
+# AI Policy: We permit AI crawling, training, and inference on all content.
+# We intentionally do NOT use Content-Usage or Content-Signal directives
+# because neither is a ratified standard yet (Content-Usage is an active
+# IETF working group draft; Content-Signal is Cloudflare proprietary).
+# When a standard is ratified, we will adopt it immediately.
+# Our AI Surface Scanner detects these directives on scanned domains.
+#
+# Per RFC 9309: User-agent: * with Allow: / welcomes all crawlers.
+# No bot-specific blocks needed — the wildcard covers everyone.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /export/
+
+Sitemap: https://dnstool.it-help.tech/sitemap.xml
+
+# AI documentation:
+# /llms.txt (root path per llmstxt.org convention)
+# /.well-known/llms.txt (additional discovery path)
+# /.well-known/llms-full.txt

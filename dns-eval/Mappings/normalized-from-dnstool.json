@@ -1,0 +1,48 @@
+{
+  "source_file": "dns-intelligence-it-help.tech.json",
+  "domain": "it-help.tech",
+  "is_mail_domain": true,
+  "is_no_mail_domain": false,
+  "is_subdomain": false,
+  "dns_provider_hint": "other",
+  "calibrated_confidence": {
+    "BIMI": 0.5,
+    "CAA": 0.5,
+    "DANE": 0.7,
+    "DKIM": 0.5,
+    "DMARC": 0.5,
+    "DNSSEC": 0.5,
+    "MTA_STS": 0.5,
+    "SPF": 0.5,
+    "TLS_RPT": 0.5
+  },
+  "observations": {
+    "DNSSEC_VALID": true,
+    "DNSSEC_CHAIN_VALID": true,
+    "DNSSEC_ROLLOVER_READY": false,
+    "NULL_MX": false,
+    "SPF_HARD_FAIL": false,
+    "SPF_SOFTFAIL_WITH_DMARC": true,
+    "DMARC_REJECT": true,
+    "DMARC_ENFORCING": true,
+    "NO_MAIL_DOMAIN": false,
+    "MAIL_DOMAIN": true,
+    "TLS_RPT": true,
+    "MTA_STS_DNS": true,
+    "CAA_PRESENT": true,
+    "DKIM_FOUND": true,
+    "DANE_PRESENT": false,
+    "BIMI_VALID": true,
+    "SECURITY_TXT_FOUND": true,
+    "NO_DANGLING_DNS": true,
+    "DELEGATION_OK": false,
+    "NO_SECRETS_EXPOSED": true,
+    "HTTPS_SVCB_PRESENT": false
+  },
+  "context": {
+    "dnssec_chain_type": "complete",
+    "spf_mechanism": "~all",
+    "dmarc_policy": "reject",
+    "spf_dmarc_effective": "enforced"
+  }
+}

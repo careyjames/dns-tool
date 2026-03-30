@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    {{template "head" .}}
+    <title>Intelligence Reports - DNS Tool</title>
+    <meta name="description" content="Your intelligence reports. View domains you have analyzed, track posture changes, and revisit your DNS security reports.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:url" content="https://dnstool.it-help.tech/dossier">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Intelligence Reports - DNS Tool">
+    <meta property="og:description" content="View domains you have analyzed, track posture changes, and revisit your DNS security reports.">
+    <meta property="og:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="DNS Tool - Intelligence Reports">
+    <meta property="og:site_name" content="DNS Tool">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Intelligence Reports - DNS Tool">
+    <meta name="twitter:description" content="View domains you have analyzed, track posture changes, and revisit your DNS security reports.">
+    <meta name="twitter:image" content="https://dnstool.it-help.tech/static/images/og-image.png">
+    {{template "critical_css" .}}
+    <style nonce="{{.CspNonce}}">
+        .text-center{text-align:center}
+        .my-4{margin-top:1.5rem;margin-bottom:1.5rem}
+        .mb-0{margin-bottom:0}
+        .mb-1{margin-bottom:.25rem}
+        .mb-2{margin-bottom:.5rem}
+        .mb-3{margin-bottom:1rem}
+        .mb-4{margin-bottom:1.5rem}
+        .mt-4{margin-top:1.5rem}
+        .mt-5{margin-top:3rem}
+        .py-2{padding-top:.5rem;padding-bottom:.5rem}
+        .py-3{padding-top:1rem;padding-bottom:1rem}
+        .py-5{padding-top:3rem;padding-bottom:3rem}
+        .px-3{padding-left:1rem;padding-right:1rem}
+        .me-1{margin-inline-end:.25rem}
+        .me-2{margin-inline-end:.5rem}
+        .ms-1{margin-inline-start:.25rem}
+        .ms-2{margin-inline-start:.5rem}
+        .ms-auto{margin-inline-start:auto}
+        .text-muted{color:#adb5bd!important}
+        .text-primary{color:#0d6efd!important}
+        .text-light{color:#f8f9fa!important}
+        .text-info{color:#d4a853!important}
+        .fw-medium{font-weight:500}
+        .small{font-size:.875em}
+        .d-flex{display:flex}
+        .d-none{display:none}
+        .gap-1{gap:.25rem}
+        .gap-2{gap:.5rem}
+        .flex-wrap{flex-wrap:wrap}
+        .flex-shrink-0{flex-shrink:0}
+        .align-items-center{align-items:center}
+        .align-items-start{align-items:start}
+        .justify-content-between{justify-content:space-between}
+        .justify-content-center{justify-content:center}
+        .min-width-0{min-width:0}
+        .text-truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .form-control{display:block;width:100%;padding:.375rem .75rem;font-size:1rem;background-color:#2b3035;border:1px solid #495057;border-radius:.375rem;color:#dee2e6}
+        .btn{display:inline-block;padding:.375rem .75rem;font-size:1rem;border-radius:.375rem;text-decoration:none;cursor:pointer;border:1px solid transparent}
+        .btn-primary{background-color:var(--bs-primary);border-color:var(--bs-primary);color:#fff}
+        .btn-sm{padding:.25rem .5rem;font-size:.875rem}
+        .btn-outline-primary{color:#0d6efd;border-color:#0d6efd;background:transparent}
+        .btn-outline-success{color:#198754;border-color:#198754;background:transparent}
+        .btn-outline-warning{color:#ffc107;border-color:#ffc107;background:transparent}
+        .btn-outline-secondary{color:#6c757d;border-color:#6c757d;background:transparent}
+        .btn-group{display:inline-flex}
+        .btn-group>.btn{border-radius:0}.btn-group>.btn:first-child{border-top-left-radius:.375rem;border-bottom-left-radius:.375rem}.btn-group>.btn:last-child{border-top-right-radius:.375rem;border-bottom-right-radius:.375rem}
+        .input-group{display:flex;flex-wrap:wrap}
+        .input-group>.form-control{flex:1 1 auto;width:1%}
+        .input-group-text{display:flex;align-items:center;padding:.375rem .75rem;font-size:1rem;border:1px solid #495057;border-radius:.375rem}
+        .table{width:100%;margin-bottom:1rem;color:#dee2e6;border-collapse:collapse}
+        .table th,.table td{padding:.5rem;vertical-align:top;border-top:1px solid #495057}
+        .table thead th{vertical-align:bottom;border-bottom:2px solid #495057}
+        .table-hover tbody tr:hover{background-color:rgba(255,255,255,.075)}
+        .table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch}
+        .badge{display:inline-block;padding:.35em .65em;font-size:.75em;font-weight:700;border-radius:.25rem;color:#fff}
+        .bg-success{background-color:#198754!important}
+        .bg-warning{background-color:#ffc107!important;color:#000!important}
+        .bg-danger{background-color:#dc3545!important}
+        .bg-info{background-color:#d4a853!important}
+        .bg-secondary{background-color:#6c757d!important}
+        .pagination{display:flex;padding-left:0;list-style:none;gap:.25rem}
+        .page-item.active .page-link{background-color:#0d6efd;border-color:#0d6efd;color:#fff}
+        .page-item.disabled .page-link{color:#6c757d;pointer-events:none}
+        .page-link{padding:.375rem .75rem;color:#6ea8fe;text-decoration:none;background-color:#2b3035;border:1px solid #495057;border-radius:.375rem}
+        .h3{font-size:1.75rem;font-weight:500}
+        @media(min-width:768px){.d-md-none{display:none!important}.d-none.d-md-block{display:block!important}}
+        @media(max-width:767.98px){.d-md-none{display:block}.d-none.d-md-block{display:none!important}}
+        @media(min-width:576px){.d-none.d-sm-inline{display:inline!important}}
+        .navbar-nav{display:flex;list-style:none;margin:0;padding:0}
+        .nav-link{color:rgba(255,255,255,.55);text-decoration:none;padding:.5rem 1rem}
+        .row{display:flex;flex-wrap:wrap;margin:0 -.75rem}
+        .dossier-stat{text-align:center;padding:1rem}
+        .dossier-stat-value{font-size:1.5rem;font-weight:700;color:#c8956a}
+        .dossier-stat-label{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#8b949e}
+    </style>
+    {{template "head_css" .}}
+</head>
+<body>
+    {{template "nav" .}}
+
+    <main id="main-content" class="container my-4">
+        {{template "flash_messages" .}}
+
+        {{if .RequiresAuth}}
+        <div class="text-center py-5">
+            {{icon "briefcase" "icon-3x text-muted mb-3"}}
+            <h1 class="h3 mb-2">Intelligence Reports</h1>
+            <p class="text-muted mb-4">Sign in to access your intelligence reports and track your domain security assessments.</p>
+            {{if .GoogleAuthEnabled}}
+            <a href="/auth/login" class="btn btn-primary">
+                {{icon "key" "me-2"}}Sign In to Access Reports
+            </a>
+            {{end}}
+        </div>
+        {{else}}
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3 mb-1">
+                    {{icon "briefcase" "me-2"}}Intelligence Reports
+                </h1>
+                <p class="text-muted mb-0">Your intelligence reports &mdash; domain assessments initiated by <strong class="text-info">{{.UserName}}</strong></p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/" class="btn btn-primary">
+                    {{icon "plus" "me-1"}}<span class="d-none d-sm-inline">New Assessment</span>
+                </a>
+            </div>
+        </div>
+
+        {{if gt .TotalReports 0}}
+        <div class="card mb-3">
+            <div class="card-body py-2">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-info">{{icon "file-alt" "me-1"}}{{.TotalReports}} {{if eq .TotalReports 1}}Report{{else}}Reports{{end}}</span>
+                    <span class="text-muted small">Analyses correlated to your authenticated session</span>
+                </div>
+            </div>
+        </div>
+        {{end}}
+
+        <div class="card mb-4">
+            <div class="card-body py-2">
+                <search><form action="/dossier" method="GET" class="d-flex align-items-center gap-2">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-secondary">
+                            {{icon "search" "text-muted"}}
+                        </span>
+                        <input type="text" name="domain" class="form-control border-secondary" 
+                               placeholder="Search your assessed domains..." 
+                               aria-label="Search dossier by domain name"
+                               value="{{.SearchDomain}}"
+                               autocomplete="off" autocapitalize="none" spellcheck="false">
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary flex-shrink-0">Search</button>
+                    {{if .SearchDomain}}
+                        <a href="/dossier" class="btn btn-outline-secondary flex-shrink-0" title="Clear search">
+                            {{icon "times"}}
+                        </a>
+                    {{end}}
+                </form></search>
+            </div>
+        </div>
+
+        {{if .SearchDomain}}
+            <div class="mb-3">
+                <span class="text-muted">
+                    {{if eq .Pagination.Total 0}}
+                        No results found for "<strong>{{.SearchDomain}}</strong>"
+                    {{else if eq .Pagination.Total 1}}
+                        1 result for "<strong>{{.SearchDomain}}</strong>"
+                    {{else}}
+                        {{.Pagination.Total}} results for "<strong>{{.SearchDomain}}</strong>"
+                    {{end}}
+                </span>
+            </div>
+        {{end}}
+
+        {{if .Analyses}}
+            <div class="card d-none d-md-block">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Domain</th>
+                                    <th scope="col">Email Security</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{range $i, $a := .Analyses}}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {{icon "globe" "text-primary me-2"}}
+                                            <div>
+                                                <div class="fw-medium">{{$a.Domain}}</div>
+                                                {{if ne $a.AsciiDomain $a.Domain}}
+                                                    <small class="text-muted">{{$a.AsciiDomain}}</small>
+                                                {{end}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="proto-badge-row">
+                                            {{if eq $a.SpfStatus "success"}}
+                                                <span class="proto-badge proto-badge--success proto-spf" title="SPF configured">SPF</span>
+                                            {{else if eq $a.SpfStatus "warning"}}
+                                                <span class="proto-badge proto-badge--warning proto-spf" title="SPF configured with warnings">SPF</span>
+                                            {{else if or (eq $a.SpfStatus "error") (eq $a.SpfStatus "missing")}}
+                                                <span class="proto-badge proto-badge--danger proto-spf" title="SPF missing or misconfigured">SPF</span>
+                                            {{else}}
+                                                <span class="proto-badge proto-badge--neutral proto-spf" title="SPF status unknown">SPF</span>
+                                            {{end}}
+                                            {{if eq $a.DmarcStatus "success"}}
+                                                <span class="proto-badge proto-badge--success proto-dmarc" title="DMARC configured">DMARC</span>
+                                            {{else if eq $a.DmarcStatus "warning"}}
+                                                <span class="proto-badge proto-badge--warning proto-dmarc" title="DMARC configured in monitoring mode">DMARC</span>
+                                            {{else if or (eq $a.DmarcStatus "error") (eq $a.DmarcStatus "missing")}}
+                                                <span class="proto-badge proto-badge--danger proto-dmarc" title="DMARC missing or misconfigured">DMARC</span>
+                                            {{else}}
+                                                <span class="proto-badge proto-badge--neutral proto-dmarc" title="DMARC status unknown">DMARC</span>
+                                            {{end}}
+                                            {{if or (eq $a.DkimStatus "success") (eq $a.DkimStatus "partial")}}
+                                                <span class="proto-badge proto-badge--success proto-dkim" title="DKIM found">DKIM</span>
+                                            {{else if eq $a.DkimStatus "info"}}
+                                                <span class="proto-badge proto-badge--info proto-dkim" title="DKIM not auto-discoverable (selectors unknown)">DKIM</span>
+                                            {{else if or (eq $a.DkimStatus "error") (eq $a.DkimStatus "missing") (eq $a.DkimStatus "warning")}}
+                                                <span class="proto-badge proto-badge--danger proto-dkim" title="DKIM missing or misconfigured">DKIM</span>
+                                            {{else}}
+                                                <span class="proto-badge proto-badge--neutral proto-dkim" title="DKIM status unknown">DKIM</span>
+                                            {{end}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{if $a.AnalysisDuration}}
+                                            {{formatFloat 2 $a.AnalysisDuration}}s
+                                        {{else}}
+                                            -
+                                        {{end}}
+                                    </td>
+                                    <td>
+                                        <div class="text-muted">
+                                            {{$a.CreatedDate}}<br>
+                                            <small>{{$a.CreatedTime}}</small>
+                                            {{if $a.ToolVersion}}
+                                                <br><small class="text-muted u-opacity-60">v{{$a.ToolVersion}}</small>
+                                            {{end}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="/analysis/{{$a.ID}}/view" 
+                                               class="btn btn-sm btn-outline-primary dossier-view-btn" title="View intelligence report">
+                                                {{icon "eye"}}
+                                            </a>
+                                            <a href="/analyze?domain={{$a.Domain}}" 
+                                               class="btn btn-sm btn-outline-success dossier-reanalyze-btn" title="Re-assess now">
+                                                {{icon "sync-alt"}}
+                                            </a>
+                                            <a href="/compare?domain={{$a.Domain}}" 
+                                               class="btn btn-sm btn-outline-warning" title="Compare assessments">
+                                                {{icon "code-compare"}}
+                                            </a>
+                                            <a href="/drift?domain={{$a.Domain}}" 
+                                               class="btn btn-sm btn-outline-info" title="Drift timeline">
+                                                {{icon "chart-line"}}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-md-none">
+                {{range $i, $a := .Analyses}}
+                <div class="card mb-2">
+                    <div class="card-body py-2 px-3">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <div class="d-flex align-items-center min-width-0">
+                                {{icon "globe" "text-primary me-2 flex-shrink-0"}}
+                                <div class="min-width-0">
+                                    <div class="fw-medium text-truncate">{{$a.Domain}}</div>
+                                </div>
+                            </div>
+                            <div class="btn-group flex-shrink-0 ms-2">
+                                <a href="/analysis/{{$a.ID}}/view" 
+                                   class="btn btn-sm btn-outline-primary dossier-view-btn" title="View">
+                                    {{icon "eye"}}
+                                </a>
+                                <a href="/analyze?domain={{$a.Domain}}" 
+                                   class="btn btn-sm btn-outline-success dossier-reanalyze-btn" title="Re-assess">
+                                    {{icon "sync-alt"}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="proto-badge-row small">
+                            {{if eq $a.SpfStatus "success"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--success proto-spf">SPF</span>
+                            {{else if eq $a.SpfStatus "warning"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--warning proto-spf">SPF</span>
+                            {{else if or (eq $a.SpfStatus "error") (eq $a.SpfStatus "missing")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--danger proto-spf">SPF</span>
+                            {{else}}
+                                <span class="proto-badge proto-badge--compact proto-badge--neutral proto-spf">SPF</span>
+                            {{end}}
+                            {{if eq $a.DmarcStatus "success"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--success proto-dmarc">DMARC</span>
+                            {{else if eq $a.DmarcStatus "warning"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--warning proto-dmarc">DMARC</span>
+                            {{else if or (eq $a.DmarcStatus "error") (eq $a.DmarcStatus "missing")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--danger proto-dmarc">DMARC</span>
+                            {{else}}
+                                <span class="proto-badge proto-badge--compact proto-badge--neutral proto-dmarc">DMARC</span>
+                            {{end}}
+                            {{if or (eq $a.DkimStatus "success") (eq $a.DkimStatus "partial")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--success proto-dkim">DKIM</span>
+                            {{else if eq $a.DkimStatus "info"}}
+                                <span class="proto-badge proto-badge--compact proto-badge--info proto-dkim">DKIM</span>
+                            {{else if or (eq $a.DkimStatus "error") (eq $a.DkimStatus "missing") (eq $a.DkimStatus "warning")}}
+                                <span class="proto-badge proto-badge--compact proto-badge--danger proto-dkim">DKIM</span>
+                            {{else}}
+                                <span class="proto-badge proto-badge--compact proto-badge--neutral proto-dkim">DKIM</span>
+                            {{end}}
+                            <span class="text-muted ms-auto u-fs-070rem">
+                                {{$a.CreatedDate}} {{$a.CreatedTime}}
+                                {{if $a.AnalysisDuration}} &middot; {{formatFloat 1 $a.AnalysisDuration}}s{{end}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+
+            {{if gt .Pagination.TotalPages 1}}
+                <nav aria-label="Intelligence reports pagination" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {{if .Pagination.HasPrev}}
+                            <li class="page-item">
+                                <a class="page-link" href="/dossier?page={{.Pagination.PrevPage}}{{if .SearchDomain}}&domain={{.SearchDomain}}{{end}}">
+                                    {{icon "chevron-left"}} Previous
+                                </a>
+                            </li>
+                        {{end}}
+                        
+                        {{range $p := .Pagination.Pages}}
+                            {{if $p.IsGap}}
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            {{else}}
+                                {{if $p.IsActive}}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{$p.Number}}</span>
+                                    </li>
+                                {{else}}
+                                    <li class="page-item">
+                                        <a class="page-link" href="/dossier?page={{$p.Number}}{{if $.SearchDomain}}&domain={{$.SearchDomain}}{{end}}">{{$p.Number}}</a>
+                                    </li>
+                                {{end}}
+                            {{end}}
+                        {{end}}
+                        
+                        {{if .Pagination.HasNext}}
+                            <li class="page-item">
+                                <a class="page-link" href="/dossier?page={{.Pagination.NextPage}}{{if .SearchDomain}}&domain={{.SearchDomain}}{{end}}">
+                                    Next {{icon "chevron-right"}}
+                                </a>
+                            </li>
+                        {{end}}
+                    </ul>
+                </nav>
+            {{end}}
+        {{else}}
+            <div class="text-center py-5">
+                {{if .SearchDomain}}
+                    {{icon "search" "icon-3x text-muted mb-3"}}
+                    <h4 class="text-muted">No Matching Collections</h4>
+                    <p class="text-muted mb-4">No intelligence reports found for "<strong>{{.SearchDomain}}</strong>" in your reports.</p>
+                    <a href="/dossier" class="btn btn-outline-secondary me-2">
+                        {{icon "times" "me-2"}}Clear Search
+                    </a>
+                    <a href="/analyze?domain={{.SearchDomain}}" class="btn btn-primary">
+                        {{icon "search" "me-2"}}Assess {{.SearchDomain}}
+                    </a>
+                {{else}}
+                    {{icon "briefcase" "icon-3x text-muted mb-3"}}
+                    <h4 class="text-muted">No Tasked Collections Yet</h4>
+                    <p class="text-muted mb-4">Your intelligence reports are empty. Run a domain security assessment while signed in to begin building your collection.</p>
+                    <a href="/" class="btn btn-primary">
+                        {{icon "search" "me-2"}}Start First Assessment
+                    </a>
+                {{end}}
+            </div>
+        {{end}}
+        {{end}}
+
+        {{template "footer" .}}
+    </main>
+
+    <output id="dossierViewOverlay" class="loading-overlay" aria-live="polite" aria-label="Loading stored results">
+        <div class="loading-content">
+            <div class="spinner-border text-primary mb-3 u-icon-3rem"><span class="visually-hidden">Loading...</span></div>
+            <div class="text-light fw-medium" id="dossierViewText">Loading intelligence report...</div>
+        </div>
+    </output>
+
+    <output id="dossierAnalyzeOverlay" class="loading-overlay" aria-live="polite" aria-busy="true" aria-label="Running domain assessment">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                {{icon "globe" "icon-spin"}}
+            </div>
+            <output class="mt-4 mb-2 h4">Running Multi-Source Intelligence Audit</output>
+            <p class="text-muted mb-0" id="dossierAnalyzeDomain"></p>
+            <div class="loading-elapsed mt-2">
+                <span class="text-muted small" id="dossierLoadingTimer">0s</span>
+            </div>
+            <div class="loading-dots mt-2">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </output>
+
+    {{template "scripts" .}}
+    <script nonce="{{.CspNonce}}">
+    function handleDossierPage(html, respUrl) {
+        document.open();
+        document.write(html);
+        document.close();
+        globalThis.scrollTo(0, 0);
+        const mm=document.querySelector('meta[name="x-report-mode"]');
+        const ie=document.querySelector('[data-analysis-id]');
+        const rm=mm?mm.content:'';
+        const ra=ie?ie.dataset.analysisId:'';
+        if(ra&&rm){globalThis.history.replaceState(null,'','/analysis/'+ra+'/view/'+rm);}
+        else if (respUrl && respUrl !== globalThis.location.href) {
+            globalThis.history.replaceState(null, '', respUrl);
+        }
+    }
+
+    function startDossierTimer(timerEl) {
+        const start = Date.now();
+        setInterval(function(){
+            timerEl.textContent = Math.floor((Date.now()-start)/1000) + 's';
+        }, 1000);
+    }
+
+    function handleDossierFetchResponse(resp, overlay) {
+        if (resp.redirected) {
+            globalThis.location.href = resp.url;
+            return;
+        }
+        return resp.text().then(function(html) { handleDossierPage(html, resp.url); });
+    }
+
+    function submitDossierReanalyze(href, overlay) {
+        const domain = href.split('domain=')[1] || '';
+        const formData = new FormData();
+        formData.append('domain', decodeURIComponent(domain));
+        const csrf = document.querySelector('meta[name="csrf-token"]');
+        if(csrf) formData.append('_csrf', csrf.content);
+        fetch('/analyze', {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-Requested-With': 'fetch' },
+            redirect: 'follow'
+        }).then(function(resp) {
+            handleDossierFetchResponse(resp, overlay);
+        }).catch(function() {
+            if(overlay) overlay.classList.remove('active');
+            alert('Network error — please check your connection and try again.');
+        });
+    }
+
+    for(const btn of document.querySelectorAll('.dossier-view-btn')){
+        btn.addEventListener('click', function(e){
+            const overlay = document.getElementById('dossierViewOverlay');
+            if(overlay) overlay.classList.add('active');
+        });
+    }
+
+    for(const btn of document.querySelectorAll('.dossier-reanalyze-btn')){
+        btn.addEventListener('click', function(e){
+            e.preventDefault();
+            const domain = btn.href.split('domain=')[1] || '';
+            const overlay = document.getElementById('dossierAnalyzeOverlay');
+            const domainEl = document.getElementById('dossierAnalyzeDomain');
+            if(domainEl) domainEl.textContent = decodeURIComponent(domain);
+            if(overlay) overlay.classList.add('active');
+
+            const timerEl = document.getElementById('dossierLoadingTimer');
+            if(timerEl) startDossierTimer(timerEl);
+
+            submitDossierReanalyze(btn.href, overlay);
+        });
+    }
+    </script>
+</body>
+</html>

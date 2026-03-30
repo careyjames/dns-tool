@@ -1,0 +1,100 @@
+name: Cross-Browser E2E Tests (SUSPENDED)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    if: false
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit, iphone-safari, ipad-safari]
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: dnstool
+          POSTGRES_PASSWORD: dnstool
+          POSTGRES_DB: dnstool
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.browser == 'iphone-safari' && 'webkit' || matrix.browser == 'ipad-safari' && 'webkit' || matrix.browser }}
+
+      - name: Build Go server
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Initialize database schema
+        run: PGPASSWORD=dnstool psql -h localhost -U dnstool -d dnstool -f go-server/db/schema/schema.sql
+
+      - name: Start server and wait for ready
+        run: |
+          ./dns-tool-server &
+          SERVER_PID=$!
+          echo "Server PID: $SERVER_PID"
+          for i in $(seq 1 60); do
+            if curl -s http://localhost:5000/ > /dev/null 2>&1; then
+              echo "Server is ready after ${i}s"
+              exit 0
+            fi
+            if ! kill -0 $SERVER_PID 2>/dev/null; then
+              echo "Server process died"
+              exit 1
+            fi
+            echo "Waiting for server... ($i/60)"
+            sleep 1
+          done
+          echo "Server failed to start within 60s"
+          exit 1
+        env:
+          PORT: "5000"
+          DATABASE_URL: "postgres://dnstool:dnstool@localhost:5432/dnstool?sslmode=disable"
+          SESSION_SECRET: "ci-test-session-secret-not-for-production"
+
+      - name: Run Playwright tests — ${{ matrix.browser }}
+        run: npx playwright test --project=${{ matrix.browser }}
+        env:
+          PORT: "5000"
+          DATABASE_URL: "postgres://dnstool:dnstool@localhost:5432/dnstool?sslmode=disable"
+          SESSION_SECRET: "ci-test-session-secret-not-for-production"
+          BASE_URL: http://localhost:5000
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 14
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: test-results-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 14

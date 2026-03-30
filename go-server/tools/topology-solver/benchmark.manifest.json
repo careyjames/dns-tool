@@ -1,0 +1,229 @@
+{
+  "study": {
+    "name": "dns-topology-layout-benchmark",
+    "date": "2026-03-05",
+    "purpose": "Compare the current FR engine against layered and hybrid constrained alternatives on the DNS Tool topology graph and controlled perturbations.",
+    "note": "Production graph should be extracted from topology.html; this manifest defines the benchmark contract."
+  },
+  "fixtures": [
+    {
+      "id": "dns-topology-prod",
+      "source": "topology.html extracted LayoutSpec",
+      "required": true
+    },
+    {
+      "id": "dns-topology-reconstructed",
+      "source": "layoutspec.dns-topology.reconstructed.json",
+      "required": true
+    }
+  ],
+  "solvers": [
+    {
+      "id": "fr_current",
+      "label": "Current FR + gravity + clamp + sweep",
+      "deterministic": false,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ]
+    },
+    {
+      "id": "elk_layered",
+      "label": "ELK layered baseline",
+      "deterministic": true,
+      "adapter": "elkjs"
+    },
+    {
+      "id": "hybrid_place",
+      "label": "Hybrid layered + constraints, no routed edges",
+      "deterministic": true
+    },
+    {
+      "id": "hybrid_route",
+      "label": "Hybrid layered + constraints + routed edges",
+      "deterministic": true
+    },
+    {
+      "id": "hybrid_full",
+      "label": "Hybrid routed + label obstacles + viewport profiles",
+      "deterministic": true
+    }
+  ],
+  "viewports": [
+    {
+      "id": "phone_small",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "id": "phone_large",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "id": "tablet_portrait",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "id": "laptop",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "id": "desktop",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "id": "wall",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "perturbations": [
+    {
+      "id": "base",
+      "type": "identity"
+    },
+    {
+      "id": "long_labels_150",
+      "type": "label_scale",
+      "factor": 1.5
+    },
+    {
+      "id": "add_protocol_arc",
+      "type": "add_edge",
+      "edge": {
+        "source": "dnssec",
+        "target": "tls_rpt",
+        "kind": "soft_dependency"
+      }
+    },
+    {
+      "id": "remove_source",
+      "type": "remove_node",
+      "nodeId": "ietf_metadata"
+    },
+    {
+      "id": "add_protocol_node",
+      "type": "clone_node",
+      "from": "dmarc",
+      "newId": "arc",
+      "newLabel": "ARC",
+      "zoneId": "protocol"
+    },
+    {
+      "id": "resize_sequence",
+      "type": "viewport_sequence",
+      "sequence": [
+        "phone_large",
+        "tablet_portrait",
+        "desktop",
+        "wall",
+        "desktop",
+        "phone_large"
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "node_overlap_ratio",
+      "target": "min",
+      "accept": 0.0
+    },
+    {
+      "id": "label_overlap_ratio",
+      "target": "min",
+      "accept": 0.0
+    },
+    {
+      "id": "edge_crossings_total",
+      "target": "min"
+    },
+    {
+      "id": "edge_crossings_flow_flow",
+      "target": "min"
+    },
+    {
+      "id": "edge_node_intersections",
+      "target": "min",
+      "accept": 0
+    },
+    {
+      "id": "flow_x_monotonicity_violations",
+      "target": "min",
+      "accept": 0
+    },
+    {
+      "id": "flow_stress",
+      "target": "min"
+    },
+    {
+      "id": "bend_count_total",
+      "target": "min"
+    },
+    {
+      "id": "angular_resolution_min",
+      "target": "max"
+    },
+    {
+      "id": "layout_bbox_area_ratio",
+      "target": "mid"
+    },
+    {
+      "id": "resize_stability_score",
+      "target": "max"
+    }
+  ],
+  "reporting": {
+    "storeRawPerRunJson": true,
+    "storeCsvSummary": true,
+    "exportPngSnapshots": true,
+    "reportAggregates": [
+      "median",
+      "iqr",
+      "min",
+      "max"
+    ],
+    "pairedComparisonKey": [
+      "fixture",
+      "viewport",
+      "perturbation"
+    ],
+    "acceptance": {
+      "node_overlap_ratio": 0.0,
+      "label_overlap_ratio": 0.0,
+      "edge_node_intersections": 0,
+      "flow_x_monotonicity_violations_desktop_tablet": 0
+    }
+  }
+}

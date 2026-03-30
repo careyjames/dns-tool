@@ -1,0 +1,92 @@
+{
+  "authoritative_records": {},
+  "basic_records": {
+    "A": [],
+    "AAAA": [],
+    "CNAME": [],
+    "MX": [],
+    "NS": [],
+    "SOA": [],
+    "TXT": []
+  },
+  "bimi_analysis": {
+    "status": "n/a"
+  },
+  "caa_analysis": {
+    "status": "n/a"
+  },
+  "ct_subdomains": {
+    "status": "success",
+    "subdomains": [],
+    "total_certs": 0,
+    "unique_subdomains": 0
+  },
+  "dane_analysis": {
+    "has_dane": false,
+    "issues": [],
+    "status": "n/a",
+    "tlsa_records": []
+  },
+  "dkim_analysis": {
+    "status": "n/a"
+  },
+  "dmarc_analysis": {
+    "message": "Domain does not exist or is not delegated",
+    "status": "n/a"
+  },
+  "dnssec_analysis": {
+    "status": "n/a"
+  },
+  "domain_exists": false,
+  "domain_status": "undelegated",
+  "domain_status_message": "Domain is not delegated or has no DNS records. This may be an unused subdomain or unregistered domain.",
+  "hosting_summary": {
+    "dns_hosting": "N/A",
+    "email_hosting": "N/A",
+    "hosting": "N/A"
+  },
+  "mta_sts_analysis": {
+    "status": "n/a"
+  },
+  "ns_delegation_analysis": {
+    "delegation_ok": false,
+    "message": "Domain does not exist or is not delegated",
+    "status": "error"
+  },
+  "posture": {
+    "absent": [],
+    "color": "secondary",
+    "configured": [],
+    "deliberate_monitoring": false,
+    "deliberate_monitoring_note": "",
+    "grade": "N/A",
+    "icon": "times-circle",
+    "issues": [
+      "Domain does not exist or is not delegated"
+    ],
+    "label": "Non-existent Domain",
+    "message": "Domain does not exist or is not delegated",
+    "monitoring": [],
+    "score": 0,
+    "state": "N/A"
+  },
+  "propagation_status": {},
+  "registrar_info": {
+    "registrar": null,
+    "status": "n/a"
+  },
+  "section_status": {},
+  "smtp_transport": null,
+  "spf_analysis": {
+    "message": "Domain does not exist or is not delegated",
+    "status": "n/a"
+  },
+  "tlsrpt_analysis": {
+    "status": "n/a"
+  },
+  "_captured_at": "2026-02-10T07:00:00Z",
+  "_captured_version": "go-server",
+  "_domain": "thisdoesnotexist-xz9q.com",
+  "_schema_version": 2,
+  "_tool_version": "go-server"
+}
