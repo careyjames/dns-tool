@@ -1,5 +1,0 @@
-Contact: mailto:security@it-help.tech
-Expires: 2027-02-14T00:00:00.000Z
-Preferred-Languages: en
-Canonical: https://dnstool.it-help.tech/.well-known/security.txt
-Policy: https://dnstool.it-help.tech/security-policy

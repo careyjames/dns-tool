@@ -1,35 +1,54 @@
-name: Create Release
+name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: ["v*"]
 
 permissions:
   contents: write
 
 jobs:
-  release:
-    name: Create GitHub Release
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            target: linux-amd64-glibc
+            ext: ""
+          - os: ubuntu-22.04
+            target: linux-arm64-glibc
+            ext: ""
+          - os: macos-14
+            target: macos-silicon
+            ext: ""
+          - os: macos-13
+            target: macos-intel
+            ext: ""
+          - os: windows-2022
+            target: windows-amd64
+            ext: ".exe"
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
-          fetch-depth: 0
+          python-version: "3.12"
 
-      - name: Extract version from tag
-        id: version
-        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pyinstaller -r requirements.txt
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
+      - name: Build binary
+        run: pyinstaller --onefile dnstool.py --clean
+
+      - name: Rename artefact
+        run: |
+          mv dist/dnstool${{ matrix.ext }} \
+             dnstool-${{ matrix.target }}-${{ github.ref_name }}${{ matrix.ext }}
+        shell: bash
+
+      - uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
         with:
-          name: "scientific release workflow"
-          body: |
-            ## DNS Tool ${{ github.ref_name }}
-
-            All versioned artifacts bumped to ${{ steps.version.outputs.version }}.
-            PDFs regenerated. Quality gates passed.
-            Synced from dns-tool-intel via release pipeline.
+          files: dnstool-${{ matrix.target }}-${{ github.ref_name }}${{ matrix.ext }}
           generate_release_notes: true

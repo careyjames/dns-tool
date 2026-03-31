@@ -1,5 +1,0 @@
-# DEPRECATED: This file was used for the two-repo (dns-tool-web mirror) architecture.
-# Single-repo consolidation (2026-03) eliminated the need for file exclusion lists.
-# All code now lives in IT-Help-San-Diego/dns-tool under BUSL-1.1 license.
-# Build tags (//go:build intel) provide code separation instead of repo separation.
-# This file can be safely deleted.
