@@ -43,7 +43,7 @@ jobs:
 
     # 4  Make the Pages runtime variables available
     - name: Configure Pages
-      uses: actions/configure-pages@v5
+      uses: actions/configure-pages@v6
 
     # 5  Upload the build as an artifact called `github-pages`
     - name: Upload artifact
