@@ -24,7 +24,7 @@ jobs:
     steps:
     # 1  Check out the repo
     - name: Check out source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     # 2  Install Python + MkDocs
     - name: Set up Python 3.11
