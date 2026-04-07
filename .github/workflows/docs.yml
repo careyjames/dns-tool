@@ -47,7 +47,7 @@ jobs:
 
     # 5  Upload the build as an artifact called `github-pages`
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v4
       with:
         path: site
         name: github-pages
